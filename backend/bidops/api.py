@@ -25,6 +25,9 @@ from bidops.enterprise.auth import IdentityService, auth_router
 from bidops.enterprise.config import EnterpriseSettings
 from bidops.enterprise.operations import Operations, OperationsMiddleware, SingleWorker
 from bidops.enterprise.sessions import PersistentConversations, prune_private_history
+from bidops.ingestion.api import ingestion_router
+from bidops.ingestion.config import IngestionSettings
+from bidops.ingestion.service import IngestionService
 from bidops.jobs.api import jobs_router
 from bidops.jobs.config import JobsSettings
 from bidops.models import Notice
@@ -46,6 +49,7 @@ def create_app(
     screening_settings: ScreeningSettings | None = None,
     jobs_settings: JobsSettings | None = None,
     review_settings: ReviewSettings | None = None,
+    ingestion_settings: IngestionSettings | None = None,
 ) -> FastAPI:
     settings = settings or Settings()
     enterprise = enterprise_settings or EnterpriseSettings()
@@ -73,13 +77,18 @@ def create_app(
                 prune_private_history(app.state.store.db, enterprise.history_days)
                 company_prune = prune_company_materials(app.state.company)
                 app.state.maintenance_failed = company_prune["status"] != "PASS"
-                if (jobs_settings or JobsSettings()).enabled:
+                if (jobs_settings or JobsSettings()).enabled or (
+                    ingestion_settings or IngestionSettings()
+                ).enabled:
                     from bidops.jobs.runtime import JobsService
 
                     app.state.jobs = JobsService(
                         app.state.screening, settings.data_dir, jobs_settings
                     )
             app.state.review = ReviewService(app.state.screening, app.state.jobs, review_settings)
+            app.state.ingestion = IngestionService(
+                app.state.store, app.state.company, ingestion_settings, app.state.jobs
+            )
             if app.state.jobs:
                 await asyncio.to_thread(app.state.jobs.start)
 
@@ -281,6 +290,7 @@ def create_app(
     app.include_router(screening_router())
     app.include_router(jobs_router())
     app.include_router(review_router())
+    app.include_router(ingestion_router())
     router.include_router(notice_router())
     app.include_router(router)
     app.include_router(router, prefix="/api", include_in_schema=False)

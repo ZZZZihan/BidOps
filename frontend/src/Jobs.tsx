@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ApiError, get, request } from './api';
 import type { Identity } from './Enterprise';
+import { NoticeEvidenceLocation, NoticeLocationContext } from './NoticeEvidenceLocation';
 import './Jobs.css';
 
 type VersionRef = {object_id: string; version_id: string; sha256: string};
@@ -10,7 +11,7 @@ type Profile = VersionRef & {payload: {display_name: string}};
 type Material = VersionRef & {filename: string};
 type RuntimeStatus = {enabled: boolean; configured: boolean; backend: string; live_calls_enabled: boolean};
 type SourceState = {current: boolean; stale_reasons: string[]};
-type Evidence = {evidence_id: string; version: VersionRef; quote: string; start: number; end: number; locator?: string; text_sha256?: string; page?: number | null; validity?: {kind: string; valid_from?: string | null; valid_until?: string | null; reason?: string | null}};
+type Evidence = {evidence_id: string; side?: string; object_kind?: string; version: VersionRef; quote: string; start: number; end: number; locator?: string; text_sha256?: string; page?: number | null; validity?: {kind: string; valid_from?: string | null; valid_until?: string | null; reason?: string | null}};
 type Expression = {operator: string; text: string; operands: Expression[]};
 type Condition = {condition_id: string; original_text: string; hard_requirement: boolean; notice_evidence: Evidence[]; expression?: Expression; package_scope?: {kind: string; package_ids: string[]; reason?: string | null}; validity?: {kind: string; required_at?: string | null; required_until?: string | null; reason?: string | null}};
 type Judgment = {condition_id: string; status: string; reason: string; notice_evidence: Evidence[]; company_evidence: Evidence[]; missing_items: string[]; conflicting_evidence_ids?: string[]};
@@ -35,7 +36,7 @@ function Logic({expression}: {expression: Expression}) {
   const operators: Record<string, string> = {atom: '原子条件', all: '全部成立（AND）', any: '至少一项成立（OR）', not: '否定（NOT）', unless: '基础要求及例外（UNLESS）'};
   return <div><p>{operators[expression.operator] || expression.operator}：{expression.text}</p>{!!expression.operands.length && <ul>{expression.operands.map((item, index) => <li key={index}><Logic expression={item} /></li>)}</ul>}</div>;
 }
-function References({title, items}: {title: string; items: Evidence[]}) { return <div><h4>{title}</h4>{!items.length && <p>尚无可核验引用，不能据此认定满足。</p>}{items.map((item, i) => <details key={`${item.evidence_id}-${i}`}><summary>{item.evidence_id}</summary><blockquote>{item.quote}</blockquote><dl><dt>来源对象</dt><dd><code>{item.version.object_id}</code></dd><dt>固定版本</dt><dd><code>{item.version.version_id}</code></dd><dt>版本 SHA-256</dt><dd><code>{item.version.sha256}</code></dd>{item.text_sha256 && <><dt>文本 SHA-256</dt><dd><code>{item.text_sha256}</code></dd></>}<dt>原文范围</dt><dd>{item.locator || '规范化文本'}{item.page ? ` · 第 ${item.page} 页` : ''} · [{item.start}, {item.end})</dd>{item.validity && <><dt>证明有效期</dt><dd>{item.validity.kind === 'interval' ? `${item.validity.valid_from || '起点待核实'} 至 ${item.validity.valid_until || '终点待核实'}` : item.validity.kind === 'perpetual' ? '已记录长期有效声明' : item.validity.kind === 'unknown' ? '有效期尚待核实' : '未要求特定期限'}{item.validity.reason && `；${item.validity.reason}`}</dd></>}</dl></details>)}</div>; }
+function References({title, items}: {title: string; items: Evidence[]}) { return <div><h4>{title}</h4>{!items.length && <p>尚无可核验引用，不能据此认定满足。</p>}{items.map((item, i) => <details key={`${item.evidence_id}-${i}`}><summary>{item.evidence_id}</summary><blockquote>{item.quote}</blockquote><dl><dt>来源对象</dt><dd><code>{item.version.object_id}</code></dd><dt>固定版本</dt><dd><code>{item.version.version_id}</code></dd><dt>版本 SHA-256</dt><dd><code>{item.version.sha256}</code></dd>{item.text_sha256 && <><dt>文本 SHA-256</dt><dd><code>{item.text_sha256}</code></dd></>}<dt>原文范围</dt><dd>{item.locator || '规范化文本'} · [{item.start}, {item.end})</dd>{item.validity && <><dt>证明有效期</dt><dd>{item.validity.kind === 'interval' ? `${item.validity.valid_from || '起点待核实'} 至 ${item.validity.valid_until || '终点待核实'}` : item.validity.kind === 'perpetual' ? '已记录长期有效声明' : item.validity.kind === 'unknown' ? '有效期尚待核实' : '未要求特定期限'}{item.validity.reason && `；${item.validity.reason}`}</dd></>}</dl><NoticeEvidenceLocation evidence={item} /></details>)}</div>; }
 function SavedResult({result}: {result: Checklist}) {
   const grouped = new Set(result.groups.flatMap(group => group.assessment.conditions.map(item => item.condition_id)));
   function conditionCard(condition: Condition, judgment?: Judgment) { return <article className="jobs-condition" key={condition.condition_id}><div className="jobs-row"><h4>{condition.original_text}</h4><strong className={`jobs-badge ${judgment?.status || 'information_insufficient'}`}>{judgment ? VERDICTS[judgment.status] || judgment.status : '尚未完成核对'}</strong></div><p>条件 <code>{condition.condition_id}</code> · {condition.hard_requirement ? '硬性要求' : '一般要求'}</p><p>{judgment ? reason(judgment.reason) : '已保留抽取条件，尚无完整判断。'}</p>{!!judgment?.missing_items.length && <p className="jobs-warning">缺失：{judgment.missing_items.map(reason).join('；')}</p>}{!!judgment?.conflicting_evidence_ids?.length && <p className="jobs-warning">冲突引用：{judgment.conflicting_evidence_ids.join('、')}</p>}{(condition.expression || condition.package_scope || condition.validity) && <details><summary>查看条件逻辑、适用范围与期限</summary>{condition.expression && <Logic expression={condition.expression} />}{condition.package_scope && <p>适用范围：{condition.package_scope.kind === 'specific' ? `指定采购包 ${condition.package_scope.package_ids.join('、')}` : condition.package_scope.kind === 'all' ? '项目全部采购包' : '范围尚待核实'}{condition.package_scope.reason && `；${condition.package_scope.reason}`}</p>}{condition.validity && <p>条件期限：{condition.validity.kind === 'not_required' ? '本条件未要求特定期限' : condition.validity.kind === 'unknown' ? '期限尚待核实' : condition.validity.kind === 'at' ? `在 ${condition.validity.required_at || '时点待核实'} 有效` : `${condition.validity.required_at || '起点待核实'} 至 ${condition.validity.required_until || '终点待核实'} 持续有效`}{condition.validity.reason && `；${condition.validity.reason}`}</p>}</details>}<div className="jobs-evidence"><References title="公告要求依据" items={judgment?.notice_evidence || condition.notice_evidence} /><References title="企业证明依据" items={judgment?.company_evidence || []} /></div></article>; }
@@ -202,7 +203,7 @@ export function Jobs({identity}: {identity: Identity}) {
     }, true);
   }
 
-  return <main className="jobs-panel"><div className="agent-heading"><div><h1>持久核对任务</h1><p>按固定画像与公告执行，可查看进度和已保存结果。候选或完成状态均不代表资格通过。</p></div><button disabled={manualBusy || mutationBusy || expired} onClick={() => void refresh()}>刷新任务与权限</button></div>
+  return <NoticeLocationContext.Provider value={{csrfToken: identity.csrf_token, onAccessDenied: reportFailure}}><main className="jobs-panel"><div className="agent-heading"><div><h1>持久核对任务</h1><p>按固定画像与公告执行，可查看进度和已保存结果。候选或完成状态均不代表资格通过。</p></div><button disabled={manualBusy || mutationBusy || expired} onClick={() => void refresh()}>刷新任务与权限</button></div>
     {error && <p role="alert" className="jobs-error">{error}</p>}{notice && <p role="status" className="jobs-notice">{notice}</p>}{pollError && <p role="alert" className="jobs-warning">{pollError}</p>}
     {expired ? <section className="jobs-card"><h2>需要重新确认企业身份</h2><a href="/api/auth/login">重新统一登录</a></section> : !runtime ? <p role="status">正在读取持久任务配置…</p> : !runtime.enabled ? <section className="jobs-card"><h2>持久任务尚未开启</h2><p>默认关闭，页面不会提交任务或发起模型调用。</p></section> : <>
       <p className="jobs-runtime">运行后端：{runtime.backend} · {runtime.live_calls_enabled ? '外部模型调用须受服务端授权和预算约束' : '外部模型调用关闭；离线工程运行仍可由服务端配置提供'}。</p>
@@ -220,5 +221,5 @@ export function Jobs({identity}: {identity: Identity}) {
         {job.result_id && <p>已保存结果编号 <code className="jobs-result-id">{job.result_id}</code>{job.result_revision && <> · 版本 <code>{job.result_revision}</code></>}</p>}{job.result ? <SavedResult result={job.result} /> : <p>当前没有可读取的完整结果；未完成、取消或缺少证明均不能当作满足。</p>}{!!(job.manifest || job.versions) && <details className="jobs-manifest"><summary>查看本任务固定输入与版本</summary><pre>{JSON.stringify({manifest: job.manifest, versions: job.versions}, null, 2)}</pre></details>}
       </section>}
     </>}
-  </main>;
+  </main></NoticeLocationContext.Provider>;
 }

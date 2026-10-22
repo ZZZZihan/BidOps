@@ -24,7 +24,7 @@ ROLE_PERMISSIONS = {
     "analyst": {"catalog:read", "agent:use"},
     "reviewer": {"catalog:read", "review:decide"},
     "auditor": {"catalog:read", "audit:read"},
-    "admin": {"catalog:read", "agent:use", "audit:read"},
+    "admin": {"catalog:read", "agent:use", "audit:read", "source:manage"},
 }
 
 

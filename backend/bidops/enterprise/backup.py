@@ -179,6 +179,8 @@ def restore(bundle: Path, destination: Path):
         raise ValueError(
             "Legacy backup cannot restore durable jobs without a paired system database"
         )
+    if system is None:
+        durable_backup.verify_standalone_database(bundle / "bidops.sqlite3")
     with closing(
         sqlite3.connect((bundle / "bidops.sqlite3").resolve().as_uri() + "?mode=ro", uri=True)
     ) as db:

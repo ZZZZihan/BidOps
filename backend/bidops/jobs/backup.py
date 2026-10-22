@@ -12,8 +12,11 @@ import re
 import sqlite3
 import uuid
 from contextlib import closing
+from datetime import UTC, datetime
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
+from bidops.notice_data.schemas import AttachmentInput
 from bidops.qualification.sources import ScreeningInputManifest, canonical_json
 from bidops.review import backup as review_backup
 
@@ -62,8 +65,16 @@ def _table_digest(conn, name):
 
 def has_jobs(path):
     with closing(_read(path)) as conn:
-        return "durable_jobs" in _tables(conn) and bool(
-            conn.execute("SELECT 1 FROM durable_jobs LIMIT 1").fetchone()
+        tables = _tables(conn)
+        return any(
+            name in tables and conn.execute(f"SELECT 1 FROM {name} LIMIT 1").fetchone()
+            for name in (
+                "durable_jobs",
+                "ingestion_runs",
+                "ingestion_schedules",
+                "ingestion_schedule_versions",
+                "ingestion_schedule_ticks",
+            )
         )
 
 
@@ -200,19 +211,470 @@ def _job_inventory(conn):
     return result
 
 
-def _inventory(business_path, system_path):
+def _attachment_inventory(conn):
+    from bidops.notice_data.attachment_parser import OPTIONS, canonical, sha
+    from bidops.notice_data.schemas import AttachmentRecord, PDFParseReceipt
+
+    tables = _tables(conn)
+    if "nd_attachment_receipts" not in tables:
+        migrated = (
+            "schema_migrations" in tables
+            and conn.execute(
+                "SELECT 1 FROM schema_migrations WHERE version='011_attachment_receipts.sql'"
+            ).fetchone()
+        )
+        declared = False
+        if "nd_attachments" in tables:
+            try:
+                declared = any(
+                    json.loads(row[0]).get("parser_receipt_sha256") is not None
+                    for row in conn.execute("SELECT metadata_json FROM nd_attachments")
+                )
+            except (ValueError, TypeError, AttributeError):
+                raise ValueError("Attachment backup metadata integrity failed") from None
+        if migrated or declared:
+            raise ValueError("Attachment backup receipt table is missing")
+        return
+    receipts = {r["record_id"]: r for r in _rows(conn, "SELECT * FROM nd_attachment_receipts")}
+    seen = set()
+    for row in _rows(conn, "SELECT * FROM nd_attachments"):
+        try:
+            record = AttachmentRecord.model_validate_json(row["metadata_json"])
+            if record.parser_receipt_sha256 is None:
+                if record.record_id in receipts:
+                    raise ValueError("unexpected receipt")
+                continue
+            saved = receipts[record.record_id]
+            receipt = PDFParseReceipt.model_validate_json(saved["receipt_json"])
+            normalized = row["normalized_text"]
+            metadata = {
+                k: v
+                for k, v in record.model_dump(mode="json").items()
+                if k in AttachmentInput.model_fields
+            }
+            metadata["observed_at"] = record.observed_at.astimezone(UTC).isoformat()
+            expected_id = sha(
+                canonical(
+                    [
+                        "attachment_record_v2",
+                        record.attachment_id,
+                        metadata,
+                        record.raw_sha256,
+                        record.text_sha256,
+                        record.parser_receipt_sha256,
+                    ]
+                )
+            )
+            if (
+                record.record_id != row["record_id"]
+                or record.record_id != expected_id
+                or record.parent_version_id != row["parent_version_id"]
+                or record.attachment_id != row["attachment_id"]
+                or record.acquisition_status != row["acquisition_status"]
+                or record.normalizer_version != "normalized_text_v2"
+                or saved["receipt_sha256"] != record.parser_receipt_sha256
+                or sha(saved["receipt_json"]) != record.parser_receipt_sha256
+                or receipt.raw_sha256 != row["raw_sha256"]
+                or record.raw_sha256 != receipt.raw_sha256
+                or receipt.text_sha256 != row["text_sha256"]
+                or record.text_sha256 != receipt.text_sha256
+                or not isinstance(normalized, str)
+                or sha(normalized) != receipt.text_sha256
+                or receipt.options_sha256 != sha(canonical(OPTIONS))
+                or receipt.page_map_sha256
+                != sha(canonical([p.model_dump() for p in receipt.pages]))
+                or receipt.status != record.parse_status
+                or receipt.status != row["parse_status"]
+                or receipt.error_code != record.error_code
+                or len(normalized) > receipt.limits.max_text_chars
+            ):
+                raise ValueError("receipt binding")
+            offset = 0
+            for page in receipt.pages:
+                if page.status == "text" and offset:
+                    if normalized[offset : offset + 1] != "\n":
+                        raise ValueError("separator")
+                    offset += 1
+                if (
+                    page.start != offset
+                    or page.end > len(normalized)
+                    or sha(normalized[page.start : page.end]) != page.text_sha256
+                    or page.end - page.start > receipt.limits.max_page_chars
+                ):
+                    raise ValueError("span")
+                offset = page.end
+            if offset != len(normalized):
+                raise ValueError("coverage")
+            seen.add(record.record_id)
+        except (ValueError, TypeError, KeyError):
+            raise ValueError("Attachment backup receipt integrity failed") from None
+    if seen != set(receipts):
+        raise ValueError("Attachment backup receipt closure failed")
+
+
+def _ingestion_inventory(conn):
+    from bidops.ingestion.schemas import HttpRun, ManualImport, ScheduleCommand, decode_body
+    from bidops.sources import Source
+
+    tables = _tables(conn)
+    if "ingestion_runs" not in tables:
+        return None
+    runs = _rows(conn, "SELECT * FROM ingestion_runs ORDER BY run_id")
+    states = {r["run_id"]: r for r in _rows(conn, "SELECT * FROM ingestion_run_state")}
+    if set(states) != {r["run_id"] for r in runs}:
+        raise ValueError("Ingestion backup state closure failed")
+    policies = {
+        r["policy_sha256"]: r for r in _rows(conn, "SELECT * FROM ingestion_policy_revisions")
+    }
+    for policy in policies.values():
+        try:
+            source = Source.model_validate_json(policy["body_json"])
+            if (
+                _sha(policy["body_json"]) != policy["policy_sha256"]
+                or source.id != policy["source_id"]
+                or (source.policy.revision if source.policy else None) != policy["revision"]
+            ):
+                raise ValueError("policy")
+        except (ValueError, TypeError):
+            raise ValueError("Ingestion backup policy integrity failed") from None
+    result = []
+    requests = {}
+    for run in runs:
+        try:
+            bodies = _rows(
+                conn, "SELECT body_json FROM ingestion_inputs WHERE run_id=?", (run["run_id"],)
+            )
+            if len(bodies) != 1 or _sha(bodies[0]["body_json"]) != run["body_sha256"]:
+                raise ValueError("body")
+            body = json.loads(bodies[0]["body_json"])
+            request = body["request"]
+            requests[run["run_id"]] = request
+            (ManualImport if run["method"] == "manual_import" else HttpRun).model_validate(request)
+            policy = policies[run["policy_sha256"]]
+            if (
+                _sha(canonical_json(request)) != run["input_sha256"]
+                or request["source_id"] != run["source_id"]
+                or policy["source_id"] != run["source_id"]
+                or policy["revision"] != run["policy_revision"]
+                or body["versions"]["application_version"] != run["application_version"]
+                or not re.fullmatch(r"[a-f0-9]{64}", run["application_version"])
+                or request["idempotency_key"] != run["idempotency_key"]
+            ):
+                raise ValueError("inputs")
+            pages = _rows(
+                conn,
+                "SELECT * FROM ingestion_pages WHERE run_id=? ORDER BY page_seq",
+                (run["run_id"],),
+            )
+            if [p["page_seq"] for p in pages] != list(range(states[run["run_id"]]["next_page"])):
+                raise ValueError("page sequence")
+            for page in pages:
+                attempt = _rows(
+                    conn,
+                    "SELECT * FROM ingestion_page_attempts WHERE run_id=? AND page_seq=?",
+                    (run["run_id"], page["page_seq"]),
+                )
+                receipt = json.loads(page["receipt_json"])
+                if (
+                    len(attempt) != 1
+                    or _sha(page["receipt_json"]) != page["receipt_sha256"]
+                    or attempt[0]["from_cursor_version"] != page["from_cursor_version"]
+                    or attempt[0]["observed_at"] != page["observed_at"]
+                    or receipt["run_id"] != run["run_id"]
+                    or receipt["page_seq"] != page["page_seq"]
+                    or receipt["page_sha256"] != page["page_sha256"]
+                    or receipt["from_cursor_version"] != page["from_cursor_version"]
+                    or canonical_json(receipt["cursor_after"]) != page["cursor_after_json"]
+                ):
+                    raise ValueError("page binding")
+                expected = (
+                    request["pages"][page["page_seq"]]["items"]
+                    if run["method"] == "manual_import"
+                    else request["items"]
+                )
+                if (
+                    len(receipt["version_ids"]) != len(expected)
+                    or receipt["observed_at"]
+                    != datetime.fromtimestamp(page["observed_at"], UTC).isoformat()
+                    or len(receipt["attachment_record_ids"])
+                    != sum(len(i.get("attachments", [])) for i in expected)
+                ):
+                    raise ValueError("page members")
+                for version, declared in zip(receipt["version_ids"], expected, strict=True):
+                    stored = conn.execute(
+                        "SELECT v.raw_sha256,n.source_url FROM nd_versions v "
+                        "JOIN nd_logical_notices n USING(logical_notice_id) "
+                        "WHERE v.version_id=?",
+                        (version,),
+                    ).fetchone()
+                    if (
+                        not stored
+                        or stored[1] != declared["source_url"]
+                        or (
+                            run["method"] == "manual_import"
+                            and stored[0]
+                            != hashlib.sha256(decode_body(declared["body_base64"])).hexdigest()
+                        )
+                    ):
+                        raise ValueError("notice reference")
+                for attachment in receipt["attachment_record_ids"]:
+                    parent = conn.execute(
+                        "SELECT parent_version_id FROM nd_attachments WHERE record_id=?",
+                        (attachment,),
+                    ).fetchone()
+                    if not parent or parent[0] not in receipt["version_ids"]:
+                        raise ValueError("attachment reference")
+            result.append(
+                {
+                    **{k: v for k, v in run.items() if k != "idempotency_key"},
+                    "status": states[run["run_id"]]["status"],
+                    "state_version": states[run["run_id"]]["state_version"],
+                    "quarantined": states[run["run_id"]]["quarantined"],
+                }
+            )
+        except (ValueError, TypeError, KeyError):
+            raise ValueError("Ingestion backup fixed input closure failed") from None
+    versions = (
+        _rows(conn, "SELECT * FROM ingestion_schedule_versions ORDER BY native_name")
+        if "ingestion_schedule_versions" in tables
+        else []
+    )
+    schedules = _rows(conn, "SELECT * FROM ingestion_schedules ORDER BY schedule_id")
+    for version in versions:
+        try:
+            command = ScheduleCommand.model_validate_json(version["body_json"])
+            if (
+                _sha(version["body_json"]) != version["body_sha256"]
+                or command.schedule_id != version["schedule_id"]
+                or command.source_id != version["source_id"]
+                or command.expected_state_version + 1 != version["state_version"]
+                or version["native_name"]
+                != "source-schedule-"
+                + _sha(
+                    canonical_json(
+                        [version["schedule_id"], version["state_version"], version["body_sha256"]]
+                    )
+                )[:32]
+                or policies[version["policy_sha256"]]["source_id"] != version["source_id"]
+                or not re.fullmatch(r"[a-f0-9]{64}", version["application_version"])
+            ):
+                raise ValueError("generation")
+        except (ValueError, TypeError, KeyError):
+            raise ValueError("Ingestion backup schedule integrity failed") from None
+    by_name = {v["native_name"]: v for v in versions}
+    for run in runs:
+        generation = by_name.get(run.get("schedule_native_name"))
+        if run["trigger_kind"] == "schedule":
+            if (
+                generation is None
+                or run["method"] != "http_fetch"
+                or any(
+                    run[key] != generation[key]
+                    for key in ("owner_id", "source_id", "policy_sha256", "application_version")
+                )
+                or requests[run["run_id"]]["items"] != json.loads(generation["body_json"])["items"]
+            ):
+                raise ValueError("Ingestion backup run schedule generation failed")
+        elif run.get("schedule_native_name") is not None:
+            raise ValueError("Ingestion backup manual run has a schedule generation")
+    commands = {
+        (row["owner_id"], row["idempotency_key"]): row
+        for row in _rows(conn, "SELECT * FROM ingestion_schedule_commands")
+    }
+    for generation in versions:
+        body = json.loads(generation["body_json"])
+        command = commands.get((generation["owner_id"], body["idempotency_key"]))
+        if command is None or any(
+            command[key] != generation[value]
+            for key, value in (
+                ("schedule_id", "schedule_id"),
+                ("input_sha256", "body_sha256"),
+                ("application_version", "application_version"),
+            )
+        ):
+            raise ValueError("Ingestion backup schedule command closure failed")
+    for schedule in schedules:
+        version = by_name.get(schedule["native_name"])
+        if version is None or any(
+            schedule[k] != version[k]
+            for k in (
+                "schedule_id",
+                "owner_id",
+                "source_id",
+                "body_json",
+                "body_sha256",
+                "policy_sha256",
+                "application_version",
+            )
+        ):
+            raise ValueError("Ingestion backup schedule generation failed")
+    return {
+        "runs": result,
+        "schedule_versions": [{k: v for k, v in r.items() if k != "body_json"} for r in versions],
+        "schedules": [{k: v for k, v in r.items() if k != "body_json"} for r in schedules],
+        "ticks": _rows(conn, "SELECT * FROM ingestion_schedule_ticks ORDER BY native_id"),
+    }
+
+
+def _known_inputs(run_id):
+    # Serialize only a server-known scalar; never unpickle a backup value.
+    from dbos._serialization import DefaultSerializer
+
+    return DefaultSerializer().serialize({"args": (run_id,), "kwargs": {}})
+
+
+def _known_schedule_inputs(native_id, native_name):
+    """Rebuild DBOS 3.3 scheduler arguments from a verified generation and ISO ID.
+
+    Cron/backfill uses ZoneInfo('UTC'); trigger_schedule uses timezone.utc.
+    The input is never decoded, evaluated, or unpickled, including at restore.
+    """
+    from dbos._serialization import DefaultSerializer
+
+    prefix = "sched-" + native_name + "-"
+    if not native_id.startswith(prefix):
+        raise ValueError("Ingestion backup scheduled identity failed")
+    stamp = native_id[len(prefix) :]
+    trigger = stamp.startswith("trigger-")
+    stamp = stamp.removeprefix("trigger-") if trigger else stamp
+    try:
+        if not 20 <= len(stamp) <= 40:
+            raise ValueError("stamp")
+        scheduled = datetime.fromisoformat(stamp)
+        if (
+            scheduled.tzinfo is None
+            or scheduled.utcoffset().total_seconds() != 0
+            or scheduled.isoformat() != stamp
+        ):
+            raise ValueError("stamp")
+    except (ValueError, TypeError):
+        raise ValueError("Ingestion backup scheduled identity failed") from None
+    scheduled = scheduled.replace(tzinfo=UTC if trigger else ZoneInfo("UTC"))
+    return DefaultSerializer().serialize(
+        {"args": (scheduled, {"native_name": native_name}), "kwargs": {}}
+    )
+
+
+def _check_ingestion_workflows(system, workflows, inventory, business):
+    from dbos._serialization import DefaultSerializer
+
+    runs = {r["native_id"]: r for r in inventory["runs"]}
+    versions = {v["native_name"]: v for v in inventory["schedule_versions"]}
+    ticks = {t["native_id"]: t for t in inventory["ticks"]}
+    schedules = _rows(system, "SELECT * FROM workflow_schedules")
+    schedules = {s["schedule_name"]: s for s in schedules}
+    seen_runs, seen_ticks = set(), set()
+    for native in schedules.values():
+        version = versions.get(native["schedule_name"])
+        if version is None:
+            raise ValueError("Ingestion backup unknown native schedule")
+        command = json.loads(
+            business.execute(
+                "SELECT body_json FROM ingestion_schedule_versions WHERE native_name=?",
+                (native["schedule_name"],),
+            ).fetchone()[0]
+        )
+        if (
+            native["workflow_name"] != "bidops_ingestion_schedule_v1"
+            or native["workflow_class_name"] is not None
+            or native["queue_name"] != "bidops_ingestion_schedule_v1"
+            or native["schedule"] != command["cron"]
+            or native["cron_timezone"] != "UTC"
+            or native["automatic_backfill"]
+            or native["application_name"] != "bidops-jobs"
+            or native["context"]
+            != DefaultSerializer().serialize({"native_name": native["schedule_name"]})
+        ):
+            raise ValueError("Ingestion backup native schedule mapping failed")
+    for workflow in workflows:
+        native_id = workflow["workflow_uuid"]
+        if native_id in runs:
+            run = runs[native_id]
+            if (
+                workflow["name"] != "bidops_ingestion_run_v1"
+                or workflow["parent_workflow_id"] is not None
+                or workflow["application_version"] != run["application_version"]
+                or workflow["queue_name"] != "bidops_ingestion_v1"
+                or workflow["schedule_name"] is not None
+                or workflow["class_name"] is not None
+                or workflow["config_name"] is not None
+                or workflow["application_name"] != "bidops-jobs"
+                or workflow["serialization"] != "py_pickle"
+                or workflow["inputs"] != _known_inputs(run["run_id"])
+            ):
+                raise ValueError("Ingestion backup workflow mapping failed")
+            seen_runs.add(native_id)
+        else:
+            version = versions.get(workflow["schedule_name"])
+            tick = ticks.get(native_id)
+            if (
+                version is None
+                or workflow["schedule_name"] not in schedules
+                or workflow["name"] != "bidops_ingestion_schedule_v1"
+                or workflow["queue_name"] != "bidops_ingestion_schedule_v1"
+                or workflow["parent_workflow_id"] is not None
+                or workflow["class_name"] is not None
+                or workflow["config_name"] is not None
+                or workflow["application_name"] != "bidops-jobs"
+                or workflow["application_version"] != version["application_version"]
+                or (
+                    tick is not None
+                    and (
+                        tick["schedule_id"] != version["schedule_id"]
+                        or tick["application_version"] != version["application_version"]
+                    )
+                )
+            ):
+                raise ValueError("Ingestion backup scheduled workflow mapping failed")
+            if workflow["serialization"] not in {None, "py_pickle"} or workflow[
+                "inputs"
+            ] != _known_schedule_inputs(native_id, version["native_name"]):
+                raise ValueError("Ingestion backup scheduled inputs failed")
+            if tick is not None and tick["run_id"] is not None:
+                linked = next(
+                    (run for run in runs.values() if run["run_id"] == tick["run_id"]), None
+                )
+                if (
+                    linked is None
+                    or linked["schedule_native_name"] != version["native_name"]
+                    or linked["trigger_kind"] != "schedule"
+                ):
+                    raise ValueError("Ingestion backup scheduled run linkage failed")
+            seen_ticks.add(native_id)
+    for run in runs.values():
+        if run["native_id"] not in seen_runs and run["status"] != "queued":
+            raise ValueError("Ingestion backup workflow is missing")
+    if set(ticks) - seen_ticks:
+        raise ValueError("Ingestion backup schedule tick workflow is missing")
+    return seen_runs | seen_ticks
+
+
+def _inventory(business_path, system_path, *, legacy=False):
     with closing(_read(business_path)) as business:
         _check(business)
         jobs = _job_inventory(business)
         reviews = review_backup.inventory(business)
+        ingestion = _ingestion_inventory(business)
+        _attachment_inventory(business)
+        ingestion_records = ingestion is not None and any(ingestion.values())
+        if legacy and (
+            ingestion_records
+            or (
+                "nd_attachment_receipts" in _tables(business)
+                and business.execute("SELECT 1 FROM nd_attachment_receipts LIMIT 1").fetchone()
+            )
+        ):
+            raise ValueError("Legacy durable mapping cannot contain ingestion records")
         tables = _tables(business)
         business_digests = {
             name: _table_digest(business, name)
             for name in sorted(tables)
-            if name.startswith(("durable_", "qualification_", "review_")) or name == "agent_runs"
+            if name.startswith(("durable_", "qualification_", "review_"))
+            or name == "agent_runs"
+            or (not legacy and name.startswith(("ingestion_", "nd_")))
         }
     if system_path is None:
-        if jobs:
+        if jobs or ingestion_records:
             raise ValueError("Durable jobs require their DBOS system database")
         return None
     with closing(_read(system_path)) as system:
@@ -220,20 +682,36 @@ def _inventory(business_path, system_path):
         tables = _tables(system)
         if "workflow_status" not in tables or "dbos_migrations" not in tables:
             raise ValueError("Invalid DBOS system database")
+        inputs_join = ""
+        input_column = "w.inputs"
+        if "workflow_input" in tables:
+            if system.execute(
+                "SELECT 1 FROM workflow_status w JOIN workflow_input i USING(workflow_uuid) "
+                "WHERE w.inputs IS NOT NULL AND i.inputs IS NOT NULL AND w.inputs!=i.inputs LIMIT 1"
+            ).fetchone():
+                raise ValueError("Durable backup workflow inputs conflict")
+            inputs_join = " LEFT JOIN workflow_input i USING(workflow_uuid)"
+            input_column = "COALESCE(i.inputs,w.inputs)"
         workflows = _rows(
             system,
-            "SELECT workflow_uuid,status,name,application_version,parent_workflow_id "
-            "FROM workflow_status ORDER BY workflow_uuid",
+            "SELECT w.workflow_uuid,w.status,w.name,w.application_version,w.parent_workflow_id,"
+            "w.queue_name,w.schedule_name,w.serialization," + input_column + " AS inputs,"
+            "w.class_name,w.config_name,w.application_name FROM workflow_status w"
+            + inputs_join
+            + " ORDER BY w.workflow_uuid",
         )
         by_id = {job["run_id"]: job for job in jobs}
         seen, calculations = set(), set()
+        other_workflows = []
         for workflow in workflows:
             workflow_id = workflow["workflow_uuid"]
             child = workflow_id.endswith("-calculation")
             run_id = workflow_id.removesuffix("-calculation") if child else workflow_id
+            if run_id not in by_id:
+                other_workflows.append(workflow)
+                continue
             if (
-                run_id not in by_id
-                or workflow["name"] != (CALCULATION_WORKFLOW_NAME if child else WORKFLOW_NAME)
+                workflow["name"] != (CALCULATION_WORKFLOW_NAME if child else WORKFLOW_NAME)
                 or workflow["parent_workflow_id"] != (run_id if child else None)
                 or (
                     by_id[run_id]["purge_state"] != "purged"
@@ -242,6 +720,13 @@ def _inventory(business_path, system_path):
             ):
                 raise ValueError("Durable backup workflow mapping failed")
             (calculations if child else seen).add(run_id)
+        with closing(_read(business_path)) as business:
+            _check_ingestion_workflows(
+                system,
+                other_workflows,
+                ingestion or {"runs": [], "schedules": [], "schedule_versions": [], "ticks": []},
+                business,
+            )
         if not calculations <= seen:
             raise ValueError("Durable backup calculation parent is missing")
         for job in jobs:
@@ -264,12 +749,26 @@ def _inventory(business_path, system_path):
         }
     result = {
         "jobs": jobs,
-        "workflows": workflows,
+        "workflows": [
+            {
+                k: w[k]
+                for k in (
+                    "workflow_uuid",
+                    "status",
+                    "name",
+                    "application_version",
+                    "parent_workflow_id",
+                )
+            }
+            for w in workflows
+        ],
         "business_table_sha256": business_digests,
         "system_table_sha256": system_digests,
     }
     if reviews is not None:
         result["reviews"] = reviews
+    if ingestion is not None and not legacy:
+        result["ingestion"] = ingestion
     return result
 
 
@@ -400,8 +899,16 @@ def prepare_backup(business_path, system_path, *, now):
     return binding
 
 
+def verify_standalone_database(business_path):
+    _inventory(business_path, None)
+
+
 def verify_backup(business_path, system_path, binding):
-    mapping = _inventory(business_path, system_path)
+    stored = binding.get("mapping", {}) if isinstance(binding, dict) else {}
+    legacy = "ingestion" not in stored and not any(
+        name.startswith(("ingestion_", "nd_")) for name in stored.get("business_table_sha256", {})
+    )
+    mapping = _inventory(business_path, system_path, legacy=legacy)
     if mapping is None:
         if binding is not None:
             raise ValueError("Unexpected durable backup binding")
@@ -425,23 +932,56 @@ def verify_backup(business_path, system_path, binding):
 
 def quarantine_after_restore(business_path, system_path, *, now):
     with closing(sqlite3.connect(business_path)) as conn, conn:
-        if "durable_jobs" not in _tables(conn):
-            return {"quarantined_jobs": 0, "purged_job_ids": []}
-        count = conn.execute(
-            "UPDATE durable_job_state SET quarantined=1,state_version=state_version+1"
-        ).rowcount
-        run_ids = [
-            row[0] for row in conn.execute("SELECT run_id FROM durable_jobs ORDER BY run_id")
-        ]
+        tables = _tables(conn)
+        count = 0
+        run_ids = []
+        ingestion_count = schedule_count = 0
+        if "durable_jobs" in tables:
+            count = conn.execute(
+                "UPDATE durable_job_state SET quarantined=1,state_version=state_version+1"
+            ).rowcount
+            run_ids = [row[0] for row in conn.execute("SELECT run_id FROM durable_jobs")]
+        if "ingestion_runs" in tables:
+            ingestion_count = conn.execute(
+                "UPDATE ingestion_run_state SET quarantined=1,state_version=state_version+1,"
+                "updated_at=?",
+                (now,),
+            ).rowcount
+            schedule_count = conn.execute(
+                "UPDATE ingestion_schedules SET quarantined=1,enabled=0,"
+                "state_version=state_version+1,updated_at=?",
+                (now,),
+            ).rowcount
+            conn.execute("UPDATE ingestion_source_state SET active_run_id=NULL")
     if system_path is not None:
         client, engine = _client(system_path)
         try:
             for run_id in run_ids:
                 client.cancel_workflow(run_id, cancel_children=True)
+            with closing(_read(system_path)) as system:
+                ingestion_ids = [
+                    row[0]
+                    for row in system.execute(
+                        "SELECT workflow_uuid FROM workflow_status WHERE name IN "
+                        "('bidops_ingestion_run_v1','bidops_ingestion_schedule_v1')"
+                    )
+                ]
+                schedule_names = [
+                    row[0] for row in system.execute("SELECT schedule_name FROM workflow_schedules")
+                ]
+            for name in schedule_names:
+                client.pause_schedule(name)
+            for native_id in ingestion_ids:
+                client.cancel_workflow(native_id, cancel_children=True)
         finally:
             client.destroy()
             engine.dispose()
     purged = prune_expired_jobs(business_path, system_path, now=now)
     if system_path is not None:
         _compact(system_path)
-    return {"quarantined_jobs": count, "purged_job_ids": purged}
+    return {
+        "quarantined_jobs": count,
+        "purged_job_ids": purged,
+        "quarantined_ingestion_runs": ingestion_count,
+        "quarantined_ingestion_schedules": schedule_count,
+    }

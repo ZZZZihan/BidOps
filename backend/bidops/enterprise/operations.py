@@ -90,10 +90,12 @@ class OperationsMiddleware:
             # every streamed chunk against the material limit. Other JSON/form
             # requests retain their independent 16 KiB bound.
             material_upload = (
-                scope["method"] == "POST" and scope["path"] == "/api/company/materials"
-            ) or (
-                scope["method"] == "PUT"
-                and re.fullmatch(r"/api/company/materials/[0-9a-f]{32}", scope["path"])
+                (scope["method"] == "POST" and scope["path"] == "/api/company/materials")
+                or (
+                    scope["method"] == "PUT"
+                    and re.fullmatch(r"/api/company/materials/[0-9a-f]{32}", scope["path"])
+                )
+                or (scope["method"] == "POST" and scope["path"] == "/api/ingestion/imports")
             )
             if (
                 self.enterprise

@@ -18,7 +18,15 @@ from bidops.models import Evidence, Notice, Snapshot
 from bidops.parser import canonical_text
 from bidops.screening.schemas import EvidenceRef, VersionRef
 
-from .schemas import AttachmentInput, AttachmentRecord, NoticeVersion, PackageVersion, ProjectStatus
+from .attachment_parser import PreparedAttachment, verify_receipt
+from .schemas import (
+    AttachmentInput,
+    AttachmentRecord,
+    NoticeVersion,
+    PackageVersion,
+    PreparedAttachmentInput,
+    ProjectStatus,
+)
 
 NORMALIZER = "normalized_text_v2"
 SUPPORTED_ATTACHMENT_TYPES = ("text/plain", "text/html")
@@ -524,6 +532,22 @@ class NoticeRepository:
         data = self._read_blob(self.attachment_raw, record.raw_sha256)
         if len(data) != record.byte_size:
             raise ValueError("attachment_blob_size_mismatch")
+        if record.parser_receipt_sha256 is not None:
+            rows = self.db.rows(
+                "SELECT normalized_text FROM nd_attachments WHERE record_id=:id",
+                {"id": record.record_id},
+            )
+            receipt = self._attachment_receipt(record)
+            normalized = rows[0]["normalized_text"]
+            receipt = verify_receipt(receipt, data, normalized)
+            if (
+                record.text_sha256 != receipt.text_sha256
+                or record.normalizer_version != NORMALIZER
+                or record.parse_status != receipt.status
+                or record.error_code != receipt.error_code
+            ):
+                raise ValueError("attachment_receipt_integrity_mismatch")
+            return normalized
         if record.parse_status != "parsed":
             return None
         try:
@@ -542,6 +566,28 @@ class NoticeRepository:
         ):
             raise ValueError("attachment_text_integrity_mismatch")
         return normalized
+
+    def _attachment_receipt(self, record):
+        rows = self.db.rows(
+            "SELECT receipt_sha256,receipt_json FROM nd_attachment_receipts WHERE record_id=:id",
+            {"id": record.record_id},
+        )
+        if len(rows) != 1 or (
+            rows[0]["receipt_sha256"] != record.parser_receipt_sha256
+            or _sha(rows[0]["receipt_json"]) != record.parser_receipt_sha256
+        ):
+            raise ValueError("attachment_receipt_integrity_mismatch")
+        try:
+            return json.loads(rows[0]["receipt_json"])
+        except (ValueError, TypeError):
+            raise ValueError("attachment_receipt_invalid") from None
+
+    def get_attachment_receipt(self, record_id):
+        record = self.get_attachment(record_id)
+        if record.parser_receipt_sha256 is None:
+            return None
+        self._verify_attachment_content(record)
+        return self._attachment_receipt(record)
 
     def _verified_attachment_text(self, record_id: str):
         record = self.get_attachment(record_id)
@@ -602,24 +648,65 @@ class NoticeRepository:
             raise ValueError("notice_evidence_integrity_mismatch")
         return expected
 
+    def evidence_location(self, evidence: EvidenceRef | dict):
+        """Keep B01's quote/offset contract; page numbers come only from fixed receipts."""
+        reference = self.resolve_evidence(evidence)
+        location = {"kind": NORMALIZER, "start": reference.start, "end": reference.end}
+        if reference.object_kind == "attachment":
+            receipt = self.get_attachment_receipt(reference.version.version_id)
+            if receipt is not None:
+                record = self.get_attachment(reference.version.version_id)
+                location = {
+                    "kind": "pdf_pages",
+                    "pages": [
+                        page["page"]
+                        for page in receipt["pages"]
+                        if page["start"] < reference.end and reference.start < page["end"]
+                    ],
+                    "parser_receipt_sha256": record.parser_receipt_sha256,
+                }
+                if not location["pages"]:
+                    raise ValueError("attachment_page_map_invalid")
+        return {"evidence": reference.model_dump(mode="json"), "location": location}
+
     def record_attachment(
-        self, value: AttachmentInput, data: bytes | None = None, *, conn=None
+        self, value: AttachmentInput | PreparedAttachment, data: bytes | None = None, *, conn=None
     ) -> AttachmentRecord:
+        prepared = value if isinstance(value, PreparedAttachment) else None
+        receipt = None
+        receipt_sha = None
+        normalized = None
         try:
-            value = AttachmentInput.model_validate(value)
+            if prepared is not None:
+                if data is not None:
+                    raise ValueError("attachment_prepared_bytes_duplicate")
+                value = PreparedAttachmentInput.model_validate(prepared.input)
+                data, normalized = prepared.data, prepared.normalized_text
+                if prepared.receipt is not None:
+                    receipt = verify_receipt(prepared.receipt, data, normalized)
+                    if (
+                        value.content_type != "application/pdf"
+                        or value.parse_status != receipt.status
+                        or value.error_code != receipt.error_code
+                    ):
+                        raise ValueError("attachment_receipt_state_mismatch")
+                    receipt_sha = _sha(_json(receipt.model_dump(mode="json")))
+                elif value.content_type == "application/pdf" and data is not None:
+                    raise ValueError("attachment_receipt_required")
+            else:
+                value = AttachmentInput.model_validate(value)
         except ValidationError:
             raise ValueError("attachment_input_invalid") from None
         if (value.acquisition_status == "downloaded") != (data is not None):
             raise ValueError("attachment_acquisition_bytes_mismatch")
         sha = None
-        normalized = None
         if data is not None:
             if not isinstance(data, bytes) or not 0 < len(data) <= self.max_bytes:
                 raise ValueError("attachment_blob_size_mismatch")
             sha = _sha(data)
             if value.declared_sha256 is not None and value.declared_sha256 != sha:
                 raise ValueError("attachment_declared_hash_mismatch")
-            if value.parse_status == "parsed":
+            if value.parse_status == "parsed" and receipt is None:
                 try:
                     normalized = canonical_text(data, value.content_type, value.encoding)
                 except (ValueError, UnicodeError):
@@ -632,7 +719,11 @@ class NoticeRepository:
             metadata = value.model_dump(mode="json")
             metadata["observed_at"] = _at(value.observed_at).isoformat()
             text_sha = _sha(normalized) if normalized is not None else None
-            record_id = _id("attachment_record_v1", attachment_id, metadata, sha, text_sha)
+            record_id = (
+                _id("attachment_record_v2", attachment_id, metadata, sha, text_sha, receipt_sha)
+                if receipt_sha is not None
+                else _id("attachment_record_v1", attachment_id, metadata, sha, text_sha)
+            )
             record = AttachmentRecord(
                 **metadata,
                 record_id=record_id,
@@ -642,6 +733,7 @@ class NoticeRepository:
                 byte_size=len(data) if data else 0,
                 normalizer_version=NORMALIZER if normalized is not None else None,
                 integrity_status="verified" if data is not None else "not_checked",
+                parser_receipt_sha256=receipt_sha,
             )
             conflicts = connection.execute(
                 text(
@@ -680,11 +772,27 @@ class NoticeRepository:
                             exclude={
                                 "integrity_status",
                                 "integrity_error",
+                                *({"parser_receipt_sha256"} if receipt_sha is None else set()),
                             },
                         )
                     ),
                 },
             )
+            if receipt is not None:
+                encoded = _json(receipt.model_dump(mode="json"))
+                connection.execute(
+                    text("INSERT OR IGNORE INTO nd_attachment_receipts VALUES (:id,:sha,:body)"),
+                    {"id": record_id, "sha": receipt_sha, "body": encoded},
+                )
+                actual = connection.execute(
+                    text(
+                        "SELECT receipt_sha256,receipt_json FROM nd_attachment_receipts "
+                        "WHERE record_id=:id"
+                    ),
+                    {"id": record_id},
+                ).one()
+                if tuple(actual) != (receipt_sha, encoded):
+                    raise ValueError("attachment_receipt_integrity_mismatch")
             return record
 
     def get_attachment(self, record_id: str) -> AttachmentRecord:
@@ -702,16 +810,27 @@ class NoticeRepository:
             if k in AttachmentInput.model_fields
         }
         metadata["observed_at"] = _at(record.observed_at).isoformat()
-        if (
-            record.record_id != record_id
-            or record_id
-            != _id(
+        expected_id = (
+            _id(
+                "attachment_record_v2",
+                record.attachment_id,
+                metadata,
+                record.raw_sha256,
+                record.text_sha256,
+                record.parser_receipt_sha256,
+            )
+            if record.parser_receipt_sha256 is not None
+            else _id(
                 "attachment_record_v1",
                 record.attachment_id,
                 metadata,
                 record.raw_sha256,
                 record.text_sha256,
             )
+        )
+        if (
+            record.record_id != record_id
+            or record_id != expected_id
             or any(
                 row[k] != getattr(record, k)
                 for k in (
