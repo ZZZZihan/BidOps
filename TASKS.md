@@ -86,3 +86,5 @@ must not be represented as independent business acceptance.
 B06 CI修复补充：原Head backend/frontend实际FAIL已保留；修复代码`a0be11276de97b1dbf55fc87b96a9767e96c626a`完整1430后端PASS、Ruff197/冻结PASS，两项真实浏览器复验PASS；新CI frontend/container PASS，backend待结果。详见B06报告CI复验节，业务与前置B02-06仍BLOCKED。
 
 B08已交付 [Draft PR #23](https://github.com/ZZZZihan/BidOps/pull/23)，基于B07 #22：授权完整结果收集、原始投影/用量/代码闭包核验、冻结独立协议及累计费用核对。干净代码`b42f05269e13be278d220a1307d79ee4b17aad6b`完整1851后端PASS，121项新增；真实CLI工程校准PASS，业务BLOCKED、agent_score=null。B08-03/07工程PASS，其他五项真实评测BLOCKED。见[B08逐项证据](reports/b08-independent-evaluation-20261023.md)。前置B02-06、真实资料/金标/人审计时/完整账本仍缺，B09/B10继续，无合并部署。
+
+B08 CI复验：固定d682262，CI39855370107三job全部PASS（1852后端、148浏览器）；工程G-02通过，真实评测/计时/账本与前置B02-06仍受阻。
