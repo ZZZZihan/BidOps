@@ -1,0 +1,427 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "source_snapshot_id": {
+          "title": "Source Snapshot Id",
+          "type": "string"
+        },
+        "start": {
+          "minimum": 0,
+          "title": "Start",
+          "type": "integer"
+        },
+        "end": {
+          "exclusiveMinimum": 0,
+          "title": "End",
+          "type": "integer"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        },
+        "locator": {
+          "const": "normalized_text_v1",
+          "default": "normalized_text_v1",
+          "title": "Locator",
+          "type": "string"
+        },
+        "confidence_type": {
+          "const": "rule",
+          "default": "rule",
+          "title": "Confidence Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_snapshot_id",
+        "start",
+        "end",
+        "text"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Money": {
+      "additionalProperties": false,
+      "properties": {
+        "amount": {
+          "title": "Amount",
+          "type": "string"
+        },
+        "currency": {
+          "const": "CNY",
+          "default": "CNY",
+          "title": "Currency",
+          "type": "string"
+        },
+        "raw": {
+          "title": "Raw",
+          "type": "string"
+        },
+        "unit": {
+          "enum": [
+            "元",
+            "万元"
+          ],
+          "title": "Unit",
+          "type": "string"
+        },
+        "basis": {
+          "default": "total",
+          "enum": [
+            "total",
+            "package"
+          ],
+          "title": "Basis",
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "raw",
+        "unit"
+      ],
+      "title": "Money",
+      "type": "object"
+    },
+    "Package": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "title": "Label",
+          "type": "string"
+        },
+        "budget": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Money"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "evidence": {
+          "$ref": "#/$defs/Evidence"
+        }
+      },
+      "required": [
+        "label",
+        "evidence"
+      ],
+      "title": "Package",
+      "type": "object"
+    },
+    "Snapshot": {
+      "additionalProperties": false,
+      "properties": {
+        "snapshot_id": {
+          "title": "Snapshot Id",
+          "type": "string"
+        },
+        "source_url": {
+          "title": "Source Url",
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[a-f0-9]{64}$",
+          "title": "Sha256",
+          "type": "string"
+        },
+        "byte_size": {
+          "exclusiveMinimum": 0,
+          "title": "Byte Size",
+          "type": "integer"
+        },
+        "fetched_at": {
+          "format": "date-time",
+          "title": "Fetched At",
+          "type": "string"
+        },
+        "http_status": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Http Status"
+        },
+        "content_type": {
+          "enum": [
+            "text/html",
+            "text/plain"
+          ],
+          "title": "Content Type",
+          "type": "string"
+        },
+        "encoding": {
+          "enum": [
+            "utf-8",
+            "gb18030"
+          ],
+          "title": "Encoding",
+          "type": "string"
+        },
+        "access_method": {
+          "enum": [
+            "manual_import",
+            "http_fetch"
+          ],
+          "title": "Access Method",
+          "type": "string"
+        },
+        "etag": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Etag"
+        },
+        "last_modified": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Last Modified"
+        },
+        "source_completeness": {
+          "const": "notice_only",
+          "default": "notice_only",
+          "title": "Source Completeness",
+          "type": "string"
+        },
+        "manual_attestation": {
+          "default": false,
+          "title": "Manual Attestation",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "snapshot_id",
+        "source_url",
+        "sha256",
+        "byte_size",
+        "fetched_at",
+        "content_type",
+        "encoding",
+        "access_method"
+      ],
+      "title": "Snapshot",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "notice_id": {
+      "title": "Notice Id",
+      "type": "string"
+    },
+    "project_code": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Project Code"
+    },
+    "title": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Title"
+    },
+    "buyer_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Buyer Name"
+    },
+    "notice_kind": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Notice Kind"
+    },
+    "budget": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Money"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "published_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published At"
+    },
+    "published_date": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Published Date"
+    },
+    "publication_precision": {
+      "anyOf": [
+        {
+          "enum": [
+            "date",
+            "minute",
+            "second"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Publication Precision"
+    },
+    "bid_deadline_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Bid Deadline At"
+    },
+    "document_deadline_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Document Deadline At"
+    },
+    "observed_at": {
+      "title": "Observed At",
+      "type": "string"
+    },
+    "status_as_observed": {
+      "default": "unknown",
+      "enum": [
+        "unknown",
+        "review_required"
+      ],
+      "title": "Status As Observed",
+      "type": "string"
+    },
+    "packages": {
+      "items": {
+        "$ref": "#/$defs/Package"
+      },
+      "title": "Packages",
+      "type": "array"
+    },
+    "eligibility_conditions": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Eligibility Conditions",
+      "type": "array"
+    },
+    "source": {
+      "$ref": "#/$defs/Snapshot"
+    },
+    "field_evidence": {
+      "additionalProperties": {
+        "items": {
+          "$ref": "#/$defs/Evidence"
+        },
+        "type": "array"
+      },
+      "title": "Field Evidence",
+      "type": "object"
+    },
+    "abstain_reason": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Abstain Reason",
+      "type": "object"
+    },
+    "parse_warnings": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Parse Warnings",
+      "type": "array"
+    },
+    "parser_version": {
+      "default": "p0.1",
+      "title": "Parser Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "notice_id",
+    "observed_at",
+    "source"
+  ],
+  "title": "Notice",
+  "type": "object"
+}

@@ -1,0 +1,45 @@
+[
+  {
+    "id": "ccgp",
+    "name": "中国政府采购网",
+    "host": "www.ccgp.gov.cn",
+    "home_url": "https://www.ccgp.gov.cn/",
+    "robots_status": "unknown",
+    "terms_status": "unknown",
+    "permission_evidence": null,
+    "reviewed_at": "2026-10-22T11:09:00+00:00",
+    "decision_reason": "robots returned 404; homepage readable, no automated-collection permission established. See reports/p0-source-audit-20261022.json.",
+    "allowed_urls": [
+      "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm",
+      "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm",
+      "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520100.htm",
+      "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510616.htm",
+      "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261018_27513837.htm",
+      "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202609/t20260918_27358274.htm"
+    ]
+  },
+  {
+    "id": "tianjin",
+    "name": "天津市政府采购网",
+    "host": "www.ccgp-tianjin.gov.cn",
+    "home_url": "https://www.ccgp-tianjin.gov.cn/",
+    "robots_status": "unknown",
+    "terms_status": "unknown",
+    "permission_evidence": null,
+    "reviewed_at": "2026-10-22T11:09:00+00:00",
+    "decision_reason": "Seed domain redirects to www; canonical robots returned 404; no automated-collection terms established. See source audit report.",
+    "allowed_urls": []
+  },
+  {
+    "id": "tjggzy",
+    "name": "天津市公共资源交易平台",
+    "host": "ggzy.zwfwb.tj.gov.cn",
+    "home_url": "https://ggzy.zwfwb.tj.gov.cn/",
+    "robots_status": "unknown",
+    "terms_status": "unknown",
+    "permission_evidence": null,
+    "reviewed_at": "2026-10-22T11:09:00+00:00",
+    "decision_reason": "Metadata requests received upstream connection-timeout 503; origin policy remains unknown. See source audit report.",
+    "allowed_urls": []
+  }
+]

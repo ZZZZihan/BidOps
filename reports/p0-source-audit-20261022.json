@@ -1,0 +1,113 @@
+{
+  "records": [
+    {
+      "source": "ccgp",
+      "kind": "robots",
+      "url": "https://www.ccgp.gov.cn/robots.txt",
+      "checked_at": "2026-10-22T11:06:57.092281+00:00",
+      "permission": "unknown",
+      "http_status": 404,
+      "content_type": "text/html",
+      "location": null,
+      "sha256": "4ee1a3c61648c469a67688d6b6d32db71a653d7d7acb871220a4e1161c700bea",
+      "byte_size": 3134,
+      "note": "Observation only; human permission review required"
+    },
+    {
+      "source": "ccgp",
+      "kind": "homepage",
+      "url": "https://www.ccgp.gov.cn/",
+      "checked_at": "2026-10-22T11:07:02.092418+00:00",
+      "permission": "unknown",
+      "http_status": 200,
+      "content_type": "text/html",
+      "location": null,
+      "sha256": "91b51bb894d4eb836c2274be474509364012a0380cedc3c92905766dd2558b76",
+      "byte_size": 69534,
+      "terms_links_found": [],
+      "note": "Observation only; human permission review required"
+    },
+    {
+      "source": "tianjin",
+      "kind": "robots",
+      "url": "https://ccgp-tianjin.gov.cn/robots.txt",
+      "checked_at": "2026-10-22T11:07:07.094514+00:00",
+      "permission": "unknown",
+      "http_status": 301,
+      "content_type": "text/html",
+      "location": "https://www.ccgp-tianjin.gov.cn",
+      "sha256": "9e17cb15dd75bbbd5dbb984eda674863c3b10ab72613cf8a39a00c3e11a8492a",
+      "byte_size": 162,
+      "note": "Observation only; human permission review required"
+    },
+    {
+      "source": "tianjin",
+      "kind": "homepage",
+      "url": "https://ccgp-tianjin.gov.cn/",
+      "checked_at": "2026-10-22T11:07:12.131131+00:00",
+      "permission": "unknown",
+      "http_status": 301,
+      "content_type": "text/html",
+      "location": "https://www.ccgp-tianjin.gov.cn",
+      "sha256": "9e17cb15dd75bbbd5dbb984eda674863c3b10ab72613cf8a39a00c3e11a8492a",
+      "byte_size": 162,
+      "note": "Observation only; human permission review required"
+    },
+    {
+      "source": "tjggzy",
+      "kind": "robots",
+      "url": "https://ggzy.zwfwb.tj.gov.cn/robots.txt",
+      "checked_at": "2026-10-22T11:07:17.131638+00:00",
+      "permission": "unknown",
+      "http_status": 503,
+      "content_type": "text/plain",
+      "location": null,
+      "sha256": "2f85832e31ca57711e6107af6b142363351ae516adb71c69afc643fac26be7f6",
+      "byte_size": 91,
+      "note": "Observation only; human permission review required"
+    },
+    {
+      "source": "tjggzy",
+      "kind": "homepage",
+      "url": "https://ggzy.zwfwb.tj.gov.cn/",
+      "checked_at": "2026-10-22T11:07:25.393131+00:00",
+      "permission": "unknown",
+      "http_status": 503,
+      "content_type": "text/plain",
+      "location": null,
+      "sha256": "2f85832e31ca57711e6107af6b142363351ae516adb71c69afc643fac26be7f6",
+      "byte_size": 91,
+      "note": "Observation only; human permission review required"
+    },
+    {
+      "source": "tianjin",
+      "kind": "robots",
+      "url": "https://www.ccgp-tianjin.gov.cn/robots.txt",
+      "checked_at": "2026-10-22T11:08:51.954251+00:00",
+      "permission": "unknown",
+      "http_status": 404,
+      "content_type": "text/html;charset=UTF-8",
+      "location": null,
+      "sha256": "96af5323599995bbe56a1275ab43fe89413ad0264b638d298b41d41e924878a5",
+      "byte_size": 238,
+      "note": "Observation only; human permission review required"
+    },
+    {
+      "source": "tianjin",
+      "kind": "homepage",
+      "url": "https://www.ccgp-tianjin.gov.cn/",
+      "checked_at": "2026-10-22T11:08:56.954393+00:00",
+      "permission": "unknown",
+      "http_status": 200,
+      "content_type": "text/html;charset=UTF-8",
+      "location": null,
+      "sha256": "749d6ccf2a454ba1497a161dcb4e962de1eb8dd3ea28c5886de9eb320b575b4a",
+      "byte_size": 135503,
+      "terms_links_found": [],
+      "note": "Observation only; human permission review required"
+    }
+  ],
+  "notice_http_requests": 0,
+  "permission_decision": "unknown",
+  "scope": "Public metadata only; no notice bodies; all raw audit bytes excluded from repository"
+}
