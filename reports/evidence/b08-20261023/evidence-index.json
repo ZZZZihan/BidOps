@@ -1,0 +1,62 @@
+{
+  "code_sha": "b42f05269e13be278d220a1307d79ee4b17aad6b",
+  "source": "synthetic_engineering_only",
+  "files": [
+    {
+      "path": "backend.txt",
+      "bytes": 2113,
+      "sha256": "b6d2c8eafb66c89bbd114d644a6bb9998444178bac2a8640a1ee1d2f5d50ae29"
+    },
+    {
+      "path": "calibration/execution.json",
+      "bytes": 861,
+      "sha256": "7212239c304db3c2357aef8309f1ec6c96d7739a2ac05a9e23ec447edcdf79ec"
+    },
+    {
+      "path": "calibration/input.json",
+      "bytes": 52565,
+      "sha256": "86cb78ec745d8a04176747d3b1e2a134a14a9696da18fad09e82cd84bbfd2243"
+    },
+    {
+      "path": "calibration/manifest.json",
+      "bytes": 1093,
+      "sha256": "7adee39c1ffa5f39f523293fb45379c3059e57e512b22d4ecc7606d0143008e9"
+    },
+    {
+      "path": "calibration/report.json",
+      "bytes": 33304,
+      "sha256": "e3cd465c803e8fb3a590088e9b708f63cc85d98c99c43fb63758bc4db5f742be"
+    },
+    {
+      "path": "format.txt",
+      "bytes": 28,
+      "sha256": "586fb37ab03e326fd7d42974a2af011ba905524a2698a03c5a1b28499f83dd69"
+    },
+    {
+      "path": "freeze.txt",
+      "bytes": 74,
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7"
+    },
+    {
+      "path": "frozen-scorer.json",
+      "bytes": 21515,
+      "sha256": "d69f4d47456e754fb6e6d98874c40f2bf9dd1479707a35638daef10078f0f907"
+    },
+    {
+      "path": "lint.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "verification.json",
+      "bytes": 2293,
+      "sha256": "211db2c13b8033156f36c0a32e5090bccf77f19f104f3113065483984c72cc82"
+    },
+    {
+      "path": "final-ci.json",
+      "bytes": 1277,
+      "sha256": "0113d392f58ace5fa6930b76606828e22e54c22db139375e6f0e30c1834dd2bc"
+    }
+  ],
+  "final_ci_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64"
+}
