@@ -1,0 +1,41 @@
+{
+  "code_sha": "4d22667acc4001b57d3dfca248a7cb78d5636587",
+  "base_sha": "41f87d73505f446af56b4d5f7af63254f5ef884d",
+  "python": "3.12.12",
+  "platform": "macOS-27.2-arm64-arm-64bit",
+  "dependencies": {
+    "pydantic": "2.14.1",
+    "pydantic-evals": "2.59.0",
+    "pydantic-ai-slim": "2.59.0"
+  },
+  "model_calls": 0,
+  "additional_cost_cny": "0",
+  "engineer": "Codex main (GPT-6 Astra / max explicitly allowed this run)",
+  "technical_reviewers": [
+    "b01_contract_audit (requested GPT-6.1 Sol / ultra)",
+    "b01_eval_audit (requested GPT-6.1 Sol / ultra)"
+  ],
+  "human_acceptance": "BLOCKED",
+  "files": [
+    {
+      "path": "checks.json",
+      "sha256": "4958dff67d12aca5cded911b81227d8cdea6a3923ab2664b30f4c005edc635a5"
+    },
+    {
+      "path": "pytest.txt",
+      "sha256": "3bb5fbf36cd3bdcab0ec6c302389013cf014a0adfcfd36abbfd5263cccdb84a2"
+    },
+    {
+      "path": "ruff-check.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "ruff-format.txt",
+      "sha256": "6114356fc8543f9b1499b46d779907553f226a3cbe7eae8e671881fa2d14eed3"
+    },
+    {
+      "path": "scorer-fixture.json",
+      "sha256": "058fa35f6fe827d44f6832abbd3138d4338185f393757796c328244a91764690"
+    }
+  ]
+}

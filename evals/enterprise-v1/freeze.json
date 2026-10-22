@@ -1,0 +1,79 @@
+{
+  "protocol_id": "bidops-enterprise-evaluation",
+  "protocol_version": "1",
+  "frozen_at": "2026-10-22T16:40:25.351888+00:00",
+  "files": [
+    {
+      "path": "backend/bidops/__init__.py",
+      "sha256": "23fe1aa16813b8a9f98dd23e68ce38624363b1439853b6258080d21731972604"
+    },
+    {
+      "path": "backend/bidops/models.py",
+      "sha256": "adf53f6f3c25e9d858c2bc527bc0d589d698e9ab1188f7e8f0b94251f27e9d2c"
+    },
+    {
+      "path": "backend/bidops/screening/__init__.py",
+      "sha256": "e5d599aa488a43936838756890a025290924a0cdcd79e87c6c6791d16f490bce"
+    },
+    {
+      "path": "backend/bidops/screening/eval_protocol.py",
+      "sha256": "6ce8f6b7a27b38cf69ae025875c0131bbae275f1bfd1ee7c545268a19a6ac458"
+    },
+    {
+      "path": "backend/bidops/screening/evaluation.py",
+      "sha256": "f1df4359ef6321c2b61cbb13f0bada7f30404e0f4d1cd54aec5419fd70ac98b9"
+    },
+    {
+      "path": "backend/bidops/screening/freeze.py",
+      "sha256": "afaecd07c53f5e40e39c7b2c9298188f1a9493d2a586b5f3dc0a68c5c8b36ba2"
+    },
+    {
+      "path": "backend/bidops/screening/offline_eval.py",
+      "sha256": "a296c99b7d90d852d317dbf7044e451c06d72beff47d35a9f07687f82d9b83a0"
+    },
+    {
+      "path": "backend/bidops/screening/schemas.py",
+      "sha256": "d54d3dce97992d9ebbc61d15b4919766d0c0f2b9a367444b3196b75912d0b4da"
+    },
+    {
+      "path": "evals/enterprise-v1/engineering-fixture.json",
+      "sha256": "eda43a451ae978251de4be003f1c062d1a4d3e93db9249c9c5458966628f44fb"
+    },
+    {
+      "path": "evals/enterprise-v1/protocol.json",
+      "sha256": "150b20e3f1be96907ee316a3ceb1932bf13447204a811504087e369a8d3dc7e2"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "7a851a0b74e5f1c8385859aaa05f8c42faceda3ea06af52f3289296eda0ed1bb"
+    },
+    {
+      "path": "scripts/screening_eval.py",
+      "sha256": "c64126ee3de64f4b8040548a426375d6be8a2900c1d339f3c358c648fe0991b3"
+    },
+    {
+      "path": "tests/test_eval_freeze.py",
+      "sha256": "0e13afab657b6540ce9ed2bbfbcf9848588cb597856af3d5d9ce19dbad6688a3"
+    },
+    {
+      "path": "tests/test_eval_protocol.py",
+      "sha256": "6d84753ccda56969ef8d8bea69b777beb7dc95989abc48001783c69c043b2d17"
+    },
+    {
+      "path": "tests/test_offline_eval.py",
+      "sha256": "348df16a05235f1b01d285d8ddb22c6bf83b99e74d531f19d56338a924759436"
+    },
+    {
+      "path": "tests/test_screening_evaluation.py",
+      "sha256": "1be3c9f41aba7dadddafbcfdcbd9625a174071a8916d9ff398d3316be5bed750"
+    },
+    {
+      "path": "tests/test_screening_schemas.py",
+      "sha256": "726a461b478ad86104b0aeadb87b78d522fa272ad0c0034c9501bb17a49990db"
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27"
+    }
+  ]
+}

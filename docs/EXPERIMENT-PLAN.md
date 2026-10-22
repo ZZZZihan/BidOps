@@ -27,3 +27,10 @@
 ## Competition's product completion is DIFFERENT
 
 The republished notice demands a runnable MVP, project PPT, official form and technical document. It does **not** demand model training, a benchmark score, GPU run, public GitHub or a fixed number of collected notices. Our numeric quality criteria are self-imposed to defend the product in demonstrations.
+
+## 企业业务评测实现补充（2026-10-23）
+
+B01 新增独立 schema、隔离／抽样／人工对照校验及可执行评分器。
+本文件原 P1 门槛继续有效，新增门槛和分母定义见
+[企业评测协议 v1](ENTERPRISE-EVALUATION.md) 与 `evals/enterprise-v1/protocol.json`。
+旧六公告、模型预标注和工程夹具均不能作为独立验收样本；本轮离线校准不产生 Agent 成绩。
