@@ -1,0 +1,49 @@
+{
+  "protocol_id": "bidops-enterprise-evaluation",
+  "protocol_version": "1",
+  "scorer_version": "enterprise-scorer-v1",
+  "sampling_seed": 20261023,
+  "reference_plan": "docs/ENTERPRISE-PR-PLAN.md section 14",
+  "thresholds": {
+    "p1_project_code_and_source_recall": 1.0,
+    "p1_deadline_and_budget_unit_precision": 0.95,
+    "p1_deadline_and_budget_unit_coverage": 0.85,
+    "candidate_recall": 0.95,
+    "hard_condition_recall": 0.95,
+    "definite_error_rate_max": 0.05,
+    "decidable_coverage": 0.85,
+    "citation_resolution": 1.0,
+    "evidence_support": 0.98,
+    "serious_errors_max": 0,
+    "undisclosed_stale_references_max": 0,
+    "reviewed_quality_change_min": 0,
+    "median_paired_time_saving_min": 0.20
+  },
+  "minimum_data": {
+    "real_notices": 30,
+    "notice_categories": 3,
+    "layouts": 2,
+    "independent_gold_families": 20,
+    "historical_deadline": 10,
+    "future_at_capture_deadline": 10,
+    "future_exception": "Must be frozen with availability count and evidence before evaluation.",
+    "real_families_per_risk": 3,
+    "risk_types": ["hard_disqualification", "missing_qualification_evidence", "conflicting_evidence", "qualification_amendment", "terminated", "attachment_dependency"]
+  },
+  "human_comparison": {
+    "families": 10,
+    "operators": 2,
+    "assignment": "randomized_balanced",
+    "same_input_and_deliverable": true,
+    "blind_to_gold": true,
+    "same_operator_never_repeats_family_or_input": true,
+    "freeze_task_limits_start_stop_and_quality_units": true,
+    "include_all_registered_tasks": true,
+    "any_failed_or_timed_out_task": "FAIL time gate; retain every quality denominator"
+  },
+  "zero_required_denominator": "N/A (JSON null) and BLOCKED",
+  "model_budget_cny": "10",
+  "budget_rule": "Cumulative existing spend and uncertain reservations remain charged; no reset.",
+  "fixture_policy": "Engineering fixtures are not real notices, independent gold, Agent scores or human time measurements.",
+  "blind_retest": "After tuning on blind answers, preserve first results, move that corpus to regression and use a new blind corpus."
+}

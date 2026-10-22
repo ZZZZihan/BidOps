@@ -1,5 +1,12 @@
 # Engineering tests, not procurement samples
 
+B01 adds explicit synthetic `UNIT-*` scorer calibration records under
+`evals/enterprise-v1/engineering-fixture.json`. They cover contracts, leakage,
+independent-annotation records, serious errors, invalid/irrelevant/stale evidence,
+failed tasks, human-comparison protocols and external manifest pins. These are
+not model outputs or real human measurements. `scripts/screening_eval.py` only
+calibrates the scorer and always reports business acceptance BLOCKED.
+
 Test inputs are self-authored, minimal syntax fragments and HTTP protocol doubles.
 `UNIT-*` identifiers and test text exist only in temporary test databases. They are not
 government announcements, lawful real-source fixtures, gold annotations, demo data, or

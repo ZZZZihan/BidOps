@@ -1,0 +1,1463 @@
+{
+  "purpose": "engineering_fixture",
+  "fixture_label": "Synthetic UNIT records: no real notice, company, human, model execution or independent gold.",
+  "gold_tasks": [
+    {
+      "task_id": "UNIT-0",
+      "inputs": {
+        "project_family_id": "UNIT-0-family",
+        "project_id": "UNIT-0-project",
+        "notice_revision": {
+          "object_id": "UNIT-0-notice",
+          "version_id": "unit-v1",
+          "sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9"
+        },
+        "profile_revision": {
+          "object_id": "UNIT-0-profile",
+          "version_id": "unit-v1",
+          "sha256": "7f5d26478411777366d8e2252d64b85a5c75cfd3d8f6f562adbe94567952b7fa"
+        },
+        "material_revisions": [
+          {
+            "object_id": "UNIT-0-material",
+            "version_id": "unit-v1",
+            "sha256": "df5023dd618fb6f8fb9e2365ef2c598d5f7b64db75ff7141de95284bb30044e9"
+          }
+        ],
+        "attachment_revisions": [],
+        "as_of": "2026-10-23T08:00:00+08:00"
+      },
+      "package_id": "UNIT-0-package",
+      "candidate_required": true,
+      "terminated": false,
+      "conditions": [
+        {
+          "condition": {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 0: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 0: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-0-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-0-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-0-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9"
+                },
+                "text_sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9",
+                "quote": "UNIT synthetic notice 0: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          },
+          "status": "satisfied",
+          "support_bundles": [
+            [
+              "UNIT-0-notice-ref",
+              "UNIT-0-company-ref"
+            ]
+          ]
+        }
+      ],
+      "fields": {
+        "project_code": "UNIT-0",
+        "source_url": "https://example.invalid/engineering/UNIT-0",
+        "title": "UNIT synthetic UNIT-0",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 0: a valid license is required."
+        ]
+      }
+    },
+    {
+      "task_id": "UNIT-1",
+      "inputs": {
+        "project_family_id": "UNIT-1-family",
+        "project_id": "UNIT-1-project",
+        "notice_revision": {
+          "object_id": "UNIT-1-notice",
+          "version_id": "unit-v1",
+          "sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3"
+        },
+        "profile_revision": {
+          "object_id": "UNIT-1-profile",
+          "version_id": "unit-v1",
+          "sha256": "1429604844cbaf2ccbd34026b099a6e5667a21d3e7da4017dd8147f93202e84c"
+        },
+        "material_revisions": [
+          {
+            "object_id": "UNIT-1-material",
+            "version_id": "unit-v1",
+            "sha256": "9076c6a798b3b487cc87a09da377bdbe8ba489ca08d281df6c35c7ffc3ab4dae"
+          }
+        ],
+        "attachment_revisions": [],
+        "as_of": "2026-10-23T08:00:00+08:00"
+      },
+      "package_id": "UNIT-1-package",
+      "candidate_required": false,
+      "terminated": true,
+      "conditions": [
+        {
+          "condition": {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 1: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 1: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-1-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-1-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-1-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3"
+                },
+                "text_sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3",
+                "quote": "UNIT synthetic notice 1: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          },
+          "status": "not_satisfied",
+          "support_bundles": [
+            [
+              "UNIT-1-notice-ref",
+              "UNIT-1-company-ref"
+            ]
+          ]
+        }
+      ],
+      "fields": {
+        "project_code": "UNIT-1",
+        "source_url": "https://example.invalid/engineering/UNIT-1",
+        "title": "UNIT synthetic UNIT-1",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 1: a valid license is required."
+        ]
+      }
+    },
+    {
+      "task_id": "UNIT-2",
+      "inputs": {
+        "project_family_id": "UNIT-2-family",
+        "project_id": "UNIT-2-project",
+        "notice_revision": {
+          "object_id": "UNIT-2-notice",
+          "version_id": "unit-v1",
+          "sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49"
+        },
+        "profile_revision": {
+          "object_id": "UNIT-2-profile",
+          "version_id": "unit-v1",
+          "sha256": "40f24eb28005ada10391d58923339ac3e1645364418a5595b6ff7b45b7bcd19d"
+        },
+        "material_revisions": [
+          {
+            "object_id": "UNIT-2-material",
+            "version_id": "unit-v1",
+            "sha256": "e76ff5945181f843603e5bbc7244c3ac73ddf8c8de8f3db0a8a9641de7723c56"
+          }
+        ],
+        "attachment_revisions": [],
+        "as_of": "2026-10-23T08:00:00+08:00"
+      },
+      "package_id": "UNIT-2-package",
+      "candidate_required": true,
+      "terminated": false,
+      "conditions": [
+        {
+          "condition": {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 2: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 2: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-2-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-2-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-2-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49"
+                },
+                "text_sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49",
+                "quote": "UNIT synthetic notice 2: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          },
+          "status": "information_insufficient",
+          "support_bundles": [],
+          "missing_items": [
+            "UNIT license proof missing"
+          ]
+        }
+      ],
+      "fields": {
+        "project_code": "UNIT-2",
+        "source_url": "https://example.invalid/engineering/UNIT-2",
+        "title": "UNIT synthetic UNIT-2",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 2: a valid license is required."
+        ]
+      }
+    },
+    {
+      "task_id": "UNIT-3",
+      "inputs": {
+        "project_family_id": "UNIT-3-family",
+        "project_id": "UNIT-3-project",
+        "notice_revision": {
+          "object_id": "UNIT-3-notice",
+          "version_id": "unit-v1",
+          "sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e"
+        },
+        "profile_revision": {
+          "object_id": "UNIT-3-profile",
+          "version_id": "unit-v1",
+          "sha256": "be3f6fc96cb1c7a77ae5e940454258b3b0b36a5ba4e3ba5aa3b93b6ddc2cefa5"
+        },
+        "material_revisions": [
+          {
+            "object_id": "UNIT-3-material",
+            "version_id": "unit-v1",
+            "sha256": "45529c62792e6a05a505368bcff067eae07b9ba4c6a3de7271dfd43511e104de"
+          },
+          {
+            "object_id": "UNIT-3-conflict",
+            "version_id": "unit-v1",
+            "sha256": "2ac7607734b0186b2769ab7d3368eb1e4cf207156244caaafbc55959a26f3ee9"
+          }
+        ],
+        "attachment_revisions": [],
+        "as_of": "2026-10-23T08:00:00+08:00"
+      },
+      "package_id": "UNIT-3-package",
+      "candidate_required": true,
+      "terminated": false,
+      "conditions": [
+        {
+          "condition": {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 3: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 3: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-3-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-3-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-3-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e"
+                },
+                "text_sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e",
+                "quote": "UNIT synthetic notice 3: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          },
+          "status": "evidence_conflict",
+          "support_bundles": [
+            [
+              "UNIT-3-notice-ref",
+              "UNIT-3-company-ref",
+              "UNIT-3-conflict-ref"
+            ]
+          ]
+        }
+      ],
+      "fields": {
+        "project_code": "UNIT-3",
+        "source_url": "https://example.invalid/engineering/UNIT-3",
+        "title": "UNIT synthetic UNIT-3",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 3: a valid license is required."
+        ]
+      }
+    },
+    {
+      "task_id": "UNIT-4",
+      "inputs": {
+        "project_family_id": "UNIT-4-family",
+        "project_id": "UNIT-4-project",
+        "notice_revision": {
+          "object_id": "UNIT-4-notice",
+          "version_id": "unit-v1",
+          "sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5"
+        },
+        "profile_revision": {
+          "object_id": "UNIT-4-profile",
+          "version_id": "unit-v1",
+          "sha256": "955e1509e2bb9f6661862fff3823b50e00d2da5a5501ec10963da1d5e3031007"
+        },
+        "material_revisions": [
+          {
+            "object_id": "UNIT-4-material",
+            "version_id": "unit-v1",
+            "sha256": "c30fc9fbb7294f3a27f81fcd95135b9c6baf82170b66818666da8d36a59e12f4"
+          }
+        ],
+        "attachment_revisions": [],
+        "as_of": "2026-10-23T08:00:00+08:00"
+      },
+      "package_id": "UNIT-4-package",
+      "candidate_required": true,
+      "terminated": false,
+      "conditions": [
+        {
+          "condition": {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 4: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 4: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-4-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-4-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-4-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5"
+                },
+                "text_sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5",
+                "quote": "UNIT synthetic notice 4: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          },
+          "status": "not_applicable",
+          "support_bundles": [
+            [
+              "UNIT-4-notice-ref",
+              "UNIT-4-company-ref"
+            ]
+          ]
+        }
+      ],
+      "fields": {
+        "project_code": "UNIT-4",
+        "source_url": "https://example.invalid/engineering/UNIT-4",
+        "title": "UNIT synthetic UNIT-4",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 4: a valid license is required."
+        ]
+      }
+    }
+  ],
+  "observed_tasks": [
+    {
+      "task_id": "UNIT-0",
+      "state": "completed",
+      "candidate": true,
+      "positive_recommendation": true,
+      "stale_disclosed": false,
+      "assessment": {
+        "assessment_id": "UNIT-0-result",
+        "result_revision": "unit-r1",
+        "inputs": {
+          "project_family_id": "UNIT-0-family",
+          "project_id": "UNIT-0-project",
+          "notice_revision": {
+            "object_id": "UNIT-0-notice",
+            "version_id": "unit-v1",
+            "sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9"
+          },
+          "profile_revision": {
+            "object_id": "UNIT-0-profile",
+            "version_id": "unit-v1",
+            "sha256": "7f5d26478411777366d8e2252d64b85a5c75cfd3d8f6f562adbe94567952b7fa"
+          },
+          "material_revisions": [
+            {
+              "object_id": "UNIT-0-material",
+              "version_id": "unit-v1",
+              "sha256": "df5023dd618fb6f8fb9e2365ef2c598d5f7b64db75ff7141de95284bb30044e9"
+            }
+          ],
+          "attachment_revisions": [],
+          "as_of": "2026-10-23T08:00:00+08:00"
+        },
+        "target_package_id": "UNIT-0-package",
+        "conditions": [
+          {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 0: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 0: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-0-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-0-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-0-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9"
+                },
+                "text_sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9",
+                "quote": "UNIT synthetic notice 0: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          }
+        ],
+        "assessments": [
+          {
+            "condition_id": "license",
+            "status": "satisfied",
+            "reason": "UNIT synthetic oracle agreement; never a real model result.",
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-0-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-0-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9"
+                },
+                "text_sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9",
+                "quote": "UNIT synthetic notice 0: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ],
+            "company_evidence": [
+              {
+                "evidence_id": "UNIT-0-company-ref",
+                "side": "company",
+                "object_kind": "company_material",
+                "version": {
+                  "object_id": "UNIT-0-material",
+                  "version_id": "unit-v1",
+                  "sha256": "df5023dd618fb6f8fb9e2365ef2c598d5f7b64db75ff7141de95284bb30044e9"
+                },
+                "text_sha256": "df5023dd618fb6f8fb9e2365ef2c598d5f7b64db75ff7141de95284bb30044e9",
+                "quote": "UNIT synthetic material 0: license state satisfied.",
+                "start": 0,
+                "end": 51,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "project_code": "UNIT-0",
+        "source_url": "https://example.invalid/engineering/UNIT-0",
+        "title": "UNIT synthetic UNIT-0",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 0: a valid license is required."
+        ]
+      }
+    },
+    {
+      "task_id": "UNIT-1",
+      "state": "completed",
+      "candidate": false,
+      "positive_recommendation": false,
+      "stale_disclosed": false,
+      "assessment": {
+        "assessment_id": "UNIT-1-result",
+        "result_revision": "unit-r1",
+        "inputs": {
+          "project_family_id": "UNIT-1-family",
+          "project_id": "UNIT-1-project",
+          "notice_revision": {
+            "object_id": "UNIT-1-notice",
+            "version_id": "unit-v1",
+            "sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3"
+          },
+          "profile_revision": {
+            "object_id": "UNIT-1-profile",
+            "version_id": "unit-v1",
+            "sha256": "1429604844cbaf2ccbd34026b099a6e5667a21d3e7da4017dd8147f93202e84c"
+          },
+          "material_revisions": [
+            {
+              "object_id": "UNIT-1-material",
+              "version_id": "unit-v1",
+              "sha256": "9076c6a798b3b487cc87a09da377bdbe8ba489ca08d281df6c35c7ffc3ab4dae"
+            }
+          ],
+          "attachment_revisions": [],
+          "as_of": "2026-10-23T08:00:00+08:00"
+        },
+        "target_package_id": "UNIT-1-package",
+        "conditions": [
+          {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 1: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 1: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-1-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-1-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-1-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3"
+                },
+                "text_sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3",
+                "quote": "UNIT synthetic notice 1: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          }
+        ],
+        "assessments": [
+          {
+            "condition_id": "license",
+            "status": "not_satisfied",
+            "reason": "UNIT synthetic oracle agreement; never a real model result.",
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-1-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-1-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3"
+                },
+                "text_sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3",
+                "quote": "UNIT synthetic notice 1: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ],
+            "company_evidence": [
+              {
+                "evidence_id": "UNIT-1-company-ref",
+                "side": "company",
+                "object_kind": "company_material",
+                "version": {
+                  "object_id": "UNIT-1-material",
+                  "version_id": "unit-v1",
+                  "sha256": "9076c6a798b3b487cc87a09da377bdbe8ba489ca08d281df6c35c7ffc3ab4dae"
+                },
+                "text_sha256": "9076c6a798b3b487cc87a09da377bdbe8ba489ca08d281df6c35c7ffc3ab4dae",
+                "quote": "UNIT synthetic material 1: license state not_satisfied.",
+                "start": 0,
+                "end": 55,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "project_code": "UNIT-1",
+        "source_url": "https://example.invalid/engineering/UNIT-1",
+        "title": "UNIT synthetic UNIT-1",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 1: a valid license is required."
+        ]
+      }
+    },
+    {
+      "task_id": "UNIT-2",
+      "state": "completed",
+      "candidate": true,
+      "positive_recommendation": false,
+      "stale_disclosed": false,
+      "assessment": {
+        "assessment_id": "UNIT-2-result",
+        "result_revision": "unit-r1",
+        "inputs": {
+          "project_family_id": "UNIT-2-family",
+          "project_id": "UNIT-2-project",
+          "notice_revision": {
+            "object_id": "UNIT-2-notice",
+            "version_id": "unit-v1",
+            "sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49"
+          },
+          "profile_revision": {
+            "object_id": "UNIT-2-profile",
+            "version_id": "unit-v1",
+            "sha256": "40f24eb28005ada10391d58923339ac3e1645364418a5595b6ff7b45b7bcd19d"
+          },
+          "material_revisions": [
+            {
+              "object_id": "UNIT-2-material",
+              "version_id": "unit-v1",
+              "sha256": "e76ff5945181f843603e5bbc7244c3ac73ddf8c8de8f3db0a8a9641de7723c56"
+            }
+          ],
+          "attachment_revisions": [],
+          "as_of": "2026-10-23T08:00:00+08:00"
+        },
+        "target_package_id": "UNIT-2-package",
+        "conditions": [
+          {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 2: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 2: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-2-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-2-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-2-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49"
+                },
+                "text_sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49",
+                "quote": "UNIT synthetic notice 2: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          }
+        ],
+        "assessments": [
+          {
+            "condition_id": "license",
+            "status": "information_insufficient",
+            "reason": "UNIT synthetic oracle agreement; never a real model result.",
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-2-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-2-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49"
+                },
+                "text_sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49",
+                "quote": "UNIT synthetic notice 2: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ],
+            "company_evidence": [],
+            "missing_items": [
+              "UNIT license proof missing"
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "project_code": "UNIT-2",
+        "source_url": "https://example.invalid/engineering/UNIT-2",
+        "title": "UNIT synthetic UNIT-2",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 2: a valid license is required."
+        ]
+      }
+    },
+    {
+      "task_id": "UNIT-3",
+      "state": "completed",
+      "candidate": true,
+      "positive_recommendation": false,
+      "stale_disclosed": false,
+      "assessment": {
+        "assessment_id": "UNIT-3-result",
+        "result_revision": "unit-r1",
+        "inputs": {
+          "project_family_id": "UNIT-3-family",
+          "project_id": "UNIT-3-project",
+          "notice_revision": {
+            "object_id": "UNIT-3-notice",
+            "version_id": "unit-v1",
+            "sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e"
+          },
+          "profile_revision": {
+            "object_id": "UNIT-3-profile",
+            "version_id": "unit-v1",
+            "sha256": "be3f6fc96cb1c7a77ae5e940454258b3b0b36a5ba4e3ba5aa3b93b6ddc2cefa5"
+          },
+          "material_revisions": [
+            {
+              "object_id": "UNIT-3-material",
+              "version_id": "unit-v1",
+              "sha256": "45529c62792e6a05a505368bcff067eae07b9ba4c6a3de7271dfd43511e104de"
+            },
+            {
+              "object_id": "UNIT-3-conflict",
+              "version_id": "unit-v1",
+              "sha256": "2ac7607734b0186b2769ab7d3368eb1e4cf207156244caaafbc55959a26f3ee9"
+            }
+          ],
+          "attachment_revisions": [],
+          "as_of": "2026-10-23T08:00:00+08:00"
+        },
+        "target_package_id": "UNIT-3-package",
+        "conditions": [
+          {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 3: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 3: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-3-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-3-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-3-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e"
+                },
+                "text_sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e",
+                "quote": "UNIT synthetic notice 3: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          }
+        ],
+        "assessments": [
+          {
+            "condition_id": "license",
+            "status": "evidence_conflict",
+            "reason": "UNIT synthetic oracle agreement; never a real model result.",
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-3-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-3-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e"
+                },
+                "text_sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e",
+                "quote": "UNIT synthetic notice 3: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ],
+            "company_evidence": [
+              {
+                "evidence_id": "UNIT-3-company-ref",
+                "side": "company",
+                "object_kind": "company_material",
+                "version": {
+                  "object_id": "UNIT-3-material",
+                  "version_id": "unit-v1",
+                  "sha256": "45529c62792e6a05a505368bcff067eae07b9ba4c6a3de7271dfd43511e104de"
+                },
+                "text_sha256": "45529c62792e6a05a505368bcff067eae07b9ba4c6a3de7271dfd43511e104de",
+                "quote": "UNIT synthetic material 3: license state evidence_conflict.",
+                "start": 0,
+                "end": 59,
+                "locator": "normalized_text_v2"
+              },
+              {
+                "evidence_id": "UNIT-3-conflict-ref",
+                "side": "company",
+                "object_kind": "company_material",
+                "version": {
+                  "object_id": "UNIT-3-conflict",
+                  "version_id": "unit-v1",
+                  "sha256": "2ac7607734b0186b2769ab7d3368eb1e4cf207156244caaafbc55959a26f3ee9"
+                },
+                "text_sha256": "2ac7607734b0186b2769ab7d3368eb1e4cf207156244caaafbc55959a26f3ee9",
+                "quote": "UNIT synthetic contradictory material 3.",
+                "start": 0,
+                "end": 40,
+                "locator": "normalized_text_v2"
+              }
+            ],
+            "conflicting_evidence_ids": [
+              "UNIT-3-company-ref",
+              "UNIT-3-conflict-ref"
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "project_code": "UNIT-3",
+        "source_url": "https://example.invalid/engineering/UNIT-3",
+        "title": "UNIT synthetic UNIT-3",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 3: a valid license is required."
+        ]
+      }
+    },
+    {
+      "task_id": "UNIT-4",
+      "state": "completed",
+      "candidate": true,
+      "positive_recommendation": false,
+      "stale_disclosed": false,
+      "assessment": {
+        "assessment_id": "UNIT-4-result",
+        "result_revision": "unit-r1",
+        "inputs": {
+          "project_family_id": "UNIT-4-family",
+          "project_id": "UNIT-4-project",
+          "notice_revision": {
+            "object_id": "UNIT-4-notice",
+            "version_id": "unit-v1",
+            "sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5"
+          },
+          "profile_revision": {
+            "object_id": "UNIT-4-profile",
+            "version_id": "unit-v1",
+            "sha256": "955e1509e2bb9f6661862fff3823b50e00d2da5a5501ec10963da1d5e3031007"
+          },
+          "material_revisions": [
+            {
+              "object_id": "UNIT-4-material",
+              "version_id": "unit-v1",
+              "sha256": "c30fc9fbb7294f3a27f81fcd95135b9c6baf82170b66818666da8d36a59e12f4"
+            }
+          ],
+          "attachment_revisions": [],
+          "as_of": "2026-10-23T08:00:00+08:00"
+        },
+        "target_package_id": "UNIT-4-package",
+        "conditions": [
+          {
+            "condition_id": "license",
+            "original_text": "UNIT synthetic notice 4: a valid license is required.",
+            "hard_requirement": true,
+            "package_scope": {
+              "kind": "all"
+            },
+            "expression": {
+              "node_id": "license-atom",
+              "operator": "atom",
+              "text": "UNIT synthetic notice 4: a valid license is required.",
+              "evidence_ids": [
+                "UNIT-4-notice-ref"
+              ]
+            },
+            "validity": {
+              "kind": "not_required"
+            },
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-4-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-4-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5"
+                },
+                "text_sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5",
+                "quote": "UNIT synthetic notice 4: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ]
+          }
+        ],
+        "assessments": [
+          {
+            "condition_id": "license",
+            "status": "not_applicable",
+            "reason": "UNIT synthetic oracle agreement; never a real model result.",
+            "notice_evidence": [
+              {
+                "evidence_id": "UNIT-4-notice-ref",
+                "side": "notice",
+                "object_kind": "notice",
+                "version": {
+                  "object_id": "UNIT-4-notice",
+                  "version_id": "unit-v1",
+                  "sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5"
+                },
+                "text_sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5",
+                "quote": "UNIT synthetic notice 4: a valid license is required.",
+                "start": 0,
+                "end": 53,
+                "locator": "normalized_text_v2"
+              }
+            ],
+            "company_evidence": [
+              {
+                "evidence_id": "UNIT-4-company-ref",
+                "side": "company",
+                "object_kind": "company_material",
+                "version": {
+                  "object_id": "UNIT-4-material",
+                  "version_id": "unit-v1",
+                  "sha256": "c30fc9fbb7294f3a27f81fcd95135b9c6baf82170b66818666da8d36a59e12f4"
+                },
+                "text_sha256": "c30fc9fbb7294f3a27f81fcd95135b9c6baf82170b66818666da8d36a59e12f4",
+                "quote": "UNIT synthetic material 4: license state not_applicable.",
+                "start": 0,
+                "end": 56,
+                "locator": "normalized_text_v2"
+              }
+            ],
+            "scope_evidence_ids": [
+              "UNIT-4-notice-ref",
+              "UNIT-4-company-ref"
+            ]
+          }
+        ]
+      },
+      "fields": {
+        "project_code": "UNIT-4",
+        "source_url": "https://example.invalid/engineering/UNIT-4",
+        "title": "UNIT synthetic UNIT-4",
+        "buyer_name": "UNIT synthetic buyer",
+        "budget": {
+          "amount": "100",
+          "currency": "CNY",
+          "unit": "万元"
+        },
+        "budget_unit": "万元",
+        "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+        "notice_kind": "unit_notice",
+        "eligibility_excerpts": [
+          "UNIT synthetic notice 4: a valid license is required."
+        ]
+      }
+    }
+  ],
+  "evidence": [
+    {
+      "reference": {
+        "evidence_id": "UNIT-0-notice-ref",
+        "side": "notice",
+        "object_kind": "notice",
+        "version": {
+          "object_id": "UNIT-0-notice",
+          "version_id": "unit-v1",
+          "sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9"
+        },
+        "text_sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9",
+        "quote": "UNIT synthetic notice 0: a valid license is required.",
+        "start": 0,
+        "end": 53,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic notice 0: a valid license is required.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-0-company-ref",
+        "side": "company",
+        "object_kind": "company_material",
+        "version": {
+          "object_id": "UNIT-0-material",
+          "version_id": "unit-v1",
+          "sha256": "df5023dd618fb6f8fb9e2365ef2c598d5f7b64db75ff7141de95284bb30044e9"
+        },
+        "text_sha256": "df5023dd618fb6f8fb9e2365ef2c598d5f7b64db75ff7141de95284bb30044e9",
+        "quote": "UNIT synthetic material 0: license state satisfied.",
+        "start": 0,
+        "end": 51,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic material 0: license state satisfied.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-1-notice-ref",
+        "side": "notice",
+        "object_kind": "notice",
+        "version": {
+          "object_id": "UNIT-1-notice",
+          "version_id": "unit-v1",
+          "sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3"
+        },
+        "text_sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3",
+        "quote": "UNIT synthetic notice 1: a valid license is required.",
+        "start": 0,
+        "end": 53,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic notice 1: a valid license is required.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-1-company-ref",
+        "side": "company",
+        "object_kind": "company_material",
+        "version": {
+          "object_id": "UNIT-1-material",
+          "version_id": "unit-v1",
+          "sha256": "9076c6a798b3b487cc87a09da377bdbe8ba489ca08d281df6c35c7ffc3ab4dae"
+        },
+        "text_sha256": "9076c6a798b3b487cc87a09da377bdbe8ba489ca08d281df6c35c7ffc3ab4dae",
+        "quote": "UNIT synthetic material 1: license state not_satisfied.",
+        "start": 0,
+        "end": 55,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic material 1: license state not_satisfied.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-2-notice-ref",
+        "side": "notice",
+        "object_kind": "notice",
+        "version": {
+          "object_id": "UNIT-2-notice",
+          "version_id": "unit-v1",
+          "sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49"
+        },
+        "text_sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49",
+        "quote": "UNIT synthetic notice 2: a valid license is required.",
+        "start": 0,
+        "end": 53,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic notice 2: a valid license is required.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-2-company-ref",
+        "side": "company",
+        "object_kind": "company_material",
+        "version": {
+          "object_id": "UNIT-2-material",
+          "version_id": "unit-v1",
+          "sha256": "e76ff5945181f843603e5bbc7244c3ac73ddf8c8de8f3db0a8a9641de7723c56"
+        },
+        "text_sha256": "e76ff5945181f843603e5bbc7244c3ac73ddf8c8de8f3db0a8a9641de7723c56",
+        "quote": "UNIT synthetic material 2: license state information_insufficient.",
+        "start": 0,
+        "end": 66,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic material 2: license state information_insufficient.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-3-conflict-ref",
+        "side": "company",
+        "object_kind": "company_material",
+        "version": {
+          "object_id": "UNIT-3-conflict",
+          "version_id": "unit-v1",
+          "sha256": "2ac7607734b0186b2769ab7d3368eb1e4cf207156244caaafbc55959a26f3ee9"
+        },
+        "text_sha256": "2ac7607734b0186b2769ab7d3368eb1e4cf207156244caaafbc55959a26f3ee9",
+        "quote": "UNIT synthetic contradictory material 3.",
+        "start": 0,
+        "end": 40,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic contradictory material 3.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-3-notice-ref",
+        "side": "notice",
+        "object_kind": "notice",
+        "version": {
+          "object_id": "UNIT-3-notice",
+          "version_id": "unit-v1",
+          "sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e"
+        },
+        "text_sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e",
+        "quote": "UNIT synthetic notice 3: a valid license is required.",
+        "start": 0,
+        "end": 53,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic notice 3: a valid license is required.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-3-company-ref",
+        "side": "company",
+        "object_kind": "company_material",
+        "version": {
+          "object_id": "UNIT-3-material",
+          "version_id": "unit-v1",
+          "sha256": "45529c62792e6a05a505368bcff067eae07b9ba4c6a3de7271dfd43511e104de"
+        },
+        "text_sha256": "45529c62792e6a05a505368bcff067eae07b9ba4c6a3de7271dfd43511e104de",
+        "quote": "UNIT synthetic material 3: license state evidence_conflict.",
+        "start": 0,
+        "end": 59,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic material 3: license state evidence_conflict.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-4-notice-ref",
+        "side": "notice",
+        "object_kind": "notice",
+        "version": {
+          "object_id": "UNIT-4-notice",
+          "version_id": "unit-v1",
+          "sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5"
+        },
+        "text_sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5",
+        "quote": "UNIT synthetic notice 4: a valid license is required.",
+        "start": 0,
+        "end": 53,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic notice 4: a valid license is required.",
+      "readable": true,
+      "current": true
+    },
+    {
+      "reference": {
+        "evidence_id": "UNIT-4-company-ref",
+        "side": "company",
+        "object_kind": "company_material",
+        "version": {
+          "object_id": "UNIT-4-material",
+          "version_id": "unit-v1",
+          "sha256": "c30fc9fbb7294f3a27f81fcd95135b9c6baf82170b66818666da8d36a59e12f4"
+        },
+        "text_sha256": "c30fc9fbb7294f3a27f81fcd95135b9c6baf82170b66818666da8d36a59e12f4",
+        "quote": "UNIT synthetic material 4: license state not_applicable.",
+        "start": 0,
+        "end": 56,
+        "locator": "normalized_text_v2"
+      },
+      "source_text": "UNIT synthetic material 4: license state not_applicable.",
+      "readable": true,
+      "current": true
+    }
+  ],
+  "dataset_records": [
+    {
+      "record_id": "UNIT-0",
+      "split": "acceptance",
+      "family_id": "UNIT-0-family",
+      "notice_id": "UNIT-0-notice",
+      "project_code": "UNIT-0",
+      "version_chain_id": "UNIT-0-notice",
+      "raw_sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9",
+      "text_sha256": "1cfb8e8a5597b39b6b8f57ec0c4ebdc2dfe45083bc9bb776490c07e446c9b6a9",
+      "source_url": "https://example.invalid/engineering/UNIT-0",
+      "provenance_kind": "engineering_fixture",
+      "source_permission": "unknown",
+      "notice_category": "unit_notice",
+      "layout": "unit_text",
+      "captured_at": "2026-10-23T08:00:00+08:00",
+      "deadline_at": "2026-11-06T08:30:00+08:00",
+      "risk_types": []
+    },
+    {
+      "record_id": "UNIT-1",
+      "split": "acceptance",
+      "family_id": "UNIT-1-family",
+      "notice_id": "UNIT-1-notice",
+      "project_code": "UNIT-1",
+      "version_chain_id": "UNIT-1-notice",
+      "raw_sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3",
+      "text_sha256": "a1c00a649f488e00ec466ab19b3d84a5e3bede692fdeadff8810cb5a7051c7a3",
+      "source_url": "https://example.invalid/engineering/UNIT-1",
+      "provenance_kind": "engineering_fixture",
+      "source_permission": "unknown",
+      "notice_category": "unit_notice",
+      "layout": "unit_text",
+      "captured_at": "2026-10-23T08:00:00+08:00",
+      "deadline_at": "2026-11-06T08:30:00+08:00",
+      "risk_types": []
+    },
+    {
+      "record_id": "UNIT-2",
+      "split": "acceptance",
+      "family_id": "UNIT-2-family",
+      "notice_id": "UNIT-2-notice",
+      "project_code": "UNIT-2",
+      "version_chain_id": "UNIT-2-notice",
+      "raw_sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49",
+      "text_sha256": "bd297d5b12537133d818111b7ccebad5aa5a9b15b1341e2b84e4592b44020d49",
+      "source_url": "https://example.invalid/engineering/UNIT-2",
+      "provenance_kind": "engineering_fixture",
+      "source_permission": "unknown",
+      "notice_category": "unit_notice",
+      "layout": "unit_text",
+      "captured_at": "2026-10-23T08:00:00+08:00",
+      "deadline_at": "2026-11-06T08:30:00+08:00",
+      "risk_types": []
+    },
+    {
+      "record_id": "UNIT-3",
+      "split": "acceptance",
+      "family_id": "UNIT-3-family",
+      "notice_id": "UNIT-3-notice",
+      "project_code": "UNIT-3",
+      "version_chain_id": "UNIT-3-notice",
+      "raw_sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e",
+      "text_sha256": "7c9dcc7afda64d40e40e77ded90ae91d2e40dd459ecdb3d9fc5863e429c0b55e",
+      "source_url": "https://example.invalid/engineering/UNIT-3",
+      "provenance_kind": "engineering_fixture",
+      "source_permission": "unknown",
+      "notice_category": "unit_notice",
+      "layout": "unit_text",
+      "captured_at": "2026-10-23T08:00:00+08:00",
+      "deadline_at": "2026-11-06T08:30:00+08:00",
+      "risk_types": []
+    },
+    {
+      "record_id": "UNIT-4",
+      "split": "acceptance",
+      "family_id": "UNIT-4-family",
+      "notice_id": "UNIT-4-notice",
+      "project_code": "UNIT-4",
+      "version_chain_id": "UNIT-4-notice",
+      "raw_sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5",
+      "text_sha256": "007d862deb4542c152d51032bc82e4536cb77e86261d6a89b10c3b37b95693e5",
+      "source_url": "https://example.invalid/engineering/UNIT-4",
+      "provenance_kind": "engineering_fixture",
+      "source_permission": "unknown",
+      "notice_category": "unit_notice",
+      "layout": "unit_text",
+      "captured_at": "2026-10-23T08:00:00+08:00",
+      "deadline_at": "2026-11-06T08:30:00+08:00",
+      "risk_types": []
+    }
+  ],
+  "annotations": [],
+  "contributors": []
+}
