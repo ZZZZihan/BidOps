@@ -65,9 +65,9 @@ gates below remain pending; the Demo does not start those phases automatically.
 
 The user requested PR decomposition with an acceptance criterion for every task.
 [Full plan and acceptance matrix](docs/ENTERPRISE-PR-PLAN.md).
-B01–B10 below are planning IDs, not existing GitHub PR numbers. All are unimplemented by this planning change.
+B01–B10 below are planning IDs. Implementation progress and actual PR numbers are recorded separately.
 
-- [ ] B01 — Screening contracts and independent evaluation protocol (B01-01 through B01-07).
+- [x] B01 — Screening contracts and independent evaluation protocol (B01-01 through B01-07): [implementation PR #16](https://github.com/ZZZZihan/BidOps/pull/16), 571 backend tests on `4d22667acc4001b57d3dfca248a7cb78d5636587`; [per-item evidence](reports/b01-contracts-eval-20261023.md). Code delivered for review, not merged; P1/B08 real acceptance remains BLOCKED.
 - [ ] B02 — Versioned notices, packages, evidence and complete pagination (B02-01 through B02-06).
 - [ ] B03 — Company profiles, document access, IdP revocation and retention (B03-01 through B03-08).
 - [ ] B04 — Candidate screening and evidence-backed qualification checklist (B04-01 through B04-07).
