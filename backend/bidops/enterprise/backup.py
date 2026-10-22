@@ -18,6 +18,7 @@ from bidops.db import Database
 from bidops.enterprise.budget_review import install_budget_review_barrier
 from bidops.enterprise.operations import SingleWorker
 from bidops.jobs import backup as durable_backup
+from bidops.review import backup as review_backup
 
 
 def sha(path: Path) -> str:
@@ -238,6 +239,9 @@ def restore(bundle: Path, destination: Path):
                 conn.execute("UPDATE enterprise_subjects SET fresh_until=0")
             conn.commit()
         budget_token = install_budget_review_barrier(staging / "bidops.sqlite3")
+        reviews = review_backup.quarantine_after_restore(
+            staging / "bidops.sqlite3", now=time.time()
+        )
         quarantined = 0
         quarantined_results = 0
         if "company_objects" in tables:
@@ -270,6 +274,7 @@ def restore(bundle: Path, destination: Path):
             "quarantined_objects": quarantined,
             "quarantined_results": quarantined_results,
             **jobs,
+            **reviews,
             "old_private_grants_removed": True,
             "budget_review_required": budget_token is not None,
             "budget_restore_token": budget_token,

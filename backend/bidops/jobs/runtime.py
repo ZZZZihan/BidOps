@@ -99,6 +99,7 @@ class JobsService:
         self.fault, self.started = fault, False
         self.slots = asyncio.Semaphore(1)
         self.agents = None
+        self.reviews = None
 
     def status(self):
         return {
@@ -409,6 +410,8 @@ class JobsService:
         @DBOS.step(name="bidops_job_review_fixture_v1")
         @checked_call
         async def review_step(run_id, event_id):
+            if self.reviews and self.reviews.has_case(run_id):
+                raise CompanyError("review_fixture_forbidden", 403)
             record = self.require_execution(run_id)
             rows = self.repository.db.rows(
                 "SELECT b.event_json,e.event_sha256 FROM durable_review_fixtures e "
@@ -439,6 +442,8 @@ class JobsService:
         @DBOS.workflow(name="bidops_qualification_job_v1")
         async def workflow(run_id):
             try:
+                if self.reviews and self.reviews.finished(run_id):
+                    return {"run_id": run_id, "status": "completed"}
                 self.require_execution(run_id)
                 with SetWorkflowID(run_id + "-calculation"):
                     child = await DBOS.start_workflow_async(calculation, run_id)
@@ -451,12 +456,26 @@ class JobsService:
                     self.require_execution(run_id)
                     event_id = await DBOS.recv_async(topic="review", timeout_seconds=3600)
                     self.require_execution(run_id)
-                    if event_id and await review_step(run_id, event_id) == "completed":
-                        return {"run_id": run_id, "status": "completed"}
+                    if event_id:
+                        if self.reviews and self.reviews.knows_event(event_id):
+                            status = await human_review_step(run_id, event_id)
+                        else:
+                            status = await review_step(run_id, event_id)
+                        if status == "completed":
+                            return {"run_id": run_id, "status": "completed"}
             except CompanyError as exc:
                 self.stop_worker(run_id, exc.code)
             except Exception:
                 self.stop_worker(run_id, "job_backend_failed")
+
+        @DBOS.step(name="bidops_job_human_review_v1")
+        @checked_call
+        async def human_review_step(run_id, event_id):
+            self.require_execution(run_id)
+            if self.reviews is None:
+                raise CompanyError("reviews_disabled", 503)
+            # Only the ID and a minimal status enter the native checkpoint.
+            return self.reviews.consume(run_id, event_id)
 
         self.workflow = workflow
         DBOS.launch()
@@ -483,12 +502,14 @@ class JobsService:
                 DBOS.send(
                     row["run_id"], row["event_id"], topic="review", idempotency_key=row["event_id"]
                 )
+        if self.reviews:
+            self.reviews.deliver_pending()
 
     def enqueue(self, run_id):
         with SetWorkflowID(run_id):
             DBOS.enqueue_workflow(QUEUE, self.workflow, run_id)
 
-    def submit(self, context, request, idempotency_key):
+    def submit(self, context, request, idempotency_key, *, link=None):
         self.enabled(worker=True)
         payload = ChecklistRequest.model_validate(request)
 
@@ -523,6 +544,7 @@ class JobsService:
             request=request,
             prepare=prepare,
             max_active_jobs=self.settings.max_active_jobs,
+            link=link,
         )
         if record["status"] == "queued":
             self.enqueue(record["run_id"])
@@ -624,6 +646,8 @@ class JobsService:
 
     def review_fixture(self, run_id, event, expected_version):
         """Engineering-only caller; never routed to HTTP or model tools."""
+        if self.reviews and self.reviews.has_case(run_id):
+            raise CompanyError("review_fixture_forbidden", 403)
         self.require_execution(run_id)
         result = self.repository.record_review_fixture(run_id, event, expected_version)
         if not result["created"]:

@@ -15,6 +15,7 @@ from contextlib import closing
 from pathlib import Path
 
 from bidops.qualification.sources import ScreeningInputManifest, canonical_json
+from bidops.review import backup as review_backup
 
 SYSTEM_DATABASE = "private/jobs/dbos.sqlite3"
 WORKFLOW_NAME = "bidops_qualification_job_v1"
@@ -203,11 +204,12 @@ def _inventory(business_path, system_path):
     with closing(_read(business_path)) as business:
         _check(business)
         jobs = _job_inventory(business)
+        reviews = review_backup.inventory(business)
         tables = _tables(business)
         business_digests = {
             name: _table_digest(business, name)
             for name in sorted(tables)
-            if name.startswith(("durable_", "qualification_")) or name == "agent_runs"
+            if name.startswith(("durable_", "qualification_", "review_")) or name == "agent_runs"
         }
     if system_path is None:
         if jobs:
@@ -260,12 +262,15 @@ def _inventory(business_path, system_path):
             for name in sorted(tables)
             if name != BINDING_TABLE and not name.startswith("sqlite_")
         }
-    return {
+    result = {
         "jobs": jobs,
         "workflows": workflows,
         "business_table_sha256": business_digests,
         "system_table_sha256": system_digests,
     }
+    if reviews is not None:
+        result["reviews"] = reviews
+    return result
 
 
 def _stamp(path, binding):
@@ -314,6 +319,7 @@ def prune_expired_jobs(business_path, system_path, *, now):
     Kept attempt metadata and the full cost/reservation ledger are never changed.
     Failure is fatal to an offline restore; no partially cleaned bundle is released.
     """
+    review_backup.prune_expired_reviews(business_path, now=now)
     with closing(sqlite3.connect(business_path)) as conn, conn:
         if "durable_jobs" not in _tables(conn):
             return []
