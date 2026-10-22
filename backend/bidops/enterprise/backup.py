@@ -24,6 +24,15 @@ def sha(path: Path) -> str:
 def referenced_files(db) -> dict[str, str]:
     files = {f"raw/{r[0]}": r[0] for r in db.execute("SELECT DISTINCT sha256 FROM snapshots")}
     tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+    if "nd_attachments" in tables:
+        files.update(
+            {
+                f"attachments/{row[0]}": row[0]
+                for row in db.execute(
+                    "SELECT DISTINCT raw_sha256 FROM nd_attachments WHERE raw_sha256 IS NOT NULL"
+                )
+            }
+        )
     if "company_material_revisions" in tables:
         for blob, raw_sha, normalized, text_sha in db.execute(
             "SELECT blob_path,sha256,text_path,text_sha256 FROM company_material_revisions"
@@ -38,7 +47,9 @@ def referenced_files(db) -> dict[str, str]:
 
 def valid_path(name):
     return isinstance(name, str) and bool(
-        re.fullmatch(r"raw/[a-f0-9]{64}|private/company/(blob|text)/[a-f0-9]{32}", name)
+        re.fullmatch(
+            r"(raw|attachments)/[a-f0-9]{64}|private/company/(blob|text)/[a-f0-9]{32}", name
+        )
     )
 
 
@@ -88,7 +99,7 @@ def backup(settings: Settings, destination: Path, *, retention_days: int = 7):
             manifest[name] = value
         created = time.time()
         metadata = {
-            "version": 2,
+            "version": 3,
             "created_at": created,
             "expires_at": created + retention_days * 86400,
             "private_restore_policy": "quarantine_all_objects_remove_all_grants",
@@ -111,11 +122,14 @@ def restore(bundle: Path, destination: Path):
     if metadata_path.is_symlink() or metadata_path.stat().st_size > 20_000_000:
         raise ValueError("Invalid backup manifest")
     manifest = json.loads(metadata_path.read_text())
-    if manifest.get("version") not in {1, 2} or not isinstance(manifest.get("files"), dict):
+    if manifest.get("version") not in {1, 2, 3} or not isinstance(manifest.get("files"), dict):
         raise ValueError("Invalid backup manifest")
     if "bidops.sqlite3" not in manifest["files"]:
         raise ValueError("Invalid backup manifest")
-    if manifest["version"] == 2:
+    bounded = manifest["version"] == 3 or any(
+        key in manifest for key in ("created_at", "expires_at")
+    )
+    if bounded:
         created, expires = manifest.get("created_at"), manifest.get("expires_at")
         if (
             type(created) not in {float, int}
@@ -132,7 +146,14 @@ def restore(bundle: Path, destination: Path):
         if db.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise ValueError("Backup database integrity check failed")
         references = referenced_files(db)
-        if any(name.startswith("private/") for name in references) and manifest["version"] != 2:
+        tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+        private_objects = (
+            "company_objects" in tables
+            and db.execute("SELECT 1 FROM company_objects LIMIT 1").fetchone()
+        )
+        if (private_objects or any(name.startswith("private/") for name in references)) and (
+            not bounded or manifest["version"] not in {2, 3}
+        ):
             raise ValueError("Private backup requires a bounded retention window")
         if set(manifest["files"]) != {"bidops.sqlite3", *references}:
             raise ValueError("Backup file closure does not match database")

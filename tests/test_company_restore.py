@@ -143,3 +143,73 @@ def test_restore_purges_expired_private_files_before_publication(
             recovered.materials.read(ALICE, doc["object_id"])
     finally:
         db.engine.dispose()
+
+
+@pytest.mark.parametrize(
+    "format_kind",
+    ["public_v2", "private_v2", "mixed_v3", "unbounded_private_v2", "unbounded_profile_v2"],
+)
+def test_combined_notice_attachment_and_private_restore_compatibility(
+    domain, store, settings, tmp_path, ingest, format_kind
+):
+    from datetime import UTC, datetime
+
+    from bidops.company.schemas import ProfilePayload
+    from bidops.notice_data import AttachmentInput
+    from bidops.storage import Store
+
+    snapshot = ingest("项目编号：UNIT-COMBINED\n采购人名称：工程采购人\n项目名称：联合恢复夹具\n")
+    version = store.notice_data.versions_for_notice(snapshot.snapshot_id)[0]
+    attached = store.notice_data.record_attachment(
+        AttachmentInput(
+            parent_version_id=version.version_id,
+            attachment_key="unit-combined",
+            filename="unit.txt",
+            content_type="text/plain",
+            acquisition_status="downloaded",
+            parse_status="parsed",
+            observed_at=datetime.now(UTC),
+        ),
+        b"UNIT public attachment",
+    )
+    evidence = store.notice_data.make_evidence(attached.record_id, 0, 4, object_kind="attachment")
+    doc = None
+    if format_kind == "unbounded_profile_v2":
+        domain.repo.put(ALICE, ProfilePayload(display_name="UNIT private profile"))
+    elif format_kind != "public_v2":
+        doc = material(domain)
+    bundle, destination = tmp_path / "combined", tmp_path / "restored"
+    backup(settings, bundle)
+    path = bundle / "manifest.json"
+    manifest = json.loads(path.read_text())
+    assert manifest["version"] == 3
+    if format_kind != "mixed_v3":
+        manifest["version"] = 2
+    if format_kind == "public_v2" or format_kind.startswith("unbounded"):
+        for key in ("created_at", "expires_at", "private_restore_policy"):
+            manifest.pop(key)
+    path.write_text(json.dumps(manifest))
+    if format_kind.startswith("unbounded"):
+        with pytest.raises(ValueError, match="bounded retention"):
+            restore(bundle, destination)
+        assert not destination.exists()
+        return
+    restore(bundle, destination)
+    recovered = Store(
+        settings.model_copy(
+            update={
+                "data_dir": destination,
+                "database_url": f"sqlite:///{destination}/bidops.sqlite3",
+            }
+        )
+    )
+    try:
+        assert recovered.notice_data.resolve_evidence(evidence) == evidence
+        if doc:
+            private = CompanyService(recovered.db, destination)
+            with pytest.raises(CompanyError):
+                private.materials.read(ALICE, doc["object_id"])
+            assert recovered.db.rows("SELECT quarantined FROM company_objects")[0]["quarantined"]
+            assert not recovered.db.rows("SELECT * FROM company_grants")
+    finally:
+        recovered.db.engine.dispose()

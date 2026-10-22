@@ -68,7 +68,7 @@ The user requested PR decomposition with an acceptance criterion for every task.
 B01–B10 below are planning IDs. Implementation progress and actual PR numbers are recorded separately.
 
 - [x] B01 — Screening contracts and independent evaluation protocol (B01-01 through B01-07): [implementation PR #16](https://github.com/ZZZZihan/BidOps/pull/16), 571 backend tests on `4d22667acc4001b57d3dfca248a7cb78d5636587`; [per-item evidence](reports/b01-contracts-eval-20261023.md). Code delivered for review, not merged; P1/B08 real acceptance remains BLOCKED.
-- [ ] B02 — Versioned notices, packages, evidence and complete pagination (B02-01 through B02-06).
+- [ ] B02 — [PR #17](https://github.com/ZZZZihan/BidOps/pull/17), Draft: B02-01–05 engineering PASS; B02-06 real historical backup BLOCKED. Implementation `72c9525784ae18df743b49fec5049fc7a224615f`: 685 backend / 14 browser tests. [Evidence](reports/b02-notice-versions-20261023.md).
 - [ ] B03 — Company profiles, document access, IdP revocation and retention (B03-01 through B03-08).
 - [ ] B04 — Candidate screening and evidence-backed qualification checklist (B04-01 through B04-07).
 - [ ] B05 — Durable runs, cancellation, checkpoints and recovery (B05-01 through B05-07).
