@@ -1,0 +1,195 @@
+{
+  "run_id": "0685602f6a4843278748f4a893e3f4bc",
+  "status": "waiting_review",
+  "result_id": "0eacd6827c4349ae92dc15442b2fa595",
+  "result_revision": "93279bb537d441468a386b0220dae9a6",
+  "result_body_sha256": "909c1aeb067500f40349fa66244854223867f4f8508d95b59d619b347c8288ec",
+  "inputs_manifest_sha256": "32399994fa0f79237fee5834597f00d7f177cfc753ed9c1ff9b38d3ebcde77fb",
+  "usage": {
+    "requested_model": "deepseek-flash",
+    "actual_models": [
+      "deepseek-flash"
+    ],
+    "model_calls": 10,
+    "confirmed_calls": 9,
+    "unknown_calls": 1,
+    "orphan_reservations": 0,
+    "input_tokens": 900,
+    "output_tokens": 90,
+    "estimated_cost_cny": "0.00252",
+    "reserved_cost_cny": "0.593536",
+    "usage_complete": false,
+    "model_identity_complete": false,
+    "offline": false
+  },
+  "checkpoints": [
+    [
+      "0685602f6a4843278748f4a893e3f4bc",
+      1,
+      "bidops_qualification_calculation_v1",
+      0,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc",
+      2,
+      "DBOS.getResult",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc",
+      3,
+      "bidops_job_waiting_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc",
+      5,
+      "DBOS.sleep",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      1,
+      "bidops_job_started_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      2,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      3,
+      "bidops_job_extraction_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      4,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      5,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      6,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      7,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      8,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      9,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      10,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      11,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      12,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      13,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      14,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      15,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      16,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      17,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      18,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      19,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "0685602f6a4843278748f4a893e3f4bc-calculation",
+      20,
+      "bidops_job_result_v1",
+      1,
+      0
+    ]
+  ]
+}
