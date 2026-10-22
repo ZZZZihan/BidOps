@@ -6,11 +6,13 @@ COPY frontend/ ./
 RUN npm run build
 
 FROM python:3.12-slim-bookworm
+ARG BIDOPS_CODE_SHA
 COPY --from=ghcr.io/astral-sh/uv:0.12.23 /uv /usr/local/bin/uv
 WORKDIR /app
 ENV UV_PYTHON_DOWNLOADS=never UV_PROJECT_ENVIRONMENT=/opt/venv \
     PATH="/opt/venv/bin:$PATH" PYTHONUNBUFFERED=1 \
-    BIDOPS_ENTERPRISE_ENABLED=true BIDOPS_NETWORK_ENABLED=false
+    BIDOPS_ENTERPRISE_ENABLED=true BIDOPS_NETWORK_ENABLED=false \
+    BIDOPS_CODE_SHA=$BIDOPS_CODE_SHA BIDOPS_LOCK_PATH=/app/uv.lock
 COPY pyproject.toml uv.lock README.md ./
 COPY backend/ ./backend/
 COPY config/ ./config/

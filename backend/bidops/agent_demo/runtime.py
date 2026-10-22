@@ -27,6 +27,7 @@ from sqlalchemy import text
 
 from bidops.agent_demo.catalog import Catalog, model_view
 from bidops.agent_demo.schemas import AnswerPlan, Block, ChatRequest, ChatResponse, Focus, Query
+from bidops.enterprise.budget_review import BudgetReviewRequired, require_budget_review
 from bidops.storage import Store
 
 CST = ZoneInfo("Asia/Shanghai")
@@ -64,7 +65,8 @@ class DemoSettings(BaseSettings):
     model_name: Literal["deepseek-flash"] = "deepseek-flash"
     enabled: bool = True
     max_run_seconds: float = Field(default=60, gt=0, le=120)
-    max_cost_cny: float = Field(default=10, gt=0, le=100)
+    max_cost_cny: float = Field(default=10, gt=0, le=10)
+    budget_restore_token: str | None = None
     max_sessions: int = Field(default=50, ge=1, le=100)
     max_turns: int = Field(default=8, ge=1, le=20)
 
@@ -237,6 +239,11 @@ class AgentService:
         # BEGIN IMMEDIATE prevents concurrent workers from spending the same reservation.
         with self.store.db.engine.connect() as conn:
             conn.exec_driver_sql("BEGIN IMMEDIATE")
+            try:
+                require_budget_review(conn, self.settings.budget_restore_token)
+            except BudgetReviewRequired as exc:
+                conn.rollback()
+                raise DemoFailure("budget_review_required", 503) from exc
             spent = conn.execute(
                 text(
                     "SELECT COALESCE(SUM(CASE WHEN state='completed' THEN estimated_cny "

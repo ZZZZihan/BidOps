@@ -79,3 +79,5 @@ B02 已交付 [Draft PR #17](https://github.com/ZZZZihan/BidOps/pull/17)：公�
 
 
 B03 已交付 [Draft PR #18](https://github.com/ZZZZihan/BidOps/pull/18)，基于B02堆叠：画像/材料固定版本、对象权限、留存恢复和Keycloak撤销适配。最终实现`88d1f30d592678daa586c67818100dafff83f8d0`通过791后端/20浏览器；B03专项工程C通过，前置B02-06及真实IdP/企业用户验收仍BLOCKED。见[B03逐项证据](reports/b03-company-access-20261023.md)。B04继续实现。
+
+B04 已交付 [Draft PR #19](https://github.com/ZZZZihan/BidOps/pull/19)，堆叠于 B03 #18：固定完整候选批次、PAI 逐条件五态核对、双边证据、私有不可变历史及恢复费用屏障。整合代码 `3f04b045f0d029dadb4b882a293f31776400cc30` 实际1101后端/39浏览器、构建/Ruff/B01冻结通过。专项工程通过，前置B02-06与真实质量/企业验收仍BLOCKED。见[B04逐项证据](reports/b04-qualification-screening-20261023.md)。B05 已在独立工作树接入 DBOS，完成前不得把保存读取当持久续跑。

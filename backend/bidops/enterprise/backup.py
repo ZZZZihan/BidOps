@@ -14,6 +14,7 @@ from sqlalchemy.engine import make_url
 
 from bidops.config import Settings
 from bidops.db import Database
+from bidops.enterprise.budget_review import install_budget_review_barrier
 from bidops.enterprise.operations import SingleWorker
 
 
@@ -186,14 +187,18 @@ def restore(bundle: Path, destination: Path):
             if "enterprise_subjects" in tables:
                 conn.execute("UPDATE enterprise_subjects SET fresh_until=0")
             conn.commit()
+        budget_token = install_budget_review_barrier(staging / "bidops.sqlite3")
         quarantined = 0
+        quarantined_results = 0
         if "company_objects" in tables:
             from bidops.company import CompanyService
             from bidops.company.retention import prune_company_materials, quarantine_after_restore
 
             db = Database(f"sqlite:///{staging}/bidops.sqlite3")
             try:
-                quarantined = quarantine_after_restore(db)["quarantined_objects"]
+                quarantine = quarantine_after_restore(db)
+                quarantined = quarantine["quarantined_objects"]
+                quarantined_results = quarantine["quarantined_results"]
                 result = prune_company_materials(CompanyService(db, staging))
                 if result["status"] != "PASS":
                     raise ValueError("Restored private retention cleanup failed")
@@ -208,7 +213,10 @@ def restore(bundle: Path, destination: Path):
             "destination": str(destination),
             "logins_revoked": True,
             "quarantined_objects": quarantined,
+            "quarantined_results": quarantined_results,
             "old_private_grants_removed": True,
+            "budget_review_required": budget_token is not None,
+            "budget_restore_token": budget_token,
         }
     finally:
         shutil.rmtree(staging)
