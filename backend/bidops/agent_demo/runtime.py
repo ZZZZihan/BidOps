@@ -36,6 +36,8 @@ INSTRUCTIONS = """你是 BidOps 采购公告助手，只查询已导入的真实
 不要把“项目”“采购”“公告”等整个用户问题当 keyword；查询全部时 keyword 为空。
 用户指定返回数量时，必须把数量写入 query.limit；排序不等于限制数量。
 “最早/最晚/最高/最低的一项”用 limit=1，“前 N 项”用 limit=N。
+每页返回 total/offset/limit/has_more/truncated；需要更多结果时以 offset 继续查询。
+不得把截断页描述成完整查询结果；工具调用上限前未读完时明确说明尚有未读取记录。
 金额过滤参数单位是人民币元；100 万元=1000000 元。“超过/低于”用 inclusive=false。
 日期参数必须含时区，北京时间 +08:00。
 “未截止”仅按已存截止时间筛选，使用 future_deadline_only；不能保证目前仍开放、未更正或终止。
@@ -136,15 +138,15 @@ def build_agent(model: Model) -> Agent:
 
     @agent.tool
     def read_notice(
-        ctx: RunContext[Dependencies], project_code: str, focus: Focus = "overview"
+        ctx: RunContext[Dependencies], project_code: str, focus: Focus = "overview", offset: int = 0
     ) -> dict:
         """用完整项目编号读取公告。focus 可选预算、截止、采购包、采购单位、资格原文或文件截止。"""
         if not re.fullmatch(r"[A-Za-z0-9-]{1,80}", project_code):
             raise ModelRetry("先搜索得到真实项目编号，不接受 URL 或代码。")
         return ctx.deps.record(
             "read_notice",
-            {"project_code": project_code, "focus": focus},
-            ctx.deps.catalog.read(project_code, focus),
+            {"project_code": project_code, "focus": focus, "offset": offset},
+            ctx.deps.catalog.read(project_code, focus, offset=offset),
         )
 
     @agent.tool
@@ -176,7 +178,11 @@ def build_agent(model: Model) -> Agent:
                 raise ModelRetry("没有完整匹配结果，应说明不可确定或没有匹配。")
             if answer.focus in {"eligibility", "status"}:
                 raise ModelRetry("资格与最新状态必须标记 review_required。")
-            if any(len({c.project_code for c in b.items}) < len(b.items) for b in blocks):
+            if any(
+                (b.operation == "read" and b.total > 1)
+                or len({c.project_code for c in b.items}) < len(b.items)
+                for b in blocks
+            ):
                 raise ModelRetry("同一项目有多个历史版本，必须 review_required。")
             if answer.focus == "documents" and all(
                 c.document_deadline_at is None for b in blocks for c in b.items
@@ -292,7 +298,7 @@ class AgentService:
             catalog = Catalog(self.store)
         except (ValueError, OSError):
             raise DemoFailure("source_integrity_failed") from None
-        if not catalog.notices:
+        if not catalog.count:
             raise DemoFailure("empty_catalog", 409)
         self.reserve(run_id, message)
         usage = RunUsage()
@@ -361,7 +367,12 @@ class AgentService:
                 warnings=[
                     "仅查询本地快照；未联网核查更正或终止。",
                     "附件与实际投标资格需要人工复核。",
-                ],
+                ]
+                + (
+                    ["本次结果未展示全部匹配记录；请按分页信息继续读取并核对其他版本。"]
+                    if any(deps.results[key].truncated for key in result.output.result_ids)
+                    else []
+                ),
             )
             self.store.db.audit(
                 "agent_run",

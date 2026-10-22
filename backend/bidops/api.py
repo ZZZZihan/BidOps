@@ -1,7 +1,9 @@
 import asyncio
 import logging
 from contextlib import asynccontextmanager, suppress
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Literal
 from urllib.parse import urlsplit
 
 from fastapi import APIRouter, FastAPI, HTTPException, Query, Request
@@ -13,12 +15,15 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from bidops.agent_demo.runtime import AgentService, DemoFailure, DemoSettings
 from bidops.agent_demo.schemas import ChatRequest, ChatResponse
+from bidops.agent_demo.schemas import Query as NoticeQuery
+from bidops.catalog_query import query_notices
 from bidops.config import Settings
 from bidops.enterprise.auth import IdentityService, auth_router
 from bidops.enterprise.config import EnterpriseSettings
 from bidops.enterprise.operations import Operations, OperationsMiddleware, SingleWorker
 from bidops.enterprise.sessions import PersistentConversations, prune_private_history
 from bidops.models import Notice
+from bidops.notice_api import notice_router
 from bidops.storage import Store
 
 
@@ -101,20 +106,20 @@ def create_app(
 
     @router.get("/notices")
     def notices(
-        request: Request, limit: int = Query(50, ge=1, le=100), offset: int = Query(0, ge=0)
+        request: Request,
+        limit: int = Query(50, ge=1, le=100),
+        offset: int = Query(0, ge=0, le=2_147_483_647),
+        q: str = Query("", max_length=120),
+        sort_by: Literal["project_code", "budget", "deadline", "publication"] = "project_code",
+        descending: bool = False,
     ):
         app.state.identity.require(request, "catalog:read")
-        store = app.state.store
-        rows = store.db.rows(
-            "SELECT payload_json FROM notices ORDER BY notice_id LIMIT :l OFFSET :o",
-            {"l": limit, "o": offset},
+        return query_notices(
+            app.state.store.db,
+            NoticeQuery(keyword=q, offset=offset, sort_by=sort_by, descending=descending),
+            datetime.now(UTC),
+            limit=limit,
         )
-        return {
-            "items": [Notice.model_validate_json(row["payload_json"]) for row in rows],
-            "total": store.db.rows("SELECT COUNT(*) AS n FROM notices")[0]["n"],
-            "limit": limit,
-            "offset": offset,
-        }
 
     @router.get("/notices/{notice_id}", response_model=Notice)
     def notice_detail(notice_id: str, request: Request):
@@ -203,6 +208,7 @@ def create_app(
         return JSONResponse({"ready": ok}, status_code=200 if ok else 503)
 
     app.include_router(auth_router())
+    router.include_router(notice_router())
     app.include_router(router)
     app.include_router(router, prefix="/api", include_in_schema=False)
     frontend = Path("frontend/dist")

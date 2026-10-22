@@ -9,7 +9,7 @@ type Card = {
   package_count: number; packages: {label: string; budget_yuan: string | null}[];
   eligibility: string[]; source_url: string; source_observed_at: string; citations: Citation[];
 };
-type Block = { id: string; operation: string; total: number; items: Card[]; metrics: Record<string, string>; missing_project_codes: string[] };
+type Block = { id: string; operation: string; total: number; items: Card[]; metrics: Record<string, string>; missing_project_codes: string[]; offset?: number; limit?: number; has_more?: boolean; truncated?: boolean };
 type Answer = {
   run_id: string; session_id: string; response_mode: string; focus: string; message: string;
   blocks: Block[]; trace: {tool: string; arguments: object; matches: number}[];
@@ -126,7 +126,7 @@ export function AgentWorkbench({identity}: {identity: Identity}) {
             {turn.error && <div className="agent-alert" role="alert">{turn.error}{turn.recover && <button disabled={busy} onClick={() => void send(turn.question, turn)}>重取本次结果</button>}</div>}
             {turn.answer && <div className="agent-answer"><div className={`answer-state ${turn.answer.response_mode}`}>{({results: '已找到证据', unavailable: '信息不足', clarify: '需要补充', review_required: '需要人工复核', out_of_scope: '超出当前范围'} as Record<string,string>)[turn.answer.response_mode]}</div><p>{turn.answer.message}</p>
               {turn.answer.blocks.map(block => <div key={block.id} className="result-block">
-                {block.operation === 'search' && <p className="result-count">匹配 {block.total} 条，展示 {block.items.length} 条</p>}
+                {(block.operation === 'search' || block.operation === 'read') && <div className="result-count"><p>匹配 {block.total} 条，{block.items.length ? `展示第 ${(block.offset ?? 0) + 1}–${(block.offset ?? 0) + block.items.length} 条（${block.items.length} 条）` : '本页没有记录'}{block.limit ? `，每页最多 ${block.limit} 条` : ''}</p>{(block.truncated ?? block.items.length < block.total) && <p role="status">结果已截断，本页未展示全部匹配记录。{block.has_more ? '后面还有结果，可继续要求读取下一页。' : '可继续要求读取其他页并核对历史版本。'}</p>}</div>}
                 {!!block.missing_project_codes.length && <p>未找到：{block.missing_project_codes.join('、')}</p>}
                 {!!Object.keys(block.metrics).length && <dl className="comparison-metrics">{Object.entries(block.metrics).map(([key, value]) => <div key={key}><dt>{labels[key] || key}</dt><dd>{value}</dd></div>)}</dl>}
                 {block.items.map((card, itemIndex) => <div className="result-notice" key={`${card.project_code}-${itemIndex}`}><button className="result-title" onClick={() => setSelected(card)}>{card.title}</button><small>{card.project_code}</small><div className="result-values"><span>预算 <strong>{currency(card.budget_yuan)}</strong></span><span>投标截止 <strong>{date(card.bid_deadline_at)}</strong></span></div>{turn.answer?.focus === 'buyer' && <p>采购单位：{card.buyer_name || '未知'}</p>}{turn.answer?.focus === 'publication' && <p>公告时间：{date(card.published_at)}</p>}{turn.answer?.focus === 'documents' && <p>文件获取截止：{date(card.document_deadline_at)}</p>}{!!card.packages.length && <details><summary>{card.package_count} 个采购包</summary>{card.packages.map(p => <p key={p.label}>{p.label}：{currency(p.budget_yuan)}</p>)}</details>}{!!card.eligibility.length && <details open={turn.answer?.focus === 'eligibility'}><summary>中小企业相关原文</summary>{card.eligibility.map((text, i) => <blockquote key={i}>{text}</blockquote>)}</details>}<button className="evidence-button" onClick={() => setSelected(card)}>查看原文证据</button></div>)}

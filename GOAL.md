@@ -74,3 +74,5 @@ B01 已通过独立功能分支提交 [PR #16](https://github.com/ZZZZihan/BidOp
 此完成项只表示B01代码与协议交付；未合并、未部署、未获得真实Agent效果或人审节时结论。
 B02/B03可以基于冻结契约继续推进，其他B项与外部真实验收保持未完成。
 
+
+B02 已交付 [Draft PR #17](https://github.com/ZZZZihan/BidOps/pull/17)：公告/包/附件版本、引用复验及完整分页；实现提交685后端/14浏览器通过。B02-06指定真实旧库备份未提供，代码合并结论仍BLOCKED，真实业务验收未完成。见[B02逐项证据](reports/b02-notice-versions-20261023.md)。B03集成与B04继续推进。
