@@ -12,7 +12,7 @@
 - 企业目标：[Issue #13](https://github.com/ZZZZihan/BidOps/issues/13)。
 - E1 交付：[Issue #14](https://github.com/ZZZZihan/BidOps/issues/14)。
 - 实现 Commit：[6a41a067b08f67b5d9c46bd68f5b3acc0101bf80](https://github.com/ZZZZihan/BidOps/commit/6a41a067b08f67b5d9c46bd68f5b3acc0101bf80)。
-- 远端 CI：[39795653783](https://github.com/ZZZZihan/BidOps/actions/runs/39795653783)。截至 2026-10-22 14:30 UTC，三个任务的 API 状态均为 queued，尚无可确认的运行结果；不计为通过。
+- 远端 CI：[39795653783](https://github.com/ZZZZihan/BidOps/actions/runs/39795653783)。已直接读取三个 job 的完整执行日志：后端、前端与容器检查通过。GitHub 同期结果处理事故导致列表/API 状态滞后；下文区分执行证据与状态汇总。
 - 本次基于 `ebf1e6eb7342400c9d2f0de8282964dd0afaf484` 的已完成 Demo；历史报告保留。
 
 ## 实际架构
@@ -44,8 +44,14 @@ HTTPS 配置下 Secure；模型和 OAuth 凭证不进入浏览器。每个写请
 | `npm run test:e2e --prefix frontend` | 12 passed；原 5 项基础上增加 7 项企业界面场景 |
 | `uv run python scripts/enterprise_live.py --execute --run-id enterprise-live-20261022` | 5/5 集成检查通过，3 个真实模型轮次、6 次模型请求 |
 | SQLite 备份恢复 | 单元测试、真实六公告集成及 backup/restore CLI 均执行；7 个文件恢复，6 条公告，完整性与 SHA256 通过 |
-| Docker 镜像构建/启动 | 本机没有 Docker；GitHub container job 已创建，目前 queued，尚未验证 |
+| Docker 镜像构建/启动 | GitHub container job 实测通过：镜像构建、启动、UID 10001、匿名 API 拒绝、空库 ready=503、UI 可访问 |
 | 企业真实 SSO / 目标域名部署 | 未执行；没有企业 IdP、client、域名及目标机器参数 |
+
+远端执行日志证据（实现提交 6a41a06）：
+
+- [backend job 119882216000](https://github.com/ZZZZihan/BidOps/actions/runs/39795653783/job/119882216000)：14:26:35 UTC，`189 passed in 9.69s`；lint、格式、迁移均成功。
+- [frontend job 119882215724](https://github.com/ZZZZihan/BidOps/actions/runs/39795653783/job/119882215724)：14:26:32 UTC，`12 passed (6.3s)`；Chrome 155.0.8059.39，Vite 构建成功。
+- [container job 119882216089](https://github.com/ZZZZihan/BidOps/actions/runs/39795653783/job/119882216089)：14:26:38 UTC，smoke 检查通过，UID=10001 检查无错误；镜像 SHA256 为 `59999c5c5a736a515270f515b14f9f02ff204f90ce0f265ccb5e28c6e8d1ad3e`。
 
 认证测试通过 HTTPX2 MockTransport 交换 OIDC 协议，使用生成的 RSA 密钥真实签名、校验 JWT，
 覆盖错误 issuer/audience/nonce/签名、过期、未知角色、state 重放/跨浏览器和 CSRF。它是协议
@@ -81,10 +87,9 @@ HTTPS 配置下 Secure；模型和 OAuth 凭证不进入浏览器。每个写请
 
 ## 尚未解决与下一验收门槛
 
-0. 远端 CI 仍显示 queued。GitHub 官方在 14:18 UTC 起报告 Actions 服务降级，14:19 UTC
-   更新说明工作流/步骤结果及部分仓库更新处理延迟；本次尚无法确认远端实际执行结果。
-   [官方事故记录](https://stspg.io/44w94j036yc8)。该状态与仓库本地测试结果分开记录，
-   不推断远端已通过。E1 Issue #14 保持开放，等待 container / backend / frontend 结果。
+0. GitHub 同期发生 Actions 结果处理延迟，API 曾持续显示 queued，但实际三个 job 都已在
+   14:26 UTC 执行。最终直接获取日志核验通过；不将滞后状态当成未执行，也不虚构总体状态
+   已同步。[官方事故记录](https://stspg.io/44w94j036yc8)。这个平台状态异常不代替下面的业务验收门槛。
 
 1. 企业 SSO issuer、client secret、应用角色、HTTPS 域名和目标机器尚未提供；协议测试
    不能替代两个真实账号的访问隔离、停用/退出和故障恢复验收。
