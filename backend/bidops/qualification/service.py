@@ -111,7 +111,7 @@ class ScreeningService:
         self.sources.recheck(context, bundle)
         result = build_batch(self.sources, bundle, filters)
         self.sources.recheck(context, bundle)
-        record = self.repository.save(
+        record = self.repository.save_candidate_batch(
             context,
             bundle.manifest,
             result,

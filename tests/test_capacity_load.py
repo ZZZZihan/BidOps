@@ -1,5 +1,6 @@
 """Real local seed/auth/storage boundaries, all data explicitly synthetic."""
 
+import asyncio
 import hashlib
 import importlib.util
 import json
@@ -206,6 +207,45 @@ def test_job_receipt_uses_persisted_admission_time_and_preserves_missing_executi
     assert module.read_jsonl(tmp_path / "incomplete-jobs.jsonl") == [
         {"run_id": "job-b", "status": "queued"}
     ]
+
+
+@pytest.mark.parametrize("fails", [False, True])
+def test_candidate_setup_deadline_is_separate_from_timed_http_budget_and_failures_remain(
+    tmp_path,
+    fails,
+):
+    import httpx
+
+    module = probe_module()
+    deadlines = []
+
+    async def run():
+        async def handle(request):
+            deadlines.append(request.extensions["timeout"]["read"])
+            if fails and request.url.path == "/api/screening/candidates":
+                raise httpx.ReadTimeout("synthetic setup deadline", request=request)
+            return httpx.Response(200, json={"batch_id": "synthetic-batch"})
+
+        async with httpx.AsyncClient(
+            base_url="http://127.0.0.1",
+            timeout=10,
+            transport=httpx.MockTransport(handle),
+        ) as client:
+            if fails:
+                with pytest.raises(httpx.ReadTimeout):
+                    await module.setup_candidate_batch(client, tmp_path, {})
+            else:
+                assert await module.setup_candidate_batch(client, tmp_path, {}) == {
+                    "batch_id": "synthetic-batch"
+                }
+            await module.require(client, "GET", "/api/notices")
+
+    asyncio.run(run())
+    assert deadlines == [300, 10]
+    receipt = module.read_jsonl(tmp_path / "setup-operations.jsonl")[0]
+    assert receipt["outcome"] == ("FAIL" if fails else "PASS")
+    assert receipt["deadline_ms"] == 300000
+    assert receipt["included_in_timed_capacity_metrics"] is False
 
 
 @pytest.mark.parametrize("kind", ["notice", "material", "attachment"])

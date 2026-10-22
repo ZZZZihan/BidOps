@@ -322,8 +322,8 @@ def test_final_source_recheck_blocks_revocation_during_derived_projection(review
     case = create_case(reviews)
     original = repo._projection
 
-    def racing(context, fixed):
-        result = original(context, fixed)
+    def racing(context, fixed, **page):
+        result = original(context, fixed, **page)
         source = repo.db.rows("SELECT object_id FROM review_sources LIMIT 1")[0]["object_id"]
         repo.sources.company.auth.revoke(ALICE, source, "bob")
         return result

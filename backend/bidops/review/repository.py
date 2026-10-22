@@ -522,7 +522,32 @@ class ReviewRepository:
                 )
         return items
 
-    def _projection(self, context, case):
+    @staticmethod
+    def _candidate_page(candidate, offset, limit):
+        """A bounded view, explicitly distinct from the complete stored/exported body."""
+        result = candidate["result"]
+        items = result["items"][offset : offset + limit]
+        selected = {ref["version_id"] for item in items for ref in item.get("notice_revisions", [])}
+        versions = result.get("public_versions", [])
+        return {
+            **candidate,
+            "result": {
+                **result,
+                "items": items,
+                "public_versions": [v for v in versions if v["version"]["version_id"] in selected],
+            },
+            "page": {
+                "offset": offset,
+                "limit": limit,
+                "total": len(result["items"]),
+                "has_more": offset + limit < len(result["items"]),
+                "complete_record": False,
+                "public_versions_total": len(versions),
+                "full_record_in_export": True,
+            },
+        }
+
+    def _projection(self, context, case, *, candidate_offset=0, candidate_limit=20):
         events = [
             self._event(meta)
             for meta in rows(
@@ -561,6 +586,8 @@ class ReviewRepository:
         self.sources.recheck(
             ToolContext(context.owner_id), candidate["manifest"], for_execution=False
         )
+        if candidate_limit is not None:
+            candidate = self._candidate_page(candidate, candidate_offset, candidate_limit)
         head = next(value for value in revisions if value["is_head"])
         source_state = head["source_state"]
         items = self._items(head, head, events, case, source_state)
@@ -605,7 +632,17 @@ class ReviewRepository:
             ),
         }
 
-    def get(self, context, case_id):
+    def get(self, context, case_id, *, candidate_offset=0, candidate_limit=20):
+        if (
+            type(candidate_offset) is not int
+            or candidate_offset < 0
+            or (
+                candidate_limit is not None
+                and (type(candidate_limit) is not int or not 1 <= candidate_limit <= 100)
+            )
+            or (candidate_limit is None and candidate_offset != 0)
+        ):
+            raise CompanyError("review_invalid_page", 422)
         case = self.auth.require_case(context, case_id, quarantine=True)
         if case["quarantined"]:
             # No private history is released before explicit restoration review.
@@ -628,7 +665,9 @@ class ReviewRepository:
                 "assignments": [],
                 "successors": [],
             }
-        result = self._projection(context, case)
+        result = self._projection(
+            context, case, candidate_offset=candidate_offset, candidate_limit=candidate_limit
+        )
         # Re-read all source ACLs and session state after every derived quote was loaded.
         with transaction(self.db) as conn:
             current = self.auth.require_case(context, case_id, conn=conn)
@@ -652,12 +691,33 @@ class ReviewRepository:
             {"owner": context.owner_id},
         ):
             try:
-                visible.append(self.get(context, found["case_id"]))
+                # Determine visibility without loading every historical candidate body.
+                self.auth.require_case(context, found["case_id"], quarantine=True)
+                visible.append(found["case_id"])
             except CompanyError as exc:
                 if exc.status_code != 404:
                     raise
+        items = [self.get(context, case_id) for case_id in visible[offset : offset + limit]]
+        with transaction(self.db) as conn:
+            self.auth.require_human(context, conn=conn)
+            for item in items:
+                current = self.auth.require_case(
+                    context, item["case_id"], conn=conn, quarantine=True
+                )
+                if any(
+                    current[field] != item[field]
+                    for field in (
+                        "review_version",
+                        "review_epoch",
+                        "quarantined",
+                        "purge_state",
+                        "head_revision_id",
+                        "status",
+                    )
+                ):
+                    raise CompanyError("review_version_conflict", 409)
         return {
-            "items": visible[offset : offset + limit],
+            "items": items,
             "total": len(visible),
             "offset": offset,
             "limit": limit,
@@ -1195,7 +1255,7 @@ class ReviewRepository:
         return self.get(context, case_id)
 
     def export(self, context, case_id):
-        case = self.get(context, case_id)
+        case = self.get(context, case_id, candidate_limit=None)
         # Entire fixed candidate batch and all historical revisions are included.
         # Any missing body or revoked historical source rejects the whole export.
         return {

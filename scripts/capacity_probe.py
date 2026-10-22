@@ -152,6 +152,38 @@ async def require(client, method, path, **kwargs):
     return response.json()
 
 
+async def setup_candidate_batch(client, output, payload):
+    """Full-corpus freeze is setup, with a separate bounded, disclosed deadline.
+
+    This does not change the timed workload's 10 second HTTP timeout, and is
+    never counted as a passing API latency sample in the capacity denominator.
+    """
+    begin = time.monotonic_ns()
+    outcome = "FAIL"
+    try:
+        value = await require(
+            client,
+            "POST",
+            "/api/screening/candidates",
+            json=payload,
+            timeout=300,
+        )
+        outcome = "PASS"
+        return value
+    finally:
+        append_json(
+            output / "setup-operations.jsonl",
+            {
+                "operation": "freeze_complete_candidate_batch",
+                "path": "/api/screening/candidates",
+                "deadline_ms": 300000,
+                "elapsed_ms": (time.monotonic_ns() - begin) // 1_000_000,
+                "outcome": outcome,
+                "included_in_timed_capacity_metrics": False,
+            },
+        )
+
+
 async def wait_job(client, run_id, timeout=90):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
@@ -310,11 +342,10 @@ async def execute(args, manifest):
             "additional_material_revisions": [],
         }
         owner = clients[manifest.account_ids[0]]
-        batch = await require(
+        batch = await setup_candidate_batch(
             owner,
-            "POST",
-            "/api/screening/candidates",
-            json={
+            output,
+            {
                 "profile_revision": profile,
                 "filters": {
                     "keyword": f"SYNTHETIC_CAPACITY_{manifest.data.notice_versions - 1:05d}"
@@ -641,6 +672,18 @@ async def execute(args, manifest):
             )
         )
         return 0 if args.unit_smoke else 1 if report.capacity_status == "FAIL" else 2
+    except Exception as exc:
+        write_json(
+            output / "failure.json",
+            {
+                "status": "FAILED_DURING_MEASUREMENT"
+                if (output / "clock.json").exists()
+                else "FAILED_BEFORE_WARMUP",
+                "error_code": type(exc).__name__,
+                "measurement_claim": "none",
+            },
+        )
+        raise
     finally:
         for client in clients.values():
             await client.aclose()
