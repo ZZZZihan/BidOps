@@ -6,7 +6,11 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: 0,
   reporter: 'list',
-  use: { baseURL: 'http://127.0.0.1:4173', browserName: 'chromium', trace: 'retain-on-failure' },
+  use: {
+    baseURL: 'http://127.0.0.1:4173', browserName: 'chromium',
+    channel: process.env.BIDOPS_BROWSER_CHANNEL,
+    trace: 'retain-on-failure',
+  },
   webServer: {
     command: 'npm run preview -- --host 127.0.0.1 --port 4173',
     url: 'http://127.0.0.1:4173',

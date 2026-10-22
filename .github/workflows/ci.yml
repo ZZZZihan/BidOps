@@ -7,6 +7,7 @@ permissions:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -23,6 +24,7 @@ jobs:
       - run: uv run python scripts/p0_pilot.py
   frontend:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     defaults:
       run:
         working-directory: frontend
@@ -35,5 +37,8 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: npm run build
-      - run: npx playwright install --with-deps chromium --only-shell
+      # The hosted Ubuntu image already provides Chrome and its system dependencies.
+      - run: google-chrome --version
       - run: npm run test:e2e
+        env:
+          BIDOPS_BROWSER_CHANNEL: chrome
