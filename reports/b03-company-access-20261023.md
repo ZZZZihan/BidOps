@@ -13,9 +13,10 @@
 - B02 base：`c3435402247d0cd66986a0bbd8854304c017f864`。
 - B03 独立实现：`2f24256cb8af82ded31d14d62be1f3fd568bd240`，672 后端、18 浏览器通过。
 - 与 B02 集成：`65f6697f1e518ef638bfd32c016762990e174ff1`，791 后端、20 浏览器本机通过。
-- 最终验证代码：`88d1f30d592678daa586c67818100dafff83f8d0`；tree
-  `276ee95928dcdbb67a473295e071713e83de2c16`；验证前后工作树干净。
-- 最终执行：2026-10-22 17:40:47–17:41:25 UTC，主 Agent 执行。
+- 第一轮修复代码：`88d1f30d592678daa586c67818100dafff83f8d0`；原始日志保留。
+- 最终验证代码：`660cb1f766a4ac91f2a32ae4cabcc8c6bba54632`；tree
+  `d46ff1b57d529a87428c335cb3581001d0503b6a`；验证前后工作树干净。
+- 最终执行：2026-10-22 18:00:36–18:01:14 UTC，主 Agent 执行。
   环境 Python 3.12.12、Pydantic AI 2.59.0、Authlib 1.9.1、Node 26.11.0、uv 0.10.0。
 - 输入为合成企业画像、UTF-8/HTML 工程材料、真实 SQLite/本地文件，以及受控签名 OIDC
   传输夹具；没有真实企业私人资料。测试固定 analyst/viewer/admin/未授权主体、对象 ACL、
@@ -28,16 +29,16 @@
 
 ## 实际执行记录
 
-[verification.json](evidence/b03-20261023/verification.json) 记录完整命令、SHA、时间与退出码。
+[verification.json](evidence/b03-20261023/save-660cb1f/verification.json) 记录完整命令、SHA、时间与退出码。
 
 | 命令 | 实际结果 | 证据 |
 | --- | --- | --- |
-| `.venv/bin/pytest -q` | 791 passed in 18.21s | [后端日志](evidence/b03-20261023/backend.txt) |
-| `.venv/bin/ruff check .` | All checks passed | [lint](evidence/b03-20261023/lint.txt) |
-| `.venv/bin/ruff format --check .` | 117 files already formatted | [format](evidence/b03-20261023/format.txt) |
-| B01 固定 pin 离线评分入口 | PASS；Agent score null，业务仍 BLOCKED | [冻结结果](evidence/b03-20261023/frozen-scorer.json) |
-| `npm run build`（frontend） | TypeScript/Vite 成功 | [构建](evidence/b03-20261023/frontend-build.txt) |
-| `BIDOPS_BROWSER_CHANNEL=chrome npm run test:e2e` | 20 passed，含 6 条真实 FastAPI/SQLite 公司流程与 14 条既有界面流程 | [浏览器](evidence/b03-20261023/frontend-browser.txt) |
+| `.venv/bin/pytest -q` | 791 passed（精确耗时见最终日志） | [后端日志](evidence/b03-20261023/save-660cb1f/backend.txt) |
+| `.venv/bin/ruff check .` | All checks passed | [lint](evidence/b03-20261023/save-660cb1f/lint.txt) |
+| `.venv/bin/ruff format --check .` | 117 files already formatted | [format](evidence/b03-20261023/save-660cb1f/format.txt) |
+| B01 固定 pin 离线评分入口 | PASS；Agent score null，业务仍 BLOCKED | [冻结结果](evidence/b03-20261023/save-660cb1f/frozen-scorer.json) |
+| `npm run build`（frontend） | TypeScript/Vite 成功 | [构建](evidence/b03-20261023/save-660cb1f/frontend-build.txt) |
+| `BIDOPS_BROWSER_CHANNEL=chrome npm run test:e2e` | 20 passed，含 6 条真实 FastAPI/SQLite 公司流程与 14 条既有界面流程 | [浏览器](evidence/b03-20261023/save-660cb1f/frontend-browser.txt) |
 
 新增精确检查入口：
 
@@ -73,12 +74,12 @@ B01 的 18 个冻结文件、pyproject.toml/uv.lock 均未修改；冻结 SHA
 | ID | 实际依据 | 状态 |
 | --- | --- | --- |
 | G-01 | B03-01～08均有实际输入/操作/观察/代码与日志；增量范围包括对象存储、身份适配、UI和恢复，不重复计B02功能 | PASS |
-| G-02 | 最终88d1f30完整791后端/20浏览器、lint/构建/冻结通过；远端当前HEAD另记，原失败保留下文 | PASS |
+| G-02 | 最终660cb1f完整791后端/20浏览器、lint/构建/冻结通过；远端当前HEAD另记，原失败保留下文 | PASS |
 | G-03 | 005/006增量及重复迁移通过；旧会话/公共备份与新私有闭包、清理失败、拒绝部分恢复均实测。B02真实旧库缺口仍是前置阻塞 | PASS |
 | G-04 | 全部公司入口后端授权/CSRF，主体角色与对象动作双检查；公开资料只有UNIT工程样例，未加入凭据/真实私人资料 | PASS |
 | G-05 | 无新依赖，使用锁定Authlib/joserfc与现有FastAPI/SQLite；[ADR-0004](../docs/ADR-0004-IDENTITY-REVOCATION.md)记录官方协议和兼容范围 | PASS |
 | G-06 | 真实模型/采购来源请求0，新增费用¥0；协议请求仅本机/MockTransport；不重置累计¥10预算 | PASS |
-| G-07 | 最终日志绑定完整88d1f30、干净树；独立/集成旧结果分别标SHA；真实IdP和用户验收保持BLOCKED | PASS |
+| G-07 | 最终日志绑定完整660cb1f、干净树；独立/集成旧结果分别标SHA；真实IdP和用户验收保持BLOCKED | PASS |
 | G-08 | 企业关闭返回404，不匿名降级；升级前备份恢复到独立目录，原公告/会话可读；新私有数据隔离保存，禁止破坏性降级 | PASS |
 
 ## 实际失败、修复与独立复核
@@ -93,6 +94,17 @@ B01 的 18 个冻结文件、pyproject.toml/uv.lock 均未修改；冻结 SHA
 宽泛 getByRole('status') 触发严格定位冲突。88d1f30 仅对8处成功状态定位增加准确文本过滤，
 保留全部原成功文本、版本、HTTP权限及留存断言；独立 Agent 复核确认未降低检查。
 最终本机重跑20项全部通过，远端修复后检查以PR当前HEAD记录为准。
+
+[第二轮 CI](https://github.com/ZZZZihan/BidOps/actions/runs/39825281576) 在
+`c448989cd7d4ee9690dfda7ffcbbde06669903d4` 上后端/容器成功；浏览器15 passed、1 failed、
+4 did not run，第二次画像保存后5秒内未见成功提示。原始无阻塞条件的失败未直接在本机
+复现（原始流程11次及完整20项均通过），不能宣称已确认唯一根因。
+
+660cb1f 修复确定存在的提交后读取依赖：PUT成功后立即确认实际返回的新版本，仍保持busy，
+随后按该精确version读取；401/403/404仍清除私有内容。真实浏览器测试gate后续列表GET：
+旧版稳定因未出现确认而失败，修复后无需增加timeout即通过，并断言PUT200、新版本、忙碌锁
+及最终固定版本。另一位未实现该修复的Agent独立复核通过。主Agent最终完整791后端、20浏览器、
+build、Ruff及冻结检查通过；此代码的新远端结果在PR描述列出，不覆盖上述两次失败历史。
 
 ## 运行、回退与剩余条件
 
