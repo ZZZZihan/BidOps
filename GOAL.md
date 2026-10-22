@@ -76,3 +76,6 @@ B02/B03可以基于冻结契约继续推进，其他B项与外部真实验收保
 
 
 B02 已交付 [Draft PR #17](https://github.com/ZZZZihan/BidOps/pull/17)：公告/包/附件版本、引用复验及完整分页；实现提交685后端/14浏览器通过。B02-06指定真实旧库备份未提供，代码合并结论仍BLOCKED，真实业务验收未完成。见[B02逐项证据](reports/b02-notice-versions-20261023.md)。B03集成与B04继续推进。
+
+
+B03 已交付 [Draft PR #18](https://github.com/ZZZZihan/BidOps/pull/18)，基于B02堆叠：画像/材料固定版本、对象权限、留存恢复和Keycloak撤销适配。最终实现`88d1f30d592678daa586c67818100dafff83f8d0`通过791后端/20浏览器；B03专项工程C通过，前置B02-06及真实IdP/企业用户验收仍BLOCKED。见[B03逐项证据](reports/b03-company-access-20261023.md)。B04继续实现。

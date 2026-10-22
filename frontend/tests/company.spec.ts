@@ -118,7 +118,7 @@ test('real backend saves profile versions, UTF8 materials, sources and bounded q
   await page.getByRole('button', {name: '添加事实', exact: true}).click();
   await page.getByLabel('事实名称', {exact: true}).fill('UNIT_QUALIFICATION');
   await page.getByRole('button', {name: '创建企业画像'}).click();
-  await expect(page.getByRole('status')).toContainText('企业画像已保存新版本');
+  await expect(page.getByRole('status').filter({hasText: '企业画像已保存新版本'})).toContainText('企业画像已保存新版本');
   const first = await (await request.get(`${origin}/api/company/profiles`)).json();
   const profileId = first.items[0].object_id;
   const firstVersion = first.items[0].head_version;
@@ -128,17 +128,42 @@ test('real backend saves profile versions, UTF8 materials, sources and bounded q
 
   await page.getByLabel('选择材料文件').setInputFiles({name: '资质证明.txt', mimeType: 'text/plain', buffer: Buffer.from('UNIT_CERTIFICATE\n仅用于协议与页面工程测试。', 'utf8')});
   await page.getByRole('button', {name: '上传材料', exact: true}).click();
-  await expect(page.getByRole('status')).toContainText('材料已保存新版本');
+  await expect(page.getByRole('status').filter({hasText: '材料已保存新版本'})).toContainText('材料已保存新版本');
   await expect(page.getByRole('button', {name: '资质证明.txt', exact: true})).toBeVisible();
   await page.getByLabel('引用起始位置').fill('0');
   await page.getByLabel('引用结束位置').fill('16');
   await page.getByRole('button', {name: '生成材料引用'}).click();
-  await expect(page.getByRole('status')).toContainText('材料引用已加入');
+  await expect(page.getByRole('status').filter({hasText: '材料引用已加入'})).toContainText('材料引用已加入');
   await page.getByLabel('证据状态').selectOption('document_supported');
   await page.getByLabel('事实内容').fill('UNIT_CERTIFICATE');
   await page.locator('.company-sources').getByRole('checkbox').check();
-  await page.getByRole('button', {name: '保存画像新版本'}).click();
-  await expect(page.getByRole('status')).toContainText('企业画像已保存新版本');
+  // A committed write must be acknowledged independently of a slow list read.
+  // Gate the real post-save refresh rather than increasing the assertion timeout.
+  let releaseRefresh!: () => void;
+  let sawRefresh!: () => void;
+  const refreshGate = new Promise<void>(resolve => {releaseRefresh = resolve;});
+  const refreshStarted = new Promise<void>(resolve => {sawRefresh = resolve;});
+  const listUrl = '**/api/company/profiles?limit=20&offset=0';
+  await page.route(listUrl, async route => {
+    sawRefresh(); await refreshGate; await route.continue();
+  });
+  const saveResponse = page.waitForResponse(response => response.request().method() === 'PUT' && response.url().endsWith(`/api/company/profiles/${profileId}`));
+  let savedVersion = '';
+  try {
+    await page.getByRole('button', {name: '保存画像新版本'}).click();
+    const response = await saveResponse;
+    expect(response.status(), await response.text()).toBe(200);
+    savedVersion = (await response.json()).version_id;
+    expect(savedVersion).not.toBe(firstVersion);
+    await refreshStarted;
+    await expect(page.getByRole('status').filter({hasText: '企业画像已保存新版本'})).toContainText(savedVersion.slice(0, 12));
+    await expect(page.getByRole('button', {name: '保存画像新版本'})).toBeDisabled();
+  } finally {
+    releaseRefresh();
+  }
+  await expect(page.getByRole('button', {name: '保存画像新版本'})).toBeEnabled();
+  await page.unroute(listUrl);
+  await expect(page.locator('.company-version').first()).toContainText(savedVersion);
   await page.getByRole('button', {name: '核对已保存版本'}).click();
   await expect(page.locator('.company-check')).toContainText('信息不足');
   await expect(page.locator('.company-check')).toContainText('材料有效期待核实');
@@ -176,14 +201,14 @@ test('real object grant and revoke cannot be bypassed by another account or an a
     await page.getByLabel('对象编号', {exact: true}).fill(material.object_id);
     await page.getByLabel('接收人工作台标识').fill(bobMe.user.subject_id);
     await page.getByRole('button', {name: '添加对象授权'}).click();
-    await expect(page.getByRole('status')).toContainText('对象授权已由服务端更新');
+    await expect(page.getByRole('status').filter({hasText: '对象授权已由服务端更新'})).toContainText('对象授权已由服务端更新');
     expect((await bob.request.get(`${origin}/api/company/materials/${material.object_id}/export`)).status()).toBe(200);
     const bobPage = await bob.newPage(); await bobPage.goto(origin);
     await bobPage.getByRole('button', {name: '企业画像与材料'}).click();
     await bobPage.getByRole('button', {name: 'private.txt', exact: true}).click();
     await expect(bobPage.getByRole('button', {name: '下载当前材料版本'})).toBeVisible();
     await page.getByRole('button', {name: '撤销该人全部授权'}).click();
-    await expect(page.getByRole('status')).toContainText('对象授权已撤销');
+    await expect(page.getByRole('status').filter({hasText: '对象授权已撤销'})).toContainText('对象授权已撤销');
     await bobPage.getByRole('button', {name: '下载当前材料版本'}).click();
     await expect(bobPage.getByRole('alert')).toContainText('不可访问');
     await expect(bobPage.locator('.company-material-text')).toHaveCount(0);
@@ -321,7 +346,7 @@ test('retention policies survive profile history pagination and unchanged materi
     const update = page.waitForRequest(req => req.method() === 'PUT' && req.url().endsWith(`/api/company/profiles/${selected.object_id}`));
     await page.getByRole('button', {name: '保存画像新版本'}).click();
     expect((await update).postDataJSON()).not.toHaveProperty('retention_until');
-    await expect(page.getByRole('status')).toContainText('企业画像已保存新版本');
+    await expect(page.getByRole('status').filter({hasText: '企业画像已保存新版本'})).toContainText('企业画像已保存新版本');
     const saved = await (await owner.request.get(`${origin}/api/company/profiles/${selected.object_id}`)).json();
     expect(saved.retention_until).toBe(Date.parse(currentUntil) / 1000);
     expect(saved.version_id).not.toBe(second.version_id);
@@ -337,7 +362,7 @@ test('retention policies survive profile history pagination and unchanged materi
     const replace = page.waitForRequest(req => req.method() === 'PUT' && req.url().endsWith(`/api/company/materials/${material.object_id}`));
     await page.getByRole('button', {name: '保存材料新版本'}).click();
     expect((await replace).headers()).not.toHaveProperty('x-retention-until');
-    await expect(page.getByRole('status')).toContainText('材料已保存新版本');
+    await expect(page.getByRole('status').filter({hasText: '材料已保存新版本'})).toContainText('材料已保存新版本');
     const updatedMaterial = await (await owner.request.get(`${origin}/api/company/materials/${material.object_id}`)).json();
     expect(updatedMaterial.retention_until).toBe(Date.parse(currentUntil) / 1000);
     expect(updatedMaterial.version_id).not.toBe(material.version_id);

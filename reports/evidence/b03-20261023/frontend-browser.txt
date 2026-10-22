@@ -1,0 +1,93 @@
+
+> bidops-ui@0.1.0 test:e2e
+> playwright test
+
+(node:78831) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[2m[WebServer] [22m(node:78853) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 20 tests using 12 workers
+
+(node:78861) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78857) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78859) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78858) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78855) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78862) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78866) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78865) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78863) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78863) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78862) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78862) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78861) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78861) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78860) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78860) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78859) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78859) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78856) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78858) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78858) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78856) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78865) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78865) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78866) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78866) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78864) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78857) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78857) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:78855) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:78855) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   3 tests/enterprise.spec.ts:211:1 › identity API failure does not silently downgrade to a local anonymous demo (3.4s)
+  ✓  12 tests/company.spec.ts:152:1 › anonymous enterprise session does not expose private company controls (3.0s)
+  ✓   1 tests/workbench.spec.ts:25:1 › missing credential is explicit; model calls are disabled (3.4s)
+  ✓   7 tests/workbench.spec.ts:40:1 › empty corpus cannot be presented as a successful demo (3.4s)
+  ✓  10 tests/enterprise.spec.ts:73:1 › OIDC failure is explicit and does not open a workspace (3.3s)
+  ✓   5 tests/enterprise.spec.ts:81:1 › viewer sees archive but no chat or audit controls (3.4s)
+  ✓   8 tests/enterprise.spec.ts:52:1 › unauthenticated enterprise only shows the SSO entry (3.4s)
+  ✓  11 tests/workbench.spec.ts:50:1 › provider error is readable and retry remains possible (3.6s)
+  ✓   6 tests/enterprise.spec.ts:99:1 › analyst restores private history after reload without calling the model (3.6s)
+  ✓   2 tests/enterprise.spec.ts:178:1 › administrator audit shows metadata, remains usable on mobile (3.7s)
+  ✓   9 tests/archive.spec.ts:2:1 › archive sends full-catalog search and resets pagination (3.7s)
+  ✓   4 tests/enterprise.spec.ts:139:1 › network recovery preserves the request key and csrf header (3.7s)
+  ✓  15 tests/workbench.spec.ts:96:1 › mobile layout has no horizontal overflow and usable input (642ms)
+  ✓  16 tests/workbench.spec.ts:71:1 › no browser interpretation of user HTML; Shift+Enter does not send (744ms)
+  ✓  14 tests/workbench.spec.ts:111:1 › read pages expose full count and truncation including the last page (779ms)
+  ✓  13 tests/company.spec.ts:164:1 › real backend saves profile versions, UTF8 materials, sources and bounded qualification results (2.4s)
+  ✓  17 tests/company.spec.ts:272:1 › real object grant and revoke cannot be bypassed by another account or an admin (1.2s)
+  ✓  18 tests/company.spec.ts:343:1 › real 403 and refresh after revocation clear selected bodies, profile drafts, quotes and authorization metadata (1.9s)
+  ✓  19 tests/company.spec.ts:480:1 › refresh keeps an authorized selected fixed version when its row is on another page (706ms)
+  ✓  20 tests/company.spec.ts:525:1 › retention policies survive profile history pagination and unchanged material replacement (1.5s)
+
+  20 passed (14.9s)
