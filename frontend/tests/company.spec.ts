@@ -137,8 +137,33 @@ test('real backend saves profile versions, UTF8 materials, sources and bounded q
   await page.getByLabel('证据状态').selectOption('document_supported');
   await page.getByLabel('事实内容').fill('UNIT_CERTIFICATE');
   await page.locator('.company-sources').getByRole('checkbox').check();
-  await page.getByRole('button', {name: '保存画像新版本'}).click();
-  await expect(page.getByRole('status').filter({hasText: '企业画像已保存新版本'})).toContainText('企业画像已保存新版本');
+  // A committed write must be acknowledged independently of a slow list read.
+  // Gate the real post-save refresh rather than increasing the assertion timeout.
+  let releaseRefresh!: () => void;
+  let sawRefresh!: () => void;
+  const refreshGate = new Promise<void>(resolve => {releaseRefresh = resolve;});
+  const refreshStarted = new Promise<void>(resolve => {sawRefresh = resolve;});
+  const listUrl = '**/api/company/profiles?limit=20&offset=0';
+  await page.route(listUrl, async route => {
+    sawRefresh(); await refreshGate; await route.continue();
+  });
+  const saveResponse = page.waitForResponse(response => response.request().method() === 'PUT' && response.url().endsWith(`/api/company/profiles/${profileId}`));
+  let savedVersion = '';
+  try {
+    await page.getByRole('button', {name: '保存画像新版本'}).click();
+    const response = await saveResponse;
+    expect(response.status(), await response.text()).toBe(200);
+    savedVersion = (await response.json()).version_id;
+    expect(savedVersion).not.toBe(firstVersion);
+    await refreshStarted;
+    await expect(page.getByRole('status').filter({hasText: '企业画像已保存新版本'})).toContainText(savedVersion.slice(0, 12));
+    await expect(page.getByRole('button', {name: '保存画像新版本'})).toBeDisabled();
+  } finally {
+    releaseRefresh();
+  }
+  await expect(page.getByRole('button', {name: '保存画像新版本'})).toBeEnabled();
+  await page.unroute(listUrl);
+  await expect(page.locator('.company-version').first()).toContainText(savedVersion);
   await page.getByRole('button', {name: '核对已保存版本'}).click();
   await expect(page.locator('.company-check')).toContainText('信息不足');
   await expect(page.locator('.company-check')).toContainText('材料有效期待核实');
