@@ -1,0 +1,105 @@
+{
+  "case_id": "06de89cc36b24591bec0c475cc61c9b9",
+  "status": "open",
+  "head_revision_id": "cae5d941b96349578db5a85595dcab85",
+  "review_version": 3,
+  "revisions": [
+    {
+      "revision_id": "05a7b8fd245741ddad84a8dc071f3554",
+      "parent_revision_id": null,
+      "run_id": "e5e8f40b10a441fe9f7083367b255f9f",
+      "result_id": "3766addad8854e0aa4e7a449059d26f5",
+      "result_revision": "001e033b9d6c4d55ae1e4e08950ec6c6",
+      "inputs_manifest_sha256": "0f9d27b586200dc10281cd5f3d413f73f4e686e07b044b2007b191717148e4af"
+    },
+    {
+      "revision_id": "cae5d941b96349578db5a85595dcab85",
+      "parent_revision_id": "05a7b8fd245741ddad84a8dc071f3554",
+      "run_id": "6fe8f88571284459af7ec020a617a086",
+      "result_id": "eee408c735e94e879d80bc32ff8b8c92",
+      "result_revision": "9fe77db7152b47da8c0261f8f9f9975e",
+      "inputs_manifest_sha256": "67c9a5681dd70950ac6892ab03b508ca9e52fabbea4c3139aed44110a4faac2f"
+    }
+  ],
+  "jobs": [
+    {
+      "run_id": "e5e8f40b10a441fe9f7083367b255f9f",
+      "status": "cancelled",
+      "result_id": "3766addad8854e0aa4e7a449059d26f5",
+      "result_revision": "001e033b9d6c4d55ae1e4e08950ec6c6",
+      "usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      }
+    },
+    {
+      "run_id": "6fe8f88571284459af7ec020a617a086",
+      "status": "waiting_review",
+      "result_id": "eee408c735e94e879d80bc32ff8b8c92",
+      "result_revision": "9fe77db7152b47da8c0261f8f9f9975e",
+      "usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      }
+    }
+  ],
+  "native_workflows": [
+    [
+      "6fe8f88571284459af7ec020a617a086",
+      "PENDING",
+      "bidops_qualification_job_v1",
+      null
+    ],
+    [
+      "6fe8f88571284459af7ec020a617a086-calculation",
+      "SUCCESS",
+      "bidops_qualification_calculation_v1",
+      "6fe8f88571284459af7ec020a617a086"
+    ],
+    [
+      "e5e8f40b10a441fe9f7083367b255f9f",
+      "CANCELLED",
+      "bidops_qualification_job_v1",
+      null
+    ],
+    [
+      "e5e8f40b10a441fe9f7083367b255f9f-calculation",
+      "SUCCESS",
+      "bidops_qualification_calculation_v1",
+      "e5e8f40b10a441fe9f7083367b255f9f"
+    ]
+  ],
+  "review_event_ids": [
+    "db32e0899fa64e8ba0fe96efa9b783f3",
+    "5f365da6a20542bdb9f78482409d6fad",
+    "46a77d5a271b415eb1ab0f9c7e586a3d"
+  ],
+  "unreviewed_item_count": 8,
+  "all_new_items_unreviewed": true
+}

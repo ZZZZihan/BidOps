@@ -1,0 +1,68 @@
+Authorized cleanup of this B06 Playwright run only.
+UTC 2026-10-22T20:04:22.485638+00:00
+Before cleanup pipe evidence:
+node      21932 xuzihan   17u  unix 0x315fa04807be1c5f      0t0      ->0x3e27341e620bc7f4
+node      21932 xuzihan   19u  unix 0x1fea804005116ac0      0t0      ->0x9fd346a14b302079
+node      21935 xuzihan   20u  unix  0xc06b3a896bf5229      0t0      ->0xc3c9c8814fc90169
+node      21935 xuzihan   25u  unix 0x24814ddbbbc0570f      0t0      ->0xe46036d9beb431cc
+node      21936 xuzihan   17u  unix 0x54f5761a9fd7621c      0t0      ->0x97123e53a3442c0e
+node      21936 xuzihan   19u  unix 0x9a0490f1ba13c60d      0t0      ->0x1b67bbcc5278bc4f
+chrome_cr 22043 xuzihan    2u  unix 0x9fd346a14b302079      0t0      ->0x1fea804005116ac0
+chrome_cr 22047 xuzihan    2u  unix 0x1b67bbcc5278bc4f      0t0      ->0x9a0490f1ba13c60d
+chrome_cr 22134 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+GoogleUpd 22901 xuzihan    1u  unix 0x97123e53a3442c0e      0t0      ->0x54f5761a9fd7621c
+GoogleUpd 22901 xuzihan    2u  unix 0x1b67bbcc5278bc4f      0t0      ->0x9a0490f1ba13c60d
+GoogleUpd 22902 xuzihan    1u  unix 0x3e27341e620bc7f4      0t0      ->0x315fa04807be1c5f
+GoogleUpd 22902 xuzihan    2u  unix 0x9fd346a14b302079      0t0      ->0x1fea804005116ac0
+GoogleUpd 22907 xuzihan    2u  unix 0x9fd346a14b302079      0t0      ->0x1fea804005116ac0
+GoogleUpd 22909 xuzihan    2u  unix 0x1b67bbcc5278bc4f      0t0      ->0x9a0490f1ba13c60d
+GoogleUpd 22910 xuzihan    1u  unix 0x97123e53a3442c0e      0t0      ->0x54f5761a9fd7621c
+GoogleUpd 22910 xuzihan    2u  unix 0x1b67bbcc5278bc4f      0t0      ->0x9a0490f1ba13c60d
+GoogleUpd 22911 xuzihan    1u  unix 0x3e27341e620bc7f4      0t0      ->0x315fa04807be1c5f
+GoogleUpd 22911 xuzihan    2u  unix 0x9fd346a14b302079      0t0      ->0x1fea804005116ac0
+GoogleUpd 22914 xuzihan    2u  unix 0x1b67bbcc5278bc4f      0t0      ->0x9a0490f1ba13c60d
+GoogleUpd 22915 xuzihan    2u  unix 0x9fd346a14b302079      0t0      ->0x1fea804005116ac0
+GoogleUpd 22946 xuzihan    1u  unix 0xc3c9c8814fc90169      0t0      ->0xc06b3a896bf5229
+GoogleUpd 22946 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+GoogleUpd 22948 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+GoogleUpd 22949 xuzihan    1u  unix 0xc3c9c8814fc90169      0t0      ->0xc06b3a896bf5229
+GoogleUpd 22949 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+GoogleUpd 22951 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+Commands and signals:
+PID 22043: /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.85/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/xuzihan/Library/Application Support/Google/Chrome/Crashpad --metrics-dir=/Users/xuzihan/Library/Application Support/Google/Chrome --url=https://clients2.google.com/cr/report --annotation=channel= --annotation=plat=OS X --annotation=prod=Chrome_Mac --annotation=ver=155.0.8059.85 --handshake-fd=7
+SIGTERM at 2026-10-22T20:04:22.551982+00:00
+PID 22047: /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.85/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/xuzihan/Library/Application Support/Google/Chrome/Crashpad --metrics-dir=/Users/xuzihan/Library/Application Support/Google/Chrome --url=https://clients2.google.com/cr/report --annotation=channel= --annotation=plat=OS X --annotation=prod=Chrome_Mac --annotation=ver=155.0.8059.85 --handshake-fd=7
+SIGTERM at 2026-10-22T20:04:22.617224+00:00
+PID 22134: /Applications/Google Chrome.app/Contents/Frameworks/Google Chrome Framework.framework/Versions/155.0.8059.85/Helpers/chrome_crashpad_handler --monitor-self-annotation=ptype=crashpad-handler --database=/Users/xuzihan/Library/Application Support/Google/Chrome/Crashpad --metrics-dir=/Users/xuzihan/Library/Application Support/Google/Chrome --url=https://clients2.google.com/cr/report --annotation=channel= --annotation=plat=OS X --annotation=prod=Chrome_Mac --annotation=ver=155.0.8059.85 --handshake-fd=7
+SIGTERM at 2026-10-22T20:04:22.682737+00:00
+PID 22901: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --wake-all
+SIGTERM at 2026-10-22T20:04:22.748456+00:00
+PID 22902: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --wake-all
+SIGTERM at 2026-10-22T20:04:22.814771+00:00
+PID 22907: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --crash-handler --database=/Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/Crashpad --url=https://clients2.google.com/cr/report --annotation=prod=Update4 --annotation=ver=157.0.8089.0 --handshake-fd=6
+SIGTERM at 2026-10-22T20:04:22.880175+00:00
+PID 22909: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --crash-handler --database=/Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/Crashpad --url=https://clients2.google.com/cr/report --annotation=prod=Update4 --annotation=ver=157.0.8089.0 --handshake-fd=6
+SIGTERM at 2026-10-22T20:04:22.945772+00:00
+PID 22910: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --wake
+SIGTERM at 2026-10-22T20:04:23.011157+00:00
+PID 22911: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --wake
+SIGTERM at 2026-10-22T20:04:23.078601+00:00
+
+Continuation UTC 2026-10-22T20:04:32.980504+00:00
+Remaining matching pipe endpoints:
+node      21935 xuzihan   20u  unix  0xc06b3a896bf5229      0t0      ->0xc3c9c8814fc90169
+node      21935 xuzihan   25u  unix 0x24814ddbbbc0570f      0t0      ->0xe46036d9beb431cc
+GoogleUpd 22946 xuzihan    1u  unix 0xc3c9c8814fc90169      0t0      ->0xc06b3a896bf5229
+GoogleUpd 22946 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+GoogleUpd 22948 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+GoogleUpd 22949 xuzihan    1u  unix 0xc3c9c8814fc90169      0t0      ->0xc06b3a896bf5229
+GoogleUpd 22949 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+GoogleUpd 22951 xuzihan    2u  unix 0xe46036d9beb431cc      0t0      ->0x24814ddbbbc0570f
+PID 22946: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --wake-all
+SIGTERM at 2026-10-22T20:04:33.128575+00:00
+PID 22948: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --crash-handler --database=/Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/Crashpad --url=https://clients2.google.com/cr/report --annotation=prod=Update4 --annotation=ver=157.0.8089.0 --handshake-fd=6
+SIGTERM at 2026-10-22T20:04:33.194774+00:00
+PID 22949: /Users/xuzihan/Library/Application Support/Google/GoogleUpdater/157.0.8089.0/GoogleUpdater.app/Contents/MacOS/GoogleUpdater --wake
+SIGTERM at 2026-10-22T20:04:33.261380+00:00
+PID 22951 exited before follow-up check; no signal
+No other process received a signal. This was not natural teardown.
