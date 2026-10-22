@@ -13,6 +13,13 @@ from bidops.uat.environment import check_environment, non_placeholder_https, sha
 from bidops.uat.schemas import UatBundle
 
 AC_IDS = tuple(f"B10-{number:02}" for number in range(1, 7))
+# The existing 71 contractual gates cannot disappear through a damaged plan
+# row (or deletion). Future upstream gates may be added and are required as well.
+MINIMUM_ACCEPTANCE_IDS = frozenset(
+    f"B{section:02}-{number:02}"
+    for section, count in enumerate((7, 6, 8, 8, 7, 7, 7, 7, 8, 6), start=1)
+    for number in range(1, count + 1)
+)
 # B09-04/06 minima remain binding in B10. Inventory may tighten these
 # preregistered targets, but cannot weaken the frozen plan's limits.
 MAX_RPO_SECONDS = 86_400
@@ -73,6 +80,52 @@ def _times(value):
     return []
 
 
+def _required_upstream_acceptance(plan):
+    """Read every AC table row; a malformed or duplicate row invalidates the plan."""
+    ids = set()
+    label_pattern = (
+        r"(B(?:0[1-9]|10)-[0-9]{2})\s+[CB]"
+        r"(?:\s*(?:（[^（）|]+）|\([^()|]+\)))?"
+    )
+    in_acceptance_table = False
+    for line in plan.splitlines():
+        row = line.strip()
+        if not row.startswith("|"):
+            if in_acceptance_table and "|" in row:
+                raise ValueError("invalid_acceptance_plan_row")
+            in_acceptance_table = False
+            continue
+        first_cell = row[1:].split("|", 1)[0].strip()
+        if first_cell == "ID/类型":
+            in_acceptance_table = True
+            continue
+        if in_acceptance_table and re.fullmatch(r":?-+:?", first_cell):
+            continue
+        if not in_acceptance_table:
+            if re.search(r"\bB[0-9]{2}-", first_cell):
+                raise ValueError("acceptance_plan_row_outside_table")
+            continue
+        cells = row.split("|")[1:-1]
+        match = re.fullmatch(label_pattern, first_cell)
+        if (
+            not row.endswith("|")
+            or len(cells) != 4
+            or not all(cell.strip() for cell in cells)
+            or match is None
+            or match[1] in ids
+        ):
+            raise ValueError("invalid_or_duplicate_acceptance_plan_row")
+        ids.add(match[1])
+    if not MINIMUM_ACCEPTANCE_IDS <= ids:
+        raise ValueError("baseline_acceptance_plan_gate_missing")
+    if any(ac_id.startswith("B10-") and ac_id not in AC_IDS for ac_id in ids):
+        raise ValueError("uat_contract_upgrade_required")
+    required = {ac_id for ac_id in ids if not ac_id.startswith("B10-")}
+    if {key[:3] for key in required} != {f"B0{i}" for i in range(1, 10)}:
+        raise ValueError("incomplete_acceptance_plan")
+    return required
+
+
 def verify_bundle(payload, evidence_root, *, environ=None, project_root=None, now=None):
     """Read bounded private files. Never performs requests or workflow actions.
 
@@ -111,10 +164,8 @@ def verify_bundle(payload, evidence_root, *, environ=None, project_root=None, no
         plan = plan_path.read_text()
         if hashlib.sha256(plan.encode()).hexdigest() != bundle.plan_sha256:
             issues.add("acceptance_plan_hash_mismatch")
-        required = set(re.findall(r"^\| (B0[1-9]-[0-9]{2}) [CB] \|", plan, re.MULTILINE))
-        if not required or {key[:3] for key in required} != {f"B0{i}" for i in range(1, 10)}:
-            issues.add("acceptance_plan_unavailable")
-    except (OSError, UnicodeError):
+        required = _required_upstream_acceptance(plan)
+    except (OSError, UnicodeError, ValueError):
         issues.add("acceptance_plan_unavailable")
         required = set()
     private_root = Path(evidence_root)

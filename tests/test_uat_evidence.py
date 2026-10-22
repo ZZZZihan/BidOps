@@ -3,7 +3,6 @@
 import copy
 import hashlib
 import json
-import re
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
@@ -15,6 +14,13 @@ from test_uat_environment import uat_env as uat_env
 from test_uat_environment import uat_project as uat_project
 
 NOW = datetime(2026, 10, 23, 12, tzinfo=UTC)
+# Explicit contract counts are independent of the production Markdown parser.
+# Original 69 + B04-08 + B09-08 = 71, of which 65 precede B10's six items.
+UPSTREAM_IDS = {
+    f"B{section:02}-{number:02}"
+    for section, count in enumerate((7, 6, 8, 8, 7, 7, 7, 7, 8), start=1)
+    for number in range(1, count + 1)
+}
 
 
 def stamp(minutes):
@@ -199,10 +205,11 @@ def complete(uat_project, uat_env, tmp_path):
         "rpo_observed_seconds": 30,
         "rto_observed_seconds": 120,
     }
-    plan = (uat_project / "docs/ENTERPRISE-PR-PLAN.md").read_text()
-    ids = re.findall(r"^\| (B0[1-9]-[0-9]{2}) [CB] \|", plan, re.MULTILINE)
     records[5].update(
-        prerequisites=[{"ac_id": ac, "outcome": "PASS", "artifact_ids": ["proof"]} for ac in ids],
+        prerequisites=[
+            {"ac_id": ac, "outcome": "PASS", "artifact_ids": ["proof"]}
+            for ac in sorted(UPSTREAM_IDS)
+        ],
         human_claimed_decision="GO",
         release_review_artifact_id="proof",
         trial_scale_artifact_id="proof",
@@ -232,7 +239,7 @@ def test_complete_claims_never_become_tool_business_pass(complete, uat_project, 
     assert report["schema_valid"]
     assert report["issues"] == []
     assert [row["status"] for row in report["acs"]] == ["EVIDENCE_COMPLETE"] * 6
-    assert report["required_upstream_acceptance_items"] > 50
+    assert report["required_upstream_acceptance_items"] == len(UPSTREAM_IDS) == 65
     assert report["evidence_readiness"] == "READY_FOR_INDEPENDENT_REVIEW"
     assert report["release_decision"] == "NOT_AUTHORIZED_BY_TOOL"
     assert report["business_acceptance"] == "NOT_VERIFIED_BY_TOOL"
@@ -240,6 +247,169 @@ def test_complete_claims_never_become_tool_business_pass(complete, uat_project, 
     assert complete[0] == before
     assert "synthetic; not a real user" not in json.dumps(report)
     assert "record.json" not in json.dumps(report)
+
+
+@pytest.mark.parametrize("ac_id", ["B04-08", "B09-08"])
+@pytest.mark.parametrize("outcome", [None, "NOT_RUN", "BLOCKED", "FAIL"])
+def test_added_upstream_gate_cannot_be_omitted_or_unpassed(
+    complete, uat_project, uat_env, ac_id, outcome
+):
+    prereqs = complete[0]["records"][5]["prerequisites"]
+    item = next(row for row in prereqs if row["ac_id"] == ac_id)
+    if outcome is None:
+        prereqs.remove(item)
+    else:
+        item["outcome"] = outcome
+    report = verify(complete, uat_project, uat_env)
+    assert report["required_upstream_acceptance_items"] == 65
+    assert report["acs"][5]["status"] == "BLOCKED"
+    expected = (
+        "all_b01_to_b09_acceptance_ids_required"
+        if outcome is None
+        else "upstream_acceptance_not_passed"
+    )
+    assert expected in report["acs"][5]["issues"]
+    assert report["evidence_readiness"] == "INCOMPLETE"
+    assert report["release_decision"] == "NO_GO"
+
+
+@pytest.mark.parametrize(
+    "label",
+    ["C（实施新增）", "C （实施新增）", "C(implementation-added)", "C (implementation-added)"],
+)
+def test_annotated_plan_type_retains_the_acceptance_gate(complete, uat_project, uat_env, label):
+    plan_path = uat_project / "docs/ENTERPRISE-PR-PLAN.md"
+    plan = plan_path.read_text()
+    assert "| B04-08 C（实施新增） |" in plan
+    plan_path.write_text(plan.replace("| B04-08 C（实施新增） |", f"| B04-08 {label} |"))
+    complete[0]["plan_sha256"] = sha256_file(plan_path)
+    report = verify(complete, uat_project, uat_env)
+    assert report["required_upstream_acceptance_items"] == 65
+    assert report["issues"] == []
+    assert report["acs"][5]["status"] == "EVIDENCE_COMPLETE"
+    assert report["evidence_readiness"] == "READY_FOR_INDEPENDENT_REVIEW"
+    assert report["release_decision"] == "NOT_AUTHORIZED_BY_TOOL"
+
+
+@pytest.mark.parametrize(
+    "mutation",
+    [
+        "duplicate_upstream",
+        "duplicate_b10",
+        "unknown_section",
+        "invalid_id_separator",
+        "invalid_id_digits",
+        "invalid_type",
+        "unclosed_annotation",
+        "annotation_suffix",
+        "missing_opening_pipe",
+        "missing_closing_pipe",
+        "missing_column",
+    ],
+)
+def test_malformed_or_duplicate_plan_gate_is_not_silently_skipped(
+    complete, uat_project, uat_env, mutation
+):
+    plan_path = uat_project / "docs/ENTERPRISE-PR-PLAN.md"
+    plan = plan_path.read_text()
+    row = next(line for line in plan.splitlines() if line.startswith("| B04-08 "))
+    if mutation == "duplicate_upstream":
+        changed = row + "\n" + row
+    elif mutation == "duplicate_b10":
+        b10 = next(line for line in plan.splitlines() if line.startswith("| B10-01 "))
+        changed = row + "\n" + b10
+    elif mutation == "unknown_section":
+        changed = row.replace("B04-08", "B11-01")
+    elif mutation == "invalid_id_separator":
+        changed = row.replace("B04-08", "B04_08")
+    elif mutation == "invalid_id_digits":
+        changed = row.replace("B04-08", "B4-08")
+    elif mutation == "invalid_type":
+        changed = row.replace("C（实施新增）", "X")
+    elif mutation == "unclosed_annotation":
+        changed = row.replace("C（实施新增）", "C（实施新增")
+    elif mutation == "annotation_suffix":
+        changed = row.replace("C（实施新增）", "C（实施新增）ignored")
+    elif mutation == "missing_opening_pipe":
+        changed = row[1:].lstrip()
+    elif mutation == "missing_closing_pipe":
+        changed = row.rstrip(" |")
+    else:
+        changed = "|".join(row.split("|")[:-2]) + "|"
+    plan_path.write_text(plan.replace(row, changed))
+    complete[0]["plan_sha256"] = sha256_file(plan_path)
+    report = verify(complete, uat_project, uat_env)
+    assert "acceptance_plan_unavailable" in report["issues"]
+    assert report["required_upstream_acceptance_items"] == 0
+    assert all(item["status"] == "BLOCKED" for item in report["acs"])
+    assert report["evidence_readiness"] == "INCOMPLETE"
+    assert report["release_decision"] == "NO_GO"
+
+
+@pytest.mark.parametrize("ac_id", ["B04-08", "B09-08", "B10-06"])
+@pytest.mark.parametrize("mutation", ["deleted_row", "no_pipes", "blank_and_malformed_id"])
+def test_baseline_gate_cannot_disappear_with_its_prerequisite(
+    complete, uat_project, uat_env, ac_id, mutation
+):
+    plan_path = uat_project / "docs/ENTERPRISE-PR-PLAN.md"
+    plan = plan_path.read_text()
+    row = next(line for line in plan.splitlines() if line.startswith(f"| {ac_id} "))
+    if mutation == "deleted_row":
+        changed = ""
+    elif mutation == "no_pipes":
+        changed = row.replace("|", "")
+    else:
+        bad_id = ac_id.replace("B04", "B4").replace("B09", "B9").replace("B10", "B1")
+        changed = "\n" + row.replace(ac_id, bad_id)
+    plan_path.write_text(plan.replace(row, changed))
+    complete[0]["plan_sha256"] = sha256_file(plan_path)
+    complete[0]["records"][5]["prerequisites"] = [
+        item for item in complete[0]["records"][5]["prerequisites"] if item["ac_id"] != ac_id
+    ]
+    report = verify(complete, uat_project, uat_env)
+    assert "acceptance_plan_unavailable" in report["issues"]
+    assert report["required_upstream_acceptance_items"] == 0
+    assert all(item["status"] == "BLOCKED" for item in report["acs"])
+    assert report["evidence_readiness"] == "INCOMPLETE"
+    assert report["release_decision"] == "NO_GO"
+
+
+def test_valid_added_gate_is_required_without_replacing_the_baseline(
+    complete, uat_project, uat_env
+):
+    plan_path = uat_project / "docs/ENTERPRISE-PR-PLAN.md"
+    plan = plan_path.read_text()
+    row = next(line for line in plan.splitlines() if line.startswith("| B09-08 "))
+    added = "| B09-09 C（实施新增） | independent input | explicit invariant | evidence |"
+    plan_path.write_text(plan.replace(row, row + "\n" + added))
+    complete[0]["plan_sha256"] = sha256_file(plan_path)
+    report = verify(complete, uat_project, uat_env)
+    assert report["required_upstream_acceptance_items"] == 66
+    assert report["acs"][5]["status"] == "BLOCKED"
+    assert report["release_decision"] == "NO_GO"
+    complete[0]["records"][5]["prerequisites"].append(
+        {"ac_id": "B09-09", "outcome": "PASS", "artifact_ids": ["proof"]}
+    )
+    report = verify(complete, uat_project, uat_env)
+    assert report["required_upstream_acceptance_items"] == 66
+    assert report["issues"] == []
+    assert report["evidence_readiness"] == "READY_FOR_INDEPENDENT_REVIEW"
+    assert report["business_acceptance"] == "NOT_VERIFIED_BY_TOOL"
+    assert report["release_decision"] == "NOT_AUTHORIZED_BY_TOOL"
+
+
+def test_new_b10_gate_requires_explicit_uat_contract_upgrade(complete, uat_project, uat_env):
+    plan_path = uat_project / "docs/ENTERPRISE-PR-PLAN.md"
+    plan = plan_path.read_text()
+    row = next(line for line in plan.splitlines() if line.startswith("| B10-06 "))
+    added = "| B10-07 B（实施新增） | actual input | new UAT invariant | evidence |"
+    plan_path.write_text(plan.replace(row, row + "\n" + added))
+    complete[0]["plan_sha256"] = sha256_file(plan_path)
+    report = verify(complete, uat_project, uat_env)
+    assert "acceptance_plan_unavailable" in report["issues"]
+    assert report["required_upstream_acceptance_items"] == 0
+    assert all(item["status"] == "BLOCKED" for item in report["acs"])
+    assert report["release_decision"] == "NO_GO"
 
 
 @pytest.mark.parametrize("index", range(6))
