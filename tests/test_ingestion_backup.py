@@ -690,3 +690,11 @@ def test_schedule_inputs_cannot_be_replaced_even_with_matching_metadata(
         sql(path, "UPDATE workflow_status SET inputs=NULL WHERE workflow_uuid=?", (native_id,))
     with pytest.raises(ValueError, match="scheduled (inputs|identity) failed"):
         durable._inventory(repo.db.engine.url.database, path)
+
+
+def test_receipt_schema_without_parent_table_is_a_rejected_corrupt_backup(ingestion):
+    repo = ingestion
+    with sqlite3.connect(repo.db.engine.url.database) as conn:
+        conn.execute("DROP TABLE nd_attachments")
+    with pytest.raises(ValueError, match="Attachment backup parent table is missing"):
+        durable.verify_standalone_database(repo.db.engine.url.database)

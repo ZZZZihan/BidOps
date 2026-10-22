@@ -182,7 +182,10 @@ def test_legacy_six_engineering_rows_migrate_repeat_and_restore(store, settings,
     old = tmp_path / "old"
     backup(settings, old)
     with sqlite3.connect(old / "bidops.sqlite3") as conn:
+        # A pre-B02 schema has no B07 receipt table/migration either. Leaving
+        # migration 011 beside deleted notice tables is a corrupt hybrid backup.
         for table in (
+            "nd_attachment_receipts",
             "nd_attachments",
             "nd_observations",
             "nd_package_versions",
@@ -191,7 +194,10 @@ def test_legacy_six_engineering_rows_migrate_repeat_and_restore(store, settings,
             "nd_projects",
         ):
             conn.execute(f"DROP TABLE {table}")
-        conn.execute("DELETE FROM schema_migrations WHERE version='004_notice_versions.sql'")
+        conn.execute(
+            "DELETE FROM schema_migrations WHERE version IN "
+            "('004_notice_versions.sql','011_attachment_receipts.sql')"
+        )
     manifest = json.loads((old / "manifest.json").read_text())
     manifest["files"]["bidops.sqlite3"] = hashlib.sha256(
         (old / "bidops.sqlite3").read_bytes()

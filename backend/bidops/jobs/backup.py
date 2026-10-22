@@ -235,6 +235,8 @@ def _attachment_inventory(conn):
         if migrated or declared:
             raise ValueError("Attachment backup receipt table is missing")
         return
+    if "nd_attachments" not in tables:
+        raise ValueError("Attachment backup parent table is missing")
     receipts = {r["record_id"]: r for r in _rows(conn, "SELECT * FROM nd_attachment_receipts")}
     seen = set()
     for row in _rows(conn, "SELECT * FROM nd_attachments"):
