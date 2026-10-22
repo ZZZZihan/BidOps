@@ -7,7 +7,7 @@ permissions:
 jobs:
   backend:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -16,7 +16,7 @@ jobs:
           enable-cache: true
       - run: uv sync --frozen --python 3.12
       - name: Install hashed durable overlay without changing frozen B01 lock
-        run: uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock
+        run: uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock -r requirements/attachments.lock
       - run: uv run --frozen --no-sync ruff check .
       - run: uv run --frozen --no-sync ruff format --check .
       - run: uv run --frozen --no-sync pytest
@@ -46,7 +46,7 @@ jobs:
         run: uv sync --frozen --python 3.12
         working-directory: .
       - name: Install hashed durable browser backend
-        run: uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock
+        run: uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock -r requirements/attachments.lock
         working-directory: .
       - uses: actions/setup-node@v4
         with:
@@ -80,5 +80,6 @@ jobs:
           test "$(docker exec bidops-smoke id -u)" = 10001
           docker exec bidops-smoke python -c 'import os; from bidops.qualification.service import implementation_version; p=implementation_version(); assert p["code_sha"] == os.environ["BIDOPS_CODE_SHA"] and len(p["code_sha"]) == 40; assert p["lock_sha256"] and p["implementation_sha256"]; print("Installed qualification provenance passed")'
           docker exec bidops-smoke python -c 'from importlib.metadata import version; from bidops.jobs.runtime import application_version; from bidops.jobs.config import JobsSettings; p=application_version(); assert version("dbos") == "3.3.0"; assert p["durable_lock_sha256"] and p["application_version"]; assert not JobsSettings().enabled; print("Installed durable overlay provenance and default-off gate passed")'
+          docker exec bidops-smoke python -c 'from importlib.metadata import version; from bidops.jobs.runtime import application_version; from bidops.ingestion.config import IngestionSettings; p=application_version(); assert version("pypdf") == "6.21.2"; assert p["attachment_lock_sha256"] == "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"; assert not IngestionSettings().enabled; print("Installed attachment overlay provenance and ingestion default-off gate passed")'
       - if: always()
         run: docker rm -f bidops-smoke

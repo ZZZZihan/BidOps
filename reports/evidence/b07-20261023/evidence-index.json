@@ -1,0 +1,91 @@
+{
+  "scope": "synthetic_engineering_and_protocol_fixtures",
+  "code_sha": "5ac68753c22f46a3e3214e2f0c61a1ea8008808c",
+  "original_root_log_sha256": {
+    "backend.txt": "bd4409cd768c5fce61710baa2b28cfbec0f2fd34c7a4e0a23035dbb357b74db4",
+    "lint.txt": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+    "format.txt": "8e94ed78209e71558d9bcb04ee84a4a93b82507489ea08908162411df0aef622",
+    "freeze.txt": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7",
+    "frontend-build.txt": "f4b5f6362131996e117ccdf7a1c3bb481499695161474e9fd358792d64cf02db",
+    "frontend-browser.txt": "b181f2b17716f91396160f324910c64f60905fd1c800999300e6532725bc5ddd",
+    "frozen-scorer.json": "c500bfd2752bcfa5e64873f6ce5ac8fe5da2893c5dfdf1914863ddc2c06a5a32",
+    "verification.json": "81f98fc71a8598a60a58d43cc505cb8cc9f7557fa8b8de5806761c925925a033"
+  },
+  "sanitization": "Explicit root filenames only; worktree/private evidence prefixes replaced; recovery JSON projected by allowlisted keys. No recursive pytest copying. CI failure excerpt trailing whitespace normalized; the original log hash remains recorded.",
+  "allowed_files": [
+    {
+      "path": "backend.txt",
+      "byte_size": 2033,
+      "sha256": "bd4409cd768c5fce61710baa2b28cfbec0f2fd34c7a4e0a23035dbb357b74db4"
+    },
+    {
+      "path": "ci-failure.txt",
+      "byte_size": 3558,
+      "sha256": "e4922c8d22f9fa5995f61126a81f67aed684012b64c57f5fcb92cfd809778061"
+    },
+    {
+      "path": "ci-status.json",
+      "byte_size": 1000,
+      "sha256": "76585032b543a62c0d399029e838cd077c829bd15355be7d6c602ab381e1c205"
+    },
+    {
+      "path": "format.txt",
+      "byte_size": 28,
+      "sha256": "8e94ed78209e71558d9bcb04ee84a4a93b82507489ea08908162411df0aef622"
+    },
+    {
+      "path": "freeze.txt",
+      "byte_size": 74,
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7"
+    },
+    {
+      "path": "frontend-browser.txt",
+      "byte_size": 26060,
+      "sha256": "c5cd882922d859df6a88335398099e628559f0009ee1782301effdb3fbd2310f"
+    },
+    {
+      "path": "frontend-build.txt",
+      "byte_size": 399,
+      "sha256": "f4b5f6362131996e117ccdf7a1c3bb481499695161474e9fd358792d64cf02db"
+    },
+    {
+      "path": "frozen-scorer.json",
+      "byte_size": 21515,
+      "sha256": "c500bfd2752bcfa5e64873f6ce5ac8fe5da2893c5dfdf1914863ddc2c06a5a32"
+    },
+    {
+      "path": "lint.txt",
+      "byte_size": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "parser-ci-fix.txt",
+      "byte_size": 99,
+      "sha256": "b7c1047ed2656e3592e3b25aad2e2da799101f92c2a48bab6aa50e17e514dd7b"
+    },
+    {
+      "path": "recovery-summary.json",
+      "byte_size": 8504,
+      "sha256": "37ce28f6120470812d8d92de3a1d32b9355d1fcde33840ffe03626914474ee0c"
+    },
+    {
+      "path": "verification.json",
+      "byte_size": 2562,
+      "sha256": "869de57bd64e6fbcfe86585e12f0c2c57a1dce9686d7a341943c9dc5817475ee"
+    },
+    {
+      "path": "final-ci.json",
+      "byte_size": 1277,
+      "sha256": "440ca306b4da69440d7dff257669a476e834404ad0ad1ebd88b512f14e1bfcb1"
+    }
+  ],
+  "excluded": [
+    "pytest/** except bounded recovery-summary projection",
+    "all databases/WAL/SHM/backup bundles/material bytes",
+    "bootstrap/identity/subject/session/CSRF/restore tokens",
+    "provider credentials/real organization materials",
+    "serialized DBOS request/input blobs"
+  ],
+  "additional_test_only_fix_sha": "de96024711bbd0eaf40b580859bf871004ef2a66",
+  "final_ci_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f"
+}

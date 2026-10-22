@@ -13,13 +13,15 @@ ENV UV_PYTHON_DOWNLOADS=never UV_PROJECT_ENVIRONMENT=/opt/venv \
     PATH="/opt/venv/bin:$PATH" PYTHONUNBUFFERED=1 \
     BIDOPS_ENTERPRISE_ENABLED=true BIDOPS_NETWORK_ENABLED=false \
     BIDOPS_CODE_SHA=$BIDOPS_CODE_SHA BIDOPS_LOCK_PATH=/app/uv.lock \
-    BIDOPS_DURABLE_LOCK_PATH=/app/requirements/durable.lock
+    BIDOPS_DURABLE_LOCK_PATH=/app/requirements/durable.lock \
+    BIDOPS_ATTACHMENT_LOCK_PATH=/app/requirements/attachments.lock
 COPY pyproject.toml uv.lock README.md ./
 COPY backend/ ./backend/
 COPY config/ ./config/
 COPY requirements/ ./requirements/
 RUN uv sync --frozen --no-dev --no-editable && \
     uv pip install --python /opt/venv/bin/python --require-hashes -r requirements/durable.lock && \
+    uv pip install --python /opt/venv/bin/python --require-hashes -r requirements/attachments.lock && \
     useradd --uid 10001 --create-home bidops && \
     mkdir -p data private && chown -R bidops:bidops data private
 COPY --from=frontend /build/dist ./frontend/dist

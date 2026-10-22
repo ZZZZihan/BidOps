@@ -1,0 +1,6 @@
+.notice-evidence-location { margin-top: .75rem; min-width: 0; }
+.notice-evidence-location p { font-size: .9rem; }
+.notice-evidence-location-result { margin-top: .5rem; padding: .65rem; border-left: 3px solid #0873b9; background: #f0f7fb; overflow-wrap: anywhere; }
+.notice-evidence-location-result dl { display: block; }
+.notice-evidence-location-result dd { margin: .25rem 0 0; }
+.notice-evidence-location-result code { white-space: normal; overflow-wrap: anywhere; }

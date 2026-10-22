@@ -78,6 +78,11 @@ def notice_router() -> APIRouter:
         repo = repository(request)
         return checked(repo.resolve_evidence, evidence)
 
+    @router.post("/notice-evidence/location")
+    def location(evidence: EvidenceRef, request: Request):
+        repo = repository(request)
+        return checked(repo.evidence_location, evidence)
+
     @router.get("/notice-versions/{version_id}/attachments")
     def attachments(version_id: str, request: Request, as_of: AwareDatetime | None = None):
         repo = repository(request)

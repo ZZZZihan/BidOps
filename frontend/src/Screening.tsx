@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { ApiError, get, request } from './api';
 import type { Identity } from './Enterprise';
+import { NoticeEvidenceLocation, NoticeLocationContext } from './NoticeEvidenceLocation';
 import './screening.css';
 
 type VersionRef = {object_id: string; version_id: string; sha256: string};
@@ -36,7 +37,7 @@ function Logic({expression}: {expression: Expression}) {
   return <div className="screening-logic"><strong>{operators[expression.operator] || expression.operator}</strong><p>{expression.text}</p>{expression.operands?.map((operand, index) => <Logic key={index} expression={operand} />)}</div>;
 }
 function Citations({title, items}: {title: string; items: Evidence[]}) {
-  return <div className="screening-citations"><h4>{title}</h4>{!items.length && <p>尚无可核验引用，不能据此认定满足。</p>}{items.map((item, index) => <details key={`${item.evidence_id}-${index}`}><summary>{item.side === 'notice' ? '公告' : '企业'}引用 · {item.object_kind === 'attachment' ? '附件' : item.object_kind === 'company_material' ? '材料' : item.object_kind === 'company_fact' ? '画像事实' : '公告正文'} · {item.evidence_id}</summary><blockquote>{item.quote}</blockquote><dl><dt>来源对象</dt><dd><code>{item.version.object_id}</code></dd><dt>固定版本</dt><dd><code>{item.version.version_id}</code></dd><dt>版本 SHA-256</dt><dd><code>{item.version.sha256}</code></dd><dt>文本 SHA-256</dt><dd><code>{item.text_sha256}</code></dd><dt>原文定位</dt><dd>{item.locator}{item.page ? ` · 第 ${item.page} 页` : ''} · 字符 [{item.start}, {item.end})</dd>{item.validity && <><dt>证明有效期</dt><dd>{item.validity.kind === 'interval' ? `${readable(item.validity.valid_from)} — ${readable(item.validity.valid_until)}` : item.validity.kind === 'perpetual' ? '已记录长期有效声明' : item.validity.kind === 'unknown' ? '待核实' : '未要求'}{item.validity.reason && `：${item.validity.reason}`}</dd></>}</dl></details>)}</div>;
+  return <div className="screening-citations"><h4>{title}</h4>{!items.length && <p>尚无可核验引用，不能据此认定满足。</p>}{items.map((item, index) => <details key={`${item.evidence_id}-${index}`}><summary>{item.side === 'notice' ? '公告' : '企业'}引用 · {item.object_kind === 'attachment' ? '附件' : item.object_kind === 'company_material' ? '材料' : item.object_kind === 'company_fact' ? '画像事实' : '公告正文'} · {item.evidence_id}</summary><blockquote>{item.quote}</blockquote><dl><dt>来源对象</dt><dd><code>{item.version.object_id}</code></dd><dt>固定版本</dt><dd><code>{item.version.version_id}</code></dd><dt>版本 SHA-256</dt><dd><code>{item.version.sha256}</code></dd><dt>文本 SHA-256</dt><dd><code>{item.text_sha256}</code></dd><dt>原文定位</dt><dd>{item.locator} · 字符 [{item.start}, {item.end})</dd>{item.validity && <><dt>证明有效期</dt><dd>{item.validity.kind === 'interval' ? `${readable(item.validity.valid_from)} — ${readable(item.validity.valid_until)}` : item.validity.kind === 'perpetual' ? '已记录长期有效声明' : item.validity.kind === 'unknown' ? '待核实' : '未要求'}{item.validity.reason && `：${item.validity.reason}`}</dd></>}</dl><NoticeEvidenceLocation evidence={item} /></details>)}</div>;
 }
 function ConditionCard({condition, judgment}: {condition: Condition; judgment?: Judgment}) {
   const scope = condition.package_scope;
@@ -95,7 +96,7 @@ export function Screening({identity}: {identity: Identity}) {
   async function readRun() { await perform(async token => {const saved = await get<Run>(`/screening/runs/${encodeURIComponent(runId.trim())}`); if (current(token)) setResult(saved);}); }
   const assessed = new Set(result?.groups.flatMap(group => group.assessment.conditions.map(condition => condition.condition_id)) || []);
   const pending = result?.inventory.conditions.filter(condition => !assessed.has(condition.condition_id)) || [];
-  return <main className="screening-panel"><div className="agent-heading"><div><p className="eyebrow">候选筛选与证据核对</p><h1>候选与资格核对</h1><p>按固定画像版本筛选采购包，再逐条核对公告要求。候选结果不代表资格通过，所有结论仍需人工复核。</p></div><button disabled={busy || expired} onClick={() => void refresh()}>刷新权限与运行结果</button></div>
+  return <NoticeLocationContext.Provider value={{csrfToken: identity.csrf_token, onAccessDenied: failure => {clearPrivate(); if (failure.status === 401) setExpired(true); setError(failureText(failure));}}}><main className="screening-panel"><div className="agent-heading"><div><p className="eyebrow">候选筛选与证据核对</p><h1>候选与资格核对</h1><p>按固定画像版本筛选采购包，再逐条核对公告要求。候选结果不代表资格通过，所有结论仍需人工复核。</p></div><button disabled={busy || expired} onClick={() => void refresh()}>刷新权限与运行结果</button></div>
     {error && <p className="agent-alert" role="alert">{error}{expired && <> <a href="/api/auth/login">重新统一登录</a></>}</p>}{busy && <p role="status">正在读取或核对，请稍候…</p>}
     {status && !status.enabled && <section className="screening-card" role="status"><h2>此功能尚未开启</h2><p>候选筛选与资格核对当前已关闭。页面不会发起模型调用。</p></section>}
     {status?.enabled && !expired && <><section className="screening-card screening-runtime"><h2>运行状态</h2><p>{status.configured ? '资格核对运行时已配置。' : '尚未配置资格核对运行时，可以先筛选候选。'} {status.live_calls_enabled ? '外部模型调用已开启。' : '外部模型调用已关闭。'}</p><p className="screening-meta">配置模型：{status.model || '尚未记录'}；实际使用模型以每次运行记录为准。</p>{!canCreate && <p>当前账户没有新建筛选或核对的权限。已有结果仍由服务端核验访问权限。</p>}</section>
@@ -110,5 +111,5 @@ export function Screening({identity}: {identity: Identity}) {
         <section className="screening-provenance"><h3>本次运行依据</h3><dl><dt>核对记录</dt><dd><code>{result.run_id}</code></dd><dt>结果版本</dt><dd><code>{result.result_revision}</code></dd><dt>观察与核对时间</dt><dd>{readable(result.manifest.as_of)}</dd>{result.manifest.profile_revision && <><dt>运行使用的画像版本</dt><dd><code>{result.manifest.profile_revision.version_id}</code></dd><dt>运行画像 SHA-256</dt><dd><code>{result.manifest.profile_revision.sha256}</code></dd></>}<dt>提示版本</dt><dd>{result.provenance.prompt_version || '尚未记录'}</dd><dt>规则版本</dt><dd>{result.provenance.rule_version || '尚未记录'}</dd><dt>实际模型</dt><dd>{result.provenance.actual_models?.join('、') || '尚无已确认模型调用'}</dd><dt>模型调用次数</dt><dd>{result.provenance.model_calls ?? '尚未记录'}</dd><dt>估算费用（元）</dt><dd>{result.provenance.estimated_cost_cny ?? '尚未记录'}{result.provenance.usage_complete === false && '（用量尚未确认完整）'}</dd></dl><details><summary>查看固定输入与技术运行记录</summary><pre>{JSON.stringify({manifest: result.manifest, provenance: result.provenance, partial: result.partial}, null, 2)}</pre></details></section>
       </section>}
     </>}
-  </main>;
+  </main></NoticeLocationContext.Provider>;
 }

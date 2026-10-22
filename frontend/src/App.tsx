@@ -5,12 +5,13 @@ import { Company } from './Company';
 import { Screening } from './Screening';
 import { Jobs } from './Jobs';
 import { Reviews } from './Reviews';
+import { Ingestion } from './Ingestion';
 import { Audit, Login, type Identity } from './Enterprise';
 import { get } from './api';
 import './agent.css';
 
 export function App() {
-  const [view, setView] = useState<'agent' | 'archive' | 'audit' | 'company' | 'screening' | 'jobs' | 'reviews'>('agent');
+  const [view, setView] = useState<'agent' | 'archive' | 'audit' | 'company' | 'screening' | 'jobs' | 'reviews' | 'ingestion'>('agent');
   const [identity, setIdentity] = useState<Identity | null>(null);
   const [error, setError] = useState('');
   useEffect(() => {
@@ -34,13 +35,13 @@ export function App() {
   return <>
     <header className="app-header">
       <a className="brand" href="/">BidOps<span>采购证据工作台</span></a>
-      {allowed && <nav aria-label="工作区">{canChat && <button aria-current={view === 'agent' ? 'page' : undefined} onClick={() => setView('agent')}>Agent 助手</button>}<button aria-current={view === 'archive' ? 'page' : undefined} onClick={() => setView('archive')}>公告档案</button>{enterprise && identity.authenticated && <><button aria-current={view === 'company' ? 'page' : undefined} onClick={() => setView('company')}>企业画像与材料</button><button aria-current={view === 'screening' ? 'page' : undefined} onClick={() => setView('screening')}>候选与资格核对</button><button aria-current={view === 'jobs' ? 'page' : undefined} onClick={() => setView('jobs')}>持久核对任务</button><button aria-current={view === 'reviews' ? 'page' : undefined} onClick={() => setView('reviews')}>人工复核</button></>}{identity.permissions.includes('audit:read') && <button aria-current={view === 'audit' ? 'page' : undefined} onClick={() => setView('audit')}>运行审计</button>}</nav>}
+      {allowed && <nav aria-label="工作区">{canChat && <button aria-current={view === 'agent' ? 'page' : undefined} onClick={() => setView('agent')}>Agent 助手</button>}<button aria-current={view === 'archive' ? 'page' : undefined} onClick={() => setView('archive')}>公告档案</button>{enterprise && identity.authenticated && <><button aria-current={view === 'company' ? 'page' : undefined} onClick={() => setView('company')}>企业画像与材料</button><button aria-current={view === 'screening' ? 'page' : undefined} onClick={() => setView('screening')}>候选与资格核对</button><button aria-current={view === 'jobs' ? 'page' : undefined} onClick={() => setView('jobs')}>持久核对任务</button><button aria-current={view === 'reviews' ? 'page' : undefined} onClick={() => setView('reviews')}>人工复核</button><button aria-current={view === 'ingestion' ? 'page' : undefined} onClick={() => setView('ingestion')}>授权更新与导入</button></>}{identity.permissions.includes('audit:read') && <button aria-current={view === 'audit' ? 'page' : undefined} onClick={() => setView('audit')}>运行审计</button>}</nav>}
       {enterprise && identity.authenticated && <div className="account-menu"><span>{identity.user?.name}</span><button onClick={() => void logout()}>退出工作台</button></div>}
     </header>
     {error && <p className="agent-alert" role="alert">{error}</p>}
     {!identity && !error && <p role="status" className="login-panel">正在确认工作区…</p>}
     {identity && enterprise && !identity.authenticated && <Login identity={identity} />}
-    {allowed && (view === 'agent' && canChat ? <AgentWorkbench identity={identity} /> : view === 'audit' ? <Audit /> : view === 'company' && enterprise ? <Company identity={identity} /> : view === 'screening' && enterprise ? <Screening identity={identity} /> : view === 'jobs' && enterprise ? <Jobs identity={identity} /> : view === 'reviews' && enterprise ? <Reviews identity={identity} /> : <Archive />)}
+    {allowed && (view === 'agent' && canChat ? <AgentWorkbench identity={identity} /> : view === 'audit' ? <Audit /> : view === 'company' && enterprise ? <Company identity={identity} /> : view === 'screening' && enterprise ? <Screening identity={identity} /> : view === 'jobs' && enterprise ? <Jobs identity={identity} /> : view === 'reviews' && enterprise ? <Reviews identity={identity} /> : view === 'ingestion' && enterprise ? <Ingestion identity={identity} /> : <Archive />)}
     <footer>根据已保存的公告提供证据。投标资格与最新状态请人工复核。</footer>
   </>;
 }

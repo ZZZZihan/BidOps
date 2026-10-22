@@ -1,0 +1,5 @@
+# B07 core parser overlay; no OCR, crypto or optional extras.
+# Hashes from official PyPI pypdf 6.21.2 JSON, retrieved 2026-10-23.
+pypdf==6.21.2 \
+    --hash=sha256:1d44d1a3a200f25062adff0085b02040e4646431ac2ccac22e42679e91466084 \
+    --hash=sha256:0a3e1c5c886a1be03646c16a04827cc166c2a0575c971b26a4bf89686551c2d4

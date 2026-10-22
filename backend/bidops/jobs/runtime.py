@@ -47,14 +47,19 @@ def application_version():
     )
     lock = Path(os.environ.get("BIDOPS_DURABLE_LOCK_PATH", str(root / "requirements/durable.lock")))
     overlay = hashlib.sha256(lock.read_bytes()).hexdigest()
+    attachment_lock = Path(
+        os.environ.get("BIDOPS_ATTACHMENT_LOCK_PATH", str(root / "requirements/attachments.lock"))
+    )
+    attachment_sha = hashlib.sha256(attachment_lock.read_bytes()).hexdigest()
     base = implementation_version()
     if not base["lock_sha256"]:
         raise CompanyError("job_dependency_lock_missing", 503)
     return {
         **base,
         "durable_lock_sha256": overlay,
+        "attachment_lock_sha256": attachment_sha,
         "job_implementation_sha256": source,
-        "application_version": digest([source, base["lock_sha256"], overlay]),
+        "application_version": digest([source, base["lock_sha256"], overlay, attachment_sha]),
     }
 
 
@@ -100,6 +105,7 @@ class JobsService:
         self.slots = asyncio.Semaphore(1)
         self.agents = None
         self.reviews = None
+        self.ingestion = None
 
     def status(self):
         return {
@@ -113,7 +119,7 @@ class JobsService:
         if not self.settings.enabled:
             raise CompanyError("jobs_disabled", 503)
         self.screening._enabled()
-        if worker and not self.started:
+        if worker and (not self.started or not self.screening.status()["configured"]):
             raise CompanyError("job_backend_unavailable", 503)
 
     def fixed_settings(self):
@@ -129,6 +135,11 @@ class JobsService:
         )
 
     def require_execution(self, run_id):
+        # The source-only extension may launch DBOS while qualification is off.
+        # Previously registered qualification workflows must remain blocked.
+        self.enabled()
+        if not self.screening.status()["configured"]:
+            raise CompanyError("job_backend_unavailable", 503)
         record = self.repository.require_execution(run_id)
         if record["versions"]["application_version"] != self.versions["application_version"]:
             raise CompanyError("job_application_version_changed", 409)
@@ -209,9 +220,9 @@ class JobsService:
         return child
 
     def start(self):
-        if not self.settings.enabled:
-            return
-        if not self.screening.status()["configured"]:
+        qualification_available = self.settings.enabled and self.screening.status()["configured"]
+        ingestion_available = self.ingestion is not None and self.ingestion.settings.enabled
+        if not qualification_available and not ingestion_available:
             # Saved history remains readable when the provider or live-budget
             # gate is unavailable; no worker or replacement model is started.
             return
@@ -239,6 +250,8 @@ class JobsService:
                 retry_connection_errors=False,
             )
             try:
+                if self.ingestion:
+                    self.ingestion.before_launch(client)
                 self.prune(client=client)
                 for record in self.repository.list_system(statuses=ACTIVE):
                     try:
@@ -269,22 +282,23 @@ class JobsService:
                 "log_level": "ERROR",
             }
         )
-        model, _ = self.screening._model()
-        proxy = JobModelProxy(model)
-        self.agents = (
-            extraction_agent(
-                proxy,
-                self.screening.settings,
-                name="bidops_job_extraction_v1",
-                capabilities=[DBOSDurability(parallel_execution_mode="sequential")],
-            ),
-            assessment_agent(
-                proxy,
-                self.screening.settings,
-                name="bidops_job_assessment_v1",
-                capabilities=[DBOSDurability(parallel_execution_mode="sequential")],
-            ),
-        )
+        if qualification_available:
+            model, _ = self.screening._model()
+            proxy = JobModelProxy(model)
+            self.agents = (
+                extraction_agent(
+                    proxy,
+                    self.screening.settings,
+                    name="bidops_job_extraction_v1",
+                    capabilities=[DBOSDurability(parallel_execution_mode="sequential")],
+                ),
+                assessment_agent(
+                    proxy,
+                    self.screening.settings,
+                    name="bidops_job_assessment_v1",
+                    capabilities=[DBOSDurability(parallel_execution_mode="sequential")],
+                ),
+            )
 
         def checked_call(function):
             @wraps(function)
@@ -478,6 +492,8 @@ class JobsService:
             return self.reviews.consume(run_id, event_id)
 
         self.workflow = workflow
+        if self.ingestion:
+            self.ingestion.register()
         DBOS.launch()
         DBOS.register_queue(
             QUEUE,
@@ -486,6 +502,8 @@ class JobsService:
             polling_interval_sec=0.1,
         )
         self.started = True
+        if self.ingestion:
+            self.ingestion.after_launch()
         for record in self.repository.list_system(statuses={"queued"}):
             with suppress(CompanyError):
                 self.require_execution(record["run_id"])

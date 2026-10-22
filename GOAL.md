@@ -87,3 +87,14 @@ B05 已交付 [Draft PR #20](https://github.com/ZZZZihan/BidOps/pull/20)，堆�
 B06已交付 [Draft PR #21](https://github.com/ZZZZihan/BidOps/pull/21)，堆叠于B05：逐项服务端身份审核、不可变更正、补材料successor与新revision、正式DBOS事件恢复、完整导出及恢复隔离。固定代码`487649aec8260ce494d7a4cf1f41bae2c4ec1f26`实际1429后端/105浏览器、Ruff196/构建/18冻结文件通过；四SIGKILL窗口12进程。浏览器Chrome更新子进程收尾需定向清理，证据如实保留。见[B06逐项验收](reports/b06-human-review-20261023.md)。B07在独立工作树继续；链代码B02-06、全部真实企业验收仍BLOCKED，没有合并、部署或paid模型调用。
 
 B06 CI修复补充：原Head backend/frontend实际FAIL已保留；修复代码`a0be11276de97b1dbf55fc87b96a9767e96c626a`完整1430后端PASS、Ruff197/冻结PASS，两项真实浏览器复验PASS；新CI frontend/container PASS，backend待结果。详见B06报告CI复验节，业务与前置B02-06仍BLOCKED。
+
+B07 已通过 [PR #22](https://github.com/ZZZZihan/BidOps/pull/22) 交付来源许可策略、受限下载、
+原子增量页、PDF 固定解析回执、原生 DBOS 计划及授权工作台。固定代码
+`5ac68753c22f46a3e3214e2f0c61a1ea8008808c` 本机1730后端 / 148浏览器、Ruff221 / 构建 /
+B01冻结全部自然退出0；B07-01～06专项工程PASS，三组SIGKILL使用9独立进程。
+原Linux CI实际1729PASS / 1FAIL（PDF内存先拒导致测试预期差异）保留；测试修复
+`de96024711bbd0eaf40b580859bf871004ef2a66` 将parser定向测试47项增至48项，生产与锁不变，
+最终代码c035c01的新CI39855341451实际1731后端/148浏览器、容器/lint/冻结全部PASS；旧失败保留，B07自身G-02工程复验关闭。B07-07真实许可三轮 / 24小时仍BLOCKED，
+自动采集和网络默认关闭，没有真实来源 / 模型调用或费用。见
+[B07逐项证据](reports/b07-authorized-updates-20261023.md)。前置B02-06、真实企业验收仍未完成，
+没有因此合并、部署或放开采集。
