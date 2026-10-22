@@ -59,3 +59,26 @@ gates below remain pending; the Demo does not start those phases automatically.
 - #6 parser p0.2 processed all six actual bodies and 15 procurement packages. Offline replay verified 90 evidence spans, six duplicate imports and a stable manifest. This is not P1 gold-label evaluation.
 - #8 the earlier zero-capture report is retained; reports/p0-collection-20261022.md records the follow-up. P0 awaits human access/acceptance review.
 - P1 backlog: #9; P2 backlog: #10; P3 backlog: #11. None has started.
+
+
+## Next business loop: individually accepted implementation PRs
+
+The user requested PR decomposition with an acceptance criterion for every task.
+[Full plan and acceptance matrix](docs/ENTERPRISE-PR-PLAN.md).
+B01–B10 below are planning IDs, not existing GitHub PR numbers. All are unimplemented by this planning change.
+
+- [ ] B01 — Screening contracts and independent evaluation protocol (B01-01 through B01-07).
+- [ ] B02 — Versioned notices, packages, evidence and complete pagination (B02-01 through B02-06).
+- [ ] B03 — Company profiles, document access, IdP revocation and retention (B03-01 through B03-08).
+- [ ] B04 — Candidate screening and evidence-backed qualification checklist (B04-01 through B04-07).
+- [ ] B05 — Durable runs, cancellation, checkpoints and recovery (B05-01 through B05-07).
+- [ ] B06 — Human decisions, material requests and resumable review (B06-01 through B06-07).
+- [ ] B07 — Authorized incremental updates and attachment ingestion (B07-01 through B07-07).
+- [ ] B08 — Held-out evaluation and real human time comparison (B08-01 through B08-07).
+- [ ] B09 — Declared capacity, alerts and complete recovery drills (B09-01 through B09-07).
+- [ ] B10 — Real IdP/HTTPS/user business acceptance and release verdict (B10-01 through B10-06).
+
+Each implementation PR must also satisfy G-01 through G-08 and attach per-item evidence.
+Existing P1/E2/E3 checkboxes remain open. Synthetic tests, code merge and unavailable external inputs
+must not be represented as independent business acceptance.
+
