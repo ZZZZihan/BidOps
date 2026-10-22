@@ -55,7 +55,8 @@ def main(argv: list[str] | None = None) -> int:
         result = {}
         exit_code = 0
         if args.command == "migrate":
-            result = {"schema": "001_initial.sql", "status": "ok"}
+            versions = store.db.rows("SELECT version FROM schema_migrations ORDER BY version")
+            result = {"schema": versions[-1]["version"], "status": "ok"}
         elif args.command == "source":
             result = {
                 "network_enabled": store.settings.network_enabled,

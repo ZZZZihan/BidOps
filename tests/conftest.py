@@ -2,9 +2,11 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 import httpx
+import httpx2
 import pytest
 from bidops.config import Settings
 from bidops.storage import Store
+from pydantic_ai import models
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -15,6 +17,10 @@ def no_live_http(monkeypatch):
         raise AssertionError("Live HTTP is forbidden in the offline test suite")
 
     monkeypatch.setattr(httpx.HTTPTransport, "handle_request", forbidden)
+    monkeypatch.setattr(httpx.AsyncHTTPTransport, "handle_async_request", forbidden)
+    monkeypatch.setattr(httpx2.HTTPTransport, "handle_request", forbidden)
+    monkeypatch.setattr(httpx2.AsyncHTTPTransport, "handle_async_request", forbidden)
+    monkeypatch.setattr(models, "ALLOW_MODEL_REQUESTS", False)
     monkeypatch.setenv("BIDOPS_NETWORK_ENABLED", "false")
 
 

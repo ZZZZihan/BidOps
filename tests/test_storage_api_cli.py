@@ -123,7 +123,9 @@ def test_cli_url_import_offline(settings, url, monkeypatch, capsys, tmp_path):
 
 def test_migrations_idempotent(store):
     store.db.migrate()
-    assert len(store.db.rows("SELECT * FROM schema_migrations")) == 1
+    assert [
+        r["version"] for r in store.db.rows("SELECT * FROM schema_migrations ORDER BY version")
+    ] == ["001_initial.sql", "002_agent_demo.sql"]
 
 
 def test_source_snapshot_matches_bytes(store, ingest):

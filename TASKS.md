@@ -1,5 +1,15 @@
 # Project board — dated 2026-10-22
 
+## Separately authorized Agent Demo (does not pass P1/P2 gates)
+
+- [x] [Demo-01](https://github.com/ZZZZihan/BidOps/issues/12) Research frameworks; use Pydantic AI + official DeepSeek API, read-only tools and evidence UI.
+- [x] Freeze 96 scenarios / 105 prompts with Pydantic Evals; run 24 development and 72 held-out cases. First held-out score: 98.67/100, 71/72 passed.
+- [x] Preserve the failed count-limit case and report a separate post-fix regression run.
+- [ ] Publish final run report, verified source commit and CI; await human demo acceptance.
+
+This scope was explicitly requested after P0. The original independent-data and competition
+gates below remain pending; the Demo does not start those phases automatically.
+
 ## P0: engineering and six real samples delivered; human acceptance pending
 - [ ] [P0-01](https://github.com/ZZZZihan/BidOps/issues/1) Obtain organizer answers on eligibility, registration, IP and submission route (user action needed).
 - [ ] [P0-02](https://github.com/ZZZZihan/BidOps/issues/2) Audit actual public tender pages, site ToS/robots, user-agent/access limitations; no bypass.

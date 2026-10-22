@@ -1,0 +1,101 @@
+{
+  "version": "1.0",
+  "review_method": "Implementer source-reviewed P0 evidence; not an independent human gold set.",
+  "manifest_sha256": "1f9578666a4297ee75b181c0b629d123516feb757bc4902f67ea89059e57cf54",
+  "as_of": "2026-10-22T12:00:00+08:00",
+  "notices": {
+    "TGPC-2026-A-0384": {
+      "budget_yuan": "1120000.00",
+      "buyer_name": "天津市生态环境监测中心",
+      "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+      "published_at": "2026-10-16T18:51:00+08:00",
+      "source_url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm",
+      "sha256": "48adb3f1e4a7495a0d7edb9689716589ea1d963009cedbaca8ad052674f75c7b",
+      "package_count": 1,
+      "package_budgets_yuan": [
+        "1120000.00"
+      ],
+      "document_deadline_at": null,
+      "current_status": "unknown"
+    },
+    "TGPC-2026-D-1131": {
+      "budget_yuan": "1049700.00",
+      "buyer_name": "天津市环境应急与事故调查中心（天津市生态环境综合保障中心）",
+      "bid_deadline_at": "2026-11-09T08:30:00+08:00",
+      "published_at": "2026-10-19T18:50:00+08:00",
+      "source_url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm",
+      "sha256": "583b8ccd74f955d114704ec2b6bf497d69776f7d71f1e24822b1ba39ff9aec0d",
+      "package_count": 1,
+      "package_budgets_yuan": [
+        "1049700.00"
+      ],
+      "document_deadline_at": null,
+      "current_status": "unknown"
+    },
+    "TJBH-2026-D-0170": {
+      "budget_yuan": "2890000.00",
+      "buyer_name": "天津市滨海新区人民政府办公室机关",
+      "bid_deadline_at": "2026-11-20T08:30:00+08:00",
+      "published_at": "2026-10-19T18:50:00+08:00",
+      "source_url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520100.htm",
+      "sha256": "27b3d5a8a6c28411af9f9ca3fa8a2811f50dd5c6c836cf81ad3ec1765d86477c",
+      "package_count": 1,
+      "package_budgets_yuan": [
+        "2890000.00"
+      ],
+      "document_deadline_at": null,
+      "current_status": "unknown"
+    },
+    "TGPC-2026-A-0343": {
+      "budget_yuan": "170000.00",
+      "buyer_name": "天津中医药大学第二附属医院",
+      "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+      "published_at": "2026-10-16T18:51:00+08:00",
+      "source_url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510616.htm",
+      "sha256": "792f9037ffaf37ba0b52585ccd2e067a51c43c483c66afa0377b2d91a5d500ca",
+      "package_count": 1,
+      "package_budgets_yuan": [
+        "170000.00"
+      ],
+      "document_deadline_at": null,
+      "current_status": "unknown"
+    },
+    "PYGP-2026-A-0826": {
+      "budget_yuan": "10089800.00",
+      "buyer_name": "天津市计量监督检测科学研究院",
+      "bid_deadline_at": "2026-11-09T09:00:00+08:00",
+      "published_at": "2026-10-18T18:50:00+08:00",
+      "source_url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261018_27513837.htm",
+      "sha256": "cdd130977fb2a9e27eaafaf3b68dfb99a4f8f897d9b75c2822c2ad03c5231fcf",
+      "package_count": 9,
+      "package_budgets_yuan": [
+        "600000.00",
+        "200000.00",
+        "2600000.00",
+        "1000.00",
+        "400000.00",
+        "2000000.00",
+        "500000.00",
+        "3500000.00",
+        "288800.00"
+      ],
+      "document_deadline_at": null,
+      "current_status": "unknown"
+    },
+    "TGPC-2026-A-0324": {
+      "budget_yuan": "29000000.00",
+      "buyer_name": "天津市疾病预防控制中心",
+      "bid_deadline_at": "2026-10-10T08:30:00+08:00",
+      "published_at": "2026-09-18T18:51:00+08:00",
+      "source_url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202609/t20260918_27358274.htm",
+      "sha256": "0d050a9ffe5e6ee634dccb80ac87b8da443bd931cf41b9eb9f746a09c54a43a9",
+      "package_count": 2,
+      "package_budgets_yuan": [
+        "570000.00",
+        "28430000.00"
+      ],
+      "document_deadline_at": null,
+      "current_status": "unknown"
+    }
+  }
+}

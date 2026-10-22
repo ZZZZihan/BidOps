@@ -1,4 +1,4 @@
-name: P0 offline checks
+name: Offline checks
 on:
   push:
   pull_request:
@@ -35,3 +35,5 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: npm run build
+      - run: npx playwright install --with-deps chromium --only-shell
+      - run: npm run test:e2e

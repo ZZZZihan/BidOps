@@ -1,0 +1,47 @@
+{
+  "completed_at": "2026-10-22T12:57:46.369Z",
+  "passed": true,
+  "actual_provider_turns": 2,
+  "browser": "141.0.7390.37",
+  "viewport_checks": [
+    "1440x1040",
+    "390x844"
+  ],
+  "source_link_verified": true,
+  "archive_rows": 6,
+  "page_errors": [],
+  "runs": [
+    {
+      "run_id": "c004f4d0060b4b39ac80cf6db2b8759d",
+      "model": "deepseek-flash",
+      "mode": "results",
+      "tools": [
+        "read_notice"
+      ],
+      "usage": {
+        "input_tokens": 4333,
+        "output_tokens": 129,
+        "model_requests": 2,
+        "tool_calls": 1,
+        "estimated_cost_cny_peak": 0.009698
+      },
+      "elapsed_ms": 5681
+    },
+    {
+      "run_id": "62adc6c60a334fc182c6110906ed3552",
+      "model": "deepseek-flash",
+      "mode": "results",
+      "tools": [
+        "read_notice"
+      ],
+      "usage": {
+        "input_tokens": 6629,
+        "output_tokens": 129,
+        "model_requests": 2,
+        "tool_calls": 1,
+        "estimated_cost_cny_peak": 0.01429
+      },
+      "elapsed_ms": 2275
+    }
+  ]
+}
