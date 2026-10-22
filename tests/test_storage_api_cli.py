@@ -125,7 +125,13 @@ def test_migrations_idempotent(store):
     store.db.migrate()
     assert [
         r["version"] for r in store.db.rows("SELECT * FROM schema_migrations ORDER BY version")
-    ] == ["001_initial.sql", "002_agent_demo.sql", "003_enterprise.sql"]
+    ] == [
+        "001_initial.sql",
+        "002_agent_demo.sql",
+        "003_enterprise.sql",
+        "005_company_access.sql",
+        "006_identity_refresh.sql",
+    ]
 
 
 def test_source_snapshot_matches_bytes(store, ingest):

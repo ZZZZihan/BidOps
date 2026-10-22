@@ -3,7 +3,7 @@ import { get } from './api';
 
 export type Identity = {
   mode: 'local' | 'enterprise'; authenticated: boolean; organization: string;
-  user: {name: string; roles: string[]} | null; permissions: string[]; csrf_token: string | null;
+  user: {name: string; roles: string[]; subject_id?: string} | null; permissions: string[]; csrf_token: string | null;
 };
 
 export function Login({ identity }: {identity: Identity}) {

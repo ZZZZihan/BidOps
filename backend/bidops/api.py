@@ -13,6 +13,9 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from bidops.agent_demo.runtime import AgentService, DemoFailure, DemoSettings
 from bidops.agent_demo.schemas import ChatRequest, ChatResponse
+from bidops.company import CompanyService
+from bidops.company.api import company_router
+from bidops.company.retention import prune_company_materials
 from bidops.config import Settings
 from bidops.enterprise.auth import IdentityService, auth_router
 from bidops.enterprise.config import EnterpriseSettings
@@ -38,16 +41,23 @@ def create_app(
             app.state.store = Store(settings)
             app.state.agent_service = AgentService(app.state.store, demo_settings)
             app.state.identity = IdentityService(app.state.store.db, enterprise)
+            app.state.company = CompanyService(
+                app.state.store.db, settings.data_dir, max_bytes=settings.max_bytes
+            )
             app.state.conversations = PersistentConversations(app.state.agent_service, enterprise)
+            app.state.maintenance_failed = False
             if enterprise.enabled:
                 prune_private_history(app.state.store.db, enterprise.history_days)
-            app.state.maintenance_failed = False
+                company_prune = prune_company_materials(app.state.company)
+                app.state.maintenance_failed = company_prune["status"] != "PASS"
 
             async def retention():
                 while True:
                     await asyncio.sleep(3600)
                     try:
                         prune_private_history(app.state.store.db, enterprise.history_days)
+                        if prune_company_materials(app.state.company)["status"] != "PASS":
+                            raise RuntimeError("company_retention_cleanup_failed")
                         app.state.maintenance_failed = False
                     except Exception:
                         app.state.maintenance_failed = True
@@ -203,6 +213,7 @@ def create_app(
         return JSONResponse({"ready": ok}, status_code=200 if ok else 503)
 
     app.include_router(auth_router())
+    app.include_router(company_router())
     app.include_router(router)
     app.include_router(router, prefix="/api", include_in_schema=False)
     frontend = Path("frontend/dist")
