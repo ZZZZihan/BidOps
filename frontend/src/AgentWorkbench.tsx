@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { get } from './api';
+import type { Identity } from './Enterprise';
 
 type Citation = { id: string; field: string; quote: string; start: number; end: number; locator: string; source_url: string; sha256: string };
 type Card = {
@@ -16,7 +17,8 @@ type Answer = {
   model: string; elapsed_ms: number; warnings: string[]; as_of: string;
 };
 type AgentStatus = { configured: boolean; enabled: boolean; model: string; notice_count: number; estimated_spend_cny: number };
-type Turn = { question: string; answer?: Answer; error?: string };
+type Turn = { question: string; answer?: Answer; error?: string; requestId?: string; originalSession?: string; recover?: boolean };
+type SavedSession = {session_id: string; updated_at: number; turns: number};
 const labels: Record<string, string> = {
   budget: '预算金额', title: '项目名称', project_code: '项目编号', buyer_name: '采购单位',
   published_at: '公告时间', bid_deadline_at: '投标截止', notice_kind: '公告类型', eligibility: '资格原文', packages: '采购包',
@@ -41,12 +43,19 @@ const errors: Record<string, string> = {
   agent_output_invalid: '模型未能返回可验证的结果，请换一种表述重试。',
   run_usage_limit: '本轮工具调用达到限制，请缩小问题范围后重试。',
   agent_busy: '助手正在处理其他请求，请稍后重试。',
+  session_not_found: '找不到该会话，或你没有访问权限。',
+  session_busy: '这个会话有一轮请求尚未结束，请稍后再试。',
+  request_in_progress: '原请求仍在处理中。稍后可重取本次结果，不会重复调用模型。',
+  request_interrupted: '这轮请求曾被中断，未自动重跑。请核对历史记录后发起新问题。',
+  user_rate_limit: '提问过于频繁，请稍后再试。',
+  idempotency_conflict: '请求标识与原问题不一致，请开启新对话。',
 };
 const currency = (value: string | null) => value === null ? '未知' : `${new Intl.NumberFormat('zh-CN', {maximumFractionDigits: 2}).format(Number(value))} 元`;
 const date = (value: string | null) => value ? new Intl.DateTimeFormat('zh-CN', {timeZone: 'Asia/Shanghai', dateStyle: 'medium', timeStyle: 'short', hour12: false}).format(new Date(value)) : '未知 · 尚未确认';
 const examples = ['哪些项目预算不超过 120 万元？', 'TGPC-2026-A-0324 有几个采购包？', '比较 A-0384 和 A-0343 的预算', '云资源项目的中小企业条件是什么？'];
 
-export function AgentWorkbench() {
+export function AgentWorkbench({identity}: {identity: Identity}) {
+  const enterprise = identity.mode === 'enterprise';
   const [status, setStatus] = useState<AgentStatus | null>(null);
   const [connectionError, setConnectionError] = useState('');
   const [input, setInput] = useState('');
@@ -54,35 +63,57 @@ export function AgentWorkbench() {
   const [session, setSession] = useState<string | undefined>();
   const [busy, setBusy] = useState(false);
   const [selected, setSelected] = useState<Card | null>(null);
+  const [saved, setSaved] = useState<SavedSession[]>([]);
   const end = useRef<HTMLDivElement>(null);
   const controller = useRef<AbortController | null>(null);
   useEffect(() => {
     const abort = new AbortController();
     get<AgentStatus>('/agent/status', abort.signal).then(setStatus).catch((e: Error) => {if (!abort.signal.aborted) setConnectionError(e.message);});
+    if (enterprise) get<{items: SavedSession[]}>('/sessions', abort.signal).then(result => setSaved(result.items)).catch(() => {if (!abort.signal.aborted) setConnectionError('无法读取会话历史。');});
     return () => {abort.abort(); controller.current?.abort();};
-  }, []);
+  }, [enterprise]);
   useEffect(() => {end.current?.scrollIntoView({block: 'nearest'});}, [turns, busy]);
-  async function send(question = input) {
+  async function restore(id: string) {
+    if (!id || busy) return;
+    setBusy(true); setConnectionError('');
+    try {
+      const history = await get<{turns: (Turn & {state: string})[]}>(`/sessions/${id}`);
+      setTurns(history.turns.map(turn => ({...turn, error: turn.error ? errors[turn.error] || '这轮请求未完成。' : turn.state === 'started' ? '这轮请求仍在处理，或服务曾被中断。稍后刷新历史。' : undefined})));
+      setSession(id); setSelected(null);
+    } catch {setConnectionError('无法恢复会话，请确认登录状态后重试。');}
+    finally {setBusy(false);}
+  }
+  async function send(question = input, recovery?: Turn) {
     question = question.trim();
     if (!question || busy || !status?.configured || !status.enabled || status.notice_count === 0) return;
-    setInput(''); setBusy(true); setTurns(current => [...current, {question}]);
+    const requestId = recovery?.requestId || crypto.randomUUID().replaceAll('-', '');
+    const originalSession = recovery ? recovery.originalSession : session;
+    setInput(''); setBusy(true);
+    setTurns(current => recovery ? current.map(turn => turn.requestId === requestId ? {...turn, error: undefined, recover: false} : turn) : [...current, {question, requestId, originalSession}]);
     controller.current = new AbortController();
     try {
-      const response = await fetch('/api/agent/chat', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({message: question, session_id: session}), signal: controller.current.signal});
+      const response = await fetch('/api/agent/chat', {method: 'POST', headers: {'Content-Type': 'application/json', 'X-CSRF-Token': identity.csrf_token || '', 'Idempotency-Key': requestId}, body: JSON.stringify({message: question, session_id: originalSession}), signal: controller.current.signal});
       const body = await response.json();
-      if (!response.ok) throw new Error(errors[body.error] || `请求未完成（HTTP ${response.status}），请检查服务后重试。`);
+      if (!response.ok) {
+        const reason = body.error || body.detail;
+        const message = response.status === 401 ? '登录已过期，请刷新页面重新登录。' : errors[reason] || `请求未完成（HTTP ${response.status}），请检查服务后重试。`;
+        setTurns(current => current.map(turn => turn.requestId === requestId ? {...turn, error: message, recover: reason === 'request_in_progress'} : turn));
+        return;
+      }
       const answer = body as Answer;
       setSession(answer.session_id);
-      setTurns(current => current.map((turn, index) => index === current.length - 1 ? {...turn, answer} : turn));
+      setTurns(current => current.map(turn => turn.requestId === requestId ? {...turn, answer, error: undefined, recover: false} : turn));
+      if (enterprise) get<{items: SavedSession[]}>('/sessions').then(result => setSaved(result.items)).catch(() => setConnectionError('回答已完成，但会话列表暂未刷新。'));
       const card = answer.blocks.flatMap(block => block.items)[0];
       if (card) setSelected(card);
     } catch (e) {
-      if ((e as Error).name !== 'AbortError') setTurns(current => current.map((turn, index) => index === current.length - 1 ? {...turn, error: (e as Error).message} : turn));
+      if ((e as Error).name !== 'AbortError') setTurns(current => current.map(turn => turn.requestId === requestId ? {...turn, error: '连接中断，结果尚不确定。可重取原请求结果。', recover: enterprise} : turn));
     } finally {setBusy(false);}
   }
   const unavailable = !status?.configured || !status.enabled || status.notice_count === 0;
   return <main className="agent-workbench">
     <div className="agent-heading"><div><h1>先问问题，再看证据。</h1><p>{status ? `当前检索 ${status.notice_count} 条已导入公告。所有日期使用北京时间。` : '正在连接本地公告库…'}</p></div><button disabled={busy} onClick={() => {setTurns([]);setSession(undefined);setSelected(null);}}>新对话</button></div>
+    {enterprise && <div className="session-picker"><label htmlFor="saved-session">我的会话</label><select id="saved-session" disabled={busy} value={saved.some(item => item.session_id === session) ? session : ''} onChange={event => void restore(event.target.value)}><option value="">选择已保存的对话</option>{saved.map(item => <option value={item.session_id} key={item.session_id}>{new Date(item.updated_at * 1000).toLocaleString('zh-CN', {timeZone: 'Asia/Shanghai'})} · {item.turns} 轮</option>)}</select><small>仅你可见 · 刷新后可恢复</small>{session && <button disabled={busy} onClick={() => void restore(session)}>刷新历史</button>}</div>}
     {connectionError && <p className="agent-alert" role="alert">无法连接后端：{connectionError}</p>}
     {status && !status.configured && <p className="agent-alert" role="status">尚未配置 DeepSeek。请按 README 设置本地凭证，然后重启服务。</p>}
     {status?.notice_count === 0 && <p className="agent-alert" role="status">公告库为空。请导入已采集的真实样本包后刷新。</p>}
@@ -92,7 +123,7 @@ export function AgentWorkbench() {
           {!turns.length && <div className="conversation-welcome"><h2>把公告里的问题问清楚</h2><p>筛选项目、核对预算、比较截止时间，或查看中小企业相关原文。</p><div className="question-examples">{examples.map(question => <button key={question} disabled={unavailable} onClick={() => void send(question)}>{question}</button>)}</div><p className="subtle">回答基于已保存的快照。最新更正、附件和投标资格需要人工确认。</p></div>}
           {turns.map((turn, index) => <article className="conversation-turn" key={index}>
             <div className="user-question"><span>你的问题</span><p>{turn.question}</p></div>
-            {turn.error && <p className="agent-alert" role="alert">{turn.error}</p>}
+            {turn.error && <div className="agent-alert" role="alert">{turn.error}{turn.recover && <button disabled={busy} onClick={() => void send(turn.question, turn)}>重取本次结果</button>}</div>}
             {turn.answer && <div className="agent-answer"><div className={`answer-state ${turn.answer.response_mode}`}>{({results: '已找到证据', unavailable: '信息不足', clarify: '需要补充', review_required: '需要人工复核', out_of_scope: '超出当前范围'} as Record<string,string>)[turn.answer.response_mode]}</div><p>{turn.answer.message}</p>
               {turn.answer.blocks.map(block => <div key={block.id} className="result-block">
                 {block.operation === 'search' && <p className="result-count">匹配 {block.total} 条，展示 {block.items.length} 条</p>}

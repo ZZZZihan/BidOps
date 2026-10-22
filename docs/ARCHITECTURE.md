@@ -1,5 +1,10 @@
 # Phase-gated architecture (ADR-0001)
 
+The historical phase plan below remains the data/competition gate. Later explicit user
+requests authorized the [Demo](ADR-0002-AGENT-DEMO.md) and then the
+[enterprise internal-app baseline](ADR-0003-ENTERPRISE.md). See [GOAL.md](../GOAL.md) for
+the current engineering goal and the separate pending production/data acceptance gates.
+
 ```text
 P0 (no LLM):
   curated source registry + consent/access checks

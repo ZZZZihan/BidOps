@@ -2,6 +2,7 @@ import { expect, test, type Page } from '@playwright/test';
 
 // UI protocol fixtures only. These tests do not insert or invent procurement notices.
 async function status(page: Page, configured: boolean, count: number) {
+  await page.route('**/api/auth/me', route => route.fulfill({json: {mode: 'local', authenticated: false, organization: 'BidOps', user: null, permissions: [], csrf_token: null}}));
   await page.route('**/api/agent/status', route => route.fulfill({json: {
     configured, enabled: true, model: 'offline-ui-protocol', notice_count: count, estimated_spend_cny: 0,
   }}));

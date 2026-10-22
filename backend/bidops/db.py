@@ -1,4 +1,5 @@
 import json
+import sqlite3
 from datetime import UTC, datetime
 from importlib.resources import files
 from pathlib import Path
@@ -34,9 +35,14 @@ class Database:
                     text("SELECT 1 FROM schema_migrations WHERE version=:v"), {"v": item.name}
                 ).first():
                     continue
-                for statement in item.read_text().split(";"):
-                    if statement.strip():
+                statement = ""
+                for line in item.read_text().splitlines(keepends=True):
+                    statement += line
+                    if sqlite3.complete_statement(statement):
                         conn.exec_driver_sql(statement)
+                        statement = ""
+                if statement.strip():
+                    raise ValueError(f"Incomplete migration: {item.name}")
                 conn.execute(text("INSERT INTO schema_migrations VALUES (:v)"), {"v": item.name})
 
     def rows(self, sql: str, params: dict | None = None) -> list[dict]:

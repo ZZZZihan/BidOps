@@ -64,3 +64,22 @@ body { background: #eef3f7; color: #18354a; }
 @media (max-width: 540px) { .app-header { padding: 15px; flex-wrap: wrap; gap: 14px; } .brand span { font-size: 12px; } .app-header nav button { padding: 8px 10px; } .agent-heading { align-items: flex-start; } .agent-heading > button { white-space: nowrap; flex-shrink: 0; }
 .agent-heading h1 { font-size: 24px; } .question-examples { grid-template-columns: 1fr; } .conversation-scroll { padding: 18px; } .chat-composer { padding: 15px; } .agent-evidence { padding: 20px; } .user-question { margin-left: 10px; } }
 @media (prefers-reduced-motion: reduce) { .conversation-scroll { scroll-behavior: auto; } }
+
+/* Enterprise identity, history and audit follow the existing evidence workbench. */
+.account-menu { display: flex; align-items: center; gap: 12px; font-size: .85rem; }
+.login-panel { max-width: 640px; margin: 10vh auto; padding: 32px; }
+.login-panel h1 { font-size: 2rem; line-height: 1.35; }
+.login-panel p { line-height: 1.8; }
+.eyebrow { color: #18716c; font-size: .85rem; letter-spacing: .08em; }
+.login-link { display: inline-block; background: #174f54; color: white; padding: 13px 22px; border-radius: 6px; margin: 20px 0; text-decoration: none; }
+.session-picker { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 4px 0 20px; }
+.session-picker select { max-width: 100%; min-width: 240px; padding: 9px; border: 1px solid #cbd5dc; border-radius: 5px; background: white; }
+.session-picker small { color: #62717a; }
+.audit-panel { padding: 32px; max-width: 1300px; margin: auto; }
+.audit-table { overflow-x: auto; margin-bottom: 20px; }
+.audit-table table { width: 100%; border-collapse: collapse; text-align: left; }
+.audit-table th, .audit-table td { padding: 14px 12px; border-bottom: 1px solid #dfe5e9; vertical-align: top; }
+.audit-table th { color: #566773; font-size: .85rem; }
+.audit-table pre { white-space: pre-wrap; overflow-wrap: anywhere; max-width: 500px; }
+.agent-alert button { display: block; margin-top: 10px; }
+@media (max-width: 700px) { .app-header { flex-wrap: wrap; gap: 12px; } .account-menu { width: 100%; justify-content: flex-end; } .login-panel { margin: 5vh auto; padding: 24px; } .audit-panel { padding: 18px; } }

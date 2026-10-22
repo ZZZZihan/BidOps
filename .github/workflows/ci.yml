@@ -42,3 +42,23 @@ jobs:
       - run: npm run test:e2e
         env:
           BIDOPS_BROWSER_CHANNEL: chrome
+  container:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t bidops:ci .
+      - name: Start enterprise container with ephemeral protocol-only configuration
+        run: |
+          docker run -d --name bidops-smoke -p 127.0.0.1:8765:8765 \
+            -e BIDOPS_ENTERPRISE_PUBLIC_URL=https://bidops.test \
+            -e BIDOPS_ENTERPRISE_OIDC_ISSUER=https://identity.test/realms/unit \
+            -e BIDOPS_ENTERPRISE_OIDC_CLIENT_SECRET=UNIT_NOT_A_CREDENTIAL \
+            -e BIDOPS_ENTERPRISE_COOKIE_SECRET="$(openssl rand -hex 32)" \
+            -e BIDOPS_DEMO_ENABLED=false bidops:ci
+      - name: Verify packaging, unprivileged process and anonymous access denial
+        run: |
+          python scripts/container_smoke.py
+          test "$(docker exec bidops-smoke id -u)" = 10001
+      - if: always()
+        run: docker rm -f bidops-smoke

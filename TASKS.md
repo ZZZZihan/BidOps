@@ -1,5 +1,19 @@
 # Project board — dated 2026-10-22
 
+## Enterprise application goal (new explicit authorization)
+
+- [ ] [Enterprise goal #13](https://github.com/ZZZZihan/BidOps/issues/13): complete E1 / E2 / E3 gates in [GOAL.md](GOAL.md).
+- [x] Framework research; Authlib OIDC + PKCE and backend RBAC, no anonymous fallback.
+- [x] Owner-scoped persistent conversations, request idempotency, failure preservation and rate limits.
+- [x] Audit UI / append-only application audit / bounded metric labels / retention / backup-restore tooling.
+- [x] Offline auth/security/isolation tests and real DeepSeek persistence integration.
+- [ ] Container CI and final engineering report acceptance.
+- [ ] Real company SSO / HTTPS / two-user acceptance and target-machine operations drill.
+- [ ] Independent representative data quality gate; production workload/security requirements and release review.
+
+Engineering test results and unexecuted work are separated in the enterprise run report.
+This goal does not authorize competition submission or automatically pass P1.
+
 ## Separately authorized Agent Demo (does not pass P1/P2 gates)
 
 - [x] [Demo-01](https://github.com/ZZZZihan/BidOps/issues/12) Research frameworks; use Pydantic AI + official DeepSeek API, read-only tools and evidence UI.

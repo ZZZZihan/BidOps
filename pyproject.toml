@@ -13,11 +13,16 @@ dependencies = [
   "beautifulsoup4>=4.12,<5",
   "pydantic-ai-slim[openai]>=2.59.0",
   "pydantic-evals>=2.59.0",
+  "authlib>=1.7,<2",
+  "itsdangerous>=2.2,<3",
+  "prometheus-client>=0.21,<1",
+  "limits>=4,<6",
 ]
 
 [project.scripts]
 bidops = "bidops.cli:main"
 bidops-demo = "bidops.agent_demo.cli:main"
+bidops-enterprise = "bidops.enterprise.cli:main"
 
 [dependency-groups]
 dev = ["pytest>=8,<10", "ruff>=0.11,<1"]

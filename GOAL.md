@@ -1,36 +1,50 @@
-# BidOps Agent Demo goal — 2026-10-22
+# BidOps 企业级 Agent App 目标 — 2026-10-22
 
-The user explicitly requested a working DeepSeek-powered Agent Demo, framework research
-before implementation, a comprehensive test set, actual evaluation and a score. This new
-authorization expands beyond the earlier P0-only task. It does not retroactively pass P1
-or authorize new crawling, bidding, login/CA access, production deployment or registration.
+用户明确提出：`/goal 我要实现企业级agent app`。本文件是仓库中的持续目标与验收标准。
+新授权允许在已有 Demo 上建设企业应用；不代表原有 P1 数据质量门槛已经通过。
+[原 Demo 目标](docs/GOAL-DEMO-20261022.md)及其 98.67 分首次评测结果保留为历史记录。
 
-## Goal and acceptance targets (targets, not measured results)
+## 产品目标
 
-Deliver a local React/FastAPI workbench where a single framework-managed agent can search
-the six real captured notices, read fields and original evidence, compare budgets/deadlines
-and packages, handle follow-up questions, and abstain on missing/current-status/eligibility
-claims. Every displayed procurement fact resolves to stored data and evidence. A typed
-response renderer must not allow the model to invent numeric values, URLs or quotes.
+为企业采购研究人员提供可部署、可审计、可持续评测的采购证据助手：使用企业账户登录，
+查询真实公告，核对预算、截止时间与采购包，恢复自己的分析会话，并由审计角色检查运行记录。
+所有采购事实必须回到已保存的原文证据；缺失、历史版本、当前状态和投标资格仍需明确标注。
 
-- Use DeepSeek's official API, model `deepseek-flash`, through Pydantic AI.
-- Delegate the model/tool loop, output validation/retries and usage limits to the framework.
-- Use Pydantic Evals for the dataset runner and deterministic task evaluators.
-- Preserve the current six-snapshot corpus and record its manifest SHA256.
-- Target at least 80 distinct evaluation cases covering facts, search, comparison, missing
-  data, unsafe instructions and multi-turn context. Separate development and held-out cases.
-- Score target: >=85/100 on the declared demo corpus; zero credential disclosure, external
-  writes or fabricated source references. This is not a production-quality or P1 gold score.
-- Add offline integration/error-path tests and browser workflow checks. Report all failures,
-  skipped/unexecuted cases, latency, token usage and estimated cost separately from scores.
-- Limit development/evaluation spend to a conservative estimated CNY 10 total, using peak
-  uncached token prices as the estimate. Stop at the limit or unrecoverable provider errors.
-- Keep the key in ignored local `private/deepseek.env` mode 0600; never publish the key,
-  raw notices, full private traces or contact details. No external telemetry is enabled.
+默认交付形态为 **单企业、单实例内部应用**，共享合法的公告库、隔离个人会话。
+多租户 SaaS、私有企业文档检索、高可用集群、自动投标不属于本次基线的隐含承诺。
 
-## Delivery
+## 可验收的工程基线 E1
 
-Runnable source, setup/run commands, a frozen test manifest, evaluation JSON/Markdown,
-recorded actual model/version, safe tool-call traces in the UI, and GitHub commit/CI links.
-Keep the prior P0 reports as historical evidence. The final result must distinguish demo
-success from remaining source-policy and independent-data-validation work.
+以下是验收要求；实际执行结果只写在运行报告中：
+
+1. 使用 DeepSeek 官方 API、Pydantic AI、Pydantic Evals；不自建 Agent 编排框架。
+2. 使用成熟 OIDC 客户端连接企业 IdP；验证签名、issuer、audience、nonce、state、过期时间；
+   支持 Authorization Code + PKCE。登录失败不可降级为匿名应用。
+3. viewer / analyst / auditor / admin 权限在后端执行；所有原 API 别名同样受保护。
+   用户无法读取或继续他人的会话，管理员也不通过聊天 API 读取他人正文。
+4. 会话与框架消息可跨进程恢复；重复请求不重复执行模型；中断/未知结果不可标记成功。
+   单用户频率、全局并发、工具调用、超时和成本限制可测。
+5. 审计区分启动、完成、失败、重复读取与权限拒绝；普通日志和指标不记录正文、凭证、
+   原始回调参数；可查看延迟、请求状态与运行用量。
+6. 提供非 root 容器、持久卷、健康/就绪检查、部署与回滚说明；备份必须做真实恢复验证。
+7. CI 检查后端、lint、前端构建/交互和容器；真实 API 测试单独明确授权、限额并记录。
+
+## 企业试用与生产上线门槛 E2 / E3
+
+- E2：连接真实企业 SSO、配置组织角色与 HTTPS 域名，完成两名独立用户的端到端验收；
+  在目标机器演练重启、备份恢复、访问撤销和故障告警；确认个人会话保存期限与访问策略。
+- E2：补充经许可且有代表性的真实数据，完成独立人工金标和新增冻结评测；不得将当前
+  六份公告的回归分数当成跨数据集泛化能力。
+- E3：按实际人数、峰值并发、RPO/RTO、身份撤销时效和安全要求评审发布。需要多实例时，
+  先迁移 PostgreSQL / 共享限流，再根据长任务需求采用框架原生持久执行后端；不得直接
+  扩大 SQLite 单进程部署或临时拼装自己的队列框架。
+- 自动外部写入、采购提交或比赛正式申报，仍需新的明确任务与具体人工审批。
+
+## 成本与数据边界
+
+继续使用已有的真实六份公告；不新增不许可采集、不生成政府数据。密钥只保存在忽略的
+本地配置或部署环境。开发/联调与评测累计成本仍以原定人民币 10 元保守预算为约束。
+不使用付费托管、外部遥测或 LLM 评分冒充客观评估。
+
+**完成 E1 不等于企业生产验收通过。** 当前实测、未执行项和外部阻塞见
+[企业基线运行报告](reports/enterprise-run-20261022.md)。

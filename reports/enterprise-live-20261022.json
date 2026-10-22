@@ -1,0 +1,46 @@
+{
+  "run_id": "enterprise-live-20261022",
+  "date": "2026-10-22",
+  "kind": "real_provider_integration_not_fresh_holdout",
+  "notice_count": 6,
+  "new_collection": 0,
+  "checks": [
+    {
+      "name": "real_notice_budget",
+      "passed": true
+    },
+    {
+      "name": "restart_idempotency_no_provider_rerun",
+      "passed": true
+    },
+    {
+      "name": "followup_after_restart",
+      "passed": true
+    },
+    {
+      "name": "exact_comparison",
+      "passed": true
+    },
+    {
+      "name": "saved_history",
+      "passed": true
+    }
+  ],
+  "passed": 5,
+  "planned_checks": 5,
+  "executed_checks": 5,
+  "failure": null,
+  "real_model_turns": 3,
+  "model": [
+    "deepseek-flash"
+  ],
+  "input_tokens": 21004,
+  "output_tokens": 401,
+  "model_requests": 6,
+  "estimated_cny_peak_completed": 0.045216,
+  "elapsed_seconds": 14.013,
+  "prompt_sha256": "85ed48558a3a1d728567b45c39e8db34c7398061b316051fb427c47433a54bd9",
+  "pydantic_ai": "2.59.0",
+  "authlib": "1.9.1",
+  "oidc_live_test": false
+}

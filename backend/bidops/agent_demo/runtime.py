@@ -253,13 +253,16 @@ class AgentService:
             )
             conn.commit()
 
-    async def chat(self, request: ChatRequest, *, now: datetime | None = None) -> ChatResponse:
+    def validate_request(self, request: ChatRequest):
         if not self.settings.enabled:
             raise DemoFailure("agent_disabled")
         if not self.settings.api_key and self.model_override is None:
             raise DemoFailure("deepseek_key_missing")
         if re.search(r"sk-[A-Za-z0-9]{16,}", request.message):
             raise DemoFailure("credential_in_message", 422)
+
+    async def chat(self, request: ChatRequest, *, now: datetime | None = None) -> ChatResponse:
+        self.validate_request(request)
         for key, value in list(self.sessions.items()):
             if not value.lock.locked() and time.monotonic() - value.touched > 3600:
                 del self.sessions[key]

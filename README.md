@@ -1,8 +1,21 @@
 # BidOps | Evidence-first Tender Intelligence
 
-> Status: **User-authorized DeepSeek Agent Demo**, built on six real P0 snapshots and 15 procurement packages. The new request explicitly expands the earlier P0-only scope; see [GOAL.md](GOAL.md). The first held-out evaluation scored **98.67/100 (71/72 cases)**. This does not pass the independent P1 data gate or start competition submission. Recurring collection permission remains unconfirmed. [Demo report](reports/demo-run-20261022.md) · [P0 collection](reports/p0-collection-20261022.md).
+> Status: **Enterprise internal-app engineering baseline**, authorized by the user's new [goal](GOAL.md). OIDC / RBAC, private persistent conversations, request deduplication, audit and container operations build on the existing DeepSeek Demo. Real company SSO and production acceptance remain pending. The original six-notice Demo scored **98.67/100 (71/72 cases)** on its first held-out run; this does not pass P1 or prove enterprise production readiness. [Enterprise report](reports/enterprise-run-20261022.md) · [Deployment](docs/ENTERPRISE-OPERATIONS.md) · [Demo report](reports/demo-run-20261022.md).
 
 An AI-native procurement notice intelligence workbench for small and medium-sized businesses. Start with authentic Chinese government procurement notices; build a lawful, auditable data pipeline; validate data quality; only then build the Agent harness.
+
+## Enterprise internal deployment
+
+The current goal is a single-organization application with company OIDC login, viewer /
+analyst / auditor / admin roles, owner-isolated conversation history, idempotent requests,
+audit and bounded usage. Pydantic AI owns the agent loop; Authlib owns the OIDC protocol.
+The initial deployment is one Linux worker with SQLite, not a multi-tenant or HA service.
+
+Follow [ENTERPRISE-OPERATIONS.md](docs/ENTERPRISE-OPERATIONS.md) to configure the IdP and
+HTTPS origin, run `uv run bidops-enterprise check-config` and `uv run bidops-enterprise serve`,
+or use `compose.enterprise.yaml`. No passwords or default enterprise accounts are embedded.
+SSO configuration, broader independently reviewed data and target-environment acceptance
+are still required before an enterprise trial. The local Demo below remains available.
 
 ## Run the Agent Demo
 
@@ -65,8 +78,8 @@ Read **[contest rules](docs/competition/OPC-2026-RULES.md)** and [organizer ques
 
 ## Principle: data → experiments → harness → product
 
-The original stage gates below remain unchanged. The separately authorized Demo is a
-bounded prototype exception, not a declaration that these data/competition gates passed.
+The original stage gates below remain unchanged. The separately authorized Demo and
+enterprise engineering baseline do not declare these data/competition gates passed.
 
 1. **P0 / foundation:** verify permitted sources, curate seeds, implement deterministic fetch/parse/storage with provenance, set up API/UI scaffolds, tests and CI. **Do not build an Agent in P0.**
 2. **P1 / data:** collect a representative legal sample, manually review the gold set, calculate errors, repair parsers and freeze a reproducible dataset manifest.
