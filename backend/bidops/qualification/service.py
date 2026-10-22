@@ -13,7 +13,7 @@ import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
-from pydantic_ai.exceptions import AgentRunError
+from pydantic_ai.exceptions import AgentRunError, ModelRequestTimeout
 from pydantic_ai.models.function import FunctionModel
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.models.test import TestModel
@@ -346,7 +346,10 @@ class ScreeningService:
                             as_of=bundle.manifest.as_of,
                         )
                         assessed += 1
-        except TimeoutError:
+        except (TimeoutError, ModelRequestTimeout):
+            # Pydantic AI's request timer is an AgentRunError subclass, not
+            # built-in TimeoutError. It can expire before the inner provider
+            # guard when native workflow dispatch is slow.
             state, error = "timed_out", "screening_timeout"
         except CompanyError as exc:
             # A revoked source cannot be re-released as a partial result.
