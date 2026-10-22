@@ -82,3 +82,5 @@ Each implementation PR must also satisfy G-01 through G-08 and attach per-item e
 Existing P1/E2/E3 checkboxes remain open. Synthetic tests, code merge and unavailable external inputs
 must not be represented as independent business acceptance.
 
+
+B06 CI修复补充：原Head backend/frontend实际FAIL已保留；修复代码`a0be11276de97b1dbf55fc87b96a9767e96c626a`完整1430后端PASS、Ruff197/冻结PASS，两项真实浏览器复验PASS；新CI frontend/container PASS，backend待结果。详见B06报告CI复验节，业务与前置B02-06仍BLOCKED。

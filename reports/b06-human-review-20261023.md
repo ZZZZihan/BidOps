@@ -113,3 +113,32 @@ outbox未被冻结；不可投递事件占满小批次使后续事件饥饿。�
 下一项B07在独立工作树接入许可策略、原子增量页、隔离PDF解析及同DBOS调度。旧六公告原库、
 最新账本、真实授权企业资料、独立人员、IdP/HTTPS和目标部署仍缺；B08/B09/B10真实验收保持
 BLOCKED。单个工程PR完成不等于企业试用、生产发布或总体目标完成。
+
+## CI 实际失败与修复复验（2026-10-22 20:38 UTC 更新）
+
+原 Head `20e07f4804da70eff82fd54a352c24c8b94ed22d` 的
+[CI 39846384251](https://github.com/ZZZZihan/BidOps/actions/runs/39846384251) 实际失败：
+backend 1428 PASS / 1 FAIL（721.12秒）；frontend 103 PASS / 1 FAIL / 1 NOT_RUN；container PASS。
+原失败保留在 [backend](evidence/b06-20261023/ci-repair/b06-ci-39846384251-backend-failure.txt) 和
+[frontend](evidence/b06-20261023/ci-repair/b06-ci-39846384251-frontend-failure.txt)。不能用此前本机通过替代这次失败。
+
+修复代码 `a0be11276de97b1dbf55fc87b96a9767e96c626a`，tree
+`a9b0fb381ed38fb891c172600cd51c0509d6075d`：
+
+- 实际 SDK 的 ModelRequestTimeout 继承 AgentRunError，不是 builtin TimeoutError；当框架计时器
+  先于内部 provider guard 到期，旧实现误记 failed/invalid_output。新实现准确记 timed_out，继续
+  保留未完成条件和费用边界。真实 SDK 定时器反例旧代码1 FAIL，新代码连同原失败两路径3 PASS；
+  [红测](evidence/b06-20261023/ci-repair/framework-timeout-red.txt)、[绿测](evidence/b06-20261023/ci-repair/framework-timeout-green.txt)。
+- 浏览器多阶段总超时与每个作业的等待时限分开：每个作业仍30秒，整体两作业90秒、一作业60秒，
+  增加实际等待记录；未降低状态断言或修改产品SLO。主Agent在提交8f2136上实际复跑两用例2 PASS /49.6秒，自然退出0，
+  [原始记录](evidence/b06-20261023/ci-repair/b06-ci-fix-root-browser.txt)。
+- 主Agent在干净 a0be112 上重新完整验证：**1430 backend PASS /436.07秒**、Ruff197、format、
+  18文件冻结与固定工程评分器PASS；2026-10-22 20:31:27–20:38:47 UTC。
+  [精确SHA/命令/时间](evidence/b06-20261023/ci-repair/verification.json)、
+  [后端日志](evidence/b06-20261023/ci-repair/backend.txt)、
+  [本次证据索引](evidence/b06-20261023/ci-repair/evidence-index.json)。
+
+未参与修复实现的Agent复核已安装SDK异常继承/真实计时器和未完成结果断言，无剩余技术阻塞。
+[新代码CI 39849630645](https://github.com/ZZZZihan/BidOps/actions/runs/39849630645) 的frontend与container已PASS，backend在本次记录时仍运行；精确最新Head结果继续更新PR。
+原本机1429/105记录保持为当时版本证据，不改写成新版本已跑105。当前1430后端和新CI frontend
+分别列证。新增真实模型和采购请求仍0、实际费用¥0；B02-06和真实企业业务门槛仍BLOCKED。

@@ -85,3 +85,5 @@ B04 已交付 [Draft PR #19](https://github.com/ZZZZihan/BidOps/pull/19)，堆�
 B05 已交付 [Draft PR #20](https://github.com/ZZZZihan/BidOps/pull/20)，堆叠于 B04 #19：DBOS 原生持久任务、进度/取消、响应回执与未知费用保留、停机 v4 双库恢复及私有历史留存。干净实现 `509e8007218c306d0e0639d96317537676570a0b` 实际1316后端/75浏览器、Ruff174/构建/B01冻结通过；七组SIGKILL恢复使用21独立进程，始终一任务一结果。专项工程通过，正式人工审核仍由B06接入，前置B02-06与真实业务验收仍BLOCKED。见[B05逐项证据](reports/b05-durable-runs-20261023.md)。B06已在独立工作树推进逐项审核、补材料新版本与导出，不能把内部fixture当作真实批准。
 
 B06已交付 [Draft PR #21](https://github.com/ZZZZihan/BidOps/pull/21)，堆叠于B05：逐项服务端身份审核、不可变更正、补材料successor与新revision、正式DBOS事件恢复、完整导出及恢复隔离。固定代码`487649aec8260ce494d7a4cf1f41bae2c4ec1f26`实际1429后端/105浏览器、Ruff196/构建/18冻结文件通过；四SIGKILL窗口12进程。浏览器Chrome更新子进程收尾需定向清理，证据如实保留。见[B06逐项验收](reports/b06-human-review-20261023.md)。B07在独立工作树继续；链代码B02-06、全部真实企业验收仍BLOCKED，没有合并、部署或paid模型调用。
+
+B06 CI修复补充：原Head backend/frontend实际FAIL已保留；修复代码`a0be11276de97b1dbf55fc87b96a9767e96c626a`完整1430后端PASS、Ruff197/冻结PASS，两项真实浏览器复验PASS；新CI frontend/container PASS，backend待结果。详见B06报告CI复验节，业务与前置B02-06仍BLOCKED。

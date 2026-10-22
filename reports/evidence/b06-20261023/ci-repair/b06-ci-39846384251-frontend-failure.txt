@@ -1,0 +1,520 @@
+﻿2026-10-22T20:09:35.9464824Z Current runner version: '2.338.0'
+2026-10-22T20:09:35.9492125Z ##[group]Runner Image Provisioner
+2026-10-22T20:09:35.9493129Z Hosted Compute Agent
+2026-10-22T20:09:35.9493733Z Version: 20261012.601
+2026-10-22T20:09:35.9494505Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-22T20:09:35.9495327Z Build Date: 2026-10-12T17:48:21Z
+2026-10-22T20:09:35.9496024Z Worker ID: {9aeb32d1-1cc8-4440-b29a-513397bef4b5}
+2026-10-22T20:09:35.9497053Z Region: westus3
+2026-10-22T20:09:35.9497674Z Cloud: Azure
+2026-10-22T20:09:35.9498224Z ##[endgroup]
+2026-10-22T20:09:35.9499876Z ##[group]Operating System
+2026-10-22T20:09:35.9500560Z Ubuntu
+2026-10-22T20:09:35.9501147Z 24.04.5
+2026-10-22T20:09:35.9501692Z LTS
+2026-10-22T20:09:35.9502236Z ##[endgroup]
+2026-10-22T20:09:35.9502838Z ##[group]Runner Image
+2026-10-22T20:09:35.9503452Z Image: ubuntu-24.04
+2026-10-22T20:09:35.9504013Z Version: 20261012.334.1
+2026-10-22T20:09:35.9505373Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-22T20:09:35.9507297Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-22T20:09:35.9508297Z ##[endgroup]
+2026-10-22T20:09:35.9509459Z ##[group]GITHUB_TOKEN Permissions
+2026-10-22T20:09:35.9511467Z Contents: read
+2026-10-22T20:09:35.9512227Z Metadata: read
+2026-10-22T20:09:35.9512804Z ##[endgroup]
+2026-10-22T20:09:35.9515046Z Secret source: Actions
+2026-10-22T20:09:35.9516082Z Cache mode: write
+2026-10-22T20:09:35.9517468Z Prepare workflow directory
+2026-10-22T20:09:35.9951278Z Prepare all required actions
+2026-10-22T20:09:36.0002527Z Getting action download info
+2026-10-22T20:09:36.3489607Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-22T20:09:36.6982812Z Download action repository 'astral-sh/setup-uv@v6' (SHA:d0cc045d04ccac9d8b7881df0226f9e82c39688e)
+2026-10-22T20:09:37.6230129Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-10-22T20:09:37.8514975Z Complete job name: frontend
+2026-10-22T20:09:37.9410074Z ##[group]Run actions/checkout@v4
+2026-10-22T20:09:37.9411092Z with:
+2026-10-22T20:09:37.9411614Z   repository: ZZZZihan/BidOps
+2026-10-22T20:09:37.9415940Z   token: ***
+2026-10-22T20:09:37.9416641Z   ssh-strict: true
+2026-10-22T20:09:37.9417146Z   ssh-user: git
+2026-10-22T20:09:37.9417649Z   persist-credentials: true
+2026-10-22T20:09:37.9418190Z   clean: true
+2026-10-22T20:09:37.9418684Z   sparse-checkout-cone-mode: true
+2026-10-22T20:09:37.9419276Z   fetch-depth: 1
+2026-10-22T20:09:37.9419773Z   fetch-tags: false
+2026-10-22T20:09:37.9420266Z   show-progress: true
+2026-10-22T20:09:37.9420787Z   lfs: false
+2026-10-22T20:09:37.9421259Z   submodules: false
+2026-10-22T20:09:37.9421769Z   set-safe-directory: true
+2026-10-22T20:09:37.9422335Z   allow-unsafe-pr-checkout: false
+2026-10-22T20:09:37.9423216Z ##[endgroup]
+2026-10-22T20:09:38.0565343Z Syncing repository: ZZZZihan/BidOps
+2026-10-22T20:09:38.0568746Z ##[group]Getting Git version info
+2026-10-22T20:09:38.0569703Z Working directory is '/home/runner/work/BidOps/BidOps'
+2026-10-22T20:09:38.0570912Z [command]/usr/bin/git version
+2026-10-22T20:09:38.1540722Z git version 2.55.0
+2026-10-22T20:09:38.1563202Z ##[endgroup]
+2026-10-22T20:09:38.1579669Z Temporarily overriding HOME='/home/runner/work/_temp/e3d37ae2-4574-417b-b626-bc0a52ccefb8' before making global git config changes
+2026-10-22T20:09:38.1582149Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T20:09:38.1585070Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/BidOps/BidOps
+2026-10-22T20:09:38.1826998Z Deleting the contents of '/home/runner/work/BidOps/BidOps'
+2026-10-22T20:09:38.1832499Z ##[group]Initializing the repository
+2026-10-22T20:09:38.1838527Z [command]/usr/bin/git init /home/runner/work/BidOps/BidOps
+2026-10-22T20:09:38.2328099Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-22T20:09:38.2330612Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-22T20:09:38.2332481Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-22T20:09:38.2333508Z hint: call:
+2026-10-22T20:09:38.2334040Z hint:
+2026-10-22T20:09:38.2334682Z hint: 	git config --global init.defaultBranch <name>
+2026-10-22T20:09:38.2335449Z hint:
+2026-10-22T20:09:38.2336773Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-22T20:09:38.2338641Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-22T20:09:38.2339716Z hint:
+2026-10-22T20:09:38.2340254Z hint: 	git branch -m <name>
+2026-10-22T20:09:38.2340867Z hint:
+2026-10-22T20:09:38.2341620Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-22T20:09:38.2342829Z Initialized empty Git repository in /home/runner/work/BidOps/BidOps/.git/
+2026-10-22T20:09:38.2351420Z [command]/usr/bin/git remote add origin https://github.com/ZZZZihan/BidOps
+2026-10-22T20:09:38.2616915Z ##[endgroup]
+2026-10-22T20:09:38.2618550Z ##[group]Disabling automatic garbage collection
+2026-10-22T20:09:38.2619433Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-22T20:09:38.2657327Z ##[endgroup]
+2026-10-22T20:09:38.2658141Z ##[group]Setting up auth
+2026-10-22T20:09:38.2664370Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T20:09:38.2704039Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T20:09:38.4418670Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T20:09:38.4462779Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T20:09:38.4710607Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T20:09:38.4752464Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T20:09:38.4994845Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-22T20:09:38.5040523Z ##[endgroup]
+2026-10-22T20:09:38.5041420Z ##[group]Fetching the repository
+2026-10-22T20:09:38.5050703Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +46ecb9f02828afd53672ec1ea54d9b82616ec66b:refs/remotes/pull/21/merge
+2026-10-22T20:09:39.5917382Z From https://github.com/ZZZZihan/BidOps
+2026-10-22T20:09:39.5919029Z  * [new ref]         46ecb9f02828afd53672ec1ea54d9b82616ec66b -> pull/21/merge
+2026-10-22T20:09:39.5932020Z ##[endgroup]
+2026-10-22T20:09:39.5933524Z ##[group]Determining the checkout info
+2026-10-22T20:09:39.6006035Z ##[endgroup]
+2026-10-22T20:09:39.6007303Z [command]/usr/bin/git sparse-checkout disable
+2026-10-22T20:09:39.6112318Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-22T20:09:39.6158149Z ##[group]Checking out the ref
+2026-10-22T20:09:39.6163226Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/21/merge
+2026-10-22T20:09:39.6511661Z Note: switching to 'refs/remotes/pull/21/merge'.
+2026-10-22T20:09:39.6512315Z 
+2026-10-22T20:09:39.6512653Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-22T20:09:39.6513706Z changes and commit them, and you can discard any commits you make in this
+2026-10-22T20:09:39.6514819Z state without impacting any branches by switching back to a branch.
+2026-10-22T20:09:39.6515336Z 
+2026-10-22T20:09:39.6515691Z If you want to create a new branch to retain commits you create, you may
+2026-10-22T20:09:39.6516772Z do so (now or later) by using -c with the switch command. Example:
+2026-10-22T20:09:39.6517217Z 
+2026-10-22T20:09:39.6517915Z   git switch -c <new-branch-name>
+2026-10-22T20:09:39.6518407Z 
+2026-10-22T20:09:39.6518699Z Or undo this operation with:
+2026-10-22T20:09:39.6519191Z 
+2026-10-22T20:09:39.6519436Z   git switch -
+2026-10-22T20:09:39.6519808Z 
+2026-10-22T20:09:39.6520397Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-22T20:09:39.6521175Z 
+2026-10-22T20:09:39.6521943Z HEAD is now at 46ecb9f Merge 20e07f4804da70eff82fd54a352c24c8b94ed22d into 4fd057ef9141d31d53540532683418e09963e324
+2026-10-22T20:09:39.6524911Z ##[endgroup]
+2026-10-22T20:09:39.6575789Z [command]/usr/bin/git log -1 --format=%H
+2026-10-22T20:09:39.6603320Z 46ecb9f02828afd53672ec1ea54d9b82616ec66b
+2026-10-22T20:09:39.6912995Z ##[group]Run astral-sh/setup-uv@v6
+2026-10-22T20:09:39.6913421Z with:
+2026-10-22T20:09:39.6913717Z   version: 0.12.23
+2026-10-22T20:09:39.6914017Z   enable-cache: true
+2026-10-22T20:09:39.6914349Z   activate-environment: false
+2026-10-22T20:09:39.6914767Z   working-directory: /home/runner/work/BidOps/BidOps
+2026-10-22T20:09:39.6915256Z   server-url: https://github.com
+2026-10-22T20:09:39.6918564Z   github-token: ***
+2026-10-22T20:09:39.6919319Z   cache-dependency-glob: **/*requirements*.txt
+**/*requirements*.in
+**/*constraints*.txt
+**/*constraints*.in
+**/pyproject.toml
+**/uv.lock
+**/*.py.lock
+
+2026-10-22T20:09:39.6920113Z   restore-cache: true
+2026-10-22T20:09:39.6920530Z   save-cache: true
+2026-10-22T20:09:39.6920874Z   prune-cache: true
+2026-10-22T20:09:39.6921216Z   ignore-nothing-to-cache: false
+2026-10-22T20:09:39.6921593Z   ignore-empty-workdir: false
+2026-10-22T20:09:39.6921958Z   add-problem-matchers: true
+2026-10-22T20:09:39.6922298Z ##[endgroup]
+2026-10-22T20:09:39.8738175Z (node:2379) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T20:09:39.8739715Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T20:09:39.8967676Z manifest-file not provided, reading from local file.
+2026-10-22T20:09:39.9016511Z manifest-file does not contain version 0.12.23, arch x86_64, platform unknown-linux-gnu. Falling back to GitHub releases.
+2026-10-22T20:09:39.9029884Z Downloading uv from "https://github.com/astral-sh/uv/releases/download/0.12.23/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+2026-10-22T20:09:40.3631907Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/87eef2bd-34a2-4bd2-9c0c-704a8036129e -f /home/runner/work/_temp/799e9fca-2dd0-4f96-8be3-9d1707997bbe
+2026-10-22T20:09:40.7339719Z Added /home/runner/.local/bin to the path
+2026-10-22T20:09:40.7342981Z Added /opt/hostedtoolcache/uv/0.12.23/x86_64 to the path
+2026-10-22T20:09:40.7364990Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:40.7365421Z Successfully installed uv version 0.12.23
+2026-10-22T20:09:40.7367974Z Searching files using cache dependency glob: /home/runner/work/BidOps/BidOps/**/*requirements*.txt,/home/runner/work/BidOps/BidOps/**/*requirements*.in,/home/runner/work/BidOps/BidOps/**/*constraints*.txt,/home/runner/work/BidOps/BidOps/**/*constraints*.in,/home/runner/work/BidOps/BidOps/**/pyproject.toml,/home/runner/work/BidOps/BidOps/**/uv.lock,/home/runner/work/BidOps/BidOps/**/*.py.lock
+2026-10-22T20:09:40.7828920Z /home/runner/work/BidOps/BidOps/pyproject.toml
+2026-10-22T20:09:40.8036708Z /home/runner/work/BidOps/BidOps/reports/evidence/b05-backend-selection/baseline-constraints.txt
+2026-10-22T20:09:40.8225829Z /home/runner/work/BidOps/BidOps/uv.lock
+2026-10-22T20:09:40.8240380Z Found 3 files to hash.
+2026-10-22T20:09:40.9047525Z Trying to restore uv cache from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.12.3-pruned-e939c497e02b618f4a8bd1e12259b89563694dc8fad55e28a145caa4ddcda4bb
+2026-10-22T20:09:41.1230575Z Cache hit for: setup-uv-1-x86_64-unknown-linux-gnu-3.12.3-pruned-e939c497e02b618f4a8bd1e12259b89563694dc8fad55e28a145caa4ddcda4bb
+2026-10-22T20:09:41.1346797Z (node:2379) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-22T20:09:42.1552535Z Received 3713614 of 3713614 (100.0%), 4.4 MBs/sec
+2026-10-22T20:09:42.1553123Z Cache Size: ~4 MB (3713614 B)
+2026-10-22T20:09:42.1581237Z [command]/usr/bin/tar -xf /home/runner/work/_temp/01dcdc12-c050-4808-8488-52a01bcc644a/cache.tzst -P -C /home/runner/work/BidOps/BidOps --use-compress-program unzstd
+2026-10-22T20:09:42.1988119Z Cache restored successfully
+2026-10-22T20:09:42.1995106Z uv cache restored from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.12.3-pruned-e939c497e02b618f4a8bd1e12259b89563694dc8fad55e28a145caa4ddcda4bb
+2026-10-22T20:09:42.2151769Z ##[group]Run uv sync --frozen --python 3.12
+2026-10-22T20:09:42.2152209Z [36;1muv sync --frozen --python 3.12[0m
+2026-10-22T20:09:42.3096220Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:42.3096740Z env:
+2026-10-22T20:09:42.3097023Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:42.3097400Z ##[endgroup]
+2026-10-22T20:09:42.3294926Z Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+2026-10-22T20:09:42.3295594Z Creating virtual environment at: .venv
+2026-10-22T20:09:42.3463002Z    Building bidops @ file:///home/runner/work/BidOps/BidOps
+2026-10-22T20:09:42.4191358Z Downloading pydantic-ai-slim (2.3MiB)
+2026-10-22T20:09:42.4193714Z Downloading tiktoken (1.1MiB)
+2026-10-22T20:09:42.4195251Z Downloading sqlalchemy (4.5MiB)
+2026-10-22T20:09:42.4206489Z Downloading openai (2.2MiB)
+2026-10-22T20:09:42.4210444Z Downloading cryptography (4.5MiB)
+2026-10-22T20:09:42.4217473Z Downloading ruff (9.9MiB)
+2026-10-22T20:09:42.4220572Z Downloading pydantic-core (2.1MiB)
+2026-10-22T20:09:42.4226826Z Downloading pygments (1.2MiB)
+2026-10-22T20:09:42.6334781Z  Downloaded tiktoken
+2026-10-22T20:09:42.7178607Z  Downloaded pydantic-core
+2026-10-22T20:09:42.7233669Z  Downloaded pygments
+2026-10-22T20:09:42.7397521Z  Downloaded pydantic-ai-slim
+2026-10-22T20:09:42.8087595Z  Downloaded cryptography
+2026-10-22T20:09:42.8117398Z  Downloaded sqlalchemy
+2026-10-22T20:09:42.8290973Z  Downloaded ruff
+2026-10-22T20:09:42.8529865Z  Downloaded openai
+2026-10-22T20:09:43.1300274Z       Built bidops @ file:///home/runner/work/BidOps/BidOps
+2026-10-22T20:09:43.1310672Z Prepared 61 packages in 799ms
+2026-10-22T20:09:43.1994538Z Installed 61 packages in 68ms
+2026-10-22T20:09:43.1995263Z  + annotated-doc==0.0.5
+2026-10-22T20:09:43.1995690Z  + annotated-types==0.8.0
+2026-10-22T20:09:43.1996178Z  + anyio==4.15.1
+2026-10-22T20:09:43.1996967Z  + authlib==1.9.1
+2026-10-22T20:09:43.1997404Z  + beautifulsoup4==4.15.0
+2026-10-22T20:09:43.1998195Z  + bidops==0.1.0 (from file:///home/runner/work/BidOps/BidOps)
+2026-10-22T20:09:43.1999059Z  + certifi==2026.10.19
+2026-10-22T20:09:43.1999552Z  + cffi==2.1.1
+2026-10-22T20:09:43.1999972Z  + charset-normalizer==3.5.2
+2026-10-22T20:09:43.2000607Z  + click==8.5.0
+2026-10-22T20:09:43.2001045Z  + cryptography==50.0.2
+2026-10-22T20:09:43.2001643Z  + deprecated==3.0.0
+2026-10-22T20:09:43.2002136Z  + fastapi==0.159.1
+2026-10-22T20:09:43.2002561Z  + genai-prices==0.1.13
+2026-10-22T20:09:43.2003043Z  + griffelib==2.4.1
+2026-10-22T20:09:43.2003604Z  + h11==0.16.0
+2026-10-22T20:09:43.2004094Z  + httpcore==1.0.9
+2026-10-22T20:09:43.2004542Z  + httpcore2==2.16.0
+2026-10-22T20:09:43.2005091Z  + httpx==0.28.1
+2026-10-22T20:09:43.2005566Z  + httpx2==2.16.0
+2026-10-22T20:09:43.2006034Z  + idna==3.20
+2026-10-22T20:09:43.2006896Z  + iniconfig==2.3.1
+2026-10-22T20:09:43.2007655Z  + itsdangerous==2.2.0
+2026-10-22T20:09:43.2008233Z  + jiter==0.17.0
+2026-10-22T20:09:43.2008738Z  + joserfc==1.7.7
+2026-10-22T20:09:43.2009190Z  + limits==5.8.0
+2026-10-22T20:09:43.2009661Z  + logfire-api==5.2.0
+2026-10-22T20:09:43.2010154Z  + markdown-it-py==4.2.0
+2026-10-22T20:09:43.2010661Z  + mdurl==0.1.2
+2026-10-22T20:09:43.2011179Z  + openai==3.36.1
+2026-10-22T20:09:43.2011689Z  + opentelemetry-api==1.45.1
+2026-10-22T20:09:43.2012419Z  + packaging==26.3
+2026-10-22T20:09:43.2013312Z  + pluggy==1.7.0
+2026-10-22T20:09:43.2013829Z  + prometheus-client==0.26.0
+2026-10-22T20:09:43.2014407Z  + pycparser==3.12
+2026-10-22T20:09:43.2014922Z  + pydantic==2.14.1
+2026-10-22T20:09:43.2015463Z  + pydantic-ai-slim==2.59.0
+2026-10-22T20:09:43.2016028Z  + pydantic-core==2.50.1
+2026-10-22T20:09:43.2016900Z  + pydantic-evals==2.59.0
+2026-10-22T20:09:43.2017328Z  + pydantic-graph==2.59.0
+2026-10-22T20:09:43.2017745Z  + pydantic-settings==2.16.1
+2026-10-22T20:09:43.2018168Z  + pygments==2.21.0
+2026-10-22T20:09:43.2018393Z  + pytest==9.1.1
+2026-10-22T20:09:43.2018610Z  + python-dotenv==1.2.4
+2026-10-22T20:09:43.2018837Z  + pyyaml==6.0.3
+2026-10-22T20:09:43.2019038Z  + regex==2026.9.29
+2026-10-22T20:09:43.2019532Z  + requests==2.34.2
+2026-10-22T20:09:43.2019768Z  + rich==15.0.0
+2026-10-22T20:09:43.2019963Z  + ruff==0.17.1
+2026-10-22T20:09:43.2020155Z  + sniffio==1.3.1
+2026-10-22T20:09:43.2020355Z  + socksio==1.0.0
+2026-10-22T20:09:43.2020568Z  + soupsieve==3.0.4
+2026-10-22T20:09:43.2020778Z  + sqlalchemy==2.1.6
+2026-10-22T20:09:43.2020996Z  + starlette==1.9.0
+2026-10-22T20:09:43.2021197Z  + tiktoken==0.14.0
+2026-10-22T20:09:43.2021407Z  + truststore==0.10.5
+2026-10-22T20:09:43.2021636Z  + typing-extensions==4.16.0
+2026-10-22T20:09:43.2021891Z  + typing-inspection==0.4.4
+2026-10-22T20:09:43.2022125Z  + urllib3==2.8.0
+2026-10-22T20:09:43.2022325Z  + uvicorn==0.54.0
+2026-10-22T20:09:43.2022539Z  + wrapt==2.5.1
+2026-10-22T20:09:43.2174150Z ##[group]Run uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock
+2026-10-22T20:09:43.2174946Z [36;1muv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock[0m
+2026-10-22T20:09:43.2238931Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:43.2239189Z env:
+2026-10-22T20:09:43.2239444Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:43.2239767Z ##[endgroup]
+2026-10-22T20:09:43.3631236Z Resolved 28 packages in 81ms
+2026-10-22T20:09:43.3711143Z Downloading psycopg-binary (5.0MiB)
+2026-10-22T20:09:43.4278984Z  Downloaded psycopg-binary
+2026-10-22T20:09:43.4283472Z Prepared 8 packages in 64ms
+2026-10-22T20:09:43.4692757Z Installed 8 packages in 40ms
+2026-10-22T20:09:43.4693362Z  + croniter==6.2.4
+2026-10-22T20:09:43.4693727Z  + dbos==3.3.0
+2026-10-22T20:09:43.4694075Z  + greenlet==3.5.6
+2026-10-22T20:09:43.4694414Z  + psycopg==3.3.6
+2026-10-22T20:09:43.4694769Z  + psycopg-binary==3.3.6
+2026-10-22T20:09:43.4695319Z  + python-dateutil==3.0.0
+2026-10-22T20:09:43.4695718Z  + six==1.17.0
+2026-10-22T20:09:43.4696079Z  + tzdata==2026.5
+2026-10-22T20:09:43.4827295Z ##[group]Run actions/setup-node@v4
+2026-10-22T20:09:43.4827592Z with:
+2026-10-22T20:09:43.4827800Z   node-version: 22
+2026-10-22T20:09:43.4828010Z   cache: npm
+2026-10-22T20:09:43.4828267Z   cache-dependency-path: frontend/package-lock.json
+2026-10-22T20:09:43.4828584Z   always-auth: false
+2026-10-22T20:09:43.4828811Z   check-latest: false
+2026-10-22T20:09:43.4831224Z   token: ***
+2026-10-22T20:09:43.4831419Z env:
+2026-10-22T20:09:43.4831671Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:43.4831992Z ##[endgroup]
+2026-10-22T20:09:43.6527763Z Found in cache @ /opt/hostedtoolcache/node/22.23.3/x64
+2026-10-22T20:09:43.6533006Z (node:2507) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T20:09:43.6534168Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T20:09:43.6536321Z ##[group]Environment details
+2026-10-22T20:09:46.1341875Z node: v22.23.3
+2026-10-22T20:09:46.1342245Z npm: 10.9.9
+2026-10-22T20:09:46.1342441Z yarn: 1.22.22
+2026-10-22T20:09:46.1342914Z ##[endgroup]
+2026-10-22T20:09:46.1366186Z [command]/opt/hostedtoolcache/node/22.23.3/x64/bin/npm config get cache
+2026-10-22T20:09:46.3819000Z /home/runner/.npm
+2026-10-22T20:09:46.6144858Z Cache hit for: node-cache-Linux-x64-npm-0a0c25753207aecdfd2b78138a1a58fc400a906137a2f06ae9260b1cc815eb10
+2026-10-22T20:09:46.6252490Z (node:2507) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-22T20:09:47.7866636Z Received 17517215 of 17517215 (100.0%), 18.0 MBs/sec
+2026-10-22T20:09:47.7867279Z Cache Size: ~17 MB (17517215 B)
+2026-10-22T20:09:47.7900147Z [command]/usr/bin/tar -xf /home/runner/work/_temp/df8b6519-d983-403a-8f1d-fc2462ed31b6/cache.tzst -P -C /home/runner/work/BidOps/BidOps --use-compress-program unzstd
+2026-10-22T20:09:47.8232563Z Cache restored successfully
+2026-10-22T20:09:47.8244906Z Cache restored from key: node-cache-Linux-x64-npm-0a0c25753207aecdfd2b78138a1a58fc400a906137a2f06ae9260b1cc815eb10
+2026-10-22T20:09:47.8409701Z ##[group]Run npm ci
+2026-10-22T20:09:47.8409982Z [36;1mnpm ci[0m
+2026-10-22T20:09:47.8518572Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:47.8518874Z env:
+2026-10-22T20:09:47.8519145Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:47.8519506Z ##[endgroup]
+2026-10-22T20:09:50.0989387Z 
+2026-10-22T20:09:50.0997322Z added 25 packages, and audited 26 packages in 2s
+2026-10-22T20:09:50.0997639Z 
+2026-10-22T20:09:50.0997841Z 5 packages are looking for funding
+2026-10-22T20:09:50.0998167Z   run `npm fund` for details
+2026-10-22T20:09:50.1000529Z 
+2026-10-22T20:09:50.1000732Z found 0 vulnerabilities
+2026-10-22T20:09:50.1484831Z ##[group]Run npm run build
+2026-10-22T20:09:50.1485170Z [36;1mnpm run build[0m
+2026-10-22T20:09:50.1549428Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:50.1549714Z env:
+2026-10-22T20:09:50.1549978Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:50.1550312Z ##[endgroup]
+2026-10-22T20:09:50.2653566Z 
+2026-10-22T20:09:50.2654362Z > bidops-ui@0.1.0 build
+2026-10-22T20:09:50.2654907Z > tsc -b && vite build
+2026-10-22T20:09:50.2655168Z 
+2026-10-22T20:09:53.7544422Z [36mvite v7.3.7 [32mbuilding client environment for production...[36m[39m
+2026-10-22T20:09:53.8299428Z transforming...
+2026-10-22T20:09:55.0490811Z [32m✓[39m 42 modules transformed.
+2026-10-22T20:09:55.2586236Z rendering chunks...
+2026-10-22T20:09:55.2663010Z computing gzip size...
+2026-10-22T20:09:55.2785367Z [2mdist/[22m[32mindex.html                 [39m[1m[2m  0.38 kB[22m[1m[22m[2m │ gzip:   0.29 kB[22m
+2026-10-22T20:09:55.2787477Z [2mdist/[22m[2massets/[22m[35mindex-CpSU8lFR.css  [39m[1m[2m 25.85 kB[22m[1m[22m[2m │ gzip:   5.34 kB[22m
+2026-10-22T20:09:55.2789253Z [2mdist/[22m[2massets/[22m[36mindex-DtYodXl7.js   [39m[1m[2m352.96 kB[22m[1m[22m[2m │ gzip: 104.68 kB[22m
+2026-10-22T20:09:55.2790799Z [32m✓ built in 1.49s[39m
+2026-10-22T20:09:55.3208920Z ##[group]Run google-chrome --version
+2026-10-22T20:09:55.3209499Z [36;1mgoogle-chrome --version[0m
+2026-10-22T20:09:55.3293112Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:55.3293542Z env:
+2026-10-22T20:09:55.3293955Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:55.3294497Z ##[endgroup]
+2026-10-22T20:10:07.1427048Z Google Chrome 155.0.8059.39 
+2026-10-22T20:10:07.1995637Z ##[group]Run npm run test:e2e
+2026-10-22T20:10:07.1995962Z [36;1mnpm run test:e2e[0m
+2026-10-22T20:10:07.2059485Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:10:07.2059770Z env:
+2026-10-22T20:10:07.2060037Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:10:07.2060384Z   BIDOPS_BROWSER_CHANNEL: chrome
+2026-10-22T20:10:07.2060656Z ##[endgroup]
+2026-10-22T20:10:07.3097199Z 
+2026-10-22T20:10:07.3097887Z > bidops-ui@0.1.0 test:e2e
+2026-10-22T20:10:07.3098311Z > playwright test
+2026-10-22T20:10:07.3098504Z 
+2026-10-22T20:10:09.7711207Z 
+2026-10-22T20:10:09.7712060Z Running 105 tests using 2 workers
+2026-10-22T20:10:09.7712393Z 
+2026-10-22T20:10:49.5510589Z   ✓    2 tests/company.spec.ts:105:1 › anonymous enterprise session does not expose private company controls (10.9s)
+2026-10-22T20:10:51.1969776Z   ✓    1 tests/archive.spec.ts:3:1 › archive sends full-catalog search and resets pagination (12.5s)
+2026-10-22T20:10:51.8745106Z   ✓    4 tests/enterprise.spec.ts:13:1 › unauthenticated enterprise only shows the SSO entry (646ms)
+2026-10-22T20:10:52.4348496Z   ✓    5 tests/enterprise.spec.ts:23:1 › OIDC failure is explicit and does not open a workspace (521ms)
+2026-10-22T20:10:53.1934462Z   ✓    6 tests/enterprise.spec.ts:30:1 › viewer sees archive but no chat or audit controls (717ms)
+2026-10-22T20:10:54.2931089Z   ✓    7 tests/enterprise.spec.ts:39:1 › analyst restores private history after reload without calling the model (1.1s)
+2026-10-22T20:10:54.8186683Z   ✓    3 tests/company.spec.ts:112:1 › real backend saves profile versions, UTF8 materials, sources and bounded qualification results (5.2s)
+2026-10-22T20:10:55.2886027Z   ✓    8 tests/enterprise.spec.ts:55:1 › network recovery preserves the request key and csrf header (946ms)
+2026-10-22T20:10:56.2465518Z   ✓   10 tests/enterprise.spec.ts:76:1 › administrator audit shows metadata, remains usable on mobile (912ms)
+2026-10-22T20:10:56.9842975Z   ✓   11 tests/enterprise.spec.ts:88:1 › identity API failure does not silently downgrade to a local anonymous demo (702ms)
+2026-10-22T20:10:57.5998281Z   ✓    9 tests/company.spec.ts:189:1 › real object grant and revoke cannot be bypassed by another account or an admin (2.8s)
+2026-10-22T20:11:00.4842526Z   ✓   13 tests/company.spec.ts:220:1 › real 403 and refresh after revocation clear selected bodies, profile drafts, quotes and authorization metadata (2.9s)
+2026-10-22T20:11:01.7409505Z   ✓   14 tests/company.spec.ts:285:1 › refresh keeps an authorized selected fixed version when its row is on another page (1.2s)
+2026-10-22T20:11:04.2726909Z   ✓   15 tests/company.spec.ts:308:1 › retention policies survive profile history pagination and unchanged material replacement (2.3s)
+2026-10-22T20:11:04.9715218Z   ✓   16 tests/jobs.spec.ts:73:1 › default-disabled page fetches neither private inputs nor job submissions (654ms)
+2026-10-22T20:11:05.5504869Z   ✓   17 tests/jobs.spec.ts:79:66 › jobs require an authenticated enterprise workspace {"mode":"local"} (552ms)
+2026-10-22T20:11:06.0551465Z   ✓   18 tests/jobs.spec.ts:79:66 › jobs require an authenticated enterprise workspace {"authenticated":false} (479ms)
+2026-10-22T20:11:06.9724100Z   ✓   19 tests/jobs.spec.ts:84:1 › unconfigured runtime disables creating jobs while authorized history remains readable (888ms)
+2026-10-22T20:11:07.8999871Z   ✓   20 tests/jobs.spec.ts:89:1 › read-only enterprise roles can inspect a task but cannot submit, cancel or resume it (908ms)
+2026-10-22T20:11:09.3491196Z   ✓   21 tests/jobs.spec.ts:94:1 › 202 pins profile and material hashes with CSRF, then GET refresh and reopening preserve the stable ID (1.4s)
+2026-10-22T20:11:10.4668816Z   ✓   22 tests/jobs.spec.ts:107:1 › an unconfirmed POST cannot display success and retry reuses its key; changed inputs or explicit new job use new keys (1.1s)
+2026-10-22T20:11:11.3214225Z   ✓   23 tests/jobs.spec.ts:119:1 › a creation idempotency conflict is reported accurately without falsely acknowledging or retrying it (826ms)
+2026-10-22T20:11:12.1503643Z   ✓   24 tests/jobs.spec.ts:126:60 › execution state queued is explicit with only server-authorized actions (803ms)
+2026-10-22T20:11:13.0140138Z   ✓   25 tests/jobs.spec.ts:126:60 › execution state running is explicit with only server-authorized actions (832ms)
+2026-10-22T20:11:13.8554437Z   ✓   26 tests/jobs.spec.ts:126:60 › execution state waiting_review is explicit with only server-authorized actions (821ms)
+2026-10-22T20:11:14.7030199Z   ✓   27 tests/jobs.spec.ts:126:60 › execution state cancel_requested is explicit with only server-authorized actions (821ms)
+2026-10-22T20:11:15.5692243Z   ✓   28 tests/jobs.spec.ts:126:60 › execution state cancelled is explicit with only server-authorized actions (842ms)
+2026-10-22T20:11:16.4340913Z   ✓   29 tests/jobs.spec.ts:126:60 › execution state failed is explicit with only server-authorized actions (843ms)
+2026-10-22T20:11:17.2661406Z   ✓   30 tests/jobs.spec.ts:126:60 › execution state completed is explicit with only server-authorized actions (810ms)
+2026-10-22T20:11:18.1319109Z   ✓   31 tests/jobs.spec.ts:126:60 › execution state timed_out is explicit with only server-authorized actions (843ms)
+2026-10-22T20:11:18.9609236Z   ✓   32 tests/jobs.spec.ts:126:60 › execution state interrupted is explicit with only server-authorized actions (800ms)
+2026-10-22T20:11:20.1117291Z   ✓   33 tests/jobs.spec.ts:135:1 › unexpected resume permissions cannot revive cancelled or waiting-review jobs, and no allowed action means no resume (1.1s)
+2026-10-22T20:11:23.9804807Z   ✓   34 tests/jobs.spec.ts:143:1 › a late poll cannot overwrite the persisted cancel response and cancelled has no resume action (3.8s)
+2026-10-22T20:11:25.0411089Z   ✓   35 tests/jobs.spec.ts:154:1 › an older poll cannot erase newer usage and reservation warnings when the state version is unchanged (1.0s)
+2026-10-22T20:11:26.0204043Z   ✓   36 tests/jobs.spec.ts:177:1 › resume uses the displayed state version; a 409 re-reads but never silently retries a mutation (958ms)
+2026-10-22T20:11:27.1642101Z   ✓   12 tests/jobs-real.spec.ts:118:1 › real Jobs 202 reaches native review wait; reload and GET retain ID, result and zero fees, then cancellation is terminal (24.4s)
+2026-10-22T20:11:30.0794760Z   ✓   37 tests/jobs.spec.ts:184:1 › polling stays independent while a mutation is in flight and its older acknowledgement cannot regress the task (4.0s)
+2026-10-22T20:11:33.8472770Z   ✓   39 tests/jobs.spec.ts:197:1 › an older duplicate creation response cannot regress an already-polled instance of the same stable task (3.7s)
+2026-10-22T20:11:34.8410828Z   ✓   40 tests/jobs.spec.ts:205:1 › permission denial on the first read after 202 removes the acknowledgement and every private field (975ms)
+2026-10-22T20:11:35.7234422Z   ✓   41 tests/jobs.spec.ts:211:1 › resume acknowledgement keeps the original task ID and cannot create a second job (855ms)
+2026-10-22T20:11:36.7421792Z   ✓   42 tests/jobs.spec.ts:217:39 › a 401 fixed-run response clears private results, citations, inputs and history even when the list is 200 (995ms)
+2026-10-22T20:11:37.8539018Z   ✓   43 tests/jobs.spec.ts:217:39 › a 403 fixed-run response clears private results, citations, inputs and history even when the list is 200 (1.1s)
+2026-10-22T20:11:38.9204712Z   ✓   44 tests/jobs.spec.ts:217:39 › a 404 fixed-run response clears private results, citations, inputs and history even when the list is 200 (1.0s)
+2026-10-22T20:11:39.9174838Z   ✓   45 tests/jobs.spec.ts:226:1 › a selected material revoked after a 200 empty list clears the private fixed inputs (969ms)
+2026-10-22T20:11:41.1654685Z   ✓   46 tests/jobs.spec.ts:232:1 › history and profile pagination retain independently authorized pinned details even when absent from the new page (1.2s)
+2026-10-22T20:11:42.1242648Z   ✓   47 tests/jobs.spec.ts:239:1 › partial saved results keep all five states, both evidence versions, stale sources and unknown cost visible without approval (935ms)
+2026-10-22T20:11:43.2156601Z   ✓   48 tests/jobs.spec.ts:249:1 › saved task inputs remain distinct from a new form and unlinked fee reservations are never presented as zero unknown cost (1.1s)
+2026-10-22T20:11:43.7256149Z   ✓   38 tests/jobs-real.spec.ts:153:1 › real source revocation produces a 200 empty history and 404 fixed job, clearing displayed private body and input (15.5s)
+2026-10-22T20:11:44.0271484Z   ✓   49 tests/jobs.spec.ts:258:1 › a transient poll failure labels cached content unconfirmed and a later GET recovers without a new submission (782ms)
+2026-10-22T20:11:45.0358944Z   ✓   50 tests/jobs.spec.ts:263:1 › a mobile viewport keeps long IDs, fixed hashes and condition evidence within the viewport (1.3s)
+2026-10-22T20:11:45.6762250Z   ✓   52 tests/reviews.spec.ts:83:1 › default closed feature makes no private case reads or submissions (604ms)
+2026-10-22T20:11:46.2039114Z   ✓   53 tests/reviews.spec.ts:86:66 › reviews require authenticated enterprise mode {"mode":"local"} (495ms)
+2026-10-22T20:11:46.7222772Z   ✓   54 tests/reviews.spec.ts:86:66 › reviews require authenticated enterprise mode {"authenticated":false} (482ms)
+2026-10-22T20:11:47.5843583Z   ✓   55 tests/reviews.spec.ts:87:1 › owner creation uses the fixed job, batch and explicit reviewers with CSRF (830ms)
+2026-10-22T20:11:48.5656805Z   ✓   56 tests/reviews.spec.ts:91:1 › all five immutable Agent judgments, both evidence sides, versions and gaps are readable (957ms)
+2026-10-22T20:11:50.4838693Z   ✓   57 tests/reviews.spec.ts:97:1 › each decision starts blank, needs its own reason and does not replace the Agent result (1.9s)
+2026-10-22T20:11:51.5965299Z   ✓   58 tests/reviews.spec.ts:103:1 › same condition IDs in two procurement assessments keep independent drafts and commands (1.1s)
+2026-10-22T20:11:52.6992577Z   ✓   59 tests/reviews.spec.ts:108:1 › correction appends a superseding event and retains the original reason and actor (1.1s)
+2026-10-22T20:11:53.8588732Z   ✓   60 tests/reviews.spec.ts:112:1 › a second reviewer CAS conflict preserves draft and requires an explicit refreshed resubmission (1.1s)
+2026-10-22T20:11:54.8416775Z   ✓   61 tests/reviews.spec.ts:116:1 › an unconfirmed decision response shows no success and retry retains the exact idempotency key (958ms)
+2026-10-22T20:11:55.6432195Z   ✓   62 tests/reviews.spec.ts:119:1 › admin management permission alone does not expose a human decision control (772ms)
+2026-10-22T20:11:56.4487130Z   ✓   63 tests/reviews.spec.ts:122:1 › assigned reviewer can decide but cannot manage owner assignment, new tasks or closure (783ms)
+2026-10-22T20:11:57.4217132Z   ✓   64 tests/reviews.spec.ts:125:1 › assignment is explicit and never sends material ACL grants (955ms)
+2026-10-22T20:11:58.2899411Z   ✓   65 tests/reviews.spec.ts:128:1 › source stale and ineffective human projection remain separate from the original Agent judgment (838ms)
+2026-10-22T20:11:59.6070289Z   ✓   66 tests/reviews.spec.ts:132:1 › supplemental materials pin real refs and create a linked successor without overwriting old inputs (1.3s)
+2026-10-22T20:12:00.7264294Z   ✓   67 tests/reviews.spec.ts:136:1 › attaching a computed successor resets every item and preserves selectable read-only old history (1.1s)
+2026-10-22T20:12:01.6908881Z   ✓   68 tests/reviews.spec.ts:140:1 › missing calculation worker still allows human decisions and ready-result attachment (942ms)
+2026-10-22T20:12:02.6438668Z   ✓   69 tests/reviews.spec.ts:143:1 › closing is an explicit reasoned case command, never a fake job completion or blanket approval (927ms)
+2026-10-22T20:12:03.8038722Z   ✓   70 tests/reviews.spec.ts:146:1 › export uses the server-controlled JSON closure and a denied export clears private detail (1.1s)
+2026-10-22T20:12:04.8107629Z   ✓   71 tests/reviews.spec.ts:149:39 › fixed case denial 401 clears all private cached content even after an empty 200 history (981ms)
+2026-10-22T20:12:05.8320529Z   ✓   72 tests/reviews.spec.ts:149:39 › fixed case denial 403 clears all private cached content even after an empty 200 history (999ms)
+2026-10-22T20:12:06.8881190Z   ✓   73 tests/reviews.spec.ts:149:39 › fixed case denial 404 clears all private cached content even after an empty 200 history (1.0s)
+2026-10-22T20:12:07.8262913Z   ✓   74 tests/reviews.spec.ts:152:1 › feature being disabled on refresh erases private state without fetching more cases (911ms)
+2026-10-22T20:12:08.6812092Z   ✓   75 tests/reviews.spec.ts:153:1 › history pagination exposes the final case beyond the first twenty (831ms)
+2026-10-22T20:12:09.5694466Z   ✓   76 tests/reviews.spec.ts:154:1 › restored case requires explicit ID, known CAS version and reason, with no automatic approval (853ms)
+2026-10-22T20:12:10.5963408Z   ✓   77 tests/reviews.spec.ts:157:1 › mobile review remains readable without horizontal overflow (1.0s)
+2026-10-22T20:12:11.3429477Z   ✓   78 tests/reviews.spec.ts:159:1 › a restored quarantine response renders only metadata and no private evidence or old assignment (717ms)
+2026-10-22T20:12:12.1482326Z   ✓   79 tests/reviews.spec.ts:161:1 › persisted human decisions and closed case do not imply native task delivery has finished (790ms)
+2026-10-22T20:12:19.7000766Z   ✘   51 tests/reviews-real.spec.ts:66:1 › actual offline review preserves five states and evidence, appends corrections, CAS-conflicts, recomputes all items and exports the full chain (30.0s)
+2026-10-22T20:12:19.7004036Z   -   81 tests/reviews-real.spec.ts:95:1 › actual source revocation clears an assigned reviewer page even when the visible-case list returns an empty 200
+2026-10-22T20:12:21.2976806Z   ✓   80 tests/screening-real.spec.ts:108:1 › real candidate-to-checklist keeps five states, both source versions and owner isolation; rereads make no model calls (6.8s)
+2026-10-22T20:12:21.6218116Z   ✓   82 tests/screening.spec.ts:43:1 › disabled screening is explicit and does not fetch company inputs or call models (847ms)
+2026-10-22T20:12:22.2417278Z   ✓   84 tests/screening.spec.ts:52:66 › screening is unavailable outside an authenticated enterprise workspace {"mode":"local"} (571ms)
+2026-10-22T20:12:22.7560035Z   ✓   85 tests/screening.spec.ts:52:66 › screening is unavailable outside an authenticated enterprise workspace {"authenticated":false} (478ms)
+2026-10-22T20:12:23.0411513Z   ✓   83 tests/screening-real.spec.ts:189:1 › real selected-material revocation clears metadata despite a successful list, before creating a run (1.7s)
+2026-10-22T20:12:24.0192571Z   ✓   86 tests/screening.spec.ts:58:1 › candidate requests pin the detail hash and fixed batch pagination preserves exclusions and unknowns (1.2s)
+2026-10-22T20:12:25.2272473Z   ✓   88 tests/screening.spec.ts:75:1 › all five conditions, both evidence sides, logic and recorded versions stay visible without human approval (1.2s)
+2026-10-22T20:12:26.1157364Z   ✓   89 tests/screening.spec.ts:101:1 › partial timeout exposes retained conditions, unresolved clauses, missing attachment and incomplete usage (855ms)
+2026-10-22T20:12:26.9781467Z   ✓   87 tests/screening-real.spec.ts:212:1 › real provider failure preserves every extracted condition as incomplete and exposes its error code (3.8s)
+2026-10-22T20:12:27.4830579Z   ✓   90 tests/screening.spec.ts:111:39 › saved-result 401 clears all private results and inputs on refresh (1.3s)
+2026-10-22T20:12:28.2934861Z   ✓   91 tests/screening.spec.ts:111:39 › saved-result 403 clears all private results and inputs on refresh (1.3s)
+2026-10-22T20:12:28.9374762Z   ✓   92 tests/screening.spec.ts:111:39 › saved-result 404 clears all private results and inputs on refresh (1.4s)
+2026-10-22T20:12:29.4995190Z   ✓   93 tests/screening.spec.ts:126:1 › turning the feature off removes saved private output and does not rerun a checklist (1.2s)
+2026-10-22T20:12:30.0084038Z   ✓   94 tests/screening.spec.ts:134:1 › missing model configuration leaves deterministic candidates usable and checklist disabled (1.0s)
+2026-10-22T20:12:30.8169907Z   ✓   95 tests/screening.spec.ts:143:1 › saved run can be re-read without new model requests and mobile results do not overflow (1.3s)
+2026-10-22T20:12:30.8509055Z   ✓   96 tests/screening.spec.ts:156:1 › failed assessment retains every extracted condition without fabricating judgments (824ms)
+2026-10-22T20:12:32.0145407Z   ✓   97 tests/screening.spec.ts:166:1 › source changes flag a stored result while preserving its original inputs and prompt version (1.2s)
+2026-10-22T20:12:32.0277538Z   ✓   98 tests/screening.spec.ts:177:1 › refresh rechecks a selected private material even when its list returns an empty successful page (1.1s)
+2026-10-22T20:12:32.7898026Z   ✓  100 tests/workbench.spec.ts:11:1 › missing credential is explicit; model calls are disabled (718ms)
+2026-10-22T20:12:33.3418509Z   ✓  101 tests/workbench.spec.ts:19:1 › empty corpus cannot be presented as a successful demo (524ms)
+2026-10-22T20:12:33.3747998Z   ✓   99 tests/screening.spec.ts:189:1 › saved batch exposes its own pinned profile and filters independently of the current form (1.3s)
+2026-10-22T20:12:34.1875176Z   ✓  102 tests/workbench.spec.ts:26:1 › provider error is readable and retry remains possible (819ms)
+2026-10-22T20:12:34.3443041Z   ✓  103 tests/workbench.spec.ts:39:1 › no browser interpretation of user HTML; Shift+Enter does not send (920ms)
+2026-10-22T20:12:34.9580982Z   ✓  104 tests/workbench.spec.ts:53:1 › mobile layout has no horizontal overflow and usable input (741ms)
+2026-10-22T20:12:35.1458063Z   ✓  105 tests/workbench.spec.ts:62:1 › read pages expose full count and truncation including the last page (775ms)
+2026-10-22T20:12:35.2749241Z 
+2026-10-22T20:12:35.2754099Z 
+2026-10-22T20:12:35.2765768Z   1) tests/reviews-real.spec.ts:66:1 › actual offline review preserves five states and evidence, appends corrections, CAS-conflicts, recomputes all items and exports the full chain 
+2026-10-22T20:12:35.2767260Z 
+2026-10-22T20:12:35.2768608Z     Error: [2mexpect([22m[31mreceived[39m[2m).[22mtoBe[2m([22m[32mexpected[39m[2m) // Object.is equality[22m
+2026-10-22T20:12:35.2769374Z 
+2026-10-22T20:12:35.2769727Z     Expected: [32m"waiting_review"[39m
+2026-10-22T20:12:35.2770353Z     Received: [31m"running"[39m
+2026-10-22T20:12:35.2770658Z 
+2026-10-22T20:12:35.2770815Z     Call Log:
+2026-10-22T20:12:35.2771242Z     - Test timeout of 30000ms exceeded
+2026-10-22T20:12:35.2771572Z 
+2026-10-22T20:12:35.2771805Z       38 | }
+2026-10-22T20:12:35.2773393Z       39 | async function share(api: APIRequestContext, owner: Identity, subject: Identity, fixed: Fixed) {for (const ref of [fixed.profile, ...fixed.materials]) await post(api, owner, `/company/objects/${ref.object_id}/grants`, {subject_id: subject.user.subject_id, actions: ['read']});}
+2026-10-22T20:12:35.2777100Z     > 40 | async function waitJob(api: APIRequestContext, id: string) {await expect.poll(async () => {const response = await api.get(`${origin}/api/jobs/runs/${id}`); expect(response.status(), await response.text()).toBe(200); const saved = await response.json(); if (saved.status === 'waiting_review') expect(saved.usage).toMatchObject({offline: true, unknown_calls: 0, estimated_cost_cny: '0', reserved_cost_cny: '0'}); return saved.status;}, {timeout: 30000, intervals: [100, 200, 500]}).toBe('waiting_review');}
+2026-10-22T20:12:35.2779365Z          |                                                             ^
+2026-10-22T20:12:35.2779935Z       41 | async function seedCase(api: APIRequestContext, owner: Identity, fixed: Fixed) {
+2026-10-22T20:12:35.2780567Z       42 |   const seed = JSON.parse(await readFile(join(scratch, 'seed.json'), 'utf8'));
+2026-10-22T20:12:35.2781457Z       43 |   const batch = await post(api, owner, '/screening/candidates', {profile_revision: fixed.profile, filters: {keyword: 'UNIT_SCREENING_PROJECT'}});
+2026-10-22T20:12:35.2782345Z         at waitJob (/home/runner/work/BidOps/BidOps/frontend/tests/reviews-real.spec.ts:40:61)
+2026-10-22T20:12:35.2783513Z         at /home/runner/work/BidOps/BidOps/frontend/tests/reviews-real.spec.ts:84:513
+2026-10-22T20:12:35.2784073Z 
+2026-10-22T20:12:35.2784808Z     Error Context: test-results/reviews-real-actual-offlin-b7bb7--and-exports-the-full-chain/error-context.md
+2026-10-22T20:12:35.2785575Z 
+2026-10-22T20:12:35.2786750Z     attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+2026-10-22T20:12:35.2789876Z     test-results/reviews-real-actual-offlin-b7bb7--and-exports-the-full-chain/trace.zip
+2026-10-22T20:12:35.2790887Z     Usage:
+2026-10-22T20:12:35.2791127Z 
+2026-10-22T20:12:35.2791998Z         npx playwright show-trace test-results/reviews-real-actual-offlin-b7bb7--and-exports-the-full-chain/trace.zip
+2026-10-22T20:12:35.2792909Z 
+2026-10-22T20:12:35.2793668Z     ────────────────────────────────────────────────────────────────────────────────────────────────
+2026-10-22T20:12:35.2794253Z 
+2026-10-22T20:12:35.2794407Z   1 failed
+2026-10-22T20:12:35.2796147Z     tests/reviews-real.spec.ts:66:1 › actual offline review preserves five states and evidence, appends corrections, CAS-conflicts, recomputes all items and exports the full chain 
+2026-10-22T20:12:35.2797859Z   1 did not run
+2026-10-22T20:12:35.2798246Z   103 passed (2.4m)
+2026-10-22T20:12:35.3011844Z ##[error]Process completed with exit code 1.
+2026-10-22T20:12:35.3134512Z Post job cleanup.
+2026-10-22T20:12:35.3996157Z [command]/usr/bin/git version
+2026-10-22T20:12:35.4044024Z git version 2.55.0
+2026-10-22T20:12:35.4088970Z Temporarily overriding HOME='/home/runner/work/_temp/d01be273-a2b9-4f60-8701-a80016d45444' before making global git config changes
+2026-10-22T20:12:35.4090626Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T20:12:35.4095980Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/BidOps/BidOps
+2026-10-22T20:12:35.4135986Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T20:12:35.4172722Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T20:12:35.4429632Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T20:12:35.4460045Z http.https://github.com/.extraheader
+2026-10-22T20:12:35.4474320Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-22T20:12:35.4512551Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T20:12:35.4782978Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T20:12:35.4822874Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T20:12:35.5231754Z Cleaning up orphan processes
+2026-10-22T20:12:35.5549910Z Terminate orphan process: pid (2745) (node)
+2026-10-22T20:12:35.5615175Z Terminate orphan process: pid (2753) (esbuild)
+2026-10-22T20:12:35.5642917Z Terminate orphan process: pid (5822) (node)
+2026-10-22T20:12:35.5673358Z Terminate orphan process: pid (5831) (esbuild)
+2026-10-22T20:12:35.5697516Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-node@v4, astral-sh/setup-uv@v6. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
