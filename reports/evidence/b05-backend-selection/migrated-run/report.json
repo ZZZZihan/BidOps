@@ -1,0 +1,170 @@
+{
+  "status": "PASS",
+  "directory": "<PROBE_OUTPUT>",
+  "started_at_utc": "2026-10-22T18:14:09.081129+00:00",
+  "code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+  "source_tree_dirty": true,
+  "application_version": "1c00cd0a46907fedac684a20083f3983b216d911896282d644a3fa520fbd110d",
+  "file_sha256": {
+    "scripts/durable_probe/worker.py": "1c00cd0a46907fedac684a20083f3983b216d911896282d644a3fa520fbd110d",
+    "scripts/durable_probe/probe.py": "fe8f4e8d439f20e12c476a5cf08abf940b29df8ad9b997c28d4240e1aa3be4c9",
+    "requirements/durable.lock": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+    "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27"
+  },
+  "versions": {
+    "annotated-types": {
+      "durable_lock": "0.8.0",
+      "installed": "0.8.0",
+      "main_lock": "0.8.0"
+    },
+    "anyio": {
+      "durable_lock": "4.15.1",
+      "installed": "4.15.1",
+      "main_lock": "4.15.1"
+    },
+    "click": {
+      "durable_lock": "8.5.0",
+      "installed": "8.5.0",
+      "main_lock": "8.5.0"
+    },
+    "croniter": {
+      "durable_lock": "6.2.4",
+      "installed": "6.2.4",
+      "main_lock": null
+    },
+    "dbos": {
+      "durable_lock": "3.3.0",
+      "installed": "3.3.0",
+      "main_lock": null
+    },
+    "genai-prices": {
+      "durable_lock": "0.1.13",
+      "installed": "0.1.13",
+      "main_lock": "0.1.13"
+    },
+    "greenlet": {
+      "durable_lock": "3.5.6",
+      "installed": "3.5.6",
+      "main_lock": null
+    },
+    "griffelib": {
+      "durable_lock": "2.4.1",
+      "installed": "2.4.1",
+      "main_lock": "2.4.1"
+    },
+    "h11": {
+      "durable_lock": "0.16.0",
+      "installed": "0.16.0",
+      "main_lock": "0.16.0"
+    },
+    "httpcore2": {
+      "durable_lock": "2.16.0",
+      "installed": "2.16.0",
+      "main_lock": "2.16.0"
+    },
+    "httpx2": {
+      "durable_lock": "2.16.0",
+      "installed": "2.16.0",
+      "main_lock": "2.16.0"
+    },
+    "idna": {
+      "durable_lock": "3.20",
+      "installed": "3.20",
+      "main_lock": "3.20"
+    },
+    "logfire-api": {
+      "durable_lock": "5.2.0",
+      "installed": "5.2.0",
+      "main_lock": "5.2.0"
+    },
+    "opentelemetry-api": {
+      "durable_lock": "1.45.1",
+      "installed": "1.45.1",
+      "main_lock": "1.45.1"
+    },
+    "psycopg": {
+      "durable_lock": "3.3.6",
+      "installed": "3.3.6",
+      "main_lock": null
+    },
+    "psycopg-binary": {
+      "durable_lock": "3.3.6",
+      "installed": "3.3.6",
+      "main_lock": null
+    },
+    "pydantic": {
+      "durable_lock": "2.14.1",
+      "installed": "2.14.1",
+      "main_lock": "2.14.1"
+    },
+    "pydantic-ai-slim": {
+      "durable_lock": "2.59.0",
+      "installed": "2.59.0",
+      "main_lock": "2.59.0"
+    },
+    "pydantic-core": {
+      "durable_lock": "2.50.1",
+      "installed": "2.50.1",
+      "main_lock": "2.50.1"
+    },
+    "pydantic-graph": {
+      "durable_lock": "2.59.0",
+      "installed": "2.59.0",
+      "main_lock": "2.59.0"
+    },
+    "python-dateutil": {
+      "durable_lock": "3.0.0",
+      "installed": "3.0.0",
+      "main_lock": null
+    },
+    "pyyaml": {
+      "durable_lock": "6.0.3",
+      "installed": "6.0.3",
+      "main_lock": "6.0.3"
+    },
+    "six": {
+      "durable_lock": "1.17.0",
+      "installed": "1.17.0",
+      "main_lock": null
+    },
+    "sqlalchemy": {
+      "durable_lock": "2.1.6",
+      "installed": "2.1.6",
+      "main_lock": "2.1.6"
+    },
+    "truststore": {
+      "durable_lock": "0.10.5",
+      "installed": "0.10.5",
+      "main_lock": "0.10.5"
+    },
+    "typing-extensions": {
+      "durable_lock": "4.16.0",
+      "installed": "4.16.0",
+      "main_lock": "4.16.0"
+    },
+    "typing-inspection": {
+      "durable_lock": "0.4.4",
+      "installed": "0.4.4",
+      "main_lock": "0.4.4"
+    },
+    "tzdata": {
+      "durable_lock": "2026.5",
+      "installed": "2026.5",
+      "main_lock": null
+    }
+  },
+  "python": "3.12.12 (main, Feb  4 2026, 01:57:59) [Clang 21.1.4 ]",
+  "model_kind": "in_process_TestModel_only",
+  "real_model_calls": 0,
+  "network_calls_permitted": false,
+  "model_step_calls": {
+    "SYNTHETIC_FIRST_MODEL_STEP": 1,
+    "SYNTHETIC_SECOND_MODEL_STEP": 1
+  },
+  "unfinished_gate_calls": 2,
+  "final_step_calls": 1,
+  "first_worker_exit": -9,
+  "recovery": "automatic_by_DBOS.launch; retrieve_only_after_restart",
+  "completed_run_retrieval_reexecutes_steps": false,
+  "finished_at_utc": "2026-10-22T18:14:21.809864+00:00"
+}

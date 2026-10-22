@@ -25,6 +25,8 @@ from bidops.enterprise.auth import IdentityService, auth_router
 from bidops.enterprise.config import EnterpriseSettings
 from bidops.enterprise.operations import Operations, OperationsMiddleware, SingleWorker
 from bidops.enterprise.sessions import PersistentConversations, prune_private_history
+from bidops.jobs.api import jobs_router
+from bidops.jobs.config import JobsSettings
 from bidops.models import Notice
 from bidops.notice_api import notice_router
 from bidops.notice_data import NoticeRepository
@@ -39,6 +41,7 @@ def create_app(
     demo_settings: DemoSettings | None = None,
     enterprise_settings: EnterpriseSettings | None = None,
     screening_settings: ScreeningSettings | None = None,
+    jobs_settings: JobsSettings | None = None,
 ) -> FastAPI:
     settings = settings or Settings()
     enterprise = enterprise_settings or EnterpriseSettings()
@@ -61,10 +64,18 @@ def create_app(
                 screening_settings,
             )
             app.state.maintenance_failed = False
+            app.state.jobs = None
             if enterprise.enabled:
                 prune_private_history(app.state.store.db, enterprise.history_days)
                 company_prune = prune_company_materials(app.state.company)
                 app.state.maintenance_failed = company_prune["status"] != "PASS"
+                if (jobs_settings or JobsSettings()).enabled:
+                    from bidops.jobs.runtime import JobsService
+
+                    app.state.jobs = JobsService(
+                        app.state.screening, settings.data_dir, jobs_settings
+                    )
+                    await asyncio.to_thread(app.state.jobs.start)
 
             async def retention():
                 while True:
@@ -86,6 +97,8 @@ def create_app(
                     maintenance.cancel()
                     with suppress(asyncio.CancelledError):
                         await maintenance
+                if app.state.jobs:
+                    await asyncio.to_thread(app.state.jobs.close)
                 await app.state.agent_service.close()
                 await app.state.screening.close()
                 app.state.store.db.engine.dispose()
@@ -231,6 +244,7 @@ def create_app(
     app.include_router(auth_router())
     app.include_router(company_router())
     app.include_router(screening_router())
+    app.include_router(jobs_router())
     router.include_router(notice_router())
     app.include_router(router)
     app.include_router(router, prefix="/api", include_in_schema=False)

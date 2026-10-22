@@ -61,6 +61,9 @@ def prune_company_materials(service):
         from bidops.qualification.repository import prune_results
 
         derived = prune_results(db, now)
+    from bidops.jobs.retention import prune_job_history
+
+    jobs = prune_job_history(service)
     pending = db.rows(
         "SELECT * FROM company_objects WHERE purge_state='pending' ORDER BY object_id"
     )
@@ -114,8 +117,12 @@ def prune_company_materials(service):
         purged.append(oid)
     audit(db, "company_retention_pruned", purged_count=len(purged), failed_object_ids=failures)
     return {
-        "status": "FAIL" if failures else "PASS",
+        "status": "FAIL" if failures or jobs["status"] == "FAIL" else "PASS",
         "purged_ids": purged,
         "failure_ids": failures,
         "purged_result_ids": derived["purged_ids"],
+        "purged_job_ids": jobs["purged_job_ids"],
+        "deleted_job_history_ids": jobs["deleted_history_ids"],
+        "job_failure_ids": jobs["failure_ids"],
+        "job_failures": jobs["failures"],
     }

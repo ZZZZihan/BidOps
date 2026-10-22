@@ -27,12 +27,15 @@ class Dependencies:
     segment: object | None = None
     condition: object | None = None
     package_id: str | None = None
+    execution_check: object | None = None
 
     def recheck(self):
+        if self.execution_check is not None:
+            self.execution_check()
         self.adapter.recheck(self.context, self.bundle)
 
 
-def _agent(model, output_type, instructions, settings):
+def _agent(model, output_type, instructions, settings, **options):
     return Agent(
         model,
         deps_type=Dependencies,
@@ -40,6 +43,7 @@ def _agent(model, output_type, instructions, settings):
         instructions=instructions,
         retries=1,
         tool_timeout=5,
+        **options,
         model_settings=OpenAIChatModelSettings(
             thinking=False,
             extra_body={"thinking": {"type": "disabled"}},
@@ -52,8 +56,8 @@ def _agent(model, output_type, instructions, settings):
     )
 
 
-def extraction_agent(model, settings):
-    agent = _agent(model, ExtractionDraft, EXTRACTION_INSTRUCTIONS, settings)
+def extraction_agent(model, settings, **options):
+    agent = _agent(model, ExtractionDraft, EXTRACTION_INSTRUCTIONS, settings, **options)
 
     @agent.output_validator
     def validate(ctx: RunContext[Dependencies], draft: ExtractionDraft):
@@ -78,8 +82,8 @@ def extraction_agent(model, settings):
     return agent
 
 
-def assessment_agent(model, settings):
-    agent = _agent(model, JudgmentDraft, ASSESSMENT_INSTRUCTIONS, settings)
+def assessment_agent(model, settings, **options):
+    agent = _agent(model, JudgmentDraft, ASSESSMENT_INSTRUCTIONS, settings, **options)
 
     @agent.tool
     def read_company_material(
