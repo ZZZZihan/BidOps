@@ -9,6 +9,8 @@ import { fileURLToPath } from 'node:url';
 // Actual local review/Jobs API, DBOS, SQLite ACL and offline Pydantic AI. The
 // people, qualifications and signed external-IdP transport are UNIT fixtures.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
+const JOB_READY_TIMEOUT_MS = 30_000;
+const REVIEW_PROTOCOL_BUDGET_MS = 30_000;
 type Ref = {object_id: string; version_id: string; sha256: string};
 type Identity = {csrf_token: string; user: {subject_id: string}};
 type ReviewEvent = {event_id: string; reason: string; review_event?: {command: {decision: string}}};
@@ -37,7 +39,21 @@ async function inputs(api: APIRequestContext, identity: Identity, name: string):
   return {profile: await post(api, identity, '/company/profiles', {payload}), materials, name, payload};
 }
 async function share(api: APIRequestContext, owner: Identity, subject: Identity, fixed: Fixed) {for (const ref of [fixed.profile, ...fixed.materials]) await post(api, owner, `/company/objects/${ref.object_id}/grants`, {subject_id: subject.user.subject_id, actions: ['read']});}
-async function waitJob(api: APIRequestContext, id: string) {await expect.poll(async () => {const response = await api.get(`${origin}/api/jobs/runs/${id}`); expect(response.status(), await response.text()).toBe(200); const saved = await response.json(); if (saved.status === 'waiting_review') expect(saved.usage).toMatchObject({offline: true, unknown_calls: 0, estimated_cost_cny: '0', reserved_cost_cny: '0'}); return saved.status;}, {timeout: 30000, intervals: [100, 200, 500]}).toBe('waiting_review');}
+async function waitJob(api: APIRequestContext, id: string) {
+  const started = performance.now(); let status = 'not_observed';
+  try {
+    await test.step(`native job ${id} reaches waiting_review within 30 seconds`, async () => {
+      await expect.poll(async () => {
+        const response = await api.get(`${origin}/api/jobs/runs/${id}`); expect(response.status(), await response.text()).toBe(200);
+        const saved = await response.json(); status = saved.status;
+        if (status === 'waiting_review') expect(saved.usage).toMatchObject({offline: true, unknown_calls: 0, estimated_cost_cny: '0', reserved_cost_cny: '0'});
+        return status;
+      }, {timeout: JOB_READY_TIMEOUT_MS, intervals: [100, 200, 500]}).toBe('waiting_review');
+    }, {timeout: JOB_READY_TIMEOUT_MS});
+  } finally {
+    test.info().annotations.push({type: 'native-job-ready', description: `${id}: ${status} after ${Math.round(performance.now() - started)}ms (limit ${JOB_READY_TIMEOUT_MS}ms)`});
+  }
+}
 async function seedCase(api: APIRequestContext, owner: Identity, fixed: Fixed) {
   const seed = JSON.parse(await readFile(join(scratch, 'seed.json'), 'utf8'));
   const batch = await post(api, owner, '/screening/candidates', {profile_revision: fixed.profile, filters: {keyword: 'UNIT_SCREENING_PROJECT'}});
@@ -64,6 +80,10 @@ test.afterAll(async () => {
 });
 
 test('actual offline review preserves five states and evidence, appends corrections, CAS-conflicts, recomputes all items and exports the full chain', async ({page, context}) => {
+  // Two separately bounded native computations, plus the signed login, review,
+  // supplement/attachment and export protocol. The default whole-test 30s would
+  // truncate the successor's own 30s allowance after the first computation.
+  test.setTimeout(2 * JOB_READY_TIMEOUT_MS + REVIEW_PROTOCOL_BUDGET_MS);
   const ownerApi = await newRequest.newContext(), reviewerApi = await newRequest.newContext();
   try {
     const owner = await login(ownerApi, 'UNIT-review-owner', ['analyst', 'reviewer'], context), reviewer = await login(reviewerApi, 'UNIT-review-second', ['reviewer']);
@@ -93,6 +113,7 @@ test('actual offline review preserves five states and evidence, appends correcti
 });
 
 test('actual source revocation clears an assigned reviewer page even when the visible-case list returns an empty 200', async ({page, context}) => {
+  test.setTimeout(JOB_READY_TIMEOUT_MS + REVIEW_PROTOCOL_BUDGET_MS);
   const ownerApi = await newRequest.newContext(), reviewerApi = await newRequest.newContext();
   try {
     const owner = await login(ownerApi, 'UNIT-revoke-owner', ['analyst', 'reviewer']), reviewer = await login(reviewerApi, 'UNIT-revoked-reviewer', ['reviewer'], context); const fixed = await inputs(ownerApi, owner, 'UNIT 真实撤权案件'), seeded = await seedCase(ownerApi, owner, fixed); await share(ownerApi, owner, reviewer, fixed);
