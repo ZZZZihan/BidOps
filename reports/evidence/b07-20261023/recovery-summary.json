@@ -1,0 +1,267 @@
+{
+  "scope": "synthetic_engineering_only",
+  "code_sha": "5ac68753c22f46a3e3214e2f0c61a1ea8008808c",
+  "windows": [
+    {
+      "window": "before_page_commit",
+      "processes": 3,
+      "application_version": "7acc28b8d8a4f3e5abb3f994ebeb5d9fc29aea3083a0d9666573750d1e937250",
+      "status": "completed",
+      "counts": {
+        "attachment_failed": 0,
+        "attachments": 0,
+        "failed": 0,
+        "imported": 2,
+        "items": 2,
+        "pages": 2,
+        "unchanged": 0
+      },
+      "request_count": 0,
+      "mock_http_requests": 0,
+      "prepare_notice_calls": 3,
+      "real_http_requests": 0,
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "third_read_identical": true,
+      "page_checkpoints": [
+        {
+          "function_name": "bidops_ingestion_page_v1",
+          "has_output": true,
+          "has_error": false
+        },
+        {
+          "function_name": "bidops_ingestion_page_v1",
+          "has_output": true,
+          "has_error": false
+        }
+      ],
+      "pages": [
+        {
+          "page_seq": 0,
+          "receipt": {
+            "status": "completed",
+            "page_sha256": "33e5648b247955eb987cd62853b1aa79d4ad751672711919ff9b82a973c3b0b3",
+            "version_ids": [
+              "8d627e89925b0c549d882683e2db13866496edea8f2f820c45d2407c6df39888"
+            ],
+            "attachment_record_ids": [],
+            "counts": {
+              "attachment_failed": 0,
+              "attachments": 0,
+              "failed": 0,
+              "imported": 1,
+              "items": 1,
+              "pages": 1,
+              "unchanged": 0
+            },
+            "cursor_advanced": true,
+            "cursor_version": 1,
+            "from_cursor_version": 0,
+            "observed_at": "2026-10-22T20:44:07.687113+00:00"
+          }
+        },
+        {
+          "page_seq": 1,
+          "receipt": {
+            "status": "completed",
+            "page_sha256": "e35e98d79dfbb3f5e91312ce2fbedf568c6c0791a00bb41068bcae934218a132",
+            "version_ids": [
+              "c8d2e11099d1e87768d778d9a0afce5d5c928817d909f356856be9e6e1ab854c"
+            ],
+            "attachment_record_ids": [],
+            "counts": {
+              "attachment_failed": 0,
+              "attachments": 0,
+              "failed": 0,
+              "imported": 1,
+              "items": 1,
+              "pages": 1,
+              "unchanged": 0
+            },
+            "cursor_advanced": true,
+            "cursor_version": 2,
+            "from_cursor_version": 1,
+            "observed_at": "2026-10-22T20:44:08.789263+00:00"
+          }
+        }
+      ],
+      "raw_hashes": [
+        "ca48c51c46135f4cd88df0f81ad0f931fbe63d47fd9e83a0c8b2c0827a9a1c1d",
+        "f8e5e0863674307a5603d9f798993b4a64d8e6982497158c56e6290f37c68a9e"
+      ],
+      "source_artifact_sha256": {
+        "events.jsonl": "2b5cf4bb287b69293e35bc5f274f7b1f2b4fb9f9dcaedeae77097113a93fafc9",
+        "recover.json": "ca59afe66606a33e02a11d0fc82069357be340a085f0f41e595da07a1a3be063",
+        "read-saved.json": "ca59afe66606a33e02a11d0fc82069357be340a085f0f41e595da07a1a3be063"
+      }
+    },
+    {
+      "window": "after_page_commit",
+      "processes": 3,
+      "application_version": "7acc28b8d8a4f3e5abb3f994ebeb5d9fc29aea3083a0d9666573750d1e937250",
+      "status": "completed",
+      "counts": {
+        "attachment_failed": 0,
+        "attachments": 0,
+        "failed": 0,
+        "imported": 2,
+        "items": 2,
+        "pages": 2,
+        "unchanged": 0
+      },
+      "request_count": 0,
+      "mock_http_requests": 0,
+      "prepare_notice_calls": 2,
+      "real_http_requests": 0,
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "third_read_identical": true,
+      "page_checkpoints": [
+        {
+          "function_name": "bidops_ingestion_page_v1",
+          "has_output": true,
+          "has_error": false
+        },
+        {
+          "function_name": "bidops_ingestion_page_v1",
+          "has_output": true,
+          "has_error": false
+        }
+      ],
+      "pages": [
+        {
+          "page_seq": 0,
+          "receipt": {
+            "status": "completed",
+            "page_sha256": "33e5648b247955eb987cd62853b1aa79d4ad751672711919ff9b82a973c3b0b3",
+            "version_ids": [
+              "1822fcd9dda39ba23155a71b35235e274d9d3ec5ce093689f6d6413e8a0bd660"
+            ],
+            "attachment_record_ids": [],
+            "counts": {
+              "attachment_failed": 0,
+              "attachments": 0,
+              "failed": 0,
+              "imported": 1,
+              "items": 1,
+              "pages": 1,
+              "unchanged": 0
+            },
+            "cursor_advanced": true,
+            "cursor_version": 1,
+            "from_cursor_version": 0,
+            "observed_at": "2026-10-22T20:44:14.076232+00:00"
+          }
+        },
+        {
+          "page_seq": 1,
+          "receipt": {
+            "status": "completed",
+            "page_sha256": "e35e98d79dfbb3f5e91312ce2fbedf568c6c0791a00bb41068bcae934218a132",
+            "version_ids": [
+              "6a463e8c6131082b7344ca5a91a73fde521a182e5c04289fc85a7cc74adb2bd8"
+            ],
+            "attachment_record_ids": [],
+            "counts": {
+              "attachment_failed": 0,
+              "attachments": 0,
+              "failed": 0,
+              "imported": 1,
+              "items": 1,
+              "pages": 1,
+              "unchanged": 0
+            },
+            "cursor_advanced": true,
+            "cursor_version": 2,
+            "from_cursor_version": 1,
+            "observed_at": "2026-10-22T20:44:15.144918+00:00"
+          }
+        }
+      ],
+      "raw_hashes": [
+        "ca48c51c46135f4cd88df0f81ad0f931fbe63d47fd9e83a0c8b2c0827a9a1c1d",
+        "f8e5e0863674307a5603d9f798993b4a64d8e6982497158c56e6290f37c68a9e"
+      ],
+      "source_artifact_sha256": {
+        "events.jsonl": "2bafc25cb5f87444347c23be1909877ca6e271edcbe61e40a9ef2b88a52a516f",
+        "recover.json": "e881e227b1a7e7cdf10fc138234c3d5e0dc3e179a0202a6ea96cf314a331e776",
+        "read-saved.json": "e881e227b1a7e7cdf10fc138234c3d5e0dc3e179a0202a6ea96cf314a331e776"
+      }
+    },
+    {
+      "window": "after_schedule_run_commit",
+      "processes": 3,
+      "application_version": "7acc28b8d8a4f3e5abb3f994ebeb5d9fc29aea3083a0d9666573750d1e937250",
+      "status": "completed",
+      "counts": {
+        "attachment_failed": 0,
+        "attachments": 0,
+        "failed": 0,
+        "imported": 1,
+        "items": 1,
+        "pages": 1,
+        "unchanged": 0
+      },
+      "request_count": 1,
+      "mock_http_requests": 1,
+      "prepare_notice_calls": 1,
+      "real_http_requests": 0,
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "third_read_identical": true,
+      "page_checkpoints": [
+        {
+          "function_name": "bidops_ingestion_page_v1",
+          "has_output": true,
+          "has_error": false
+        }
+      ],
+      "pages": [
+        {
+          "page_seq": 0,
+          "receipt": {
+            "status": "completed",
+            "page_sha256": "19484af20ca86588cc8711d463c9ab279af5b036144c5e70e738621dac774f6d",
+            "version_ids": [
+              "5f84397c9676c96ee2bcd1fc3d1813f6955b66c581381d25756ff3ebc31dfb17"
+            ],
+            "attachment_record_ids": [],
+            "counts": {
+              "attachment_failed": 0,
+              "attachments": 0,
+              "failed": 0,
+              "imported": 1,
+              "items": 1,
+              "pages": 1,
+              "unchanged": 0
+            },
+            "cursor_advanced": true,
+            "cursor_version": 1,
+            "from_cursor_version": 0,
+            "observed_at": "2026-10-22T20:44:21.565627+00:00"
+          }
+        }
+      ],
+      "raw_hashes": [
+        "918549f2361698a242661508df95ab53bd113bb85314d508ed48f0c34e78c3bf"
+      ],
+      "source_artifact_sha256": {
+        "events.jsonl": "1f0a7dda6836abda267b937a331b815abb8e193bc6cbf66ab4aa54fde8e33d67",
+        "recover.json": "02b8427fd9115c53766cb9345316713c4d2f771d8918e7811c2c3209f53838a7",
+        "read-saved.json": "02b8427fd9115c53766cb9345316713c4d2f771d8918e7811c2c3209f53838a7"
+      }
+    }
+  ],
+  "processes": 9,
+  "real_http_requests": 0,
+  "real_model_calls": 0,
+  "estimated_cost_cny": "0",
+  "business_acceptance": "BLOCKED",
+  "excluded": [
+    "bootstrap.json",
+    "raw model/provider outputs",
+    "databases/WAL/SHM",
+    "private identity/source input",
+    "DBOS serialized inputs"
+  ]
+}
