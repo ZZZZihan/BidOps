@@ -33,6 +33,9 @@ from bidops.notice_data import NoticeRepository
 from bidops.qualification.api import screening_router
 from bidops.qualification.config import ScreeningSettings
 from bidops.qualification.service import ScreeningService
+from bidops.review.api import review_router
+from bidops.review.config import ReviewSettings
+from bidops.review.service import ReviewService
 from bidops.storage import Store
 
 
@@ -42,6 +45,7 @@ def create_app(
     enterprise_settings: EnterpriseSettings | None = None,
     screening_settings: ScreeningSettings | None = None,
     jobs_settings: JobsSettings | None = None,
+    review_settings: ReviewSettings | None = None,
 ) -> FastAPI:
     settings = settings or Settings()
     enterprise = enterprise_settings or EnterpriseSettings()
@@ -75,7 +79,29 @@ def create_app(
                     app.state.jobs = JobsService(
                         app.state.screening, settings.data_dir, jobs_settings
                     )
-                    await asyncio.to_thread(app.state.jobs.start)
+            app.state.review = ReviewService(app.state.screening, app.state.jobs, review_settings)
+            if app.state.jobs:
+                await asyncio.to_thread(app.state.jobs.start)
+
+            async def review_delivery():
+                while True:
+                    await asyncio.sleep(30)
+                    try:
+                        delivery = asyncio.create_task(
+                            asyncio.to_thread(app.state.review.deliver_pending)
+                        )
+                        try:
+                            await asyncio.shield(delivery)
+                        except asyncio.CancelledError:
+                            # Cancelling the waiter does not stop its native thread.
+                            # Join it before closing DBOS, the database or worker lock.
+                            with suppress(Exception):
+                                await delivery
+                            raise
+                    except Exception:
+                        logging.getLogger("bidops.operations").error(
+                            '{"event":"review_delivery_failed"}'
+                        )
 
             async def retention():
                 while True:
@@ -90,6 +116,11 @@ def create_app(
                         logging.getLogger("bidops.operations").error('{"event":"retention_failed"}')
 
             maintenance = asyncio.create_task(retention()) if enterprise.enabled else None
+            relay = (
+                asyncio.create_task(review_delivery())
+                if enterprise.enabled and app.state.review.settings.enabled
+                else None
+            )
             try:
                 yield
             finally:
@@ -97,6 +128,10 @@ def create_app(
                     maintenance.cancel()
                     with suppress(asyncio.CancelledError):
                         await maintenance
+                if relay:
+                    relay.cancel()
+                    with suppress(asyncio.CancelledError):
+                        await relay
                 if app.state.jobs:
                     await asyncio.to_thread(app.state.jobs.close)
                 await app.state.agent_service.close()
@@ -245,6 +280,7 @@ def create_app(
     app.include_router(company_router())
     app.include_router(screening_router())
     app.include_router(jobs_router())
+    app.include_router(review_router())
     router.include_router(notice_router())
     app.include_router(router)
     app.include_router(router, prefix="/api", include_in_schema=False)

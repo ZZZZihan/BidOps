@@ -207,7 +207,9 @@ class JobsRepository:
             result = self._render(record, body)
         return {**result, "source_state": source_state}
 
-    def get_or_create(self, context, *, idempotency_key, request, prepare, max_active_jobs=None):
+    def get_or_create(
+        self, context, *, idempotency_key, request, prepare, max_active_jobs=None, link=None
+    ):
         """Hash the untouched request before resolving defaults or source versions.
 
         prepare is called only for an absent owner/key. Concurrent first submits
@@ -234,6 +236,10 @@ class JobsRepository:
         if existing:
             if existing[0]["input_sha256"] != input_sha:
                 raise CompanyError("job_idempotency_conflict", 409)
+            if link is not None:
+                with transaction(self.db) as conn:
+                    record = self._authorize(context, existing[0]["run_id"], conn)
+                    link(conn, self._render(record, self._body(record, conn)))
             return {**self.get(context, existing[0]["run_id"]), "created": False}
         prepared = prepare()
         if not isinstance(prepared, dict) or set(prepared) != {"manifest", "settings", "versions"}:
@@ -313,6 +319,9 @@ class JobsRepository:
                             "sha": ref.sha256,
                         },
                     )
+            if link is not None:
+                record = self._authorize(context, run_id, conn)
+                link(conn, self._render(record, self._body(record, conn)))
         return {**self.get(context, run_id), "created": created}
 
     def list(self, context, *, offset=0, limit=20):

@@ -61,6 +61,9 @@ def prune_company_materials(service):
         from bidops.qualification.repository import prune_results
 
         derived = prune_results(db, now)
+    from bidops.review.retention import prune_reviews
+
+    reviews = prune_reviews(db, now)
     from bidops.jobs.retention import prune_job_history
 
     jobs = prune_job_history(service)
@@ -121,6 +124,7 @@ def prune_company_materials(service):
         "purged_ids": purged,
         "failure_ids": failures,
         "purged_result_ids": derived["purged_ids"],
+        "purged_review_case_ids": reviews["purged_case_ids"],
         "purged_job_ids": jobs["purged_job_ids"],
         "deleted_job_history_ids": jobs["deleted_history_ids"],
         "job_failure_ids": jobs["failure_ids"],

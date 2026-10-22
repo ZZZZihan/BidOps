@@ -22,6 +22,7 @@ from bidops.enterprise.identity_events import (
 ROLE_PERMISSIONS = {
     "viewer": {"catalog:read"},
     "analyst": {"catalog:read", "agent:use"},
+    "reviewer": {"catalog:read", "review:decide"},
     "auditor": {"catalog:read", "audit:read"},
     "admin": {"catalog:read", "agent:use", "audit:read"},
 }

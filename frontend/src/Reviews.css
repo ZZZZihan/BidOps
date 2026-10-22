@@ -1,0 +1,47 @@
+.reviews-panel { max-width: 1500px; margin: auto; padding: 32px; color: #263b49; }
+.reviews-columns, .reviews-evidence { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.reviews-card { min-width: 0; margin: 22px 0; padding: 24px; background: white; border: 1px solid #dce7ed; border-radius: 10px; }
+.reviews-card h2 { color: #16394c; font-size: 21px; }
+.reviews-card h3 { font-size: 17px; }
+.reviews-card h4 { margin: 12px 0; }
+.reviews-card label { display: grid; gap: 6px; min-width: 0; margin: 14px 0; font-size: 13px; }
+.reviews-card input:not([type="checkbox"]), .reviews-card textarea, .reviews-card select { width: 100%; min-width: 0; padding: 10px; border: 1px solid #b8cbd5; border-radius: 5px; font: inherit; color: inherit; background: white; }
+.reviews-card textarea { min-height: 90px; resize: vertical; }
+.reviews-card code, .reviews-card p, .reviews-card dd, .reviews-card li, .reviews-card small, .reviews-card summary { overflow-wrap: anywhere; word-break: break-word; }
+.reviews-card pre { overflow: auto; max-height: 420px; white-space: pre-wrap; overflow-wrap: anywhere; padding: 14px; background: #f0f7fb; font-size: 12px; }
+.reviews-card blockquote { margin: 12px 0; padding: 12px; border-left: 3px solid #b8cbd5; background: #f0f7fb; white-space: pre-wrap; }
+.reviews-card dl { margin: 12px 0; }
+.reviews-card dt { margin-top: 9px; font-size: 12px; color: #617581; }
+.reviews-card dd { margin: 3px 0 0; }
+.reviews-card details { margin: 12px 0; }
+.reviews-card summary { color: #0873b9; }
+.reviews-card fieldset { min-width: 0; border: 1px solid #dce7ed; margin: 14px 0; padding: 12px; border-radius: 6px; }
+.reviews-card legend { padding: 0 6px; font-size: 13px; }
+.reviews-help { font-size: 12px; color: #617581; }
+.reviews-row, .reviews-actions, .reviews-pagination { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.reviews-row { justify-content: space-between; }
+.reviews-row h3 { flex: 1; min-width: 0; }
+.reviews-actions { margin: 18px 0; }
+.reviews-pagination { justify-content: space-between; margin: 16px 0; font-size: 12px; }
+.reviews-primary { background: #0873b9; border-color: #0873b9; color: white; }
+.reviews-history { list-style: none; padding: 0; }
+.reviews-history li { border-bottom: 1px solid #e7eef3; padding: 12px 0; }
+.reviews-history button { border: 0; padding: 5px 0; color: #0873b9; background: none; text-align: left; max-width: 100%; }
+.reviews-badge { display: inline-block; background: #edf1f4; color: #506573; font-size: 12px; padding: 5px 10px; border-radius: 5px; }
+.reviews-badge.satisfied, .reviews-badge.confirm { background: #e8f3ef; color: #28664e; }
+.reviews-badge.not_satisfied, .reviews-badge.evidence_conflict, .reviews-badge.reject { background: #fbece8; color: #92483a; }
+.reviews-badge.information_insufficient, .reviews-badge.request_materials { background: #fff0d7; color: #825913; }
+.reviews-warning, .reviews-error, .reviews-notice { padding: 13px 16px; margin: 14px 0; border-left: 3px solid #b98536; background: #fff6e9; color: #825913; overflow-wrap: anywhere; }
+.reviews-error { border-color: #a73535; background: #fff0ed; color: #9b2828; }
+.reviews-notice { border-color: #0873b9; background: #f0f7fb; color: #16394c; }
+.reviews-condition { padding: 18px; margin: 18px 0; border: 1px solid #dce7ed; border-radius: 6px; min-width: 0; }
+.reviews-agent { padding: 12px; background: #f0f7fb; border-radius: 6px; }
+.reviews-decision { margin-top: 16px; padding-top: 10px; border-top: 1px solid #dce7ed; }
+.reviews-event { padding: 12px; margin: 10px 0; border-left: 3px solid #b8cbd5; background: #f7fafc; }
+.reviews-pinned { padding: 16px; background: #f0f7fb; border-radius: 6px; }
+.reviews-choice { display: flex !important; align-items: flex-start; gap: 10px !important; }
+.reviews-choice input { margin-top: 4px; flex-shrink: 0; }
+.reviews-choice span { min-width: 0; }
+.reviews-panel :focus-visible { outline: 3px solid #76a8d2; outline-offset: 3px; }
+@media(max-width: 1000px) { .reviews-columns { grid-template-columns: 1fr; gap: 0; } }
+@media(max-width: 650px) { .reviews-panel { padding: 20px 16px; } .reviews-card { padding: 18px 14px; } .reviews-panel .agent-heading { flex-direction: column; align-items: flex-start; } .reviews-evidence { grid-template-columns: 1fr; gap: 0; } .reviews-condition { padding: 14px; } .reviews-actions button { max-width: 100%; } }

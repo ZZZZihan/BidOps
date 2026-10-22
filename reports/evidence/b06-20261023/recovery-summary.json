@@ -1,0 +1,1489 @@
+[
+  {
+    "case": "test_actual_review_sigkill_res0",
+    "events": [
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "crash",
+        "pid": 21303,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      },
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "recover",
+        "pid": 21317,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      },
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "read-saved",
+        "pid": 21321,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      }
+    ],
+    "local_model_calls": 9,
+    "identical_saved_read": true,
+    "actual_model_calls": 0,
+    "actual_cost_cny": "0",
+    "result": {
+      "run_id": "1e38d610423a4aff96369f721cbeccec",
+      "case_id": "169de3459e754b13a9e96beefbd4e9d4",
+      "status": "completed",
+      "result_id": "08b3f38947384a0dafef08dc5a699a11",
+      "result_revision": "f57b82402e4143fd997ff013abdec740",
+      "result_body_sha256": "44b5885601b9e5de71f03cc40c23e3b710919da951b8945be2b806c233bbce08",
+      "inputs_manifest_sha256": "25de753fb127c1130b56b19707e751252d7b3f7718b3ae835dadfc01dc1b4d76",
+      "usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      },
+      "native_workflows": [
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          "SUCCESS",
+          "bidops_qualification_job_v1",
+          null
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          "SUCCESS",
+          "bidops_qualification_calculation_v1",
+          "1e38d610423a4aff96369f721cbeccec"
+        ]
+      ],
+      "checkpoints": [
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          1,
+          "bidops_qualification_calculation_v1",
+          0,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          2,
+          "DBOS.getResult",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          3,
+          "bidops_job_waiting_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          4,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          5,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          6,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          7,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          8,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          9,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          10,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          11,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          12,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          13,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          14,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          15,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          16,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          17,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          18,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          19,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          20,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          21,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          22,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          23,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          24,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          25,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          26,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          27,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          28,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          29,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec",
+          30,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          1,
+          "bidops_job_started_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          2,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          3,
+          "bidops_job_extraction_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          4,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          5,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          6,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          7,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          8,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          9,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          10,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          11,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          12,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          13,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          14,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          15,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          16,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          17,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          18,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          19,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "1e38d610423a4aff96369f721cbeccec-calculation",
+          20,
+          "bidops_job_result_v1",
+          1,
+          0
+        ]
+      ],
+      "review_event_ids": [
+        "0270330ff42a42368f0be1aa90d99fda",
+        "08318fbdc11342aaa7fc5c6303ebe4bf",
+        "35d7551132c4447bbd9d721c2289bc44",
+        "5c6ecc74ee6a421faebe045e16726cee",
+        "988a7e274cb7451c8c70e07b158e2d21",
+        "99a5ee11475e4428b63988ebb66f500b",
+        "b3697f70762f4a8fab25a90180eb8124",
+        "bb57d0230bce4483a59373619a335a34",
+        "feffb1c92bc540b6bb2e21feb32651f1"
+      ]
+    }
+  },
+  {
+    "case": "test_actual_review_sigkill_res1",
+    "events": [
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "crash",
+        "pid": 21325,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      },
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "recover",
+        "pid": 21352,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      },
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "read-saved",
+        "pid": 21386,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      }
+    ],
+    "local_model_calls": 9,
+    "identical_saved_read": true,
+    "actual_model_calls": 0,
+    "actual_cost_cny": "0",
+    "result": {
+      "run_id": "6c48f7cd64234a2cb44a562f3f6d0e71",
+      "case_id": "8015e68ad8e04b6a9416d47b6bbbde22",
+      "status": "completed",
+      "result_id": "fd5369a08348429aafadc686c98bcd4d",
+      "result_revision": "2971e5542f264a78b8627f916e56dee6",
+      "result_body_sha256": "cb6fbe336979ed7e21a99529eee1114c4e9374c8a0e130fffc00a1fab15ef114",
+      "inputs_manifest_sha256": "6f6a655a3ba3fa66b9949abffb4435e147631edd09a2bf66530d087538677554",
+      "usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      },
+      "native_workflows": [
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          "SUCCESS",
+          "bidops_qualification_job_v1",
+          null
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          "SUCCESS",
+          "bidops_qualification_calculation_v1",
+          "6c48f7cd64234a2cb44a562f3f6d0e71"
+        ]
+      ],
+      "checkpoints": [
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          1,
+          "bidops_qualification_calculation_v1",
+          0,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          2,
+          "DBOS.getResult",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          3,
+          "bidops_job_waiting_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          4,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          5,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          6,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          7,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          8,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          9,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          10,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          11,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          12,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          13,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          14,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          15,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          16,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          17,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          18,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          19,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          20,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          21,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          22,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          23,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          24,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          25,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          26,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          27,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          28,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          29,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71",
+          30,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          1,
+          "bidops_job_started_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          2,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          3,
+          "bidops_job_extraction_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          4,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          5,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          6,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          7,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          8,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          9,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          10,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          11,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          12,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          13,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          14,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          15,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          16,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          17,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          18,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          19,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "6c48f7cd64234a2cb44a562f3f6d0e71-calculation",
+          20,
+          "bidops_job_result_v1",
+          1,
+          0
+        ]
+      ],
+      "review_event_ids": [
+        "1e248b767de24b7b992506d123a61dd8",
+        "90fbc4f3874749f7859672549fa6ca7b",
+        "b5267e5fb9ba4a9eabedeb39c01749b4",
+        "bcd85b3c507e411dbb2a7903112658d8",
+        "c3ffae54f781408ba8de4a2096361ddf",
+        "d9dcbb28647142a58f9f94aff25f8b5a",
+        "e95dfb19d2cf4c308e0384b73ab3fe5a",
+        "ea2dd0bdf1224660b6b05291e744c3ab",
+        "ff0aeee6c6714f7fa060a79eff2f8d09"
+      ]
+    }
+  },
+  {
+    "case": "test_actual_review_sigkill_res2",
+    "events": [
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "crash",
+        "pid": 21411,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      },
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "recover",
+        "pid": 21459,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      },
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "read-saved",
+        "pid": 21469,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      }
+    ],
+    "local_model_calls": 9,
+    "identical_saved_read": true,
+    "actual_model_calls": 0,
+    "actual_cost_cny": "0",
+    "result": {
+      "run_id": "40a5ba8a64924514b5286a33958818bd",
+      "case_id": "07514523c3ec48c8ba336bb867cee083",
+      "status": "completed",
+      "result_id": "ad8467a1e3bc413592b3009cb7e74980",
+      "result_revision": "eba84837e2d94ea29ab2ca658b9af960",
+      "result_body_sha256": "09af2533fa663e05c48fc6e529e12fc4767cd31aa033ead7b7be1b32cde59fce",
+      "inputs_manifest_sha256": "f84f849f1e3b41ba90f3fb428c225a77114697749503da833589997afe13c2af",
+      "usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      },
+      "native_workflows": [
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          "SUCCESS",
+          "bidops_qualification_job_v1",
+          null
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          "SUCCESS",
+          "bidops_qualification_calculation_v1",
+          "40a5ba8a64924514b5286a33958818bd"
+        ]
+      ],
+      "checkpoints": [
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          1,
+          "bidops_qualification_calculation_v1",
+          0,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          2,
+          "DBOS.getResult",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          3,
+          "bidops_job_waiting_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          4,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          5,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          6,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          7,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          8,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          9,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          10,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          11,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          12,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          13,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          14,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          15,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          16,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          17,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          18,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          19,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          20,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          21,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          22,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          23,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          24,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          25,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          26,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          27,
+          "bidops_job_human_review_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          28,
+          "DBOS.recv",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd",
+          29,
+          "DBOS.sleep",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          1,
+          "bidops_job_started_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          2,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          3,
+          "bidops_job_extraction_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          4,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          5,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          6,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          7,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          8,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          9,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          10,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          11,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          12,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          13,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          14,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          15,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          16,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          17,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          18,
+          "bidops_job_progress_v1",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          19,
+          "bidops_job_assessment_v1__model.request",
+          1,
+          0
+        ],
+        [
+          "40a5ba8a64924514b5286a33958818bd-calculation",
+          20,
+          "bidops_job_result_v1",
+          1,
+          0
+        ]
+      ],
+      "review_event_ids": [
+        "48465c97b0454cfaa4333b833524e48d",
+        "4cb2aac76ba74f139f4f815522aa22b2",
+        "5e2c206fa6704822b65ca231f2d9193c",
+        "72db9cb67e86410bb9537896378b7ac9",
+        "8f66ebffa8e84f0abce158dfc187f983",
+        "a24afe2804b54bedb95acbbb32ae1760",
+        "c307f4ceb5554897b068c4395917a48d",
+        "ce3daf0e0a53422295683165629ecc21",
+        "dd096832f868454693b9ea24be9c1330"
+      ]
+    }
+  },
+  {
+    "case": "test_actual_supplement_link_si0",
+    "events": [
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "crash",
+        "pid": 21478,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      },
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "recover",
+        "pid": 21515,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      },
+      {
+        "accounting_kind": "synthetic_shared_ledger",
+        "actual_cost_cny": "0",
+        "application_version": "c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775",
+        "dbos_version": "3.3.0",
+        "event": "starting",
+        "identity_kind": "RS256_verified_persisted_browser_session",
+        "mode": "read-saved",
+        "pid": 21527,
+        "pydantic_ai_version": "2.59.0",
+        "real_model_calls": 0
+      }
+    ],
+    "local_model_calls": 18,
+    "identical_saved_read": true,
+    "actual_model_calls": 0,
+    "actual_cost_cny": "0",
+    "result": {
+      "case_id": "06de89cc36b24591bec0c475cc61c9b9",
+      "status": "open",
+      "head_revision_id": "cae5d941b96349578db5a85595dcab85",
+      "review_version": 3,
+      "revisions": [
+        {
+          "revision_id": "05a7b8fd245741ddad84a8dc071f3554",
+          "parent_revision_id": null,
+          "run_id": "e5e8f40b10a441fe9f7083367b255f9f",
+          "result_id": "3766addad8854e0aa4e7a449059d26f5",
+          "result_revision": "001e033b9d6c4d55ae1e4e08950ec6c6",
+          "inputs_manifest_sha256": "0f9d27b586200dc10281cd5f3d413f73f4e686e07b044b2007b191717148e4af"
+        },
+        {
+          "revision_id": "cae5d941b96349578db5a85595dcab85",
+          "parent_revision_id": "05a7b8fd245741ddad84a8dc071f3554",
+          "run_id": "6fe8f88571284459af7ec020a617a086",
+          "result_id": "eee408c735e94e879d80bc32ff8b8c92",
+          "result_revision": "9fe77db7152b47da8c0261f8f9f9975e",
+          "inputs_manifest_sha256": "67c9a5681dd70950ac6892ab03b508ca9e52fabbea4c3139aed44110a4faac2f"
+        }
+      ],
+      "jobs": [
+        {
+          "run_id": "e5e8f40b10a441fe9f7083367b255f9f",
+          "status": "cancelled",
+          "result_id": "3766addad8854e0aa4e7a449059d26f5",
+          "result_revision": "001e033b9d6c4d55ae1e4e08950ec6c6",
+          "usage": {
+            "requested_model": "deepseek-flash",
+            "actual_models": [
+              "deepseek-flash"
+            ],
+            "model_calls": 9,
+            "confirmed_calls": 9,
+            "unknown_calls": 0,
+            "orphan_reservations": 0,
+            "input_tokens": 900,
+            "output_tokens": 90,
+            "estimated_cost_cny": "0.00252",
+            "reserved_cost_cny": "0",
+            "usage_complete": true,
+            "model_identity_complete": true,
+            "offline": false
+          }
+        },
+        {
+          "run_id": "6fe8f88571284459af7ec020a617a086",
+          "status": "waiting_review",
+          "result_id": "eee408c735e94e879d80bc32ff8b8c92",
+          "result_revision": "9fe77db7152b47da8c0261f8f9f9975e",
+          "usage": {
+            "requested_model": "deepseek-flash",
+            "actual_models": [
+              "deepseek-flash"
+            ],
+            "model_calls": 9,
+            "confirmed_calls": 9,
+            "unknown_calls": 0,
+            "orphan_reservations": 0,
+            "input_tokens": 900,
+            "output_tokens": 90,
+            "estimated_cost_cny": "0.00252",
+            "reserved_cost_cny": "0",
+            "usage_complete": true,
+            "model_identity_complete": true,
+            "offline": false
+          }
+        }
+      ],
+      "native_workflows": [
+        [
+          "6fe8f88571284459af7ec020a617a086",
+          "PENDING",
+          "bidops_qualification_job_v1",
+          null
+        ],
+        [
+          "6fe8f88571284459af7ec020a617a086-calculation",
+          "SUCCESS",
+          "bidops_qualification_calculation_v1",
+          "6fe8f88571284459af7ec020a617a086"
+        ],
+        [
+          "e5e8f40b10a441fe9f7083367b255f9f",
+          "CANCELLED",
+          "bidops_qualification_job_v1",
+          null
+        ],
+        [
+          "e5e8f40b10a441fe9f7083367b255f9f-calculation",
+          "SUCCESS",
+          "bidops_qualification_calculation_v1",
+          "e5e8f40b10a441fe9f7083367b255f9f"
+        ]
+      ],
+      "review_event_ids": [
+        "db32e0899fa64e8ba0fe96efa9b783f3",
+        "5f365da6a20542bdb9f78482409d6fad",
+        "46a77d5a271b415eb1ab0f9c7e586a3d"
+      ],
+      "unreviewed_item_count": 8,
+      "all_new_items_unreviewed": true
+    }
+  }
+]
