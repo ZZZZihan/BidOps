@@ -11,7 +11,7 @@
     "frozen-scorer.json": "c500bfd2752bcfa5e64873f6ce5ac8fe5da2893c5dfdf1914863ddc2c06a5a32",
     "verification.json": "81f98fc71a8598a60a58d43cc505cb8cc9f7557fa8b8de5806761c925925a033"
   },
-  "sanitization": "Explicit root filenames only; worktree/private evidence prefixes replaced; recovery JSON projected by allowlisted keys. No recursive pytest copying.",
+  "sanitization": "Explicit root filenames only; worktree/private evidence prefixes replaced; recovery JSON projected by allowlisted keys. No recursive pytest copying. CI failure excerpt trailing whitespace normalized; the original log hash remains recorded.",
   "allowed_files": [
     {
       "path": "backend.txt",
@@ -20,8 +20,8 @@
     },
     {
       "path": "ci-failure.txt",
-      "byte_size": 3572,
-      "sha256": "13c0f7f18c45805ca3f826c37859c883ad02728b0ab4a0cb3ad1c33c30c4ca0b"
+      "byte_size": 3558,
+      "sha256": "e4922c8d22f9fa5995f61126a81f67aed684012b64c57f5fcb92cfd809778061"
     },
     {
       "path": "ci-status.json",
