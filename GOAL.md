@@ -94,9 +94,11 @@ B07 已通过 [PR #22](https://github.com/ZZZZihan/BidOps/pull/22) 交付来源�
 B01冻结全部自然退出0；B07-01～06专项工程PASS，三组SIGKILL使用9独立进程。
 原Linux CI实际1729PASS / 1FAIL（PDF内存先拒导致测试预期差异）保留；测试修复
 `de96024711bbd0eaf40b580859bf871004ef2a66` 将parser定向测试47项增至48项，生产与锁不变，
-新Head完整验证 / 新CI待结果，不能称全部门槛已通过。B07-07真实许可三轮 / 24小时仍BLOCKED，
+最终代码c035c01的新CI39855341451实际1731后端/148浏览器、容器/lint/冻结全部PASS；旧失败保留，B07自身G-02工程复验关闭。B07-07真实许可三轮 / 24小时仍BLOCKED，
 自动采集和网络默认关闭，没有真实来源 / 模型调用或费用。见
 [B07逐项证据](reports/b07-authorized-updates-20261023.md)。前置B02-06、真实企业验收仍未完成，
 没有因此合并、部署或放开采集。
 
 B08已交付 [Draft PR #23](https://github.com/ZZZZihan/BidOps/pull/23)，基于B07 #22：授权完整结果收集、原始投影/用量/代码闭包核验、冻结独立协议及累计费用核对。干净代码`b42f05269e13be278d220a1307d79ee4b17aad6b`完整1851后端PASS，121项新增；真实CLI工程校准PASS，业务BLOCKED、agent_score=null。B08-03/07工程PASS，其他五项真实评测BLOCKED。见[B08逐项证据](reports/b08-independent-evaluation-20261023.md)。前置B02-06、真实资料/金标/人审计时/完整账本仍缺，B09/B10继续，无合并部署。
+
+B08 CI复验：代码d682262的新run39855370107实际1852后端/148浏览器、233格式/lint/冻结及容器全部PASS；旧1850/1失败保留。自身G-02工程关闭，真实B08/B02-06仍BLOCKED。
