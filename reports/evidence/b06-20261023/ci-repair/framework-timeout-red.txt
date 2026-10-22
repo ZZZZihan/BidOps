@@ -1,0 +1,48 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+___ test_framework_deadline_before_provider_is_timed_out_not_invalid_output ____
+
+service = (<bidops.qualification.service.ScreeningService object at 0x1113b0da0>, NoticeVersion(version_id='a0480d8d1ec9c0dc24f5...eef841'}, {'fact_id': 'cert', 'kind': 'qualification', 'label': 'Synthetic cert', 'status': 'document_supported', ...})
+settings = Settings(data_dir=PosixPath('/private/var/folders/kw/drzz5bb1071clqgd558ql42m0000gn/T/pytest-of-xuzihan/pytest-275/tes...imit_seconds=5.0, http_attempts=3, max_bytes=2000000, user_agent='BidOps-P0/0.1 (+https://github.com/ZZZZihan/BidOps)')
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x111374530>
+
+    def test_framework_deadline_before_provider_is_timed_out_not_invalid_output(
+        service, settings, monkeypatch
+    ):
+        screening, notice, profile, _, _ = service
+        screening.settings.max_seconds = 0.05
+        calls = []
+    
+        async def delayed_dispatch(self, *args, **kwargs):
+            # Exercise the installed framework's real request timer outside the
+            # inner provider guard, so CPU/DBOS dispatch timing cannot pick a winner.
+            await asyncio.sleep(0.5)
+            calls.append("provider_would_start")
+            raise AssertionError("framework request deadline should cancel dispatch")
+    
+        monkeypatch.setattr(JobModelProxy, "request", delayed_dispatch)
+        runtime = JobsService(screening, settings.data_dir, JobsSettings(enabled=True))
+        try:
+            runtime.start()
+            first = runtime.submit(
+                ALICE,
+                {"profile_revision": profile, "project_id": notice.project_id},
+                "framework-timeout",
+            )
+            deadline = time.monotonic() + 8
+            while time.monotonic() < deadline:
+                state = runtime.repository.get_system(first["run_id"])["status"]
+                if state in {"failed", "timed_out", "interrupted"}:
+                    break
+                time.sleep(0.02)
+            final = runtime.read(ALICE, first["run_id"])
+>           assert final["status"] == "timed_out"
+E           AssertionError: assert 'failed' == 'timed_out'
+E             
+E             - timed_out
+E             + failed
+
+tests/test_jobs_framework_timeout.py:45: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_jobs_framework_timeout.py::test_framework_deadline_before_provider_is_timed_out_not_invalid_output
+1 failed in 2.98s

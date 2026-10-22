@@ -1,0 +1,443 @@
+﻿2026-10-22T20:09:37.3510435Z Current runner version: '2.338.0'
+2026-10-22T20:09:37.3534148Z ##[group]Runner Image Provisioner
+2026-10-22T20:09:37.3534899Z Hosted Compute Agent
+2026-10-22T20:09:37.3535448Z Version: 20261012.601
+2026-10-22T20:09:37.3535993Z Commit: f3dc54e1fb89da6852db922499a0233137369e1d
+2026-10-22T20:09:37.3536567Z Build Date: 2026-10-12T17:48:21Z
+2026-10-22T20:09:37.3537226Z Worker ID: {c78edbc4-b9e8-45ee-806c-879a9d4ea79e}
+2026-10-22T20:09:37.3537801Z Region: westus3
+2026-10-22T20:09:37.3538312Z Cloud: Azure
+2026-10-22T20:09:37.3538755Z ##[endgroup]
+2026-10-22T20:09:37.3540162Z ##[group]Operating System
+2026-10-22T20:09:37.3540764Z Ubuntu
+2026-10-22T20:09:37.3541205Z 24.04.5
+2026-10-22T20:09:37.3541821Z LTS
+2026-10-22T20:09:37.3542289Z ##[endgroup]
+2026-10-22T20:09:37.3542975Z ##[group]Runner Image
+2026-10-22T20:09:37.3543557Z Image: ubuntu-24.04
+2026-10-22T20:09:37.3544023Z Version: 20261012.334.1
+2026-10-22T20:09:37.3545167Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261012.334/images/ubuntu/Ubuntu2404-Readme.md
+2026-10-22T20:09:37.3546392Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261012.334
+2026-10-22T20:09:37.3547241Z ##[endgroup]
+2026-10-22T20:09:37.3548141Z ##[group]GITHUB_TOKEN Permissions
+2026-10-22T20:09:37.3549959Z Contents: read
+2026-10-22T20:09:37.3550452Z Metadata: read
+2026-10-22T20:09:37.3550966Z ##[endgroup]
+2026-10-22T20:09:37.3552980Z Secret source: Actions
+2026-10-22T20:09:37.3554066Z Cache mode: write
+2026-10-22T20:09:37.3554675Z Prepare workflow directory
+2026-10-22T20:09:37.3876251Z Prepare all required actions
+2026-10-22T20:09:37.3917967Z Getting action download info
+2026-10-22T20:09:37.6725426Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-10-22T20:09:39.1702231Z Download action repository 'astral-sh/setup-uv@v6' (SHA:d0cc045d04ccac9d8b7881df0226f9e82c39688e)
+2026-10-22T20:09:40.3535554Z Complete job name: backend
+2026-10-22T20:09:40.4323836Z ##[group]Run actions/checkout@v4
+2026-10-22T20:09:40.4324960Z with:
+2026-10-22T20:09:40.4325599Z   repository: ZZZZihan/BidOps
+2026-10-22T20:09:40.4333176Z   token: ***
+2026-10-22T20:09:40.4333814Z   ssh-strict: true
+2026-10-22T20:09:40.4334473Z   ssh-user: git
+2026-10-22T20:09:40.4335142Z   persist-credentials: true
+2026-10-22T20:09:40.4335863Z   clean: true
+2026-10-22T20:09:40.4336523Z   sparse-checkout-cone-mode: true
+2026-10-22T20:09:40.4337384Z   fetch-depth: 1
+2026-10-22T20:09:40.4338036Z   fetch-tags: false
+2026-10-22T20:09:40.4338714Z   show-progress: true
+2026-10-22T20:09:40.4339401Z   lfs: false
+2026-10-22T20:09:40.4340045Z   submodules: false
+2026-10-22T20:09:40.4340715Z   set-safe-directory: true
+2026-10-22T20:09:40.4341584Z   allow-unsafe-pr-checkout: false
+2026-10-22T20:09:40.4342736Z ##[endgroup]
+2026-10-22T20:09:40.5200680Z Syncing repository: ZZZZihan/BidOps
+2026-10-22T20:09:40.5204023Z ##[group]Getting Git version info
+2026-10-22T20:09:40.5205597Z Working directory is '/home/runner/work/BidOps/BidOps'
+2026-10-22T20:09:40.5207887Z [command]/usr/bin/git version
+2026-10-22T20:09:40.8847054Z git version 2.55.0
+2026-10-22T20:09:40.8864013Z ##[endgroup]
+2026-10-22T20:09:40.8876317Z Temporarily overriding HOME='/home/runner/work/_temp/38ed7ad3-860b-4c6b-84d2-16eff07b1e24' before making global git config changes
+2026-10-22T20:09:40.8877079Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T20:09:40.8881121Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/BidOps/BidOps
+2026-10-22T20:09:40.9349064Z Deleting the contents of '/home/runner/work/BidOps/BidOps'
+2026-10-22T20:09:40.9353977Z ##[group]Initializing the repository
+2026-10-22T20:09:40.9358431Z [command]/usr/bin/git init /home/runner/work/BidOps/BidOps
+2026-10-22T20:09:41.0842120Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-10-22T20:09:41.0843262Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-10-22T20:09:41.0843730Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-10-22T20:09:41.0844313Z hint: call:
+2026-10-22T20:09:41.0844473Z hint:
+2026-10-22T20:09:41.0844865Z hint: 	git config --global init.defaultBranch <name>
+2026-10-22T20:09:41.0845293Z hint:
+2026-10-22T20:09:41.0845688Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-10-22T20:09:41.0846310Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-10-22T20:09:41.0846655Z hint:
+2026-10-22T20:09:41.0846830Z hint: 	git branch -m <name>
+2026-10-22T20:09:41.0847025Z hint:
+2026-10-22T20:09:41.0847399Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-10-22T20:09:41.0848077Z Initialized empty Git repository in /home/runner/work/BidOps/BidOps/.git/
+2026-10-22T20:09:41.0852959Z [command]/usr/bin/git remote add origin https://github.com/ZZZZihan/BidOps
+2026-10-22T20:09:41.1428946Z ##[endgroup]
+2026-10-22T20:09:41.1429379Z ##[group]Disabling automatic garbage collection
+2026-10-22T20:09:41.1432596Z [command]/usr/bin/git config --local gc.auto 0
+2026-10-22T20:09:41.1466132Z ##[endgroup]
+2026-10-22T20:09:41.1466479Z ##[group]Setting up auth
+2026-10-22T20:09:41.1472495Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T20:09:41.1504042Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T20:09:41.7727837Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T20:09:41.7761852Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T20:09:41.7961560Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T20:09:41.7995425Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T20:09:41.8198979Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-10-22T20:09:41.8239374Z ##[endgroup]
+2026-10-22T20:09:41.8239927Z ##[group]Fetching the repository
+2026-10-22T20:09:41.8248026Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +46ecb9f02828afd53672ec1ea54d9b82616ec66b:refs/remotes/pull/21/merge
+2026-10-22T20:09:44.4286628Z From https://github.com/ZZZZihan/BidOps
+2026-10-22T20:09:44.4287115Z  * [new ref]         46ecb9f02828afd53672ec1ea54d9b82616ec66b -> pull/21/merge
+2026-10-22T20:09:44.4290681Z ##[endgroup]
+2026-10-22T20:09:44.4291194Z ##[group]Determining the checkout info
+2026-10-22T20:09:44.4293634Z ##[endgroup]
+2026-10-22T20:09:44.4299476Z [command]/usr/bin/git sparse-checkout disable
+2026-10-22T20:09:44.4638545Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-10-22T20:09:44.4675800Z ##[group]Checking out the ref
+2026-10-22T20:09:44.4679774Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/21/merge
+2026-10-22T20:09:44.4955050Z Note: switching to 'refs/remotes/pull/21/merge'.
+2026-10-22T20:09:44.4955382Z 
+2026-10-22T20:09:44.4955609Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-10-22T20:09:44.4956130Z changes and commit them, and you can discard any commits you make in this
+2026-10-22T20:09:44.4956642Z state without impacting any branches by switching back to a branch.
+2026-10-22T20:09:44.4956924Z 
+2026-10-22T20:09:44.4957148Z If you want to create a new branch to retain commits you create, you may
+2026-10-22T20:09:44.4957618Z do so (now or later) by using -c with the switch command. Example:
+2026-10-22T20:09:44.4957884Z 
+2026-10-22T20:09:44.4958010Z   git switch -c <new-branch-name>
+2026-10-22T20:09:44.4958256Z 
+2026-10-22T20:09:44.4958365Z Or undo this operation with:
+2026-10-22T20:09:44.4958858Z 
+2026-10-22T20:09:44.4958974Z   git switch -
+2026-10-22T20:09:44.4959147Z 
+2026-10-22T20:09:44.4959522Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-10-22T20:09:44.4959883Z 
+2026-10-22T20:09:44.4960281Z HEAD is now at 46ecb9f Merge 20e07f4804da70eff82fd54a352c24c8b94ed22d into 4fd057ef9141d31d53540532683418e09963e324
+2026-10-22T20:09:44.4966156Z ##[endgroup]
+2026-10-22T20:09:44.5010507Z [command]/usr/bin/git log -1 --format=%H
+2026-10-22T20:09:44.5039357Z 46ecb9f02828afd53672ec1ea54d9b82616ec66b
+2026-10-22T20:09:44.5352962Z ##[group]Run astral-sh/setup-uv@v6
+2026-10-22T20:09:44.5353214Z with:
+2026-10-22T20:09:44.5353385Z   version: 0.12.23
+2026-10-22T20:09:44.5353560Z   enable-cache: true
+2026-10-22T20:09:44.5353751Z   activate-environment: false
+2026-10-22T20:09:44.5353987Z   working-directory: /home/runner/work/BidOps/BidOps
+2026-10-22T20:09:44.5354269Z   server-url: https://github.com
+2026-10-22T20:09:44.5356448Z   github-token: ***
+2026-10-22T20:09:44.5356927Z   cache-dependency-glob: **/*requirements*.txt
+**/*requirements*.in
+**/*constraints*.txt
+**/*constraints*.in
+**/pyproject.toml
+**/uv.lock
+**/*.py.lock
+
+2026-10-22T20:09:44.5357398Z   restore-cache: true
+2026-10-22T20:09:44.5357679Z   save-cache: true
+2026-10-22T20:09:44.5357893Z   prune-cache: true
+2026-10-22T20:09:44.5358085Z   ignore-nothing-to-cache: false
+2026-10-22T20:09:44.5358302Z   ignore-empty-workdir: false
+2026-10-22T20:09:44.5358522Z   add-problem-matchers: true
+2026-10-22T20:09:44.5358728Z ##[endgroup]
+2026-10-22T20:09:44.6928335Z (node:2162) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-10-22T20:09:44.6928950Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-10-22T20:09:44.7133661Z manifest-file not provided, reading from local file.
+2026-10-22T20:09:44.7192964Z manifest-file does not contain version 0.12.23, arch x86_64, platform unknown-linux-gnu. Falling back to GitHub releases.
+2026-10-22T20:09:44.7194237Z Downloading uv from "https://github.com/astral-sh/uv/releases/download/0.12.23/uv-x86_64-unknown-linux-gnu.tar.gz" ...
+2026-10-22T20:09:45.1400299Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/f2e9eb24-3ce5-41dc-8e7d-b628cbd8bc31 -f /home/runner/work/_temp/e9501202-75de-4f42-bac3-5c28d870ac27
+2026-10-22T20:09:45.5855457Z Added /home/runner/.local/bin to the path
+2026-10-22T20:09:45.5859973Z Added /opt/hostedtoolcache/uv/0.12.23/x86_64 to the path
+2026-10-22T20:09:45.5879869Z Set UV_CACHE_DIR to /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:45.5880367Z Successfully installed uv version 0.12.23
+2026-10-22T20:09:45.5882385Z Searching files using cache dependency glob: /home/runner/work/BidOps/BidOps/**/*requirements*.txt,/home/runner/work/BidOps/BidOps/**/*requirements*.in,/home/runner/work/BidOps/BidOps/**/*constraints*.txt,/home/runner/work/BidOps/BidOps/**/*constraints*.in,/home/runner/work/BidOps/BidOps/**/pyproject.toml,/home/runner/work/BidOps/BidOps/**/uv.lock,/home/runner/work/BidOps/BidOps/**/*.py.lock
+2026-10-22T20:09:45.6201509Z /home/runner/work/BidOps/BidOps/pyproject.toml
+2026-10-22T20:09:45.6344722Z /home/runner/work/BidOps/BidOps/reports/evidence/b05-backend-selection/baseline-constraints.txt
+2026-10-22T20:09:45.6469770Z /home/runner/work/BidOps/BidOps/uv.lock
+2026-10-22T20:09:45.6481642Z Found 3 files to hash.
+2026-10-22T20:09:45.7253742Z Trying to restore uv cache from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.12.3-pruned-e939c497e02b618f4a8bd1e12259b89563694dc8fad55e28a145caa4ddcda4bb
+2026-10-22T20:09:45.9847038Z Cache hit for: setup-uv-1-x86_64-unknown-linux-gnu-3.12.3-pruned-e939c497e02b618f4a8bd1e12259b89563694dc8fad55e28a145caa4ddcda4bb
+2026-10-22T20:09:45.9930189Z (node:2162) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-10-22T20:09:47.0347501Z Received 3713614 of 3713614 (100.0%), 4.3 MBs/sec
+2026-10-22T20:09:47.0347831Z Cache Size: ~4 MB (3713614 B)
+2026-10-22T20:09:47.0367147Z [command]/usr/bin/tar -xf /home/runner/work/_temp/e14b4c68-3188-44f4-b3c3-32212d18e607/cache.tzst -P -C /home/runner/work/BidOps/BidOps --use-compress-program unzstd
+2026-10-22T20:09:47.0929050Z Cache restored successfully
+2026-10-22T20:09:47.0935602Z uv cache restored from GitHub Actions cache with key: setup-uv-1-x86_64-unknown-linux-gnu-3.12.3-pruned-e939c497e02b618f4a8bd1e12259b89563694dc8fad55e28a145caa4ddcda4bb
+2026-10-22T20:09:47.1073342Z ##[group]Run uv sync --frozen --python 3.12
+2026-10-22T20:09:47.1073716Z [36;1muv sync --frozen --python 3.12[0m
+2026-10-22T20:09:47.6424392Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:47.6424660Z env:
+2026-10-22T20:09:47.6424900Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:47.6425172Z ##[endgroup]
+2026-10-22T20:09:47.6597539Z Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+2026-10-22T20:09:47.6597934Z Creating virtual environment at: .venv
+2026-10-22T20:09:47.6662626Z    Building bidops @ file:///home/runner/work/BidOps/BidOps
+2026-10-22T20:09:47.7362583Z Downloading tiktoken (1.1MiB)
+2026-10-22T20:09:47.7363017Z Downloading pydantic-core (2.1MiB)
+2026-10-22T20:09:47.7371981Z Downloading ruff (9.9MiB)
+2026-10-22T20:09:47.7372325Z Downloading pygments (1.2MiB)
+2026-10-22T20:09:47.7372653Z Downloading openai (2.2MiB)
+2026-10-22T20:09:47.7381994Z Downloading cryptography (4.5MiB)
+2026-10-22T20:09:47.7386577Z Downloading sqlalchemy (4.5MiB)
+2026-10-22T20:09:47.7388633Z Downloading pydantic-ai-slim (2.3MiB)
+2026-10-22T20:09:48.1437603Z  Downloaded tiktoken
+2026-10-22T20:09:48.1842678Z  Downloaded pydantic-core
+2026-10-22T20:09:48.1884496Z  Downloaded pygments
+2026-10-22T20:09:48.2205961Z  Downloaded pydantic-ai-slim
+2026-10-22T20:09:48.2306144Z  Downloaded cryptography
+2026-10-22T20:09:48.2758367Z  Downloaded sqlalchemy
+2026-10-22T20:09:48.2769380Z  Downloaded ruff
+2026-10-22T20:09:48.3117714Z  Downloaded openai
+2026-10-22T20:09:48.5627098Z       Built bidops @ file:///home/runner/work/BidOps/BidOps
+2026-10-22T20:09:48.5636040Z Prepared 61 packages in 901ms
+2026-10-22T20:09:48.6498935Z Installed 61 packages in 86ms
+2026-10-22T20:09:48.6499368Z  + annotated-doc==0.0.5
+2026-10-22T20:09:48.6499681Z  + annotated-types==0.8.0
+2026-10-22T20:09:48.6499982Z  + anyio==4.15.1
+2026-10-22T20:09:48.6500243Z  + authlib==1.9.1
+2026-10-22T20:09:48.6500529Z  + beautifulsoup4==4.15.0
+2026-10-22T20:09:48.6501627Z  + bidops==0.1.0 (from file:///home/runner/work/BidOps/BidOps)
+2026-10-22T20:09:48.6502104Z  + certifi==2026.10.19
+2026-10-22T20:09:48.6502386Z  + cffi==2.1.1
+2026-10-22T20:09:48.6502701Z  + charset-normalizer==3.5.2
+2026-10-22T20:09:48.6503194Z  + click==8.5.0
+2026-10-22T20:09:48.6503671Z  + cryptography==50.0.2
+2026-10-22T20:09:48.6504152Z  + deprecated==3.0.0
+2026-10-22T20:09:48.6504638Z  + fastapi==0.159.1
+2026-10-22T20:09:48.6505210Z  + genai-prices==0.1.13
+2026-10-22T20:09:48.6505528Z  + griffelib==2.4.1
+2026-10-22T20:09:48.6505909Z  + h11==0.16.0
+2026-10-22T20:09:48.6506330Z  + httpcore==1.0.9
+2026-10-22T20:09:48.6506846Z  + httpcore2==2.16.0
+2026-10-22T20:09:48.6507293Z  + httpx==0.28.1
+2026-10-22T20:09:48.6507748Z  + httpx2==2.16.0
+2026-10-22T20:09:48.6508194Z  + idna==3.20
+2026-10-22T20:09:48.6508622Z  + iniconfig==2.3.1
+2026-10-22T20:09:48.6509073Z  + itsdangerous==2.2.0
+2026-10-22T20:09:48.6509515Z  + jiter==0.17.0
+2026-10-22T20:09:48.6509996Z  + joserfc==1.7.7
+2026-10-22T20:09:48.6510404Z  + limits==5.8.0
+2026-10-22T20:09:48.6510852Z  + logfire-api==5.2.0
+2026-10-22T20:09:48.6511482Z  + markdown-it-py==4.2.0
+2026-10-22T20:09:48.6511893Z  + mdurl==0.1.2
+2026-10-22T20:09:48.6512303Z  + openai==3.36.1
+2026-10-22T20:09:48.6512875Z  + opentelemetry-api==1.45.1
+2026-10-22T20:09:48.6513293Z  + packaging==26.3
+2026-10-22T20:09:48.6513729Z  + pluggy==1.7.0
+2026-10-22T20:09:48.6514043Z  + prometheus-client==0.26.0
+2026-10-22T20:09:48.6514392Z  + pycparser==3.12
+2026-10-22T20:09:48.6514920Z  + pydantic==2.14.1
+2026-10-22T20:09:48.6515204Z  + pydantic-ai-slim==2.59.0
+2026-10-22T20:09:48.6515513Z  + pydantic-core==2.50.1
+2026-10-22T20:09:48.6515818Z  + pydantic-evals==2.59.0
+2026-10-22T20:09:48.6516120Z  + pydantic-graph==2.59.0
+2026-10-22T20:09:48.6516418Z  + pydantic-settings==2.16.1
+2026-10-22T20:09:48.6516717Z  + pygments==2.21.0
+2026-10-22T20:09:48.6516984Z  + pytest==9.1.1
+2026-10-22T20:09:48.6517250Z  + python-dotenv==1.2.4
+2026-10-22T20:09:48.6517531Z  + pyyaml==6.0.3
+2026-10-22T20:09:48.6517810Z  + regex==2026.9.29
+2026-10-22T20:09:48.6518364Z  + requests==2.34.2
+2026-10-22T20:09:48.6518634Z  + rich==15.0.0
+2026-10-22T20:09:48.6518879Z  + ruff==0.17.1
+2026-10-22T20:09:48.6519166Z  + sniffio==1.3.1
+2026-10-22T20:09:48.6519502Z  + socksio==1.0.0
+2026-10-22T20:09:48.6519788Z  + soupsieve==3.0.4
+2026-10-22T20:09:48.6520178Z  + sqlalchemy==2.1.6
+2026-10-22T20:09:48.6520487Z  + starlette==1.9.0
+2026-10-22T20:09:48.6520819Z  + tiktoken==0.14.0
+2026-10-22T20:09:48.6521131Z  + truststore==0.10.5
+2026-10-22T20:09:48.6521735Z  + typing-extensions==4.16.0
+2026-10-22T20:09:48.6522128Z  + typing-inspection==0.4.4
+2026-10-22T20:09:48.6522480Z  + urllib3==2.8.0
+2026-10-22T20:09:48.6522809Z  + uvicorn==0.54.0
+2026-10-22T20:09:48.6523135Z  + wrapt==2.5.1
+2026-10-22T20:09:48.6665420Z ##[group]Run uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock
+2026-10-22T20:09:48.6666042Z [36;1muv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock[0m
+2026-10-22T20:09:48.6722799Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:48.6723066Z env:
+2026-10-22T20:09:48.6723303Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:48.6723573Z ##[endgroup]
+2026-10-22T20:09:48.7893271Z Resolved 28 packages in 67ms
+2026-10-22T20:09:48.7955364Z Downloading psycopg-binary (5.0MiB)
+2026-10-22T20:09:49.0380539Z  Downloaded psycopg-binary
+2026-10-22T20:09:49.0381877Z Prepared 8 packages in 248ms
+2026-10-22T20:09:49.0488622Z Installed 8 packages in 10ms
+2026-10-22T20:09:49.0489094Z  + croniter==6.2.4
+2026-10-22T20:09:49.0489372Z  + dbos==3.3.0
+2026-10-22T20:09:49.0489653Z  + greenlet==3.5.6
+2026-10-22T20:09:49.0489943Z  + psycopg==3.3.6
+2026-10-22T20:09:49.0490126Z  + psycopg-binary==3.3.6
+2026-10-22T20:09:49.0490402Z  + python-dateutil==3.0.0
+2026-10-22T20:09:49.0490609Z  + six==1.17.0
+2026-10-22T20:09:49.0490777Z  + tzdata==2026.5
+2026-10-22T20:09:49.0552178Z ##[group]Run uv run --frozen --no-sync ruff check .
+2026-10-22T20:09:49.0552524Z [36;1muv run --frozen --no-sync ruff check .[0m
+2026-10-22T20:09:49.0608798Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:49.0609031Z env:
+2026-10-22T20:09:49.0609254Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:49.0609509Z ##[endgroup]
+2026-10-22T20:09:49.1031819Z All checks passed!
+2026-10-22T20:09:49.1075824Z ##[group]Run uv run --frozen --no-sync ruff format --check .
+2026-10-22T20:09:49.1076194Z [36;1muv run --frozen --no-sync ruff format --check .[0m
+2026-10-22T20:09:49.1132626Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:49.1132864Z env:
+2026-10-22T20:09:49.1133087Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:49.1133351Z ##[endgroup]
+2026-10-22T20:09:49.1572249Z 197 files already formatted
+2026-10-22T20:09:49.1651646Z ##[group]Run uv run --frozen --no-sync pytest
+2026-10-22T20:09:49.1651948Z [36;1muv run --frozen --no-sync pytest[0m
+2026-10-22T20:09:49.1707778Z shell: /usr/bin/bash -e {0}
+2026-10-22T20:09:49.1708001Z env:
+2026-10-22T20:09:49.1708214Z   UV_CACHE_DIR: /home/runner/work/_temp/setup-uv-cache
+2026-10-22T20:09:49.1708490Z   BIDOPS_NETWORK_ENABLED: false
+2026-10-22T20:09:49.1708695Z ##[endgroup]
+2026-10-22T20:09:57.8297885Z ============================= test session starts ==============================
+2026-10-22T20:09:57.8298451Z platform linux -- Python 3.12.3, pytest-9.1.1, pluggy-1.7.0
+2026-10-22T20:09:57.8298867Z rootdir: /home/runner/work/BidOps/BidOps
+2026-10-22T20:09:57.8299238Z configfile: pyproject.toml
+2026-10-22T20:09:57.8300075Z testpaths: tests
+2026-10-22T20:09:57.8300348Z plugins: anyio-4.15.1
+2026-10-22T20:09:57.8300603Z collected 1429 items
+2026-10-22T20:09:57.8300761Z 
+2026-10-22T20:10:01.9155030Z tests/test_agent_demo.py ............................................... [  3%]
+2026-10-22T20:10:02.1176185Z ....                                                                     [  3%]
+2026-10-22T20:10:05.6869720Z tests/test_catalog_pagination.py .............                           [  4%]
+2026-10-22T20:10:08.1081004Z tests/test_company_access.py ........................................... [  7%]
+2026-10-22T20:10:10.6734656Z ..........                                                               [  8%]
+2026-10-22T20:10:11.5260452Z tests/test_company_restore.py ..............                             [  9%]
+2026-10-22T20:10:11.5356204Z tests/test_demo_evaluation.py .............                              [ 10%]
+2026-10-22T20:10:18.6520538Z tests/test_enterprise.py ...........................................     [ 13%]
+2026-10-22T20:10:18.8933642Z tests/test_enterprise_backup.py .....                                    [ 13%]
+2026-10-22T20:10:18.9659877Z tests/test_eval_freeze.py .............................................. [ 16%]
+2026-10-22T20:10:19.0001188Z .............................................................            [ 20%]
+2026-10-22T20:10:19.0854736Z tests/test_eval_protocol.py ............................................ [ 24%]
+2026-10-22T20:10:19.1471424Z ...................................                                      [ 26%]
+2026-10-22T20:10:19.5754412Z tests/test_fetcher.py ..................                                 [ 27%]
+2026-10-22T20:10:32.1158335Z tests/test_identity_revocation.py ...................................... [ 30%]
+2026-10-22T20:10:32.1202578Z .                                                                        [ 30%]
+2026-10-22T20:11:54.7556792Z tests/test_jobs_api.py .................                                 [ 31%]
+2026-10-22T20:12:07.5293402Z tests/test_jobs_backup.py ..................................             [ 34%]
+2026-10-22T20:12:27.5886492Z tests/test_jobs_model.py .........................................       [ 36%]
+2026-10-22T20:14:22.0667260Z tests/test_jobs_recovery.py .......                                      [ 37%]
+2026-10-22T20:14:29.0947564Z tests/test_jobs_repository.py .......................................... [ 40%]
+2026-10-22T20:14:41.6366026Z ................................................                         [ 43%]
+2026-10-22T20:14:54.1405850Z tests/test_jobs_retention.py ...........                                 [ 44%]
+2026-10-22T20:16:36.7979549Z tests/test_jobs_runtime.py .........F.....                               [ 45%]
+2026-10-22T20:16:36.9261757Z tests/test_manifest_validation.py ..                                     [ 45%]
+2026-10-22T20:16:37.7887950Z tests/test_notice_attachments.py ............................            [ 47%]
+2026-10-22T20:16:38.4607715Z tests/test_notice_evidence.py .................                          [ 48%]
+2026-10-22T20:16:39.1315503Z tests/test_notice_integration.py .........                               [ 49%]
+2026-10-22T20:16:39.8487323Z tests/test_notice_status.py ...........................                  [ 51%]
+2026-10-22T20:16:40.5643511Z tests/test_notice_versions.py ..................                         [ 52%]
+2026-10-22T20:16:41.0386786Z tests/test_offline_eval.py ..............................                [ 54%]
+2026-10-22T20:16:41.7958432Z tests/test_parser.py .......................................             [ 57%]
+2026-10-22T20:16:58.7629795Z tests/test_qualification_api.py ................                         [ 58%]
+2026-10-22T20:17:02.6282679Z tests/test_qualification_budget.py ..................................... [ 61%]
+2026-10-22T20:17:03.3723850Z ..............                                                           [ 62%]
+2026-10-22T20:17:06.9334817Z tests/test_qualification_candidates.py .......................           [ 63%]
+2026-10-22T20:17:09.0853187Z tests/test_qualification_history.py .............                        [ 64%]
+2026-10-22T20:17:09.1092021Z tests/test_qualification_logic.py ...................................... [ 67%]
+2026-10-22T20:17:09.1588351Z ........................................................................ [ 72%]
+2026-10-22T20:17:09.1802478Z .......................                                                  [ 73%]
+2026-10-22T20:17:09.1858425Z tests/test_qualification_provenance.py ...                               [ 74%]
+2026-10-22T20:17:09.2104423Z tests/test_qualification_requirements.py ............................... [ 76%]
+2026-10-22T20:17:09.2161980Z .......                                                                  [ 76%]
+2026-10-22T20:17:18.1664698Z tests/test_qualification_service.py .............                        [ 77%]
+2026-10-22T20:17:20.1554975Z tests/test_qualification_sources.py .................                    [ 78%]
+2026-10-22T20:17:22.0647648Z tests/test_qualification_tools.py ...                                    [ 79%]
+2026-10-22T20:18:55.6479286Z tests/test_review_api.py ................                                [ 80%]
+2026-10-22T20:19:01.8658696Z tests/test_review_authorization.py .................                     [ 81%]
+2026-10-22T20:19:11.5659142Z tests/test_review_backup.py .....................                        [ 82%]
+2026-10-22T20:19:15.0256152Z tests/test_review_lifespan.py ...                                        [ 83%]
+2026-10-22T20:20:31.7168170Z tests/test_review_process_recovery.py ....                               [ 83%]
+2026-10-22T20:20:45.5401158Z tests/test_review_repository.py ....................................     [ 85%]
+2026-10-22T20:20:51.4857118Z tests/test_review_retention.py ........                                  [ 86%]
+2026-10-22T20:21:52.2451368Z tests/test_review_runtime.py ........                                    [ 86%]
+2026-10-22T20:21:52.3221812Z tests/test_screening_evaluation.py ..................................... [ 89%]
+2026-10-22T20:21:52.3904473Z ................................                                         [ 91%]
+2026-10-22T20:21:52.4156420Z tests/test_screening_schemas.py ........................................ [ 94%]
+2026-10-22T20:21:52.4492363Z .........................................................                [ 98%]
+2026-10-22T20:21:53.8755179Z tests/test_storage_api_cli.py ....................                       [100%]
+2026-10-22T20:21:53.8755496Z 
+2026-10-22T20:21:53.8755622Z =================================== FAILURES ===================================
+2026-10-22T20:21:53.8756051Z _ test_bounded_failure_retains_partial_result[timeout-timed_out-screening_timeout] _
+2026-10-22T20:21:53.8756313Z 
+2026-10-22T20:21:53.8756925Z service = (<bidops.qualification.service.ScreeningService object at 0x7f35142d6090>, NoticeVersion(version_id='a0480d8d1ec9c0dc2...eef841'}, {'fact_id': 'cert', 'kind': 'qualification', 'label': 'Synthetic cert', 'status': 'document_supported', ...})
+2026-10-22T20:21:53.8758538Z settings = Settings(data_dir=PosixPath('/tmp/pytest-of-runner/pytest-0/test_bounded_failure_retains_p1/data'), database_url='sqli...imit_seconds=5.0, http_attempts=3, max_bytes=2000000, user_agent='BidOps-P0/0.1 (+https://github.com/ZZZZihan/BidOps)')
+2026-10-22T20:21:53.8759317Z mode = 'timeout', status = 'timed_out', error = 'screening_timeout'
+2026-10-22T20:21:53.8759528Z 
+2026-10-22T20:21:53.8759625Z     @pytest.mark.parametrize(
+2026-10-22T20:21:53.8759839Z         "mode,status,error",
+2026-10-22T20:21:53.8760023Z         [
+2026-10-22T20:21:53.8760225Z             ("request_limit", "failed", "screening_request_limit"),
+2026-10-22T20:21:53.8760508Z             ("timeout", "timed_out", "screening_timeout"),
+2026-10-22T20:21:53.8760738Z         ],
+2026-10-22T20:21:53.8760882Z     )
+2026-10-22T20:21:53.8761157Z     def test_bounded_failure_retains_partial_result(service, settings, mode, status, error):
+2026-10-22T20:21:53.8761762Z         screening, notice, profile, _, _ = service
+2026-10-22T20:21:53.8762142Z         if mode == "request_limit":
+2026-10-22T20:21:53.8762366Z             screening.settings.max_requests = 1
+2026-10-22T20:21:53.8762584Z         else:
+2026-10-22T20:21:53.8762769Z             screening.settings.max_seconds = 0.1
+2026-10-22T20:21:53.8762988Z     
+2026-10-22T20:21:53.8763151Z             async def slow(messages, info):
+2026-10-22T20:21:53.8763374Z                 await asyncio.sleep(1)
+2026-10-22T20:21:53.8763617Z                 return scripted_response(messages, info)
+2026-10-22T20:21:53.8763841Z     
+2026-10-22T20:21:53.8764093Z             screening.model_override = FunctionModel(slow, model_name="offline-unit")
+2026-10-22T20:21:53.8764510Z         runtime = JobsService(screening, settings.data_dir, JobsSettings(enabled=True))
+2026-10-22T20:21:53.8764823Z         try:
+2026-10-22T20:21:53.8764991Z             runtime.start()
+2026-10-22T20:21:53.8765188Z             first = runtime.submit(
+2026-10-22T20:21:53.8765496Z                 ALICE, {"profile_revision": profile, "project_id": notice.project_id}, mode
+2026-10-22T20:21:53.8765815Z             )
+2026-10-22T20:21:53.8766018Z >           final = wait_for(runtime, first["run_id"], status)
+2026-10-22T20:21:53.8766285Z                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-10-22T20:21:53.8766440Z 
+2026-10-22T20:21:53.8766525Z tests/test_jobs_runtime.py:252: 
+2026-10-22T20:21:53.8766774Z _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+2026-10-22T20:21:53.8766956Z 
+2026-10-22T20:21:53.8767108Z runtime = <bidops.jobs.runtime.JobsService object at 0x7f351746d4f0>
+2026-10-22T20:21:53.8767482Z run_id = 'c4a44418727642e49685157eb2b6ed19', status = 'timed_out', timeout = 12
+2026-10-22T20:21:53.8767711Z 
+2026-10-22T20:21:53.8767823Z     def wait_for(runtime, run_id, status, timeout=12):
+2026-10-22T20:21:53.8768080Z         deadline = time.monotonic() + timeout
+2026-10-22T20:21:53.8768312Z         while time.monotonic() < deadline:
+2026-10-22T20:21:53.8768559Z             row = runtime.repository.get_system(run_id)
+2026-10-22T20:21:53.8768812Z             if row["status"] == status:
+2026-10-22T20:21:53.8769041Z                 return runtime.read(ALICE, run_id)
+2026-10-22T20:21:53.8769360Z             if row["status"] in {"failed", "interrupted", "timed_out"} and status not in {
+2026-10-22T20:21:53.8769659Z                 "failed",
+2026-10-22T20:21:53.8769855Z                 "interrupted",
+2026-10-22T20:21:53.8770046Z                 "timed_out",
+2026-10-22T20:21:53.8770226Z             }:
+2026-10-22T20:21:53.8770399Z                 pytest.fail(str(row))
+2026-10-22T20:21:53.8770609Z             time.sleep(0.05)
+2026-10-22T20:21:53.8770858Z >       pytest.fail(str(runtime.repository.get_system(run_id)))
+2026-10-22T20:21:53.8783010Z E       Failed: {'run_id': 'c4a44418727642e49685157eb2b6ed19', 'owner_id': 'alice', 'idempotency_key': 'timeout', 'input_sha256': '878b9169743798e2688da3507d7fda732f3a74d9d9bec6f245ce8e882e0fd34c', 'inputs_manifest_sha256': '65fb6c89619163e4ab189ea37ee524f9c87b061119fea5c2e7967b2eabb2d52b', 'created_at': 1792700151.3946574, 'status': 'failed', 'state_version': 3, 'progress': {'completed': 1, 'phase': 'failed', 'total': 1}, 'result_id': '2e48fc51155f486988387eab50137215', 'result_revision': '6538209e89a14160839a91ada63c3d1e', 'error_code': 'screening_model_output_invalid', 'updated_at': 1792700153.2996843, 'quarantined': False, 'purge_state': 'live', 'manifest': {'as_of': '2026-10-22T20:15:51.365842Z', 'attachment_records': [], 'attachment_revisions': [], 'closure_sha256': '65fb6c89619163e4ab189ea37ee524f9c87b061119fea5c2e7967b2eabb2d52b', 'material_revisions': [{'object_id': '7a9839c6146e4993bc8d9d36311d2dfa', 'sha256': '9546a00f2ecb645f1ad9d0eda4b2b917592de778a1e399f687ca8cd3a2eef841', 'version_id': 'd167c98dbb0a4b4484de094b218f2f53'}], 'material_versions': [{'created_at': '2026-10-22T20:15:51.259536Z', 'normalizer_version': 'normalized_text_v2', 'provenance_kind': 'engineering_fixture', 'text_sha256': '9546a00f2ecb645f1ad9d0eda4b2b917592de778a1e399f687ca8cd3a2eef841', 'version': {'object_id': '7a9839c6146e4993bc8d9d36311d2dfa', 'sha256': '9546a00f2ecb645f1ad9d0eda4b2b917592de778a1e399f687ca8cd3a2eef841', 'version_id': 'd167c98dbb0a4b4484de094b218f2f53'}}], 'missing_attachment_ids': [], 'notice_revisions': [{'object_id': 'd98ff3343d44e352800045e3fbbad750ad7c9396af72fb6255159be39d8e541d', 'sha256': '3f2113125d87712d1702cef944314e00ad4571714bf500dd17e827c9062cf6dd', 'version_id': 'a0480d8d1ec9c0dc24f55d75c665be42e3569c37d14eb7a59cb79d3f9b31e78a'}], 'notice_versions': [{'available_at': '2026-10-22T03:01:00Z', 'first_observed_at': '2026-10-22T03:01:00Z', 'last_observed_at': '2026-10-22T03:01:00Z', 'normalizer_version': 'normalized_text_v2', 'package_ids': ['9ff339a6c678fc17bf840432cbcb36f372c6ac0e5e45e7e0b535779b3d2acb3d', 'e7c837f5bfeff11a15e90a4b0aba865487e01aaf9ba7aa3d5ff0786543f427a4'], 'parser_version': 'p0.2', 'text_sha256': '3f2113125d87712d1702cef944314e00ad4571714bf500dd17e827c9062cf6dd', 'version': {'object_id': 'd98ff3343d44e352800045e3fbbad750ad7c9396af72fb6255159be39d8e541d', 'sha256': '3f2113125d87712d1702cef944314e00ad4571714bf500dd17e827c9062cf6dd', 'version_id': 'a0480d8d1ec9c0dc24f55d75c665be42e3569c37d14eb7a59cb79d3f9b31e78a'}}], 'profile_revision': {'object_id': '8fd3c929d2bd406e872e1187e41b803f', 'sha256': '6e4ab8ed461178d50a3df4cbe9ada2274ed6db96a6368d54d436037e76e578fb', 'version_id': '384d629a5e104525b7f592f7b096fc56'}, 'project_id': '6a412e899b90a0667285e9588eb9ce0434f4ac312950bdd90dd2d46a63deea0f', 'project_status': {'age_seconds': 62091.365842, 'as_of': '2026-10-22T20:15:51.365842Z', 'basis_version_id': None, 'integrity_issues': {}, 'is_fresh': True, 'missing_attachment_ids': [], 'observed_at': '2026-10-22T03:01:00Z', 'project_id': '6a412e899b90a0667285e9588eb9ce0434f4ac312950bdd90dd2d46a63deea0f', 'reason': 'source_incomplete', 'source_complete': False, 'source_observations': {'a0480d8d1ec9c0dc24f55d75c665be42e3569c37d14eb7a59cb79d3f9b31e78a': '2026-10-22T03:01:00Z'}, 'status': 'unknown', 'version_ids': ['a0480d8d1ec9c0dc24f55d75c665be42e3569c37d14eb7a59cb79d3f9b31e78a']}, 'schema_version': 'screening_inputs_v1', 'target_package_ids': ['9ff339a6c678fc17bf840432cbcb36f372c6ac0e5e45e7e0b535779b3d2acb3d', 'e7c837f5bfeff11a15e90a4b0aba865487e01aaf9ba7aa3d5ff0786543f427a4']}, 'request': {'profile_revision': {'object_id': '8fd3c929d2bd406e872e1187e41b803f', 'sha256': '6e4ab8ed461178d50a3df4cbe9ada2274ed6db96a6368d54d436037e76e578fb', 'version_id': '384d629a5e104525b7f592f7b096fc56'}, 'project_id': '6a412e899b90a0667285e9588eb9ce0434f4ac312950bdd90dd2d46a63deea0f'}, 'settings': {'budget_cny': '10', 'input_cny_per_million': '2', 'max_output_tokens': 6000, 'max_request_bytes': 120000, 'max_requests': 20, 'max_seconds': 0.1, 'max_segment_chars': 4000, 'model_name': 'deepseek-flash', 'output_cny_per_million': '8'}, 'versions': {'application_version': 'c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775', 'code_sha': '46ecb9f02828afd53672ec1ea54d9b82616ec66b', 'durable_lock_sha256': 'cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88', 'implementation_sha256': 'a74f07dd1b82a743290efd46fa70f99d401944f5c90d5332bacb2d98da50bddc', 'job_implementation_sha256': 'ffbd14bc2cfb1076eed3d3ad90934d27ff6cdc8782661236fe8800e713712926', 'lock_sha256': '92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27', 'offline': True, 'requested_model': 'offline-unit', 'result_id': '2e48fc51155f486988387eab50137215', 'result_revision': '6538209e89a14160839a91ada63c3d1e'}}
+2026-10-22T20:21:53.8794894Z 
+2026-10-22T20:21:53.8794988Z tests/test_jobs_runtime.py:38: Failed
+2026-10-22T20:21:53.8795251Z =========================== short test summary info ============================
+2026-10-22T20:21:55.2141897Z FAILED tests/test_jobs_runtime.py::test_bounded_failure_retains_partial_result[timeout-timed_out-screening_timeout] - Failed: {'run_id': 'c4a44418727642e49685157eb2b6ed19', 'owner_id': 'alice', 'idempotency_key': 'timeout', 'input_sha256': '878b9169743798e2688da3507d7fda732f3a74d9d9bec6f245ce8e882e0fd34c', 'inputs_manifest_sha256': '65fb6c89619163e4ab189ea37ee524f9c87b061119fea5c2e7967b2eabb2d52b', 'created_at': 1792700151.3946574, 'status': 'failed', 'state_version': 3, 'progress': {'completed': 1, 'phase': 'failed', 'total': 1}, 'result_id': '2e48fc51155f486988387eab50137215', 'result_revision': '6538209e89a14160839a91ada63c3d1e', 'error_code': 'screening_model_output_invalid', 'updated_at': 1792700153.2996843, 'quarantined': False, 'purge_state': 'live', 'manifest': {'as_of': '2026-10-22T20:15:51.365842Z', 'attachment_records': [], 'attachment_revisions': [], 'closure_sha256': '65fb6c89619163e4ab189ea37ee524f9c87b061119fea5c2e7967b2eabb2d52b', 'material_revisions': [{'object_id': '7a9839c6146e4993bc8d9d36311d2dfa', 'sha256': '9546a00f2ecb645f1ad9d0eda4b2b917592de778a1e399f687ca8cd3a2eef841', 'version_id': 'd167c98dbb0a4b4484de094b218f2f53'}], 'material_versions': [{'created_at': '2026-10-22T20:15:51.259536Z', 'normalizer_version': 'normalized_text_v2', 'provenance_kind': 'engineering_fixture', 'text_sha256': '9546a00f2ecb645f1ad9d0eda4b2b917592de778a1e399f687ca8cd3a2eef841', 'version': {'object_id': '7a9839c6146e4993bc8d9d36311d2dfa', 'sha256': '9546a00f2ecb645f1ad9d0eda4b2b917592de778a1e399f687ca8cd3a2eef841', 'version_id': 'd167c98dbb0a4b4484de094b218f2f53'}}], 'missing_attachment_ids': [], 'notice_revisions': [{'object_id': 'd98ff3343d44e352800045e3fbbad750ad7c9396af72fb6255159be39d8e541d', 'sha256': '3f2113125d87712d1702cef944314e00ad4571714bf500dd17e827c9062cf6dd', 'version_id': 'a0480d8d1ec9c0dc24f55d75c665be42e3569c37d14eb7a59cb79d3f9b31e78a'}], 'notice_versions': [{'available_at': '2026-10-22T03:01:00Z', 'first_observed_at': '2026-10-22T03:01:00Z', 'last_observed_at': '2026-10-22T03:01:00Z', 'normalizer_version': 'normalized_text_v2', 'package_ids': ['9ff339a6c678fc17bf840432cbcb36f372c6ac0e5e45e7e0b535779b3d2acb3d', 'e7c837f5bfeff11a15e90a4b0aba865487e01aaf9ba7aa3d5ff0786543f427a4'], 'parser_version': 'p0.2', 'text_sha256': '3f2113125d87712d1702cef944314e00ad4571714bf500dd17e827c9062cf6dd', 'version': {'object_id': 'd98ff3343d44e352800045e3fbbad750ad7c9396af72fb6255159be39d8e541d', 'sha256': '3f2113125d87712d1702cef944314e00ad4571714bf500dd17e827c9062cf6dd', 'version_id': 'a0480d8d1ec9c0dc24f55d75c665be42e3569c37d14eb7a59cb79d3f9b31e78a'}}], 'profile_revision': {'object_id': '8fd3c929d2bd406e872e1187e41b803f', 'sha256': '6e4ab8ed461178d50a3df4cbe9ada2274ed6db96a6368d54d436037e76e578fb', 'version_id': '384d629a5e104525b7f592f7b096fc56'}, 'project_id': '6a412e899b90a0667285e9588eb9ce0434f4ac312950bdd90dd2d46a63deea0f', 'project_status': {'age_seconds': 62091.365842, 'as_of': '2026-10-22T20:15:51.365842Z', 'basis_version_id': None, 'integrity_issues': {}, 'is_fresh': True, 'missing_attachment_ids': [], 'observed_at': '2026-10-22T03:01:00Z', 'project_id': '6a412e899b90a0667285e9588eb9ce0434f4ac312950bdd90dd2d46a63deea0f', 'reason': 'source_incomplete', 'source_complete': False, 'source_observations': {'a0480d8d1ec9c0dc24f55d75c665be42e3569c37d14eb7a59cb79d3f9b31e78a': '2026-10-22T03:01:00Z'}, 'status': 'unknown', 'version_ids': ['a0480d8d1ec9c0dc24f55d75c665be42e3569c37d14eb7a59cb79d3f9b31e78a']}, 'schema_version': 'screening_inputs_v1', 'target_package_ids': ['9ff339a6c678fc17bf840432cbcb36f372c6ac0e5e45e7e0b535779b3d2acb3d', 'e7c837f5bfeff11a15e90a4b0aba865487e01aaf9ba7aa3d5ff0786543f427a4']}, 'request': {'profile_revision': {'object_id': '8fd3c929d2bd406e872e1187e41b803f', 'sha256': '6e4ab8ed461178d50a3df4cbe9ada2274ed6db96a6368d54d436037e76e578fb', 'version_id': '384d629a5e104525b7f592f7b096fc56'}, 'project_id': '6a412e899b90a0667285e9588eb9ce0434f4ac312950bdd90dd2d46a63deea0f'}, 'settings': {'budget_cny': '10', 'input_cny_per_million': '2', 'max_output_tokens': 6000, 'max_request_bytes': 120000, 'max_requests': 20, 'max_seconds': 0.1, 'max_segment_chars': 4000, 'model_name': 'deepseek-flash', 'output_cny_per_million': '8'}, 'versions': {'application_version': 'c3c8525908db8b74e8711595ff907096f4a76ac5e9447f8bd48d275db1b8b775', 'code_sha': '46ecb9f02828afd53672ec1ea54d9b82616ec66b', 'durable_lock_sha256': 'cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88', 'implementation_sha256': 'a74f07dd1b82a743290efd46fa70f99d401944f5c90d5332bacb2d98da50bddc', 'job_implementation_sha256': 'ffbd14bc2cfb1076eed3d3ad90934d27ff6cdc8782661236fe8800e713712926', 'lock_sha256': '92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27', 'offline': True, 'requested_model': 'offline-unit', 'result_id': '2e48fc51155f486988387eab50137215', 'result_revision': '6538209e89a14160839a91ada63c3d1e'}}
+2026-10-22T20:21:55.2154340Z ================== 1 failed, 1428 passed in 721.12s (0:12:01) ==================
+2026-10-22T20:21:58.4843001Z ##[error]Process completed with exit code 1.
+2026-10-22T20:21:58.4970187Z Post job cleanup.
+2026-10-22T20:21:58.5667489Z [command]/usr/bin/git version
+2026-10-22T20:21:58.5703886Z git version 2.55.0
+2026-10-22T20:21:58.5734192Z Temporarily overriding HOME='/home/runner/work/_temp/8a3b3b7e-6957-48e7-824d-70f552194482' before making global git config changes
+2026-10-22T20:21:58.5746819Z Adding repository directory to the temporary git global config as a safe directory
+2026-10-22T20:21:58.5748195Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/BidOps/BidOps
+2026-10-22T20:21:58.5774553Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-10-22T20:21:58.5804864Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-10-22T20:21:58.6014566Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-10-22T20:21:58.6039300Z http.https://github.com/.extraheader
+2026-10-22T20:21:58.6048525Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-10-22T20:21:58.6090716Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-10-22T20:21:58.6315729Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-10-22T20:21:58.6352863Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-10-22T20:21:58.6696292Z Cleaning up orphan processes
+2026-10-22T20:21:58.6939905Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, astral-sh/setup-uv@v6. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
