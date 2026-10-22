@@ -1,0 +1,49 @@
+{
+  "scope": "Independent scoped technical review, no tracked source writes or full suite",
+  "head": "36efed31ae496f42474cd8389236668b05767499",
+  "diff_sha256": "21351b4946920f6bdc244dead18058ae1e9e504f63297e70e50ec2f04371d677",
+  "tests": [
+    {
+      "name": "file",
+      "command": [
+        "<CLOCK_FIX_WORKTREE>/.venv/bin/pytest",
+        "-q",
+        "tests/test_identity_revocation.py",
+        "--basetemp",
+        "<CLOCK_REVIEW_EVIDENCE>/pytest-file",
+        "-o",
+        "cache_dir=<CLOCK_REVIEW_EVIDENCE>/pytest-cache-file"
+      ],
+      "started_at": "2026-10-22T21:43:40.239621+00:00",
+      "ended_at": "2026-10-22T21:43:51.019670+00:00",
+      "controller_seconds": 10.779915166087449,
+      "exit_code": 0,
+      "log": "file.txt"
+    },
+    {
+      "name": "delay",
+      "command": [
+        "<CLOCK_FIX_WORKTREE>/.venv/bin/python",
+        "<CLOCK_FIX_EVIDENCE>/delay_probe.py",
+        "-q",
+        "-s",
+        "tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change",
+        "--basetemp",
+        "<CLOCK_REVIEW_EVIDENCE>/pytest-delay",
+        "-o",
+        "cache_dir=<CLOCK_REVIEW_EVIDENCE>/pytest-cache-delay"
+      ],
+      "started_at": "2026-10-22T21:43:40.239906+00:00",
+      "ended_at": "2026-10-22T21:43:46.161986+00:00",
+      "controller_seconds": 5.922094042063691,
+      "exit_code": 0,
+      "log": "delay.txt"
+    }
+  ],
+  "same_diff_after_checks": true,
+  "production_hashes_unchanged": true,
+  "diff_check_exit": 0,
+  "real_model_calls": 0,
+  "real_network_calls": 0,
+  "status": "PASS"
+}

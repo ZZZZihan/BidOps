@@ -1,0 +1,56 @@
+{
+  "recorded_at": "2026-10-22T21:35:47.432080+00:00",
+  "kind": "SHARED_MIGRATION_TEST_EXPECTATION_GAP",
+  "predecessor_b09": {
+    "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+    "tree_sha": "3a0b67e03f1e8a250bf5ad8272451c772be9c867",
+    "executor": "root",
+    "command": [
+      ".venv/bin/pytest",
+      "-q",
+      "--basetemp",
+      "<PRIVATE_PYTEST_ROOT>"
+    ],
+    "start": "2026-10-22T21:19:35.082227+00:00",
+    "end": "2026-10-22T21:29:43.968491+00:00",
+    "exit_code": 1,
+    "terminal_summary": "1 failed, 2005 passed in 605.60s (0:10:05)",
+    "failed_test": "tests/test_storage_api_cli.py::test_migrations_idempotent",
+    "failure": "Expected migration-name list omitted existing012_package_versions_index.sql",
+    "source_verification_sha256": "d4dae6452dac27a5930e032c67431e9740cd885522af4d298bfe717463d26467",
+    "source_backend_log_sha256": "fa9bc3fc98d15b6854b70f13aed7f69cd2093a7ed8a0e4c907ed635d8abb8eaa",
+    "original_traceback_public": false
+  },
+  "current_b10": {
+    "code_sha": "b136ed58c689b30c98bf43a4eee2a1a134181899",
+    "final_full_run": "TERMINAL_2128PASSED_1FAILED_619.67S_EXIT1",
+    "shared_gap_expected_to_be_inherited": true,
+    "actual_current_final_failure_not_yet_claimed": false,
+    "g02": "BLOCKED_PENDING_FIX_INTEGRATION_AND_NEW_FULL_VERIFICATION",
+    "actual_failure_evidence": "final-b136-full-failure.json"
+  },
+  "test_only_fix": {
+    "code_sha": "36efed31ae496f42474cd8389236668b05767499",
+    "file": "tests/test_storage_api_cli.py",
+    "test": "test_migrations_idempotent",
+    "change": "Add012_package_versions_index.sql to exact expected list; all earlier entries and equality assertion retained",
+    "added_lines": 1,
+    "removed_lines": 0,
+    "production_changed": false,
+    "locks_changed": false,
+    "review_method": "Read-only gitshow verified exact one-line additive diff",
+    "independent_targeted_result": "1 passed in0.80s",
+    "independent_targeted_result_source": "Actual logs and UTC/exit metadata recorded; fixture836+WIP one-line fix, not postcommit full",
+    "targeted_pass_is_not_full_verification": true,
+    "root_b09_fixed_full_run": "PENDING",
+    "root_b10_final_sha_and_full_run": "a0cf14a5e909c71be45753a279acb4713203c204 RUNNING_PENDING_FULL",
+    "independent_targeted_result_evidence": [
+      "final-migration-independent-test.txt",
+      "final-migration-independent-verification.json"
+    ]
+  },
+  "real_model_or_source_calls": 0,
+  "new_cost_cny": "0",
+  "business_acceptance": "BLOCKED",
+  "preservation": "Do not overwrite predecessor full failure, historical427 results, or currentb136 eventual result when final fix is verified."
+}

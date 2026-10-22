@@ -1,0 +1,43 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "sources": [
+    {
+      "source_alias": "root/b10-clock-final-cli/template.json",
+      "source_sha256": "ff1286f0f72bff99df13bd2183c1e5f495d31fc302ff44ae43ce06a5957ac322",
+      "source_bytes": 1904,
+      "artifact": "clock-cli-template.json",
+      "transformation": "Exact source JSON bytes; safe no-real-input fixture reviewed"
+    },
+    {
+      "source_alias": "root/b10-clock-final-cli/environment.json",
+      "source_sha256": "30ca78b48dbd04ae00228f410cf683b3792457e370253e7f63ef4c58d2912afd",
+      "source_bytes": 3483,
+      "artifact": "clock-cli-empty-environment.json",
+      "transformation": "Exact source JSON bytes; safe no-real-input fixture reviewed"
+    },
+    {
+      "source_alias": "root/b10-clock-final-cli/bundle.json",
+      "source_sha256": "d8b5d6452fefc911f3b7d718e0b58e26a2d78f7904582456981418b45136aba8",
+      "source_bytes": 7563,
+      "artifact": "clock-cli-unexecuted-bundle.json",
+      "transformation": "Exact source JSON bytes; safe no-real-input fixture reviewed"
+    },
+    {
+      "source_alias": "root/b10-clock-final-cli/verification.json",
+      "source_sha256": "e06c611555d93af1837e7cf7289bb2483a7b7bef39ce8c92afd447f76f6d8b7b",
+      "source_bytes": 1753,
+      "artifact": "clock-cli-verification.json",
+      "transformation": "Retain UTC/exit/hash/clean; replace two absolute input/output paths with aliases; append explicit scope"
+    },
+    {
+      "source_alias": "root/run_final_b10_cli.py",
+      "source_sha256": "d76cb013dea64ba12d72255209f24e49a05c8350150c7a2a0dea7ac3acf6b4b2",
+      "source_bytes": 2496,
+      "transformation": "Reviewed exact env filter, fixed three commands and bounds; no script or environment values copied"
+    }
+  ],
+  "previous_clock_index_sha256": "ace98429e74f3fb05057c4c8f8caab1ee3689bdc5258913a2dd4e46abb48f71d",
+  "previous_clock_report_sha256": "e607e2de5d654af8eeb4d076079b4ac87180edb33e6475a8b6bc86f2f208b3c6",
+  "all_previously_allowlisted_52_payloads_preserved": true,
+  "not_authenticity_or_release_approval": true
+}

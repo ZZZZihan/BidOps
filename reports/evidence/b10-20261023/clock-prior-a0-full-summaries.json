@@ -1,0 +1,39 @@
+{
+  "code_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "backend_terminal_summary": "2129 passed in 621.28s (0:10:21)",
+  "lint_terminal_summary": "All checks passed!",
+  "format_terminal_summary": "256 files already formatted",
+  "freeze": {
+    "status": "PASS",
+    "agent_score": null,
+    "business_acceptance": "BLOCKED"
+  },
+  "raw_sources": [
+    {
+      "source_alias": "acceptance-b10-corrected-final/backend.txt",
+      "sha256": "203fb1e41a2223b885af50e03591409797a787e9a3ee1e09a3bb7dde8e149371",
+      "bytes": 2433
+    },
+    {
+      "source_alias": "acceptance-b10-corrected-final/lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    {
+      "source_alias": "acceptance-b10-corrected-final/format.txt",
+      "sha256": "cc199a57a5c7fffcf8d4daf5a28ebb8dd97f626dacee6e2fd506ca4d72be1fff",
+      "bytes": 28
+    },
+    {
+      "source_alias": "acceptance-b10-corrected-final/freeze.txt",
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7",
+      "bytes": 74
+    },
+    {
+      "source_alias": "acceptance-b10-corrected-final/verification.json",
+      "sha256": "27ee906db3bb4adedf1dc0309a8777800d918c4b508033b75672c42758a0244f",
+      "bytes": 2271
+    }
+  ],
+  "scope": "Safe terminal summaries and hashes only; no raw backend fixture logs copied"
+}

@@ -1,0 +1,41 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "tree_sha": "a45142d6b4878853f297a8ea717e6fad70879d6d",
+  "commit_time": "2026-10-23T05:48:35+08:00",
+  "clean_observed_at": "2026-10-22T21:51:40.089528+00:00",
+  "working_tree_clean_observed": true,
+  "prior_a0_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "identity_test_fix_integration_commit": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+  "changed_paths_from_a0": [
+    "GOAL.md",
+    "TASKS.md",
+    "reports/b07-authorized-updates-20261023.md",
+    "reports/b08-independent-evaluation-20261023.md",
+    "reports/evidence/b07-20261023/evidence-index.json",
+    "reports/evidence/b07-20261023/final-ci.json",
+    "reports/evidence/b08-20261023/evidence-index.json",
+    "reports/evidence/b08-20261023/final-ci.json",
+    "tests/test_identity_revocation.py"
+  ],
+  "test_only_code_delta": "tests/test_identity_revocation.py: 40 added / 5 removed; upstream GOAL/TASKS/reports/evidence also integrated",
+  "backend_scripts_and_all_locks_identical_to_a0": true,
+  "production_and_lock_sha256": {
+    "backend/bidops/enterprise/identity_events.py": "9562f277e8c139e0052aa488f68ad9719559aceb42cf55083c71cc802cd78624",
+    "backend/bidops/enterprise/auth.py": "c303f4903b6483b704335c847c4d2a8190d3754811d80080872672776a857ec4",
+    "pyproject.toml": "7a851a0b74e5f1c8385859aaa05f8c42faceda3ea06af52f3289296eda0ed1bb",
+    "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+    "requirements/durable.lock": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+    "requirements/attachments.lock": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"
+  },
+  "current_identity_test_sha256": "307c51b9022f463d5b0984f9e367125cfa0c4ca0bee8abd1bdf453dec9971b10",
+  "plan_sha256": "1bcfc395039fb2e61d794efcd6e5be57343efb03799358f60d98e274f961d399",
+  "plan_specialist_ac_count": 71,
+  "required_upstream_ac_count": 65,
+  "current_candidate_full": "RUNNING_NO_TERMINAL_RESULT_CLAIMED",
+  "current_candidate_cli": "ACTUALLY_EXECUTED_0_2_2_65UPSTREAM_SIXBLOCKED_NO_GO",
+  "last_completed_cli_code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "last_completed_cli_result": "0/2/2;65upstream;sixBLOCKED;NO_GO;0network/model",
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "prior_completed_cli_code_sha": "a0cf14a5e909c71be45753a279acb4713203c204"
+}

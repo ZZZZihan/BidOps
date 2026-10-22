@@ -1,0 +1,32 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "tree_sha": "a45142d6b4878853f297a8ea717e6fad70879d6d",
+  "snapshot_at": "2026-10-22T21:52:45.618855+00:00",
+  "current_full_directory_alias": "acceptance-b10-clock-final",
+  "state": "RUNNING_PENDING_TERMINAL_RECORD",
+  "current_backend_passed": null,
+  "current_backend_failed": null,
+  "current_backend_seconds": null,
+  "current_lint_exit_code": null,
+  "current_format_exit_code": null,
+  "current_freeze_exit_code": null,
+  "current_cli": "ACTUALLY_EXECUTED_0_2_2_65UPSTREAM_SIXBLOCKED_NO_GO",
+  "g02": "BLOCKED_PENDING_CLOCK_CANDIDATE_FINAL_FULL_AND_REMOTE_CI",
+  "prior_a0_full": {
+    "code_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+    "status": "PASS",
+    "passed": 2129,
+    "pytest_seconds": "621.28",
+    "commands_exit_codes": [
+      0,
+      0,
+      0,
+      0
+    ]
+  },
+  "no_report_agent_tests_or_network": true,
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "current_cli_evidence": "clock-cli-verification.json",
+  "latest_cli_code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520"
+}

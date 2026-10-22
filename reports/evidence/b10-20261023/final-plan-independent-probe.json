@@ -1,0 +1,58 @@
+{
+  "valid": {
+    "upstream_count": 65,
+    "b04_08": true,
+    "b09_08": true,
+    "by_section": {
+      "B01": 7,
+      "B02": 6,
+      "B03": 8,
+      "B04": 8,
+      "B05": 7,
+      "B06": 7,
+      "B07": 7,
+      "B08": 7,
+      "B09": 8
+    }
+  },
+  "cases": [
+    {
+      "mutation": "last_upstream_all_pipes_missing",
+      "target": "B09-08",
+      "required_upstream_acceptance_items": 0,
+      "issues": [
+        "acceptance_plan_unavailable"
+      ],
+      "evidence_readiness": "INCOMPLETE",
+      "release_decision": "NO_GO",
+      "business_acceptance": "NOT_VERIFIED_BY_TOOL",
+      "ac_statuses": {
+        "B10-01": "BLOCKED",
+        "B10-02": "BLOCKED",
+        "B10-03": "BLOCKED",
+        "B10-04": "BLOCKED",
+        "B10-05": "BLOCKED",
+        "B10-06": "BLOCKED"
+      }
+    },
+    {
+      "mutation": "last_b10_all_pipes_missing",
+      "target": "B10-06",
+      "required_upstream_acceptance_items": 0,
+      "issues": [
+        "acceptance_plan_unavailable"
+      ],
+      "evidence_readiness": "INCOMPLETE",
+      "release_decision": "NO_GO",
+      "business_acceptance": "NOT_VERIFIED_BY_TOOL",
+      "ac_statuses": {
+        "B10-01": "BLOCKED",
+        "B10-02": "BLOCKED",
+        "B10-03": "BLOCKED",
+        "B10-04": "BLOCKED",
+        "B10-05": "BLOCKED",
+        "B10-06": "BLOCKED"
+      }
+    }
+  ]
+}

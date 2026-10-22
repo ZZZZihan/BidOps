@@ -1,0 +1,21 @@
+{
+  "original_test_functions_preserved": 18,
+  "new_test_functions": [
+    "test_logout_iat_exact_time_boundaries"
+  ],
+  "original_assertion_ast_changes": [],
+  "old_red_probe": {
+    "red-delay-180.txt": {
+      "bytes": 1194,
+      "sha256": "7080fc91944896235a4a76e433f2923cf9b965105061d25c5cc5557118373b99"
+    },
+    "red-delay-180.json": {
+      "bytes": 739,
+      "sha256": "146b4f9711bd0da5faf46c5a3c5fba8514b658642bb9a2acfecb532359154f29"
+    },
+    "delay_probe.py": {
+      "bytes": 1010,
+      "sha256": "a8b8bcee8d9e8137bb8e2e60d3836401f24cc157048a9aa29dc0b44b7bac9e4f"
+    }
+  }
+}

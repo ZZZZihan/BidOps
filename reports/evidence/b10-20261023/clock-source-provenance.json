@@ -1,0 +1,82 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "recorded_at": "2026-10-22T21:51:40.089528+00:00",
+  "scope": "Explicit safe projections only. Full red traces, signed tokens, private DBs, runner/bootstrap and absolute paths excluded.",
+  "sources": [
+    {
+      "source_alias": "acceptance-b10-corrected-final/verification.json",
+      "sha256": "27ee906db3bb4adedf1dc0309a8777800d918c4b508033b75672c42758a0244f",
+      "bytes": 2271
+    },
+    {
+      "source_alias": "acceptance-b10-corrected-final/backend.txt",
+      "sha256": "203fb1e41a2223b885af50e03591409797a787e9a3ee1e09a3bb7dde8e149371",
+      "bytes": 2433
+    },
+    {
+      "source_alias": "acceptance-b10-corrected-final/lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "bytes": 19
+    },
+    {
+      "source_alias": "acceptance-b10-corrected-final/format.txt",
+      "sha256": "cc199a57a5c7fffcf8d4daf5a28ebb8dd97f626dacee6e2fd506ca4d72be1fff",
+      "bytes": 28
+    },
+    {
+      "source_alias": "acceptance-b10-corrected-final/freeze.txt",
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7",
+      "bytes": 74
+    },
+    {
+      "source_alias": "ci-snapshots/b10-b136-ci-failure.json",
+      "sha256": "03aba5216ec43f43f3f841ae4f8c6cac89e824c34e7194db3c5a0d54417393d7",
+      "bytes": 1133
+    },
+    {
+      "source_alias": "identity-clock-ci-fix/verification.json",
+      "sha256": "77538a68df9dde4f474f1d1d1aa1ed09024821995a57c4d16351d888f2177fe4",
+      "bytes": 5354
+    },
+    {
+      "source_alias": "identity-clock-ci-fix/README.md",
+      "sha256": "1bb7f1a9b63285f99b607f70f7403068ef98ef53a065110231dc72b8fa2b9c3a",
+      "bytes": 2942
+    },
+    {
+      "source_alias": "identity-clock-ci-review/checks.json",
+      "sha256": "fbd9daea1ae79c517e41884aa101abe4c90e469e00a092b78343d81b62788e74",
+      "bytes": 2051
+    },
+    {
+      "source_alias": "identity-clock-ci-review/review.md",
+      "sha256": "1959378502bd7a7e39f827c11fa9a96c1d235d037f27b8a65b2aeadb0b2b697a",
+      "bytes": 4063
+    },
+    {
+      "source_alias": "identity-clock-ci-review/probe-result.json",
+      "sha256": "7177c8a1e90fee97173713d44732a830a63403fdf41151cbebc788e3a2e29d68",
+      "bytes": 1569
+    },
+    {
+      "source_alias": "identity-clock-ci-review/assertion-integrity.json",
+      "sha256": "492aa1e55404425b128e8b4059d6600ad4a3dd7a22b7c58aa66e27517c18f8b9",
+      "bytes": 597
+    },
+    {
+      "source_alias": "identity-clock-ci-review/file.txt",
+      "sha256": "b3b240c1eb14330f976693d7e30f54e6ea332e75d3ada0dd7057b46f85b33a3c",
+      "bytes": 99
+    },
+    {
+      "source_alias": "identity-clock-ci-review/delay.txt",
+      "sha256": "585b85c9e0b518c8285f231a4c456f628f34d0a997bd790182597c44c91899e5",
+      "bytes": 126
+    }
+  ],
+  "pre_clock_a0_index_sha256": "bd4aded747f88f04ae399a030293afb95761d5adcaaf7e0f5d6e875240c506ea",
+  "pre_clock_a0_report_sha256": "93fea616f641d80521af3f97b5528d4c9a578e970dd2d0436b8b92c8d0c22fbb",
+  "pre_clock_all_40_payloads_preserved_byte_identical": true,
+  "previous_pending_status_artifacts": "Preserved historical a0 snapshot at creation time; superseded for current report status by clock-current-status.json",
+  "not_a_signature_or_authenticity_attestation": true
+}

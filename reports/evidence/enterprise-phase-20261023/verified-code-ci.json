@@ -1,0 +1,556 @@
+{
+  "observed_at": "2026-10-22T22:07:32.936695+00:00",
+  "scope": "Verified fixed code commits. Later evidence-only commits are separately recorded; no merge or deployment claim.",
+  "prs": [
+    {
+      "pr": 16,
+      "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+      "base": "codex/enterprise-pr-plan-20261022",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/16",
+      "workflow": {
+        "id": 39816800842,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 17,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39816800842/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39816800842/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 119957295290,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119957295663,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119957295907,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:24.912708+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "4abad2c1cbed6ddcb5b3477daab04b2fa8038bd957c87bffc0f5b3d851957ee3",
+          "bytes": 28876,
+          "selected_lines": [
+            "2026-10-22T16:46:45.4273008Z All checks passed!",
+            "2026-10-22T16:46:45.4613238Z 90 files already formatted",
+            "2026-10-22T16:46:57.2080027Z ============================= 571 passed in 9.92s =============================="
+          ]
+        },
+        "frontend": {
+          "sha256": "7e2927add40c553c6bd3cf36c5e92baf6e5514165c83713a03d0405e1cf255c8",
+          "bytes": 17819,
+          "selected_lines": [
+            "2026-10-22T16:47:04.9353649Z   12 passed (13.8s)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 17,
+      "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+      "base": "codex/b01-screening-contracts-eval",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/17",
+      "workflow": {
+        "id": 39823377065,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 21,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39823377065/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39823377065/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 119980160551,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119980160932,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 119980161220,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:25.013256+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "f55de6c1a212455645039ecd751126a799a44af435cd40d6d43f9f78466ed73a",
+          "bytes": 29542,
+          "selected_lines": [
+            "2026-10-22T17:31:04.1484005Z All checks passed!",
+            "2026-10-22T17:31:04.2027735Z 103 files already formatted",
+            "2026-10-22T17:31:27.8980232Z ============================= 685 passed in 20.25s ============================="
+          ]
+        },
+        "frontend": {
+          "sha256": "7ae90c265ad095d1c5f8064eaf2f3d6f761fd05822255c8e112681c88f191be3",
+          "bytes": 18099,
+          "selected_lines": [
+            "2026-10-22T17:31:38.3985472Z   14 passed (19.8s)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 18,
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "base": "codex/b02-notice-versions",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/18",
+      "workflow": {
+        "id": 39859735827,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 81,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859735827/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859735827/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 120107030797,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107031116,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107031401,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:25.120774+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "847f5c4972531b8e1d49a035efc150c681e54e3422b18b2e7647318b17690ffb",
+          "bytes": 30083,
+          "selected_lines": [
+            "2026-10-22T21:45:07.2271302Z All checks passed!",
+            "2026-10-22T21:45:07.2836078Z 118 files already formatted",
+            "2026-10-22T21:45:50.4760010Z ============================= 795 passed in 39.14s ============================="
+          ]
+        },
+        "frontend": {
+          "sha256": "6ab87a8e1f4d7190525c5e63f7a5251c6a6593c40b052af2eaeedf6e73964542",
+          "bytes": 29237,
+          "selected_lines": [
+            "2026-10-22T21:45:41.0034686Z   20 passed (22.5s)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 19,
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "base": "codex/b03-company-access",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/19",
+      "workflow": {
+        "id": 39859741649,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 83,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859741649/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859741649/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 120107050059,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107050414,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107050483,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:25.223040+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "15c10acddb231c1cc1cf69e47899ad5c1392befd91f535377fd730dc80b16d56",
+          "bytes": 31617,
+          "selected_lines": [
+            "2026-10-22T21:45:09.6356455Z All checks passed!",
+            "2026-10-22T21:45:09.6878674Z 145 files already formatted",
+            "2026-10-22T21:46:30.3037243Z ======================= 1105 passed in 75.84s (0:01:15) ========================"
+          ]
+        },
+        "frontend": {
+          "sha256": "e4f0db21ec60963b0c3ef6744e95942a0abbfd6f392e9d4e373bc43f20b39530",
+          "bytes": 32637,
+          "selected_lines": [
+            "2026-10-22T21:45:53.9443691Z   39 passed (36.2s)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 20,
+      "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+      "base": "codex/b04-qualification-screening",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/20",
+      "workflow": {
+        "id": 39859749226,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 85,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859749226/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859749226/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 120107074537,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107074907,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107075060,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:25.328126+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "f732e933435045442a5931a92c4bb865037158399cc8268ccc3a1cab5168a77f",
+          "bytes": 33950,
+          "selected_lines": [
+            "2026-10-22T21:46:05.3810101Z All checks passed!",
+            "2026-10-22T21:46:05.4366246Z 176 files already formatted",
+            "2026-10-22T21:53:19.8214121Z ======================= 1320 passed in 430.43s (0:07:10) ======================="
+          ]
+        },
+        "frontend": {
+          "sha256": "cb873290ca4a91796f6406b45283e771ec8ff9a1afaf3853b1f9011e9a063c00",
+          "bytes": 40018,
+          "selected_lines": [
+            "2026-10-22T21:48:07.6717990Z   75 passed (1.3m)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 21,
+      "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+      "base": "codex/b05-durable-runs",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/21",
+      "workflow": {
+        "id": 39859754197,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 87,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859754197/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859754197/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 120107091226,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107091496,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107091530,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:25.436256+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "bf7e5730e87e0b4ac1f5cddb1d3d026d75b28fcd03c3629d5f1c6259abe6d95c",
+          "bytes": 34932,
+          "selected_lines": [
+            "2026-10-22T21:46:45.5582090Z All checks passed!",
+            "2026-10-22T21:46:45.6250220Z 198 files already formatted",
+            "2026-10-22T22:00:31.5901802Z ======================= 1434 passed in 821.72s (0:13:41) ======================="
+          ]
+        },
+        "frontend": {
+          "sha256": "b6ced66d540dbd3c9d0d8ebe6b0ec96e84f571648cc49349df6c5cda85f4e042",
+          "bytes": 45231,
+          "selected_lines": [
+            "2026-10-22T21:49:13.6277346Z   105 passed (2.2m)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 22,
+      "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+      "base": "codex/b06-human-review",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/22",
+      "workflow": {
+        "id": 39859757990,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 89,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859757990/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859757990/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 120107103231,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107103491,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107103807,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:25.549796+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "bfce1704a8ebfc6833d219462a4b71fe04c6fce2469871fa3f61eccf01b3dac5",
+          "bytes": 36471,
+          "selected_lines": [
+            "2026-10-22T21:46:22.2597441Z All checks passed!",
+            "2026-10-22T21:46:22.3250556Z 222 files already formatted",
+            "2026-10-22T22:00:34.7043984Z ======================= 1735 passed in 848.37s (0:14:08) ======================="
+          ]
+        },
+        "frontend": {
+          "sha256": "47a5a47b2acd80bc0fc35b7d05f040f6a1b1d497ba5a9a94a434e9d969d3d267",
+          "bytes": 52496,
+          "selected_lines": [
+            "2026-10-22T21:50:38.4082497Z   148 passed (2.8m)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 23,
+      "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+      "base": "codex/b07-authorized-updates",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/23",
+      "workflow": {
+        "id": 39859761355,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 90,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859761355/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859761355/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 120107115939,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107116241,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107116287,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:25.664036+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "49f57777af43cb7512e11fb777de747f4346085a8eac30d6bdb8ccfc84cbd044",
+          "bytes": 36909,
+          "selected_lines": [
+            "2026-10-22T21:47:34.5551827Z All checks passed!",
+            "2026-10-22T21:47:34.6080754Z 233 files already formatted",
+            "2026-10-22T21:58:12.3346307Z ======================= 1856 passed in 634.12s (0:10:34) ======================="
+          ]
+        },
+        "frontend": {
+          "sha256": "5e1f0bc692f2c611f18cfb6bbd9ca2ac3ac0825b76b8be1477253262619ae730",
+          "bytes": 52456,
+          "selected_lines": [
+            "2026-10-22T21:48:42.2574584Z   148 passed (2.1m)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 24,
+      "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+      "base": "codex/b08-independent-evaluation",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/24",
+      "workflow": {
+        "id": 39859780307,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 92,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859780307/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39859780307/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 120107179563,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107179567,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120107179614,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:06:25.772994+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "af773354f7300dde00f4b1460be0a37f7918e687b425fcf996287917537926b8",
+          "bytes": 37679,
+          "selected_lines": [
+            "2026-10-22T21:47:39.1204810Z All checks passed!",
+            "2026-10-22T21:47:39.1774636Z 247 files already formatted",
+            "2026-10-22T21:58:58.0207582Z ======================= 2010 passed in 675.52s (0:11:15) ======================="
+          ]
+        },
+        "frontend": {
+          "sha256": "280c6644466d0127ee1e3de5d16d65d02c09bd916b17971dd7199960d560f720",
+          "bytes": 53243,
+          "selected_lines": [
+            "2026-10-22T21:51:00.2409518Z   152 passed (2.7m)"
+          ]
+        }
+      }
+    },
+    {
+      "pr": 25,
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "base": "codex/b09-capacity-recovery",
+      "url": "https://github.com/ZZZZihan/BidOps/pull/25",
+      "workflow": {
+        "id": 39860218830,
+        "name": "Offline checks",
+        "status": "completed",
+        "conclusion": "success",
+        "run_number": 94,
+        "jobs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39860218830/jobs",
+        "logs_url": "https://api.github.com/repos/ZZZZihan/BidOps/actions/runs/39860218830/logs",
+        "workflow_id": 392794059
+      },
+      "jobs": [
+        {
+          "id": 120108696870,
+          "name": "frontend",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120108697381,
+          "name": "container",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "id": 120108697689,
+          "name": "backend",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "observed_at": "2026-10-22T22:07:32.841672+00:00",
+      "log_evidence": {
+        "backend": {
+          "sha256": "391f203926cb4535de8e56d63954774581d4cc4d08290cead79cac63bf7f994b",
+          "bytes": 38106,
+          "selected_lines": [
+            "2026-10-22T21:49:23.0281783Z All checks passed!",
+            "2026-10-22T21:49:23.1082335Z 256 files already formatted",
+            "2026-10-22T22:06:49.9379538Z ====================== 2133 passed in 1042.83s (0:17:22) ======================="
+          ]
+        },
+        "frontend": {
+          "sha256": "3d864b38d906ebf8e12cd7c83b95a0ccf55f9d8fe2bdd83db61289d7bce9e3e5",
+          "bytes": 52981,
+          "selected_lines": [
+            "2026-10-22T21:51:06.7758879Z   152 passed (2.1m)"
+          ]
+        }
+      }
+    }
+  ]
+}
