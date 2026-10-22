@@ -1,0 +1,15 @@
+{"application_version": "bc42b06b6dbdd085c2f61509bbd0541d6fddb695e42e9e367eb616d7b0519b36", "at": 1792690092.113122, "event": "worker_starting", "mode": "submit", "pid": 74962}
+{"at": 1792690092.1538272, "event": "dbos_launched", "mode": "submit", "pid": 74962}
+{"at": 1792690092.157373, "event": "workflow_submitted", "pid": 74962, "workflow_id": "synthetic-b05-restart-run"}
+{"at": 1792690092.182583, "event": "synthetic_model_request", "pid": 74962, "prompt": "SYNTHETIC_FIRST_MODEL_STEP"}
+{"at": 1792690092.185466, "event": "checkpoint_gate_entered", "pid": 74962}
+{"application_version": "bc42b06b6dbdd085c2f61509bbd0541d6fddb695e42e9e367eb616d7b0519b36", "at": 1792690092.70489, "event": "worker_starting", "mode": "recover", "pid": 74979}
+{"at": 1792690092.715966, "event": "dbos_launched", "mode": "recover", "pid": 74979}
+{"at": 1792690093.766767, "event": "checkpoint_gate_entered", "pid": 74979}
+{"at": 1792690093.766997, "event": "checkpoint_gate_released", "pid": 74979}
+{"at": 1792690093.7701912, "event": "synthetic_model_request", "pid": 74979, "prompt": "SYNTHETIC_SECOND_MODEL_STEP"}
+{"at": 1792690093.772059, "event": "final_step_called", "pid": 74979}
+{"at": 1792690094.746887, "event": "workflow_result", "mode": "recover", "pid": 74979, "result": {"first": "SYNTHETIC_NOT_A_REAL_SCREENING_RESULT", "fixture": true, "second": "SYNTHETIC_NOT_A_REAL_SCREENING_RESULT"}}
+{"application_version": "bc42b06b6dbdd085c2f61509bbd0541d6fddb695e42e9e367eb616d7b0519b36", "at": 1792690096.393728, "event": "worker_starting", "mode": "read-completed", "pid": 74982}
+{"at": 1792690096.404748, "event": "dbos_launched", "mode": "read-completed", "pid": 74982}
+{"at": 1792690096.408331, "event": "workflow_result", "mode": "read-completed", "pid": 74982, "result": {"first": "SYNTHETIC_NOT_A_REAL_SCREENING_RESULT", "fixture": true, "second": "SYNTHETIC_NOT_A_REAL_SCREENING_RESULT"}}

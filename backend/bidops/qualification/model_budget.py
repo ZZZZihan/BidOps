@@ -69,10 +69,7 @@ class GuardedModel(WrapperModel):
             )
             conn.commit()
 
-    async def request(self, messages, model_settings, model_request_parameters):
-        self.adapter.recheck(self.context, self.bundle)
-        if self.calls >= self.limits.max_requests:
-            raise CompanyError("screening_request_limit", 429)
+    def prepare_request(self, messages, model_settings, model_request_parameters):
         if model_request_parameters.native_tools:
             raise CompanyError("screening_native_tools_disabled", 422)
         # This text-only endpoint bounds the complete framework request, including
@@ -95,6 +92,15 @@ class GuardedModel(WrapperModel):
             input_bound * self.limits.input_cny_per_million
             + self.limits.max_output_tokens * self.limits.output_cny_per_million
         ) / 1_000_000
+        return settings, reserve, input_bound
+
+    async def request(self, messages, model_settings, model_request_parameters):
+        self.adapter.recheck(self.context, self.bundle)
+        if self.calls >= self.limits.max_requests:
+            raise CompanyError("screening_request_limit", 429)
+        settings, reserve, input_bound = self.prepare_request(
+            messages, model_settings, model_request_parameters
+        )
         request_id = f"qualification-{self.run_id}-{self.calls + 1}"
         if not self.offline:
             if not self.limits.live_calls_enabled or not self.limits.ledger_verified:
@@ -113,6 +119,11 @@ class GuardedModel(WrapperModel):
                     {"id": request_id},
                 )
             raise
+        self.account_response(response, request_id, reserve, input_bound)
+        self.adapter.recheck(self.context, self.bundle)
+        return response
+
+    def account_response(self, response, request_id, reserve, input_bound):
         self.outputs.append(TypeAdapter(ModelResponse).dump_python(response, mode="json"))
         if response.model_name:
             self.actual_models.add(response.model_name)
@@ -169,8 +180,6 @@ class GuardedModel(WrapperModel):
             )
             if anomaly:
                 raise CompanyError(anomaly, 503)
-        self.adapter.recheck(self.context, self.bundle)
-        return response
 
     def provenance(self):
         return {

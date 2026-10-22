@@ -3,6 +3,10 @@
 交付范围：Linux / 单组织 / 一个 ASGI 进程 / SQLite 持久卷。它可作为企业内部试用基线；
 真实身份系统接入和目标机器验收仍需完成。成熟 Agent 与认证框架选型见 ADR-0003。
 
+B05 的可选持久任务默认关闭。启用、精确 overlay、原生恢复、私有框架库及 v4 配套备份步骤见
+[DURABLE-RUNS](DURABLE-RUNS.md)。装好 overlay 后使用下面的 `--frozen --no-sync` 命令，
+避免普通 `uv run` 自动同步主锁而移除 DBOS；重新执行 `uv sync` 后须重新安装 overlay。
+
 ## 身份系统接入
 
 可以使用现有符合 OIDC 的企业 IdP，或由企业自行部署 Keycloak。创建 confidential client：
@@ -28,6 +32,8 @@
 
 ```bash
 uv sync --frozen
+uv pip install --python .venv/bin/python --require-hashes \
+  --index-url https://pypi.tuna.tsinghua.edu.cn/simple -r requirements/durable.lock
 npm ci --prefix frontend
 npm run build --prefix frontend
 mkdir -p private
@@ -41,16 +47,16 @@ chmod 600 private/enterprise.env
 或注入环境变量；不要进入前端、配置示例或版本库。
 
 ```bash
-uv run bidops-enterprise check-config
-uv run bidops migrate
+uv run --frozen --no-sync bidops-enterprise check-config
+uv run --frozen --no-sync bidops migrate
 # 首次部署需要放置已有的合法采集包；缺少包不会虚构数据
-uv run bidops import-bundle --input data/artifacts/p0-capture-20261022
-uv run bidops parse
-uv run bidops-enterprise serve
+uv run --frozen --no-sync bidops import-bundle --input data/artifacts/p0-capture-20261022
+uv run --frozen --no-sync bidops parse
+uv run --frozen --no-sync bidops-enterprise serve
 ```
 
 `check-config` 只验证本地配置，**不代表 IdP 或 DeepSeek 已认证成功**。enterprise serve
-拒绝静默降级为匿名 Demo。已有个人本地 Demo 仍可用 `uv run bidops-demo` 在 loopback 运行。
+拒绝静默降级为匿名 Demo。已有个人本地 Demo 仍可用 `uv run --frozen --no-sync bidops-demo` 在 loopback 运行。
 
 反向代理须在配置的同一 HTTPS 域名提供 UI/API，转发正确 Host；不得暴露内部 8765 端口。
 设置请求体上限 16 KiB、上游超时至少 70 秒；不要记录 OAuth 回调 query string、Cookie 或
@@ -102,8 +108,8 @@ docker compose -f compose.enterprise.yaml exec app bidops parse
 
 ```bash
 # 输出目录必须尚不存在。包含私有会话、身份摘要和原文，仅存于受控位置
-uv run bidops-enterprise backup --output data/artifacts/backup-YYYYMMDD
-uv run bidops-enterprise restore --input data/artifacts/backup-YYYYMMDD --output data/artifacts/restore-YYYYMMDD
+uv run --frozen --no-sync bidops-enterprise backup --output data/artifacts/backup-YYYYMMDD
+uv run --frozen --no-sync bidops-enterprise restore --input data/artifacts/backup-YYYYMMDD --output data/artifacts/restore-YYYYMMDD
 ```
 
 备份用 SQLite online backup API 创建一致数据库，再复制其引用的不可变原文并逐个核验 SHA256。
@@ -118,7 +124,7 @@ uv run bidops-enterprise restore --input data/artifacts/backup-YYYYMMDD --output
 会话默认保存 30 天，启动及每小时清理过期会话和登录。可手动运行：
 
 ```bash
-uv run bidops-enterprise prune
+uv run --frozen --no-sync bidops-enterprise prune
 ```
 
 审计/费用表继续保留，备份需另设留存；SQLite 删除不保证擦除磁盘旧页。管理员需采用企业

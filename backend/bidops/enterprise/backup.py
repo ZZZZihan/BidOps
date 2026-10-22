@@ -8,6 +8,7 @@ import shutil
 import sqlite3
 import tempfile
 import time
+from contextlib import closing
 from pathlib import Path
 
 from sqlalchemy.engine import make_url
@@ -16,6 +17,7 @@ from bidops.config import Settings
 from bidops.db import Database
 from bidops.enterprise.budget_review import install_budget_review_barrier
 from bidops.enterprise.operations import SingleWorker
+from bidops.jobs import backup as durable_backup
 
 
 def sha(path: Path) -> str:
@@ -55,7 +57,7 @@ def valid_path(name):
 
 
 def verify_path(root, name, digest):
-    if not valid_path(name) and name != "bidops.sqlite3":
+    if not valid_path(name) and name not in {"bidops.sqlite3", durable_backup.SYSTEM_DATABASE}:
         raise ValueError("Invalid backup path")
     if not isinstance(digest, str) or not re.fullmatch(r"[a-f0-9]{64}", digest):
         raise ValueError("Invalid backup hash")
@@ -79,33 +81,45 @@ def backup(settings: Settings, destination: Path, *, retention_days: int = 7):
     # The same lock is held throughout enterprise service lifetime and maintenance.
     # Stop the application before backup; do not race private deletion with copying.
     worker = SingleWorker(settings.database_url)
+    created_destination = False
     try:
         destination.mkdir(parents=True, exist_ok=False, mode=0o700)
+        created_destination = True
         copied = destination / "bidops.sqlite3"
-        with sqlite3.connect(database.as_uri() + "?mode=ro", uri=True) as source:
-            with sqlite3.connect(copied) as target:
+        with closing(sqlite3.connect(database.as_uri() + "?mode=ro", uri=True)) as source:
+            with closing(sqlite3.connect(copied)) as target:
                 source.backup(target)
                 if target.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
                     raise ValueError("Database integrity check failed")
-                references = referenced_files(target)
+        system = durable_backup.copy_system_database(
+            settings.data_dir, destination, required=durable_backup.has_jobs(copied)
+        )
+        snapshot = durable_backup.prepare_backup(copied, system, now=time.time())
+        with closing(sqlite3.connect(copied)) as target:
+            references = referenced_files(target)
         copied.chmod(0o600)
         (destination / "raw").mkdir(mode=0o700)
         manifest = {"bidops.sqlite3": sha(copied)}
+        if system is not None:
+            manifest[durable_backup.SYSTEM_DATABASE] = sha(system)
         for name, value in references.items():
             original = verify_path(settings.data_dir, name, value)
             target = destination / name
             target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
             shutil.copyfile(original, target)
             target.chmod(0o600)
+            verify_path(destination, name, value)
             manifest[name] = value
         created = time.time()
         metadata = {
-            "version": 3,
+            "version": 4 if system is not None else 3,
             "created_at": created,
             "expires_at": created + retention_days * 86400,
             "private_restore_policy": "quarantine_all_objects_remove_all_grants",
             "files": manifest,
         }
+        if snapshot is not None:
+            metadata["durable_snapshot"] = snapshot
         (destination / "manifest.json").write_text(json.dumps(metadata, indent=2))
         (destination / "manifest.json").chmod(0o600)
         return {
@@ -114,6 +128,10 @@ def backup(settings: Settings, destination: Path, *, retention_days: int = 7):
             "expires_at": metadata["expires_at"],
             "requires_stopped_service": True,
         }
+    except Exception:
+        if created_destination:
+            shutil.rmtree(destination)
+        raise
     finally:
         worker.close()
 
@@ -123,11 +141,15 @@ def restore(bundle: Path, destination: Path):
     if metadata_path.is_symlink() or metadata_path.stat().st_size > 20_000_000:
         raise ValueError("Invalid backup manifest")
     manifest = json.loads(metadata_path.read_text())
-    if manifest.get("version") not in {1, 2, 3} or not isinstance(manifest.get("files"), dict):
+    if (
+        type(manifest.get("version")) is not int
+        or manifest["version"] not in {1, 2, 3, 4}
+        or not isinstance(manifest.get("files"), dict)
+    ):
         raise ValueError("Invalid backup manifest")
     if "bidops.sqlite3" not in manifest["files"]:
         raise ValueError("Invalid backup manifest")
-    bounded = manifest["version"] == 3 or any(
+    bounded = manifest["version"] in {3, 4} or any(
         key in manifest for key in ("created_at", "expires_at")
     )
     if bounded:
@@ -141,8 +163,23 @@ def restore(bundle: Path, destination: Path):
             raise ValueError("Backup expired or invalid retention window")
     for name, value in manifest["files"].items():
         verify_path(bundle, name, value)
-    with sqlite3.connect(
-        (bundle / "bidops.sqlite3").resolve().as_uri() + "?mode=ro", uri=True
+    system = (
+        bundle / durable_backup.SYSTEM_DATABASE
+        if durable_backup.SYSTEM_DATABASE in manifest["files"]
+        else None
+    )
+    if manifest["version"] == 4:
+        if system is None:
+            raise ValueError("Durable backup is missing its system database")
+        durable_backup.verify_backup(
+            bundle / "bidops.sqlite3", system, manifest.get("durable_snapshot")
+        )
+    elif system is not None or durable_backup.has_jobs(bundle / "bidops.sqlite3"):
+        raise ValueError(
+            "Legacy backup cannot restore durable jobs without a paired system database"
+        )
+    with closing(
+        sqlite3.connect((bundle / "bidops.sqlite3").resolve().as_uri() + "?mode=ro", uri=True)
     ) as db:
         if db.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise ValueError("Backup database integrity check failed")
@@ -153,10 +190,13 @@ def restore(bundle: Path, destination: Path):
             and db.execute("SELECT 1 FROM company_objects LIMIT 1").fetchone()
         )
         if (private_objects or any(name.startswith("private/") for name in references)) and (
-            not bounded or manifest["version"] not in {2, 3}
+            not bounded or manifest["version"] not in {2, 3, 4}
         ):
             raise ValueError("Private backup requires a bounded retention window")
-        if set(manifest["files"]) != {"bidops.sqlite3", *references}:
+        expected = {"bidops.sqlite3", *references}
+        if system is not None:
+            expected.add(durable_backup.SYSTEM_DATABASE)
+        if set(manifest["files"]) != expected:
             raise ValueError("Backup file closure does not match database")
         if any(manifest["files"].get(name) != value for name, value in references.items()):
             raise ValueError("Backup is missing a referenced blob")
@@ -171,7 +211,17 @@ def restore(bundle: Path, destination: Path):
             target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
             shutil.copyfile(bundle / name, target)
             target.chmod(0o600)
-        with sqlite3.connect(staging / "bidops.sqlite3") as conn:
+        # Recheck the actual staged bytes before modifying any security state.
+        # Validation of a mutable source directory is not a copy-time guarantee.
+        for name, value in manifest["files"].items():
+            verify_path(staging, name, value)
+        if system is not None:
+            durable_backup.verify_backup(
+                staging / "bidops.sqlite3",
+                staging / durable_backup.SYSTEM_DATABASE,
+                manifest.get("durable_snapshot"),
+            )
+        with closing(sqlite3.connect(staging / "bidops.sqlite3")) as conn:
             tables = {
                 r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
             }
@@ -204,6 +254,11 @@ def restore(bundle: Path, destination: Path):
                     raise ValueError("Restored private retention cleanup failed")
             finally:
                 db.engine.dispose()
+        jobs = durable_backup.quarantine_after_restore(
+            staging / "bidops.sqlite3",
+            staging / durable_backup.SYSTEM_DATABASE if system is not None else None,
+            now=time.time(),
+        )
         # Claim the destination only after all security transformations succeed.
         destination.mkdir(mode=0o700, exist_ok=False)
         for child in staging.iterdir():
@@ -214,6 +269,7 @@ def restore(bundle: Path, destination: Path):
             "logins_revoked": True,
             "quarantined_objects": quarantined,
             "quarantined_results": quarantined_results,
+            **jobs,
             "old_private_grants_removed": True,
             "budget_review_required": budget_token is not None,
             "budget_restore_token": budget_token,

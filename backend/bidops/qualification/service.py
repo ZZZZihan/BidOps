@@ -211,21 +211,30 @@ class ScreeningService:
         async with self.slots:
             return await self._check(context, bundle, targets, model, offline)
 
-    async def _check(self, context, bundle, targets, model, offline):
-        run_id, revision = uuid.uuid4().hex, uuid.uuid4().hex
-        guard = GuardedModel(
-            model,
-            db=self.repository.db,
-            settings=self.settings,
-            adapter=self.sources,
-            context=context,
-            bundle=bundle,
-            run_id=run_id,
-            offline=offline,
+    async def _check(self, context, bundle, targets, model, offline, *, execution=None):
+        run_id = execution.result_id if execution else uuid.uuid4().hex
+        revision = execution.revision if execution else uuid.uuid4().hex
+        guard = (
+            execution.guard
+            if execution
+            else GuardedModel(
+                model,
+                db=self.repository.db,
+                settings=self.settings,
+                adapter=self.sources,
+                context=context,
+                bundle=bundle,
+                run_id=run_id,
+                offline=offline,
+            )
         )
         extract, judge = (
-            extraction_agent(guard, self.settings),
-            assessment_agent(guard, self.settings),
+            execution.agents
+            if execution
+            else (
+                extraction_agent(guard, self.settings),
+                assessment_agent(guard, self.settings),
+            )
         )
         drafts, judgments, evaluated = {}, [], {}
         state, error = "completed", None
@@ -250,16 +259,24 @@ class ScreeningService:
 
         documents = {doc.document_id: doc for doc in bundle.documents}
         try:
-            async with asyncio.timeout(self.settings.max_seconds):
-                for segment in segment_documents(
+            async with asyncio.timeout(None if execution else self.settings.max_seconds):
+                segments = segment_documents(
                     bundle.documents, max_segment_chars=self.settings.max_segment_chars
-                ):
+                )
+                for index, segment in enumerate(segments):
+                    if execution:
+                        await execution.before_step("extraction", index, len(segments))
                     if not segment.processable:
                         # Binder explicitly records this segment as unparsed.
                         continue
                     document = documents[segment.document_id]
                     deps = Dependencies(
-                        self.sources, context, bundle, document=document, segment=segment
+                        self.sources,
+                        context,
+                        bundle,
+                        document=document,
+                        segment=segment,
+                        execution_check=execution.recheck if execution else None,
                     )
                     payload = {
                         "stage": "extraction",
@@ -283,12 +300,25 @@ class ScreeningService:
                         ],
                     )
                 extracted = inventory()
+                total = sum(
+                    applicability(c, p).disposition != "out_of_scope"
+                    for p in targets
+                    for c in extracted.conditions
+                )
+                assessed = 0
                 for package in targets:
                     for condition in extracted.conditions:
                         if applicability(condition, package).disposition == "out_of_scope":
                             continue
+                        if execution:
+                            await execution.before_step("assessment", assessed, total)
                         deps = Dependencies(
-                            self.sources, context, bundle, condition=condition, package_id=package
+                            self.sources,
+                            context,
+                            bundle,
+                            condition=condition,
+                            package_id=package,
+                            execution_check=execution.recheck if execution else None,
                         )
                         payload = {
                             "stage": "assessment",
@@ -315,12 +345,14 @@ class ScreeningService:
                             target_package_id=package,
                             as_of=bundle.manifest.as_of,
                         )
+                        assessed += 1
         except TimeoutError:
             state, error = "timed_out", "screening_timeout"
         except CompanyError as exc:
             # A revoked source cannot be re-released as a partial result.
             self.sources.recheck(context, bundle)
-            state, error = "failed", exc.detail
+            state = "timed_out" if exc.detail == "screening_timeout" else "failed"
+            error = exc.detail
         except (AgentRunError, ValueError):
             state, error = "failed", "screening_model_output_invalid"
         except Exception:
@@ -416,6 +448,9 @@ class ScreeningService:
             },
         }
         self.sources.recheck(context, bundle)
+        if execution:
+            execution.recheck()
+            return await execution.persist(result, provenance, guard.outputs)
         self.repository.save(
             context,
             bundle.manifest,

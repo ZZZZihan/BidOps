@@ -1,0 +1,69 @@
+B05-01 持久执行后端选型与重启实验，2026-10-23，本地工程夹具。
+
+选择 **DBOS 3.3.0 + Pydantic AI 2.59.0 的 DBOSDurability**。B05 首轮约束为单主机、单 DBOS worker、独立私有 SQLite 状态库；沿用现有业务 SQLite。框架负责队列、步骤持久化和恢复，业务层只负责任务身份、输入版本、授权、取消、费用和结果提交规则。这份材料尚未接入 BidOps 业务源码，也不代表 B05-02 至 B05-07 已验收。
+
+当前项目锁文件 SHA256 为 `92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27`。实际 Python 为 3.12.12，Pydantic AI/Pydantic Graph 均为 2.59.0，Pydantic 2.14.1、SQLAlchemy 2.1.6。`compatibility.json` 对照项目 uv.lock，实验中全部共享分发包的版本一致；没有修改项目 pyproject.toml 或 uv.lock。
+
+| 候选 | 锁定版本与兼容依据 | 数据库、进程要求 | 本次实际证据 | 决策 |
+| --- | --- | --- | --- | --- |
+| DBOS | DBOS 3.3.0；已安装的 Pydantic AI 2.59.0 METADATA 声明 `dbos>=2.10.0`；DBOS 要求 SQLAlchemy asyncio>=2.0.43 | 框架在 Python 进程内运行；SQLite 或 Postgres；同一进程只能初始化一个 DBOS singleton | 精确依赖安装、官方集成导入、真实 SIGKILL 后框架自动恢复、完成后再次重启读取均通过 | 选择；满足当前单企业单机试用的最小执行依赖 |
+| Temporal | temporalio 1.34.0；Pydantic AI 2.59.0 METADATA 声明 `temporalio>=1.27.0`；TemporalDurability/PydanticAIPlugin/PydanticAIWorkflow 可导入 | Python worker 连接独立 Temporal Service；本地开发服务器可单二进制，正式自托管服务还有服务部署和持久存储运维 | 只执行 SDK 安装及集成导入/API 核查；未运行服务或崩溃恢复实验 | 本轮不选；增加当前部署不需要的服务运维面 |
+
+DBOS 与 Pydantic AI 官方均建议生产使用 Postgres；SQLite 的支持不能推导成跨主机或 HA 支持。本决策只覆盖明确的单机试用。若 B09/B10 要求多主机、多 worker HA 或更高容量，应先迁移框架状态库到 Postgres并做相同故障实验；不要求业务库同时迁移。本次没有验证 Postgres。
+
+实际复现：
+
+```bash
+cd <HOME>/Projects/BidOps-worktrees/work/b05-durable-probe-20261023
+uv venv --python python3.12 .venv-dbos
+uv pip sync --python .venv-dbos/bin/python \
+  --index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+  --require-hashes requirements-dbos.lock
+.venv-dbos/bin/python probe.py
+```
+
+`requirements-dbos.lock` 为 DBOS 运行所需的精确 28 包闭包，带下载 SHA256，并已实际 `--require-hashes` 同步安装。`requirements.lock` 额外安装 Temporal 做候选兼容核查，共 32 包；正常 DBOS 部署不需要安装 Temporal。项目的 OpenAI extra 在本实验之外，集成时保留其原有依赖。两个锁都使用项目实际环境导出的 `baseline-constraints.txt`，没有升级共享依赖。实验脚本会为每次执行创建新的 `runs/restart-*`，不会覆盖旧证据。
+
+最小 DBOS-only 实验记录在 `runs/restart-irgp_hne/`，顶层原始控制器输出为 `probe-dbos-only-console.log`。最终 worker.py 的 SHA256 / DBOS application_version 为 `bc42b06b6dbdd085c2f61509bbd0541d6fddb695e42e9e367eb616d7b0519b36`。双候选环境同一最终 worker 运行记录为 `runs/restart-8kqju318/`；更早两次准备运行保留在原目录，不能混作最终脚本版本证据。
+
+1. 控制器启动真实子进程，框架注册 `Agent(TestModel, capabilities=[DBOSDurability(...)])` 和自己的 `@DBOS.workflow`，仅首次使用 `SetWorkflowID` + `DBOS.start_workflow` 提交固定任务。
+2. 第一个模型请求在框架步骤 `bidops_probe_agent__model.request` 完成后，进入尚未完成的等待步骤。控制器读取实际 DBOS SQLite `operation_outputs`，确认 function_id=1 有 output、无 error，才发送 SIGKILL。原始证据为 `checkpoints-before-kill.json` 和 `submit.log`，第一进程退出码为 -9。
+3. 控制器释放合成等待条件，启动另一个进程。该进程只调用 `DBOS.launch()` 和 `DBOS.retrieve_workflow(...).get_result()`，没有再次调用业务 workflow、start 或 enqueue。框架从自己的持久状态恢复，完成第二个模型请求和结果步骤。
+4. 第三个进程只启动框架并读取已完成任务，取得相同结果；没有任何模型步骤或结果步骤重新执行。
+
+| 观测项 | 实际次数 |
+| --- | ---: |
+| 第一模型步骤的 TestModel.request | 1 |
+| 第二模型步骤的 TestModel.request | 1 |
+| 第一次被打断、未写完成输出的等待步骤 | 2 |
+| 最终结果步骤 | 1 |
+| 真实模型、付费或来源请求 | 0 |
+
+`events.jsonl` 保存每个实际调用的 PID、时间和合成标记；`steps-recover.json` 为框架自己的步骤清单；`report.json` 保存断言、环境版本和退出码；各进程 stdout/stderr 完整保留为 submit/recover/read-completed.log。最终 SQLite 框架 migration 为 123。调用次数由控制器对真实子进程事件断言，已完成步骤是否落盘另由实际框架数据库核验，不是模拟恢复器。
+
+该实验使用进程内 TestModel，`models.ALLOW_MODEL_REQUESTS=False`，同时拦截 socket connect，DBOS OTLP 显式关闭且不配置 Conductor。全部输入为 SYNTHETIC 工程夹具，不涉及真实企业资料，也不提供资格判断或效果分数。框架恢复已经落盘的步骤不等于外部模型请求绝不重试：在途、返回但尚未落盘的步骤仍可能执行多次，等待步骤的两次调用直接展示了这个边界。
+
+后续 B05 业务接线必须保留以下边界：
+
+- 所有 Agent 和工具在 `DBOS.launch()` 前构造并注册，agent name 和工作流步骤名稳定。当前官方推荐 DBOSDurability capability；废弃的 DBOSAgent 自动包装行为不能照搬。直接在 workflow 外调用普通 `agent.run()` 不会获得持久执行。
+- 官方 DBOSDurability 自动包装模型请求和 MCP 通信，普通自定义 Python 工具仍需显式 `@DBOS.step`。workflow 内只保留可重放的协调逻辑；数据库、随机数、真实时钟和外部 I/O 放入框架步骤。
+- 使用框架原生 `DBOS.register_queue(..., worker_concurrency=1, global_concurrency=1)` 与 `DBOS.enqueue_workflow`；不在 sessions.py 或业务库自建通用领取/重试/回放引擎。业务任务表可记录 owner、不可变输入版本、状态、用量和唯一提交结果，但不能替代框架队列。
+- 身份和授权不能成为“缓存后永久有效”的步骤返回值。恢复前先按业务任务固定输入 VersionRefs 做 live 准入；在新模型请求和真实工具内部、结果提交和读取之前再次调用 B03 授权服务。DBOSClient 提供不依赖已启动 worker 的 cancel_workflow，可用于恢复启动前阻断无权任务；这条接线路径本次只核对 API，尚需 B05-06 实测。不能只把 require_inputs 包成已完成 DBOS.step 后回放旧 PASS。
+- 同主体、同幂等键的输入 SHA 必须由业务库唯一约束绑定；不同输入显式 409，不依赖框架 ID 自动判断输入相等。发布结果用事务唯一键去重。取消先写业务终态并阻止下一步，框架 resume_workflow 不能绕过已取消终态。
+- 用量预留、已确认和 unknown 分开保存。模型返回后未入框架检查点便宕机时，不能把预留当成未使用释放，也不能宣称避免所有重复计费。供应商重试与框架重试应明确分层，避免叠加；DBOS 没有按异常类型选择不可重试的支持，默认保持模型步骤无自动重试，明确业务策略后再配置。
+- DBOS 默认把步骤输出、输入和工作流结果用 pickle 存入状态库，里面可能包含私有 prompt/引文。状态库、WAL、备份和日志都属于 B03 的私有资料闭包：目录/文件权限、访问隔离、到期即拒绝、停止或取消后可重试清除整个 workflow/子 workflow 历史，不能只删业务 run 行。不得从用户可控路径恢复不可信 pickle 数据库。
+- 业务库、DBOS 状态库、材料 blob/text 和用量账本没有天然跨库原子快照。B05-07 应使用同一停写/worker 停止锁取得一致快照与 manifest；恢复前校验配套版本及 task/workflow/result 引用，错配 fail closed，并沿用 B03 恢复隔离与重新授权。不能把 SQLite 文件在线随手复制称为一致恢复。
+- 声明稳定 executor_id 与代码 application_version。当前 DBOS 按 executor 与 app version 恢复；改流程/Agent 配置时保留旧版本 worker 或采用框架正式升级策略，不把新代码冒充旧版本恢复。单机试用也不能启动两个抢占同一 executor_id 的进程。框架状态库迁移纳入版本升级和备份流程。
+
+本次只完成 B05-01 的候选兼容核查和最小框架恢复证据。排队取消、强制退出的全部计费窗口、并发幂等、真实审核等待事件、运行中撤权、保留期历史清理、跨存储恢复组合仍是 B05-02..07 的实现及验收工作。没有提交、推送或合并，也没有改变 B02/B03 业务文件。
+
+官方依据（本地 `official-*.md` 是当次抓取快照；内容可能随官网更新）：
+
+- [Pydantic AI: DBOS](https://ai.pydantic.dev/durable_execution/dbos/)：能力注册、步骤包装、序列化和重试边界。
+- [Pydantic AI: Temporal](https://ai.pydantic.dev/durable_execution/temporal/)：官方 SDK 集成与独立 Service/Worker。
+- [DBOS configuration](https://docs.dbos.dev/python/reference/configuration)：SQLite/Postgres、application_version、executor_id、singleton 配置。
+- [DBOS recovery](https://docs.dbos.dev/production/workflow-recovery)：单机启动自动恢复与 executor 所有权。
+- [DBOS workflow guarantees](https://docs.dbos.dev/python/tutorials/workflow-tutorial)：确定性、已完成步骤回放、未完成步骤至少一次。
+- [Temporal self-hosting](https://docs.temporal.io/self-hosted-guide)：开发服务与正式部署运维的区别。
+
+迁移到 B05 专用工作树时，保留 worker.py、probe.py、requirements*.in/lock、baseline-constraints.txt、compatibility.json、README.md 和最终运行目录的脱敏 JSON/日志即可；本地虚拟环境和运行时 SQLite 不应直接加入 PR。原始 SQLite 仅在当前隔离目录保留供复核。`official-dbos-commands.md` 抓取的是官网 404，不作为依据。

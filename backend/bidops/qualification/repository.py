@@ -83,7 +83,15 @@ class QualificationRepository:
                 self._evidence(context, manifest, child)
 
     def save(
-        self, context, manifest, result, *, raw_model_outputs=(), provenance=None, result_id=None
+        self,
+        context,
+        manifest,
+        result,
+        *,
+        raw_model_outputs=(),
+        provenance=None,
+        result_id=None,
+        authorize_extra=None,
     ):
         manifest = ScreeningInputManifest.model_validate(manifest)
         if not isinstance(result, dict) or not isinstance(result.get("kind"), str):
@@ -113,6 +121,8 @@ class QualificationRepository:
                 self.auth.require_creator(context, conn)
                 for ref in manifest.company_revisions:
                     self.auth.require(context, ref.object_id, "read", conn)
+                if authorize_extra:
+                    authorize_extra(conn)
                 conn.execute(
                     text("INSERT INTO qualification_results VALUES (:id,:owner,:kind,:sha,:now)"),
                     {
