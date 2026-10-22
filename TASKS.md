@@ -1,11 +1,18 @@
 # Project board — updated 2026-10-23
 
-## 当前交接：等待外部验收条件
+## 当前推进：B09 原生计算队列独立基础设施 PR
 
-71专项 = 55C工程PASS + 1C BLOCKED（B02-06）+ 15B BLOCKED；B09-02另有实际计算并发1/目标2的容量FAIL。
-最终整合代码88dee00a的实际本机2133后端和Linux2133后端/152浏览器、三个CI job通过。
-全部实施PR均未合并/未部署，旧历史测试不冒充当前结果；[完整交接](reports/enterprise-phase-handoff-20261023.md)、[逐项矩阵](reports/enterprise-acceptance-matrix-20261023.md)。
-下一步接收原旧库与完整累计费用账本的受控路径，分别执行真实迁移/回退验收与预算核对；缺口不重置¥10累计预算。
+原71项阶段交接与 `836ccbf` 的容量FAIL完整保留。继续定位后确认计算1来自代码限制，
+因此在整合215fca7之上开独立分支 `codex/b09-native-compute-queue`：原生计算子队列1/2、
+显式resume队列、取消在途上限、同步入口迁移、共享预算和双库恢复验证。
+新增B09-09/10两项C，当前73专项；B10必须检查全部67个上游门槛。
+代码仍默认Jobs关闭、计算1，不修改main、不部署或调用真实模型。
+当前正在固定新代码、运行完整回归与原规模容量复验；其结果不得预先标PASS。
+
+原实现PR #16–25及[前一阶段完整交接](reports/enterprise-phase-handoff-20261023.md)、
+[71项历史矩阵](reports/enterprise-acceptance-matrix-20261023.md)保留原版本事实。
+真实旧库B02-06、累计费用账本、真实身份/HTTPS/目标机/独立人工与来源权限缺口仍待输入；
+预算不重置，P1/E2/E3未通过。
 
 ## Enterprise application goal (historical baseline)
 

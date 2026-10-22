@@ -106,9 +106,16 @@ docker compose -f compose.enterprise.yaml exec app bidops import-bundle --input 
 docker compose -f compose.enterprise.yaml exec app bidops parse
 ```
 
-当前持久资格计算同时只运行 **1 份**。`BIDOPS_JOBS_MAX_ACTIVE_JOBS=100` 是业务活动任务
-和原生父工作流队列的上限，包含排队、等待审核等，不能解释为 100 个模型并发。B09 冻结
-目标要求两份活跃计算，当前配置只有一份，该差距如实 FAIL，不擅自提高并发。
+持久资格计算默认同时运行 **1 份**；`BIDOPS_JOBS_COMPUTE_CONCURRENCY` 只接受 `1` 或 `2`。
+配置 `2` 会启用 DBOS 原生计算子队列的两份计算上限，仍须单 ASGI 进程、SingleWorker 独占锁
+及固定 DBOS executor。`BIDOPS_JOBS_MAX_ACTIVE_JOBS=100` 是业务活动任务和父工作流上限，
+包含等待审核，不能解释为模型并发。Jobs 启用时旧同步 `/api/screening/checklists` 明确返回
+409 `screening_use_durable_jobs`，前端引导到持久任务；worker 未就绪也不回退同步计算。
+候选查询和历史读取不受此迁移影响。Jobs 关闭时仍可使用原同步接口。
+
+原 capacity-v1 的实测计算1/目标2仍为 FAIL。新的配置和执行证据见
+[ADR-0008](ADR-0008-NATIVE-COMPUTE-QUEUE.md)；本机离线双计算不等于目标环境或真实
+DeepSeek 吞吐验收。生产部署与多 worker 扩容仍须相应授权、实测和基础设施变更。
 
 资格核对默认限额为每次最多 12 个模型请求、90 秒运行时间、120,000 输入 bytes、6,000 输出
 tokens；真实调用和账本确认分别受 `BIDOPS_SCREENING_LIVE_CALLS_ENABLED`、

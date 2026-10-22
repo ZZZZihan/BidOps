@@ -15,10 +15,10 @@ from test_uat_environment import uat_project as uat_project
 
 NOW = datetime(2026, 10, 23, 12, tzinfo=UTC)
 # Explicit contract counts are independent of the production Markdown parser.
-# Original 69 + B04-08 + B09-08 = 71, of which 65 precede B10's six items.
+# Original 69 + B04-08 + B09-08/09/10 = 73, of which 67 precede B10's six items.
 UPSTREAM_IDS = {
     f"B{section:02}-{number:02}"
-    for section, count in enumerate((7, 6, 8, 8, 7, 7, 7, 7, 8), start=1)
+    for section, count in enumerate((7, 6, 8, 8, 7, 7, 7, 7, 10), start=1)
     for number in range(1, count + 1)
 }
 
@@ -239,7 +239,7 @@ def test_complete_claims_never_become_tool_business_pass(complete, uat_project, 
     assert report["schema_valid"]
     assert report["issues"] == []
     assert [row["status"] for row in report["acs"]] == ["EVIDENCE_COMPLETE"] * 6
-    assert report["required_upstream_acceptance_items"] == len(UPSTREAM_IDS) == 65
+    assert report["required_upstream_acceptance_items"] == len(UPSTREAM_IDS) == 67
     assert report["evidence_readiness"] == "READY_FOR_INDEPENDENT_REVIEW"
     assert report["release_decision"] == "NOT_AUTHORIZED_BY_TOOL"
     assert report["business_acceptance"] == "NOT_VERIFIED_BY_TOOL"
@@ -249,7 +249,7 @@ def test_complete_claims_never_become_tool_business_pass(complete, uat_project, 
     assert "record.json" not in json.dumps(report)
 
 
-@pytest.mark.parametrize("ac_id", ["B04-08", "B09-08"])
+@pytest.mark.parametrize("ac_id", ["B04-08", "B09-08", "B09-09", "B09-10"])
 @pytest.mark.parametrize("outcome", [None, "NOT_RUN", "BLOCKED", "FAIL"])
 def test_added_upstream_gate_cannot_be_omitted_or_unpassed(
     complete, uat_project, uat_env, ac_id, outcome
@@ -261,7 +261,7 @@ def test_added_upstream_gate_cannot_be_omitted_or_unpassed(
     else:
         item["outcome"] = outcome
     report = verify(complete, uat_project, uat_env)
-    assert report["required_upstream_acceptance_items"] == 65
+    assert report["required_upstream_acceptance_items"] == 67
     assert report["acs"][5]["status"] == "BLOCKED"
     expected = (
         "all_b01_to_b09_acceptance_ids_required"
@@ -284,7 +284,7 @@ def test_annotated_plan_type_retains_the_acceptance_gate(complete, uat_project, 
     plan_path.write_text(plan.replace("| B04-08 C（实施新增） |", f"| B04-08 {label} |"))
     complete[0]["plan_sha256"] = sha256_file(plan_path)
     report = verify(complete, uat_project, uat_env)
-    assert report["required_upstream_acceptance_items"] == 65
+    assert report["required_upstream_acceptance_items"] == 67
     assert report["issues"] == []
     assert report["acs"][5]["status"] == "EVIDENCE_COMPLETE"
     assert report["evidence_readiness"] == "READY_FOR_INDEPENDENT_REVIEW"
@@ -346,7 +346,7 @@ def test_malformed_or_duplicate_plan_gate_is_not_silently_skipped(
     assert report["release_decision"] == "NO_GO"
 
 
-@pytest.mark.parametrize("ac_id", ["B04-08", "B09-08", "B10-06"])
+@pytest.mark.parametrize("ac_id", ["B04-08", "B09-08", "B09-09", "B09-10", "B10-06"])
 @pytest.mark.parametrize("mutation", ["deleted_row", "no_pipes", "blank_and_malformed_id"])
 def test_baseline_gate_cannot_disappear_with_its_prerequisite(
     complete, uat_project, uat_env, ac_id, mutation
@@ -380,18 +380,18 @@ def test_valid_added_gate_is_required_without_replacing_the_baseline(
     plan_path = uat_project / "docs/ENTERPRISE-PR-PLAN.md"
     plan = plan_path.read_text()
     row = next(line for line in plan.splitlines() if line.startswith("| B09-08 "))
-    added = "| B09-09 C（实施新增） | independent input | explicit invariant | evidence |"
+    added = "| B09-11 C（实施新增） | independent input | explicit invariant | evidence |"
     plan_path.write_text(plan.replace(row, row + "\n" + added))
     complete[0]["plan_sha256"] = sha256_file(plan_path)
     report = verify(complete, uat_project, uat_env)
-    assert report["required_upstream_acceptance_items"] == 66
+    assert report["required_upstream_acceptance_items"] == 68
     assert report["acs"][5]["status"] == "BLOCKED"
     assert report["release_decision"] == "NO_GO"
     complete[0]["records"][5]["prerequisites"].append(
-        {"ac_id": "B09-09", "outcome": "PASS", "artifact_ids": ["proof"]}
+        {"ac_id": "B09-11", "outcome": "PASS", "artifact_ids": ["proof"]}
     )
     report = verify(complete, uat_project, uat_env)
-    assert report["required_upstream_acceptance_items"] == 66
+    assert report["required_upstream_acceptance_items"] == 68
     assert report["issues"] == []
     assert report["evidence_readiness"] == "READY_FOR_INDEPENDENT_REVIEW"
     assert report["business_acceptance"] == "NOT_VERIFIED_BY_TOOL"

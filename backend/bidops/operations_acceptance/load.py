@@ -388,11 +388,12 @@ def create_load_app(output: Path, manifest: CapacityManifest, origin: str):
 
     actual_constants = {
         "asgi_workers": 1,
-        "configured_compute_concurrency": 1,
         "json_request_bytes": 16384,
         "material_text_chars": 200000,
     }
     if any(getattr(manifest.limits, key) != value for key, value in actual_constants.items()):
+        raise ValueError("Capacity manifest differs from actual fixed implementation limits")
+    if manifest.limits.configured_compute_concurrency not in {1, 2}:
         raise ValueError("Capacity manifest differs from actual fixed implementation limits")
     models.ALLOW_MODEL_REQUESTS = False
     data = output / "data"
@@ -461,7 +462,10 @@ def create_load_app(output: Path, manifest: CapacityManifest, origin: str):
             output_cny_per_million="8",
         ),
         jobs_settings=JobsSettings(
-            _env_file=None, enabled=False, max_active_jobs=manifest.limits.max_active_jobs
+            _env_file=None,
+            enabled=False,
+            max_active_jobs=manifest.limits.max_active_jobs,
+            compute_concurrency=manifest.limits.configured_compute_concurrency,
         ),
         review_settings=ReviewSettings(_env_file=None, enabled=False),
         ingestion_settings=IngestionSettings(
@@ -553,6 +557,7 @@ def create_load_app(output: Path, manifest: CapacityManifest, origin: str):
                     _env_file=None,
                     enabled=True,
                     max_active_jobs=manifest.limits.max_active_jobs,
+                    compute_concurrency=manifest.limits.configured_compute_concurrency,
                 ),
             )
             app.state.jobs = jobs

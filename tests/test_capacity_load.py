@@ -135,11 +135,31 @@ def test_manifest_limits_override_host_environment_and_other_services_stay_disab
         assert not app.state.dependency_health.settings.enabled
 
 
+def test_native_queue_profile_changes_only_actual_compute_setting_and_identity(tmp_path):
+    old = json.loads(MANIFEST.read_text())
+    path = MANIFEST.parents[1] / "capacity-native-queue-v2/manifest.json"
+    new = json.loads(path.read_text())
+    comparison = json.loads(path.read_text())
+    comparison["profile_id"] = old["profile_id"]
+    comparison["limits"]["configured_compute_concurrency"] = 1
+    assert comparison == old
+    assert new["limits"]["target_compute_concurrency"] == 2
+    assert new["limits"]["configured_compute_concurrency"] == 2
+    new["profile_id"] = "UNIT-native-queue-loader-not-capacity"
+    new["data"].update(notice_versions=10, procurement_packages=50, materials=2, attachments=1)
+    manifest = CapacityManifest.model_validate(new)
+    app = create_load_app(tmp_path, manifest, "http://127.0.0.1")
+    with TestClient(app, base_url="http://127.0.0.1"):
+        assert app.state.jobs.settings.compute_concurrency == 2
+        assert app.state.jobs.slots._value == 2
+        assert app.state.jobs.status()["compute_concurrency"] == 2
+
+
 @pytest.mark.parametrize(
     "field,value",
     [
         ("asgi_workers", 2),
-        ("configured_compute_concurrency", 2),
+        ("configured_compute_concurrency", 3),
         ("json_request_bytes", 32768),
         ("material_text_chars", 300000),
     ],
