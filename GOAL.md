@@ -81,3 +81,5 @@ B02 已交付 [Draft PR #17](https://github.com/ZZZZihan/BidOps/pull/17)：公�
 B03 已交付 [Draft PR #18](https://github.com/ZZZZihan/BidOps/pull/18)，基于B02堆叠：画像/材料固定版本、对象权限、留存恢复和Keycloak撤销适配。最终实现`88d1f30d592678daa586c67818100dafff83f8d0`通过791后端/20浏览器；B03专项工程C通过，前置B02-06及真实IdP/企业用户验收仍BLOCKED。见[B03逐项证据](reports/b03-company-access-20261023.md)。B04继续实现。
 
 B04 已交付 [Draft PR #19](https://github.com/ZZZZihan/BidOps/pull/19)，堆叠于 B03 #18：固定完整候选批次、PAI 逐条件五态核对、双边证据、私有不可变历史及恢复费用屏障。整合代码 `3f04b045f0d029dadb4b882a293f31776400cc30` 实际1101后端/39浏览器、构建/Ruff/B01冻结通过。专项工程通过，前置B02-06与真实质量/企业验收仍BLOCKED。见[B04逐项证据](reports/b04-qualification-screening-20261023.md)。B05 已在独立工作树接入 DBOS，完成前不得把保存读取当持久续跑。
+
+B05 已交付 [Draft PR #20](https://github.com/ZZZZihan/BidOps/pull/20)，堆叠于 B04 #19：DBOS 原生持久任务、进度/取消、响应回执与未知费用保留、停机 v4 双库恢复及私有历史留存。干净实现 `509e8007218c306d0e0639d96317537676570a0b` 实际1316后端/75浏览器、Ruff174/构建/B01冻结通过；七组SIGKILL恢复使用21独立进程，始终一任务一结果。专项工程通过，正式人工审核仍由B06接入，前置B02-06与真实业务验收仍BLOCKED。见[B05逐项证据](reports/b05-durable-runs-20261023.md)。B06已在独立工作树推进逐项审核、补材料新版本与导出，不能把内部fixture当作真实批准。

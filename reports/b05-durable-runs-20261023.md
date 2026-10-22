@@ -1,6 +1,6 @@
 # B05 持久任务、取消与恢复实际验收
 
-计划 B05，分支 `codex/b05-durable-runs`，堆叠于 [B04 Draft PR #19](https://github.com/ZZZZihan/BidOps/pull/19)。
+实现 [Draft PR #20](https://github.com/ZZZZihan/BidOps/pull/20)，计划 B05，分支 `codex/b05-durable-runs`，堆叠于 [B04 Draft PR #19](https://github.com/ZZZZihan/BidOps/pull/19)。
 本次增量为 DBOS 原生父/计算子工作流、不可变任务输入、进度与取消、检查点及模型响应回执、
 未知费用保留、任务页面、停机双库备份和私有工作流历史留存。正式人工审核由 B06 接入。
 没有合并 main、部署、真实模型请求或采购来源请求。
