@@ -1,6 +1,7 @@
 """Real DBOS/SQLite admission, including cancelled but still active model calls."""
 
 import asyncio
+import json
 import time
 from collections import Counter
 from threading import Event, Lock
@@ -20,21 +21,22 @@ from test_qualification_sources import domain as domain
 from test_qualification_sources import sources as sources
 
 
-def until(predicate, timeout=12):
+def until(predicate, timeout=12, diagnostic=None):
     deadline = time.monotonic() + timeout
     while time.monotonic() < deadline:
         value = predicate()
         if value:
             return value
         time.sleep(0.02)
-    pytest.fail("Native queue did not reach the expected observable state")
+    detail = json.dumps(diagnostic(), sort_keys=True) if diagnostic else "no diagnostic"
+    pytest.fail(f"Native queue did not reach the expected observable state: {detail}")
 
 
 @pytest.fixture
 def two_compute(service, settings):
     screening, notice, profile, _, _ = service
     calls, released, lock = Counter(), {}, Lock()
-    active, observed = set(), []
+    active, observed, first_started_at = set(), [], {}
 
     async def model(messages, info):
         run_id = ACTIVE_MODEL.get().run_id
@@ -42,6 +44,8 @@ def two_compute(service, settings):
         with lock:
             calls[run_id] += 1
             first = calls[run_id] == 1
+            if first:
+                first_started_at[run_id] = time.monotonic()
             gate = released.setdefault(run_id, Event())
             active.add(run_id)
             observed.append(len(active))
@@ -72,6 +76,7 @@ def two_compute(service, settings):
                 "released": released,
                 "observed": observed,
                 "active": active,
+                "first_started_at": first_started_at,
             },
         )
     finally:
@@ -79,6 +84,67 @@ def two_compute(service, settings):
             gate.set()
         runtime.close()
         DBOS.destroy(destroy_registry=True)
+
+
+def calculation_snapshot(case, run_ids):
+    runtime, _, observation = case
+    rows = []
+    for index, run_id in enumerate(run_ids):
+        record = runtime.repository.get_system(run_id)
+        native = DBOS.get_workflow_status(run_id + "-calculation")
+        rows.append(
+            {
+                "task": index + 1,
+                "status": record["status"],
+                "progress": record["progress"],
+                "native_status": native.status if native else None,
+                "model_calls": observation["calls"][run_id],
+            }
+        )
+    return rows
+
+
+def wait_for_calculations(case, run_ids, *, first=False):
+    """Wait for nine-call business work before starting a queue-admission wait."""
+    runtime, _, _ = case
+
+    def completed():
+        rows = calculation_snapshot(case, run_ids)
+        if any(
+            row["status"] in {"failed", "interrupted", "timed_out", "cancelled"}
+            or row["native_status"] in {"ERROR", "CANCELLED"}
+            for row in rows
+        ):
+            pytest.fail(json.dumps(rows, sort_keys=True))
+        successes = [row["native_status"] == "SUCCESS" for row in rows]
+        return any(successes) if first else all(successes)
+
+    # The fixture still executes one extraction and eight assessments through
+    # real durable steps. Its configured business deadline is not the short
+    # deadline used to observe admission after a calculation has freed a slot.
+    until(
+        completed,
+        timeout=runtime.screening.settings.max_seconds,
+        diagnostic=lambda: calculation_snapshot(case, run_ids),
+    )
+    return time.monotonic()
+
+
+def wait_for_next_calculation(case, ids, queued, record_property):
+    runtime, _, observation = case
+    release_observed = wait_for_calculations(
+        case, [run_id for run_id in ids if run_id != queued], first=True
+    )
+    until(
+        lambda: queued in observation["calls"],
+        diagnostic=lambda: calculation_snapshot(case, ids),
+    )
+    # The new call can precede our poll observing its predecessor's SUCCESS.
+    # Keep the signed observation delta rather than inventing a dequeue time.
+    record_property(
+        "next_call_minus_observed_predecessor_success_seconds",
+        observation["first_started_at"][queued] - release_observed,
+    )
 
 
 def submit_three(case):
@@ -94,14 +160,17 @@ def submit_three(case):
     return ids, queued
 
 
-def test_native_calculation_queue_bounds_two_and_review_wait_frees_computation(two_compute):
+def test_native_calculation_queue_bounds_two_and_review_wait_frees_computation(
+    two_compute, record_property
+):
     runtime, _, observation = two_compute
     ids, queued = submit_three(two_compute)
     for run_id in ids:
         if run_id != queued:
             observation["released"][run_id].set()
-    until(lambda: queued in observation["calls"])
+    wait_for_next_calculation(two_compute, ids, queued, record_property)
     observation["released"][queued].set()
+    wait_for_calculations(two_compute, ids)
     saved = [wait_for(runtime, run_id, "waiting_review") for run_id in ids]
     assert len({result["result_id"] for result in saved}) == 3
     assert all(result["usage"]["model_calls"] == 9 for result in saved)
@@ -131,16 +200,19 @@ def test_cancelled_inflight_call_holds_physical_slot_until_it_returns(two_comput
     until(lambda: queued in observation["calls"])
     for gate in observation["released"].values():
         gate.set()
+    remaining = [run_id for run_id in ids if run_id != cancelled]
+    wait_for_calculations(two_compute, remaining)
     for run_id in ids:
         if run_id != cancelled:
-            wait_for(runtime, run_id, "waiting_review")
+            waiting = wait_for(runtime, run_id, "waiting_review")
+            assert waiting["usage"]["model_calls"] == 9
     final = runtime.read(ALICE, cancelled)
     assert final["status"] == "cancelled" and final["result_id"] is None
     assert final["usage"]["model_calls"] == 1
     assert max(observation["observed"]) == 2
 
 
-def test_authorized_resume_returns_child_to_bounded_queue(two_compute):
+def test_authorized_resume_returns_child_to_bounded_queue(two_compute, record_property):
     runtime, _, observation = two_compute
     ids, queued = submit_three(two_compute)
     # Simulate a recorded backend interruption, distinct from a terminal user
@@ -156,10 +228,12 @@ def test_authorized_resume_returns_child_to_bounded_queue(two_compute):
     assert queued not in observation["calls"]
     for gate in observation["released"].values():
         gate.set()
-    until(lambda: queued in observation["calls"])
+    wait_for_next_calculation(two_compute, ids, queued, record_property)
     observation["released"][queued].set()
+    wait_for_calculations(two_compute, ids)
     for run_id in ids:
-        wait_for(runtime, run_id, "waiting_review")
+        waiting = wait_for(runtime, run_id, "waiting_review")
+        assert waiting["usage"]["model_calls"] == 9
     assert max(observation["observed"]) == 2
 
 
