@@ -5,13 +5,17 @@ in the batch. Filters are user-selected triage criteria, never a qualification v
 """
 
 from collections import defaultdict
+from datetime import datetime
 from decimal import Decimal, InvalidOperation
+from typing import Literal
 
-from pydantic import Field, model_validator
-from sqlalchemy import text
+from pydantic import AwareDatetime, Field, StrictInt, StrictStr, ValidationError, model_validator
+from sqlalchemy import bindparam, text
 
-from bidops.qualification.contracts import QualificationModel
+from bidops.company.authorization import CompanyError
+from bidops.qualification.contracts import Digest, QualificationModel
 from bidops.qualification.sources import digest
+from bidops.screening.schemas import VersionRef
 
 
 class CandidateFilters(QualificationModel):
@@ -25,6 +29,189 @@ class CandidateFilters(QualificationModel):
             if self.min_budget_yuan > self.max_budget_yuan:
                 raise ValueError("budget_bounds_reversed")
         return self
+
+
+class _CandidateItem(QualificationModel):
+    unit_id: Digest
+    project_id: StrictStr | None
+    package_id: StrictStr | None
+    title: StrictStr
+    package_label: StrictStr | None
+    budget_yuan: StrictStr | None
+    disposition: Literal["candidate", "excluded", "needs_verification"]
+    reasons: list[StrictStr] = Field(min_length=1)
+    missing_fields: list[StrictStr]
+    notice_revisions: list[VersionRef] = Field(min_length=1)
+
+
+class _CandidateCounts(QualificationModel):
+    total_units: StrictInt = Field(ge=0)
+    candidate: StrictInt = Field(ge=0)
+    excluded: StrictInt = Field(ge=0)
+    needs_verification: StrictInt = Field(ge=0)
+
+
+class _PublicVersion(QualificationModel):
+    version: VersionRef
+    payload_sha256: Digest
+    text_sha256: Digest
+    available_at: AwareDatetime
+
+
+class _CandidateBatch(QualificationModel):
+    kind: Literal["candidate_batch"]
+    as_of: AwareDatetime
+    profile_revision: VersionRef
+    filters: CandidateFilters
+    items: list[_CandidateItem]
+    counts: _CandidateCounts
+    public_versions: list[_PublicVersion]
+    qualification_checked: Literal[False]
+    manifest_sha256: Digest
+
+
+def _validate_stored_inventory(notices, batch):
+    """Bind each fixed public version and every one of its package units.
+
+    Versions ingested after build_batch's read transaction do not change that
+    snapshot. For its recorded versions, however, no package or reference may
+    be silently omitted or reassociated. Chunking also avoids SQLite's bind cap.
+    """
+    versions = {row.version.version_id: row for row in batch.public_versions}
+    if len(versions) != len(batch.public_versions):
+        raise ValueError("candidate_duplicate_version")
+    expected, seen = defaultdict(set), set()
+    project_ids = {}
+    statement = text(
+        "SELECT v.version_id,v.logical_notice_id,v.raw_sha256,v.text_sha256,"
+        "v.payload_sha256,v.available_at,v.project_id,p.package_id "
+        "FROM nd_versions v LEFT JOIN nd_package_versions p ON p.version_id=v.version_id "
+        "WHERE v.version_id IN :ids AND v.available_at<=:at AND EXISTS "
+        "(SELECT 1 FROM nd_observations o WHERE o.snapshot_id=v.snapshot_id "
+        "AND o.observed_at<=:at)"
+    ).bindparams(bindparam("ids", expanding=True))
+    ids = list(versions)
+    with notices.db.engine.connect() as conn:
+        conn.exec_driver_sql("BEGIN")
+        for offset in range(0, len(ids), 900):
+            for row in conn.execute(
+                statement, {"ids": ids[offset : offset + 900], "at": batch.as_of.timestamp()}
+            ).mappings():
+                stored = versions[row["version_id"]]
+                ref_key = (row["logical_notice_id"], row["version_id"], row["raw_sha256"])
+                if (
+                    stored.version.key() != ref_key
+                    or stored.text_sha256 != row["text_sha256"]
+                    or stored.payload_sha256 != row["payload_sha256"]
+                    or stored.available_at.timestamp() != row["available_at"]
+                ):
+                    raise ValueError("candidate_stored_version_binding")
+                seen.add(row["version_id"])
+                project = row["project_id"] or "unassociated:" + row["logical_notice_id"]
+                unit = digest([project, row["package_id"]])
+                expected[unit].add(ref_key)
+                project_ids[unit] = row["project_id"]
+    if seen != set(versions) or set(expected) != {item.unit_id for item in batch.items}:
+        raise ValueError("candidate_stored_unit_inventory")
+    for item in batch.items:
+        if project_ids[item.unit_id] != item.project_id or expected[item.unit_id] != {
+            ref.key() for ref in item.notice_revisions
+        }:
+            raise ValueError("candidate_stored_unit_binding")
+
+
+def validate_candidate_batch(manifest, result, notices):
+    """Validate the sole larger-storage shape, without inventing qualification.
+
+    This is a server-side persistence contract, not an execution or model-output
+    validator. The service constructs this result from the complete fixed corpus.
+    Unknown fields, arbitrary bodies and raw model output have no place here.
+    """
+    try:
+        if type(result) is not dict or result.get("qualification_checked") is not False:
+            raise ValueError("candidate_shape")
+        batch = _CandidateBatch.model_validate(result)
+        if (
+            manifest.project_id is not None
+            or batch.as_of != manifest.as_of
+            or batch.profile_revision != manifest.profile_revision
+            or result["filters"] != batch.filters.model_dump(mode="json")
+        ):
+            raise ValueError("candidate_private_binding")
+        versions = {row.version.key() for row in batch.public_versions}
+        if len(versions) != len(batch.public_versions) or any(
+            row.available_at > batch.as_of for row in batch.public_versions
+        ):
+            raise ValueError("candidate_public_closure")
+        unit_ids, used_versions = set(), set()
+        counts = {name: 0 for name in ("candidate", "excluded", "needs_verification")}
+        missing_codes = {
+            "project_association",
+            "title",
+            "package",
+            "budget",
+            "budget_version_conflict",
+            "revision_precedence",
+        }
+        filter_codes = {"keyword_mismatch", "below_min_budget", "above_max_budget"}
+        for item in batch.items:
+            refs = {ref.key() for ref in item.notice_revisions}
+            project_key = item.project_id or ("unassociated:" + item.notice_revisions[0].object_id)
+            if (
+                item.unit_id in unit_ids
+                or item.unit_id != digest([project_key, item.package_id])
+                or len(refs) != len(item.notice_revisions)
+                or not refs <= versions
+                or not item.title
+                or not set(item.missing_fields) <= missing_codes
+                or len(set(item.missing_fields)) != len(item.missing_fields)
+                or len(set(item.reasons)) != len(item.reasons)
+            ):
+                raise ValueError("candidate_unit_binding")
+            if item.budget_yuan is not None:
+                amount = Decimal(item.budget_yuan)
+                if not amount.is_finite() or amount < 0:
+                    raise ValueError("candidate_budget")
+            if item.disposition == "candidate":
+                if item.missing_fields or item.reasons != ["matches_explicit_filters"]:
+                    raise ValueError("candidate_disposition")
+            elif item.disposition == "excluded":
+                if (
+                    not set(item.reasons) <= filter_codes
+                    or "revision_precedence" in item.missing_fields
+                ):
+                    raise ValueError("candidate_disposition")
+            elif (
+                not item.missing_fields
+                or not set(item.missing_fields) <= set(item.reasons)
+                or not set(item.reasons) <= missing_codes | filter_codes
+            ):
+                raise ValueError("candidate_disposition")
+            unit_ids.add(item.unit_id)
+            used_versions.update(refs)
+            counts[item.disposition] += 1
+        if used_versions != versions or batch.counts.model_dump() != {
+            "total_units": len(batch.items),
+            **counts,
+        }:
+            raise ValueError("candidate_counts_or_public_closure")
+        expected = digest(
+            {
+                "private": manifest.closure_sha256,
+                **{key: value for key, value in result.items() if key != "manifest_sha256"},
+            }
+        )
+        if batch.manifest_sha256 != expected:
+            raise ValueError("candidate_manifest_hash")
+        # The persisted JSON representation must remain an aware ISO timestamp.
+        if (
+            type(result["as_of"]) is not str
+            or datetime.fromisoformat(result["as_of"]).tzinfo is None
+        ):
+            raise ValueError("candidate_timestamp")
+        _validate_stored_inventory(notices, batch)
+    except (ValidationError, ValueError, TypeError, InvalidOperation, KeyError):
+        raise CompanyError("screening_candidate_batch_invalid", 422) from None
 
 
 def _money(value):

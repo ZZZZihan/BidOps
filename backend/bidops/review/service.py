@@ -7,6 +7,8 @@ from bidops.qualification.sources import canonical_json, digest
 from bidops.review.config import ReviewSettings
 from bidops.review.repository import ReviewRepository
 
+REVIEW_EXPORT_MAX_BYTES = 60_000_000
+
 
 class ReviewService:
     def __init__(self, screening, jobs=None, settings=None, *, fault=None):
@@ -42,9 +44,11 @@ class ReviewService:
         result = self.repository.create(context, **command)
         return self.get(context, result["case_id"])
 
-    def get(self, context, case_id):
+    def get(self, context, case_id, *, candidate_offset=0, candidate_limit=20):
         self.enabled()
-        case = self.repository.get(context, case_id)
+        case = self.repository.get(
+            context, case_id, candidate_offset=candidate_offset, candidate_limit=candidate_limit
+        )
         with transaction(self.repository.db) as conn:
             current = self.repository.authorization.require_case(
                 context, case_id, conn=conn, quarantine=True
@@ -118,7 +122,7 @@ class ReviewService:
         self.enabled()
         value = self.repository.export(context, case_id)
         encoded = canonical_json(value).encode()
-        if len(encoded) > 10_000_000:
+        if len(encoded) > REVIEW_EXPORT_MAX_BYTES:
             raise CompanyError("review_export_too_large", 413)
         with transaction(self.repository.db) as conn:
             self.repository.authorization.require_case(context, case_id, conn=conn)

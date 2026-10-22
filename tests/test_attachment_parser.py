@@ -430,7 +430,8 @@ def test_actual_image_only_scan_is_unrecognized_without_ocr():
     assert prepared.receipt.pages[0].status == "unrecognized"
 
 
-def test_huge_compressed_pdf_is_bounded_during_actual_pypdf_extraction():
+def huge_compressed_pdf():
+    """Actual Flate PDF: a small file expands beyond the unchanged decoder cap."""
     writer = PdfWriter()
     page = writer.add_blank_page(100, 100)
     stream = DecodedStreamObject()
@@ -455,13 +456,41 @@ def test_huge_compressed_pdf_is_bounded_during_actual_pypdf_extraction():
     writer.write(buffer)
     raw = buffer.getvalue()
     assert len(raw) < 100_000
+    return raw
+
+
+def test_huge_compressed_pdf_is_bounded_during_actual_pypdf_extraction():
+    raw = huge_compressed_pdf()
     prepared = prepare_attachment(
         request(), raw, limits=ParserLimits(memory_bytes=64 * 1024 * 1024, wall_seconds=3)
     )
     assert prepared.input.parse_status == "failed"
-    assert prepared.input.error_code == "pdf_partial_pages"
-    assert prepared.receipt.pages[0].error_code == "pdf_decode_limit"
+    # Linux RLIMIT_AS can reject allocation before the decoder reaches its own
+    # cap; macOS instead uses the observed RSS watchdog. Both must fail closed.
+    assert prepared.input.error_code in {"pdf_memory_limit", "pdf_partial_pages"}
+    if prepared.input.error_code == "pdf_partial_pages":
+        assert len(prepared.receipt.pages) == 1
+        assert prepared.receipt.pages[0].error_code == "pdf_decode_limit"
+    else:
+        assert prepared.receipt.pages == []
+    assert prepared.normalized_text == ""
     assert prepared.receipt.complete is False
+    assert verify_receipt(prepared.receipt, raw, prepared.normalized_text) == prepared.receipt
+
+
+def test_actual_compressed_pdf_hits_decoder_limit_with_memory_headroom():
+    raw = huge_compressed_pdf()
+    limits = ParserLimits(memory_bytes=512 * 1024 * 1024, wall_seconds=3)
+    assert limits.max_decoded_stream_bytes == ParserLimits().max_decoded_stream_bytes
+    prepared = prepare_attachment(request(), raw, limits=limits)
+    assert prepared.input.parse_status == "failed"
+    assert prepared.input.error_code == "pdf_partial_pages"
+    assert len(prepared.receipt.pages) == 1
+    assert prepared.receipt.pages[0].status == "failed"
+    assert prepared.receipt.pages[0].error_code == "pdf_decode_limit"
+    assert prepared.normalized_text == ""
+    assert prepared.receipt.complete is False
+    assert verify_receipt(prepared.receipt, raw, prepared.normalized_text) == prepared.receipt
 
 
 def test_spawn_does_not_inherit_server_secrets(tmp_path, monkeypatch):

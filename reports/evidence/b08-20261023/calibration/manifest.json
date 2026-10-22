@@ -1,0 +1,21 @@
+{
+  "schema_version": "independent-evaluation-v1",
+  "run_id": "b08-engineering-scorer-calibration",
+  "purpose": "engineering_fixture",
+  "frozen_at": "2026-10-22T20:43:28.191057Z",
+  "execution_started_at": "2026-10-22T20:43:29.191057Z",
+  "execution_finished_at": "2026-10-22T20:43:30.191057Z",
+  "evaluation_code_sha": "b42f05269e13be278d220a1307d79ee4b17aad6b",
+  "candidate_code_sha": "b42f05269e13be278d220a1307d79ee4b17aad6b",
+  "candidate_implementation_sha256": "ff4475315dd3ab330ebd99ada5d3ca234576efd37a92dab367d8546b755a7963",
+  "lock_sha256": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+  "runtime_closure_sha256": "ed43266f6ff4ea3e96d830b2cd6ef56e74446a442b1bcc0ce4b8ff4045574642",
+  "input_sha256": "86cb78ec745d8a04176747d3b1e2a134a14a9696da18fad09e82cd84bbfd2243",
+  "collection_sha256": null,
+  "ledger_sha256": null,
+  "registration_sha256": null,
+  "prompt_version": "qualification-v1",
+  "prompt_sha256": "c5c070f767118d78cf63f85e2ef27bac359663760177462cdbff334da7fc1607",
+  "rule_version": "qualification-logic-v1",
+  "parameters_sha256": null
+}

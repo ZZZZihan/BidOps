@@ -13,7 +13,11 @@ from sqlalchemy import text
 from sqlalchemy.exc import IntegrityError
 
 from bidops.company.authorization import CompanyError, rows, transaction
+from bidops.qualification.candidates import validate_candidate_batch
 from bidops.qualification.sources import ScreeningInputManifest, canonical_json
+
+RESULT_MAX_BYTES = 10_000_000
+CANDIDATE_BATCH_MAX_BYTES = 50_000_000
 
 
 def prune_results(db, now):
@@ -93,6 +97,61 @@ class QualificationRepository:
         result_id=None,
         authorize_extra=None,
     ):
+        return self._save(
+            context,
+            manifest,
+            result,
+            raw_model_outputs=raw_model_outputs,
+            provenance=provenance,
+            result_id=result_id,
+            authorize_extra=authorize_extra,
+            max_bytes=RESULT_MAX_BYTES,
+        )
+
+    def save_candidate_batch(self, context, manifest, result, *, provenance=None, result_id=None):
+        """Only complete deterministic batches receive the larger envelope limit.
+
+        There is deliberately no raw-output parameter. Ordinary save callers,
+        including legacy candidate fixtures, retain the original ten-MB bound.
+        """
+        manifest = ScreeningInputManifest.model_validate(manifest)
+        self.sources.recheck(context, manifest)
+        validate_candidate_batch(manifest, result, self.sources.notices)
+        # Only the deterministic public candidate inventory receives extra room;
+        # private inputs/provenance cannot use this channel as a large raw blob.
+        try:
+            metadata = canonical_json(
+                {
+                    "manifest": manifest.model_dump(mode="json"),
+                    "provenance": provenance or {},
+                    "raw_model_outputs": [],
+                }
+            )
+        except (TypeError, ValueError):
+            raise CompanyError("screening_result_not_json", 422) from None
+        if len(metadata.encode()) > RESULT_MAX_BYTES:
+            raise CompanyError("screening_result_too_large", 413)
+        return self._save(
+            context,
+            manifest,
+            result,
+            provenance=provenance,
+            result_id=result_id,
+            max_bytes=CANDIDATE_BATCH_MAX_BYTES,
+        )
+
+    def _save(
+        self,
+        context,
+        manifest,
+        result,
+        *,
+        raw_model_outputs=(),
+        provenance=None,
+        result_id=None,
+        authorize_extra=None,
+        max_bytes,
+    ):
         manifest = ScreeningInputManifest.model_validate(manifest)
         if not isinstance(result, dict) or not isinstance(result.get("kind"), str):
             raise CompanyError("screening_result_kind_required", 422)
@@ -110,7 +169,7 @@ class QualificationRepository:
             encoded = canonical_json(body)
         except (TypeError, ValueError):
             raise CompanyError("screening_result_not_json", 422) from None
-        if len(encoded.encode()) > 10_000_000:
+        if len(encoded.encode()) > max_bytes:
             raise CompanyError("screening_result_too_large", 413)
         result_id = result_id or uuid.uuid4().hex
         if not isinstance(result_id, str) or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", result_id):

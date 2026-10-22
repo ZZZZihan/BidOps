@@ -196,7 +196,8 @@ def test_legacy_six_engineering_rows_migrate_repeat_and_restore(store, settings,
             conn.execute(f"DROP TABLE {table}")
         conn.execute(
             "DELETE FROM schema_migrations WHERE version IN "
-            "('004_notice_versions.sql','011_attachment_receipts.sql')"
+            "('004_notice_versions.sql','011_attachment_receipts.sql',"
+            "'012_package_versions_index.sql')"
         )
     manifest = json.loads((old / "manifest.json").read_text())
     manifest["files"]["bidops.sqlite3"] = hashlib.sha256(

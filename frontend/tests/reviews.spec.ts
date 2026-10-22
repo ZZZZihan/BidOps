@@ -28,8 +28,13 @@ function savedCase() {
 }
 type Posted = {path: string; body: Record<string, any>; csrf?: string};
 type Control = {enabled: boolean; current: ReturnType<typeof savedCase>; deny: number; historyEmpty: boolean; reads: number; posts: Posted[]; hook?: (route: Route, post: Posted) => Promise<boolean>; exportDenied: boolean; quarantine: boolean};
-async function protocol(page: Page, options: {enabled?: boolean; configured?: boolean; worker?: boolean; mode?: string; authenticated?: boolean; owner?: string; permissions?: string[]; pages?: boolean} = {}) {
+async function protocol(page: Page, options: {enabled?: boolean; configured?: boolean; worker?: boolean; mode?: string; authenticated?: boolean; owner?: string; permissions?: string[]; pages?: boolean; candidatePages?: boolean} = {}) {
   const control: Control = {enabled: options.enabled ?? true, current: savedCase(), deny: 0, historyEmpty: false, reads: 0, posts: [], exportDenied: false, quarantine: false};
+  if (options.candidatePages) {
+    const item = control.current.candidate_batch.result.items[0];
+    control.current.candidate_batch.result.items = Array.from({length: 41}, (_, index) => ({...item, unit_id: `unit-candidate-${index}`, title: `UNIT 分页项目 ${index}`}));
+    control.current.candidate_batch.result.counts = {total_units: 41, candidate: 41, excluded: 0, needs_verification: 0};
+  }
   await page.route('**/api/auth/me', route => route.fulfill({json: {mode: options.mode || 'enterprise', authenticated: options.authenticated ?? true, organization: 'UNIT', user: {name: 'UNIT 审核人', roles: ['reviewer'], subject_id: options.owner || OWNER}, permissions: options.permissions || ['catalog:read', 'agent:use', 'review:decide'], csrf_token: 'unit-csrf'}}));
   await page.route('**/api/agent/status', route => route.fulfill({json: {enabled: false, configured: false, notice_count: 0}}));
   await page.route('**/api/sessions', route => route.fulfill({json: {items: []}}));
@@ -70,6 +75,12 @@ async function protocol(page: Page, options: {enabled?: boolean; configured?: bo
     }
     if (control.deny) return route.fulfill({status: control.deny, json: {detail: control.deny === 401 ? 'current_identity_required' : 'review_not_found'}});
     if (control.quarantine) return route.fulfill({json: {...control.current, allowed_actions: ['reauthorize'], candidate_batch: null, items: [], revisions: [], events: [], assignments: [], successors: [], source_state: {current: false, stale_reasons: ['restore_quarantine']}}});
+    if (options.candidatePages) {
+      const offset = Number(url.searchParams.get('candidate_offset') || 0), limit = Number(url.searchParams.get('candidate_limit') || 20);
+      const value = structuredClone(control.current), total = value.candidate_batch.result.items.length;
+      value.candidate_batch.result.items = value.candidate_batch.result.items.slice(offset, offset + limit);
+      return route.fulfill({json: {...value, candidate_batch: {...value.candidate_batch, page: {offset, limit, total, has_more: offset + limit < total}}}});
+    }
     return route.fulfill({json: control.current});
   });
   return control;
@@ -159,3 +170,38 @@ test('mobile review remains readable without horizontal overflow', async ({page}
 test('a restored quarantine response renders only metadata and no private evidence or old assignment', async ({page}) => {const control = await protocol(page); control.quarantine = true; await open(page); await read(page); await expect(page.getByText('案件恢复隔离尚未解除', {exact: false})).toBeVisible(); await expect(page.locator('.reviews-version')).toHaveText('1'); await expect(page.getByText('UNIT 原条件 1', {exact: true})).toHaveCount(0); await expect(page.getByRole('button', {name: '提交该条人工决定'})).toHaveCount(0); await expect(page.getByRole('button', {name: '导出受控 JSON 审核包'})).toHaveCount(0);});
 
 test('persisted human decisions and closed case do not imply native task delivery has finished', async ({page}) => {const control = await protocol(page, {worker: false}); control.current.status = 'closed'; control.current.allowed_actions = ['export']; Object.assign(control.current, {delivery: {pending_count: 1, frozen_count: 1, worker_available: false, items: [{event_id: 'unit-pending-close', kind: 'closed', last_error_code: 'review_backend_unavailable'}]}}); await open(page); await read(page); await expect(page.locator('.reviews-delivery')).toContainText('人工事件已保存'); await expect(page.locator('.reviews-delivery')).toContainText('这不表示关联任务已完成'); await expect(page.getByText('有 1 项旧事件已冻结', {exact: false})).toBeVisible(); await expect(page.getByRole('button', {name: '提交该条人工决定'})).toHaveCount(0);});
+
+
+test('candidate paging reaches the last item and full export preserves every page', async ({page}) => {
+  await protocol(page, {candidatePages: true}); await open(page); await read(page);
+  const candidates = page.locator('.reviews-candidates');
+  await expect(candidates.locator('li')).toHaveCount(20);
+  await expect(candidates).toContainText('共 41 项 · 1–20');
+  await fillDecision(page, 0, 'reject', 'UNIT 翻页保留未提交草稿');
+  await candidates.getByRole('button', {name: '候选下一页'}).click();
+  await expect(candidates).toContainText('共 41 项 · 21–40');
+  await candidates.getByRole('button', {name: '候选下一页'}).click();
+  await expect(candidates.locator('li')).toHaveCount(1);
+  await expect(candidates).toContainText('UNIT 分页项目 40');
+  await expect(candidates).toContainText('共 41 项 · 41–41');
+  await expect(candidates.getByRole('button', {name: '候选下一页'})).toBeDisabled();
+  await expect(card(page).getByRole('textbox', {name: '该条独立审核理由'})).toHaveValue('UNIT 翻页保留未提交草稿');
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', {name: '导出受控 JSON 审核包'}).click();
+  const artifact = await download;
+  const saved = JSON.parse(await readFile((await artifact.path())!, 'utf8'));
+  expect(saved.case.candidate_batch.result.items).toHaveLength(41);
+  await candidates.getByRole('button', {name: '候选上一页'}).click();
+  await expect(candidates).toContainText('共 41 项 · 21–40');
+});
+
+for (const status of [401, 403, 404]) test(`candidate page denial ${status} clears the previous private page and draft`, async ({page}) => {
+  const control = await protocol(page, {candidatePages: true}); await open(page); await read(page);
+  await fillDecision(page, 0, 'confirm', 'UNIT 翻页撤权后的私有草稿');
+  control.deny = status;
+  await page.getByRole('button', {name: '候选下一页'}).click();
+  await expect(page.getByRole('alert')).toBeVisible();
+  await expect(page.locator('.reviews-detail')).toHaveCount(0);
+  await expect(page.locator('.reviews-candidates')).toHaveCount(0);
+  await expect(page.getByRole('textbox', {name: '已有复核编号', exact: true})).toHaveValue('');
+});

@@ -52,9 +52,16 @@ def review_router():
         return service.create(context, **payload.model_dump())
 
     @router.get("/cases/{case_id}")
-    def read(case_id: str, request: Request):
+    def read(
+        case_id: str,
+        request: Request,
+        candidate_offset: int = Query(0, ge=0),
+        candidate_limit: int = Query(20, ge=1, le=100),
+    ):
         service, context = current(request)
-        return service.get(context, case_id)
+        return service.get(
+            context, case_id, candidate_offset=candidate_offset, candidate_limit=candidate_limit
+        )
 
     @router.post("/cases/{case_id}/assignments")
     def assign(case_id: str, payload: AssignmentCommand, request: Request):

@@ -238,8 +238,8 @@ def test_final_release_rejects_new_restore_epoch_and_body_after_projection(
     repo = case["review"].repository
     original = repo.get
 
-    def restore_after_projection(context, case_id):
-        result = original(context, case_id)
+    def restore_after_projection(context, case_id, **page):
+        result = original(context, case_id, **page)
         repo.db.execute(
             "UPDATE review_case_state SET quarantined=1,review_epoch='restored' WHERE case_id=:id",
             {"id": case_id},
@@ -403,3 +403,31 @@ def test_actual_notice_change_invalidates_review_and_export_preserving_original(
     assert exported.json()["case"]["events"] == reviewed["events"]
     assert len(case["calls"]) == before
     assert case["client"].get(f"/api/jobs/runs/{run['run_id']}").status_code == 200
+
+
+def test_review_candidate_http_page_is_bounded_and_export_remains_full(review_http):
+    case = review_http
+    _, review = make_case(case)
+    full = case["client"].get(url(review, "/export")).json()["case"]["candidate_batch"]
+    expected = full["result"]["items"]
+    case["login"]("bob")
+    seen = []
+    for offset in range(len(expected)):
+        response = case["client"].get(
+            url(review), params={"candidate_offset": offset, "candidate_limit": 1}
+        )
+        assert response.status_code == 200, response.text
+        batch = response.json()["candidate_batch"]
+        assert batch["page"]["total"] == len(expected)
+        assert batch["page"]["offset"] == offset and batch["page"]["limit"] == 1
+        seen.extend(batch["result"]["items"])
+    assert seen == expected
+    for params in (
+        {"candidate_offset": -1},
+        {"candidate_limit": 0},
+        {"candidate_limit": 101},
+        {"candidate_limit": "null"},
+    ):
+        assert case["client"].get(url(review), params=params).status_code == 422
+    exported = case["client"].get(url(review, "/export")).json()["case"]["candidate_batch"]
+    assert "page" not in exported and exported["result"]["items"] == expected
