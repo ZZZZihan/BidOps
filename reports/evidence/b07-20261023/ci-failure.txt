@@ -1,7 +1,7 @@
 2026-10-22T20:44:10.5997287Z HEAD is now at 815c5c2 Merge 5ac68753c22f46a3e3214e2f0c61a1ea8008808c into e468a4a863f49f2e94c39c1e90bd66fd3ce84206
 2026-10-22T20:59:40.7105204Z =================================== FAILURES ===================================
 2026-10-22T20:59:40.7105944Z ______ test_huge_compressed_pdf_is_bounded_during_actual_pypdf_extraction ______
-2026-10-22T20:59:40.7106432Z 
+2026-10-22T20:59:40.7106432Z
 2026-10-22T20:59:40.7106788Z     def test_huge_compressed_pdf_is_bounded_during_actual_pypdf_extraction():
 2026-10-22T20:59:40.7107426Z         writer = PdfWriter()
 2026-10-22T20:59:40.7107853Z         page = writer.add_blank_page(100, 100)
@@ -33,14 +33,14 @@
 2026-10-22T20:59:40.7119221Z         assert prepared.input.parse_status == "failed"
 2026-10-22T20:59:40.7119999Z >       assert prepared.input.error_code == "pdf_partial_pages"
 2026-10-22T20:59:40.7120660Z E       AssertionError: assert 'pdf_memory_limit' == 'pdf_partial_pages'
-2026-10-22T20:59:40.7121201Z E         
+2026-10-22T20:59:40.7121201Z E
 2026-10-22T20:59:40.7121497Z E         - pdf_partial_pages
 2026-10-22T20:59:40.7121860Z E         + pdf_memory_limit
-2026-10-22T20:59:40.7122080Z 
+2026-10-22T20:59:40.7122080Z
 2026-10-22T20:59:40.7122272Z tests/test_attachment_parser.py:462: AssertionError
 2026-10-22T20:59:40.7122820Z =========================== short test summary info ============================
 2026-10-22T20:59:40.7124225Z FAILED tests/test_attachment_parser.py::test_huge_compressed_pdf_is_bounded_during_actual_pypdf_extraction - AssertionError: assert 'pdf_memory_limit' == 'pdf_partial_pages'
-2026-10-22T20:59:40.7125333Z   
+2026-10-22T20:59:40.7125333Z
 2026-10-22T20:59:40.7125592Z   - pdf_partial_pages
 2026-10-22T20:59:40.7125928Z   + pdf_memory_limit
 2026-10-22T20:59:40.7126343Z ================== 1 failed, 1729 passed in 922.88s (0:15:22) ==================
