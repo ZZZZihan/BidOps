@@ -2,7 +2,7 @@
 
 [Draft PR #23](https://github.com/ZZZZihan/BidOps/pull/23)，堆叠于 B07 #22，未合并、未部署。
 本 PR 的 B08-03、B08-07 工程门槛 PASS；B08-01/02/04/05/06 真实评测门槛 BLOCKED。
-远端旧CI后端1850PASS/1FAIL（945.76秒），B07 PDF测试跨平台分支修复后仍待新CI；
+远端旧CI后端1850PASS/1FAIL（945.76秒）保留；修复后的固定d682262提交新CI实际1852后端/148浏览器、容器全部PASS；
 整条堆叠链代码合并仍受 B02-06 真实旧库阻塞；不能把工程夹具成绩当作新公告上的 Agent 成绩。
 
 ## 版本、输入与实际执行
@@ -64,7 +64,7 @@ new_model_calls_authorized均false。声明、哈希和文件一致性不能认�
 | ID | 实际结果与依据 | 状态 |
 | --- | --- | --- |
 | G-01 | 9个新增代码/测试文件及使用文档映射上述7AC，B类缺失明确保留 | PASS |
-| G-02 | 干净代码完整1851后端，Ruff/format230，冻结校准；无UI变化，继承B07UI，远端旧CI失败、新CI待验 | BLOCKED |
+| G-02 | 干净旧代码1851后端通过；最终d682262的CI实际1852后端/148浏览器、233格式/lint/冻结及容器全部PASS，原1850/1失败保留 | PASS（工程） |
 | G-03 | 没有迁移/业务写入；collector只读，CLI仅新建私有输出，无覆盖 | PASS |
 | G-04 | 全来源/主体重核、投影与用量完整性、限大小/重复key/NaN/路径边界、私有0600输出，负测纳入全量 | PASS |
 | G-05 | 复用冻结B01评分器、Pydantic/Evals及现有Store权限；无新增依赖或通用执行框架 | PASS |
@@ -85,4 +85,10 @@ B09容量与B10配置工具继续独立推进。企业E2与生产E3均未验收�
 backend 1850PASS/1FAIL。唯一失败为B07继承的64MiB压缩PDF资源测试：Linux先触发
 `pdf_memory_limit`，macOS先触发`pdf_partial_pages/pdf_decode_limit`，两者均未释放正文。
 前置B07追加独立decode-cap测试并区分两条拒绝路径，生产资源/解压限制未改变。
-该修复需合入本分支并由新CI核验；本机1851结果不能抹去旧CI失败。
+该修复已合入并经下述新CI核验；本机1851结果及新CI都不能抹去旧CI失败。
+
+## 最终代码 CI 复验
+
+`d682262d820caf5c1e1a2d5e35c4522677c64e64` 的 [CI 39855370107](https://github.com/ZZZZihan/BidOps/actions/runs/39855370107) 三个job全部success：Linux后端 **1852 passed /882.26秒**、浏览器 **148 passed /3.0分钟**，容器构建及隔离检查通过；lint/233文件格式/冻结评分器通过。后端结束UTC `2026-10-22T21:27:38.1333262Z`。新增1项是继承B07独立PDF解压cap测试，B08本身121项未重算新增。
+
+[安全CI摘要](evidence/b08-20261023/final-ci.json)保留固定SHA/run/job和选择日志。本节关闭本PR G-02工程复验；B08真实业务门槛与前置B02-06仍BLOCKED。后续报告提交仅修改文档/证据，新HEAD的平台状态在PR单列，不把文档提交称作新的真实评测。

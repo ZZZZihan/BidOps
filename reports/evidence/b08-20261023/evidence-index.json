@@ -51,6 +51,12 @@
       "path": "verification.json",
       "bytes": 2293,
       "sha256": "211db2c13b8033156f36c0a32e5090bccf77f19f104f3113065483984c72cc82"
+    },
+    {
+      "path": "final-ci.json",
+      "bytes": 1277,
+      "sha256": "0113d392f58ace5fa6930b76606828e22e54c22db139375e6f0e30c1834dd2bc"
     }
-  ]
+  ],
+  "final_ci_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64"
 }

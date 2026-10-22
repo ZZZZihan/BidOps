@@ -78,7 +78,7 @@ raw hash 匹配。真实来源 / 模型调用均 0。此处不是企业真实中
 | ID | 本 PR 的具体证据与边界 | 当前状态 |
 | --- | --- | --- |
 | G-01 | B07-01～07 映射 policy/fetcher、原子 Store/ingestion 仓储、PDF、调度、API/UI 及恢复；业务缺口明确列出 | PASS |
-| G-02 | 本机固定代码 1730/148、Ruff/build/freeze 均退出 0；原 Linux CI 1729/1 实际失败，测试修复后新完整 CI 尚待结果 | **BLOCKED：待修复提交复验** |
+| G-02 | 固定旧代码本机1730/148通过；原Linux CI1729/1失败保留。最终代码c035c01的CI完整1731后端/148浏览器、lint/222格式/冻结及容器均PASS，见末节 | **PASS（工程）** |
 | G-03 | 010 / 011 增量重复迁移、B02 旧引用兼容、配对业务/DBOS 备份完整性、三 SIGKILL；恢复所有 ingestion run quarantine / schedule pause；指定真实旧库 B02-06 仍独立 BLOCKED | PASS（本 PR 工程范围） |
 | G-04 | 当前身份 / source:manage / owner或admin / CSRF；读写重新授权；私有输入独立 body，不在 read/list/error 回显；限额先于解码与解析；公开归档仅显式净化白名单 | PASS |
 | G-05 | 复用 DBOS 3.3 和 pypdf 6.21.2 core，无自制队列 / 爬虫 / 通用执行器；独立 hashed overlay、原生 RSS / RLIMIT_AS 及兼容边界见 ADR | PASS |
@@ -110,7 +110,7 @@ fail-closed 断言，另以 512 MiB 内存独立验证原 8 MB decoder 限额；
 限额、主锁或 PDF overlay。parser 定向由 47 项增至 48 项，实现者实际 48 passed / 4.37 秒。
 未参与此测试修复的 Agent 在新提交独立执行同一 parser 文件，实际 **48 passed / 4.57 秒**，
 自然退出 0，见[定向复验](evidence/b07-20261023/parser-ci-fix.txt)。
-这不是新提交全量 / 新 Linux CI 已通过；新 Head 全量待验，预计用例总数 1731 也不是实跑计数。
+上述定向结果本身不证明完整通过；后续固定提交的实际完整CI结果见下节，不能回填为旧提交成绩。
 不能在这项共同门槛未关闭时宣称 PR 全门槛已经通过。
 
 ## 归档与未完成项
@@ -120,5 +120,11 @@ fail-closed 断言，另以 512 MiB 内存独立验证原 8 MB decoder 限额；
 不递归归档 pytest 目录。原始 SQLite / DBOS / WAL / SHM、backup、bootstrap、身份密钥、session、
 CSRF、私有责任说明、上传 bytes/base64、序列化原生输入均排除。
 
-尚待：修复提交及新 CI；前置 B02-06 真实旧库；真实来源许可与 B07-07 三轮 / 24 小时；真实
+尚待：前置 B02-06 真实旧库；真实来源许可与 B07-07 三轮 / 24 小时；真实
 更正和附件覆盖、企业 IdP / HTTPS / 用户及目标环境验收。技术交叉复核不构成独立用户人审。
+
+## 最终代码 CI 复验
+
+代码 `c035c01c4710606bc2113133bc231bba2ea41d9f` 的 [CI 39855341451](https://github.com/ZZZZihan/BidOps/actions/runs/39855341451) 三个job全部success。Linux后端 **1731 passed /825.89秒**，frontend **148 passed /1.7分钟**，容器构建及非root/匿名拒绝检查通过；lint、222文件格式及冻结评分器通过。后端结束UTC `2026-10-22T21:26:27.5594573Z`，冻结评分器仍是Agent score=null、业务BLOCKED。
+
+[安全CI摘要](evidence/b07-20261023/final-ci.json)固定SHA、run/job、实测计数与选择日志。此记录关闭B07自身G-02工程复验，保留旧Linux失败。该SHA之后本次报告提交只改证据与文档，平台新HEAD检查状态仍单列于PR。前置B02-06真实旧库与B07-07真实持续更新未通过，整条链不能因此合并或部署。

@@ -72,6 +72,11 @@
       "path": "verification.json",
       "byte_size": 2562,
       "sha256": "869de57bd64e6fbcfe86585e12f0c2c57a1dce9686d7a341943c9dc5817475ee"
+    },
+    {
+      "path": "final-ci.json",
+      "byte_size": 1277,
+      "sha256": "440ca306b4da69440d7dff257669a476e834404ad0ad1ebd88b512f14e1bfcb1"
     }
   ],
   "excluded": [
@@ -81,5 +86,6 @@
     "provider credentials/real organization materials",
     "serialized DBOS request/input blobs"
   ],
-  "additional_test_only_fix_sha": "de96024711bbd0eaf40b580859bf871004ef2a66"
+  "additional_test_only_fix_sha": "de96024711bbd0eaf40b580859bf871004ef2a66",
+  "final_ci_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f"
 }
