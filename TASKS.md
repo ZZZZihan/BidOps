@@ -7,7 +7,7 @@
 - [x] Owner-scoped persistent conversations, request idempotency, failure preservation and rate limits.
 - [x] Audit UI / append-only application audit / bounded metric labels / retention / backup-restore tooling.
 - [x] Offline auth/security/isolation tests and real DeepSeek persistence integration.
-- [ ] Container CI and final engineering report acceptance.
+- [ ] [E1 #14](https://github.com/ZZZZihan/BidOps/issues/14) Container CI and final engineering report acceptance; [implementation](https://github.com/ZZZZihan/BidOps/commit/6a41a067b08f67b5d9c46bd68f5b3acc0101bf80) pushed, [CI](https://github.com/ZZZZihan/BidOps/actions/runs/39795653783) queued.
 - [ ] Real company SSO / HTTPS / two-user acceptance and target-machine operations drill.
 - [ ] Independent representative data quality gate; production workload/security requirements and release review.
 

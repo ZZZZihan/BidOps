@@ -11,7 +11,8 @@
 - 远端：https://github.com/ZZZZihan/BidOps ，公开仓库，main。
 - 企业目标：[Issue #13](https://github.com/ZZZZihan/BidOps/issues/13)。
 - E1 交付：[Issue #14](https://github.com/ZZZZihan/BidOps/issues/14)。
-- 实现 Commit / CI：推送后补充不可变引用；本段目前不声称远端 CI 已通过。
+- 实现 Commit：[6a41a067b08f67b5d9c46bd68f5b3acc0101bf80](https://github.com/ZZZZihan/BidOps/commit/6a41a067b08f67b5d9c46bd68f5b3acc0101bf80)。
+- 远端 CI：[39795653783](https://github.com/ZZZZihan/BidOps/actions/runs/39795653783)。截至 2026-10-22 14:30 UTC，三个任务的 API 状态均为 queued，尚无可确认的运行结果；不计为通过。
 - 本次基于 `ebf1e6eb7342400c9d2f0de8282964dd0afaf484` 的已完成 Demo；历史报告保留。
 
 ## 实际架构
@@ -42,8 +43,8 @@ HTTPS 配置下 Secure；模型和 OAuth 凭证不进入浏览器。每个写请
 | `npm run build --prefix frontend` | 通过 |
 | `npm run test:e2e --prefix frontend` | 12 passed；原 5 项基础上增加 7 项企业界面场景 |
 | `uv run python scripts/enterprise_live.py --execute --run-id enterprise-live-20261022` | 5/5 集成检查通过，3 个真实模型轮次、6 次模型请求 |
-| SQLite 备份恢复 | 单元测试及真实六公告集成运行均执行；数据库完整性与原文 SHA256 验证通过 |
-| Docker 镜像构建/启动 | 当前执行环境没有 Docker；通过 GitHub Actions 的 container job 验证，结果待回填 |
+| SQLite 备份恢复 | 单元测试、真实六公告集成及 backup/restore CLI 均执行；7 个文件恢复，6 条公告，完整性与 SHA256 通过 |
+| Docker 镜像构建/启动 | 本机没有 Docker；GitHub container job 已创建，目前 queued，尚未验证 |
 | 企业真实 SSO / 目标域名部署 | 未执行；没有企业 IdP、client、域名及目标机器参数 |
 
 认证测试通过 HTTPX2 MockTransport 交换 OIDC 协议，使用生成的 RSA 密钥真实签名、校验 JWT，
@@ -79,6 +80,11 @@ HTTPS 配置下 Secure；模型和 OAuth 凭证不进入浏览器。每个写请
 提示词 SHA256 仍为 `85ed48558a3a1d728567b45c39e8db34c7398061b316051fb427c47433a54bd9`。
 
 ## 尚未解决与下一验收门槛
+
+0. 远端 CI 仍显示 queued。GitHub 官方在 14:18 UTC 起报告 Actions 服务降级，14:19 UTC
+   更新说明工作流/步骤结果及部分仓库更新处理延迟；本次尚无法确认远端实际执行结果。
+   [官方事故记录](https://stspg.io/44w94j036yc8)。该状态与仓库本地测试结果分开记录，
+   不推断远端已通过。E1 Issue #14 保持开放，等待 container / backend / frontend 结果。
 
 1. 企业 SSO issuer、client secret、应用角色、HTTPS 域名和目标机器尚未提供；协议测试
    不能替代两个真实账号的访问隔离、停用/退出和故障恢复验收。
