@@ -13,7 +13,7 @@
 
 - Base B04：`a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e`。
 - B05 实现与完整本机验证提交：`509e8007218c306d0e0639d96317537676570a0b`，tree
-  `95f7df25bb516d9f337c4475428190e6b4bcebae`。验证前后工作树干净。后续报告提交只添加证据/说明。
+  `95f7df25bb516d9f337c4475428190e6b4bcebae`。验证前后工作树干净。后续首先添加证据/说明；CI发现的容器白名单修复另列如下。
 - 主 Agent 执行时间：2026-10-22 19:04:13–19:08:58 UTC，即 2026-10-23 03:04:13–03:08:58 Asia/Shanghai。
   Python 3.12.12、PAI 2.59.0、DBOS 3.3.0、Node 26.11.0、uv 0.10.0；CI 使用 Node 22 / uv 0.12.23。
 - B01 的 18 个冻结文件均未修改，主锁 SHA256
@@ -134,3 +134,15 @@ Docker/CI安装相同overlay并检查已安装DBOS版本、锁和来源哈希、
 与完整导出。B05只提供明确标为test_fixture的内部工程事件；`completed`不代表人工批准。
 旧六库、最新完整费用账本、授权企业资料、独立人员、真实IdP/HTTPS/目标部署继续作为外部
 阻塞记录，不因本PR工程通过而改为PASS。
+
+## 远端容器失败与修复记录
+
+2026-10-22 UTC，Head `7d730946932c6f7bc1f61952ae8b5557097b976b` 的
+[CI 39838428472](https://github.com/ZZZZihan/BidOps/actions/runs/39838428472) 中 backend、frontend PASS，
+container FAIL：`.dockerignore` 的白名单未纳入 `requirements/durable.lock`，Dockerfile 的
+`COPY requirements/` 因构建上下文缺目录而失败。保留[原始失败日志](evidence/b05-20261023/ci-container-39838428472-failed.log)。
+
+修复只增加 `!requirements/` 与 `!requirements/durable.lock` 两条白名单，不改变依赖或18项冻结文件。
+未参与修改的Agent复核所有COPY与运行时来源路径，未发现其他遗漏。当前本机Docker daemon未启动，
+本机未完成镜像构建；修复后的实际构建及smoke以新Head的CI为准，状态持续写入PR描述。
+旧1316/75项完整本机结果仍只对应原实现SHA，不伪称对新提交重复执行。

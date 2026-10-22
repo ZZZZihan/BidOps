@@ -54,6 +54,8 @@
     "recovery/waiting_review/recover.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "recovery-summary.json": "692256ca4089b90fee3d50fd3e93ba35a46971f9cbfb0236e9248352fdfec3d3",
     "verification-driver.py.txt": "efc4fe49cec2bb3b961f9c8f866f8a8e58f0ded00e1813bb2c5cac7cb7b9d43a",
-    "verification.json": "7f3f79c219907254afa035eb689dafc294efc8685098c48fa223dcd587add605"
-  }
+    "verification.json": "7f3f79c219907254afa035eb689dafc294efc8685098c48fa223dcd587add605",
+    "ci-container-39838428472-failed.log": "2fee9bcdf0256be1135b68f275020b50e15ca1088936496a4a39e077944268d0"
+  },
+  "additional_ci_head": "7d730946932c6f7bc1f61952ae8b5557097b976b"
 }
