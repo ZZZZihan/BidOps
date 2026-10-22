@@ -312,6 +312,36 @@ def test_watchdog_guard_and_transitions_do_not_repeat_or_echo_input(tmp_path, ca
     assert str(tmp_path) not in capsys.readouterr().out
 
 
+def test_watchdog_alert_timestamp_is_after_completed_fault_observation(tmp_path, monkeypatch):
+    from datetime import UTC, datetime
+
+    import bidops.operations_acceptance.watchdog as module
+
+    observed = [1]
+    clock = iter([0, 2])
+
+    class WallClock:
+        @staticmethod
+        def now(_):
+            return datetime.fromtimestamp(observed[0], UTC)
+
+    def fault(*_):
+        observed[0] = 2
+        return False, ["unavailable"]
+
+    monkeypatch.setattr(module, "datetime", WallClock)
+    monkeypatch.setattr(module, "check", fault)
+    monkeypatch.setattr(module, "time", SimpleNamespace(monotonic=lambda: next(clock)))
+    output = tmp_path / "causal.jsonl"
+    assert (
+        main(["--origin", "https://unit.test", "--duration-seconds", "1", "--output", str(output)])
+        == 0
+    )
+    receipt = json.loads(output.read_text())
+    assert receipt["observed_at"] == datetime.fromtimestamp(2, UTC).isoformat()
+    assert receipt["alert"]["observed_at"] == receipt["observed_at"]
+
+
 def test_independent_watchdog_observes_actual_process_kill_and_restart(tmp_path):
     """Only loopback HTTP in child processes; no provider/source requests."""
     server_code = """

@@ -104,8 +104,8 @@ def main(argv=None):
     watcher, started = Watchdog(), time.monotonic()
     with os.fdopen(fd, "w") as output, httpx2.Client(trust_env=False) as client:
         while True:
-            at = datetime.now(UTC).isoformat()
             healthy, failures = check(client, url)
+            at = datetime.now(UTC).isoformat()
             event = watcher.observe(healthy, at=at)
             output.write(
                 json.dumps(
