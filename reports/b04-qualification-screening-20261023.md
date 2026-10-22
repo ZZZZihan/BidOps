@@ -1,6 +1,6 @@
 # B04 候选与资格清单实际验收
 
-计划 B04，分支 `codex/b04-qualification-screening`，堆叠于
+实现 [Draft PR #19](https://github.com/ZZZZihan/BidOps/pull/19)，计划 B04，分支 `codex/b04-qualification-screening`，堆叠于
 [B03 #18](https://github.com/ZZZZihan/BidOps/pull/18)。本 PR 增量为固定候选批次、PAI 条件抽取/
 核验、双方证据与私有历史、受保护 API/UI，以及共享费用恢复屏障。没有合并或部署。
 
