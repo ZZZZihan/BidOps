@@ -5,7 +5,7 @@
 - [x] [Demo-01](https://github.com/ZZZZihan/BidOps/issues/12) Research frameworks; use Pydantic AI + official DeepSeek API, read-only tools and evidence UI.
 - [x] Freeze 96 scenarios / 105 prompts with Pydantic Evals; run 24 development and 72 held-out cases. First held-out score: 98.67/100, 71/72 passed.
 - [x] Preserve the failed count-limit case and report a separate post-fix regression run.
-- [ ] Publish final run report, verified source commit and CI; await human demo acceptance.
+- [x] Publish [final run report](reports/demo-run-20261022.md), verified source commit and passing CI; human demo acceptance pending.
 
 This scope was explicitly requested after P0. The original independent-data and competition
 gates below remain pending; the Demo does not start those phases automatically.

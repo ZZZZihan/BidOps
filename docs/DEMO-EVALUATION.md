@@ -58,3 +58,11 @@ Limits: only six notices (no comprehensive national corpus), no independently bl
 evaluation, no real adversarial government pages added, no production load test. Read-only
 schema grounding prevents invented displayed values but cannot guarantee semantic tool
 selection. Current state, legal qualification and attachment contents remain unverified.
+
+## 2026-10-22 outcome annotation
+
+The first held-out run remains 71/72 (98.67/100). Its search-13 count-limit failure
+led to an explicit requested-count instruction and tool-parameter description. The file
+reports/demo-regression-20261022.json is a repeat of the held-out **partition**, labeled
+regression by its run ID; its 72/72 is not a new held-out score. Oracle and weights stayed
+unchanged. Full run evidence and preflight failures are in reports/demo-run-20261022.md.
