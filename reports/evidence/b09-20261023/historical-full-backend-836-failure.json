@@ -1,0 +1,40 @@
+{
+  "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "tree_sha": "3a0b67e03f1e8a250bf5ad8272451c772be9c867",
+  "kind": "COMPLETED_FULL_BACKEND_FAILURE_RETAINED",
+  "executor": "root",
+  "start": "2026-10-22T21:19:35.082227+00:00",
+  "end": "2026-10-22T21:29:43.968491+00:00",
+  "command": [
+    ".venv/bin/pytest",
+    "-q",
+    "--basetemp",
+    "<isolated-test-output>"
+  ],
+  "exit_code": 1,
+  "passed": 2005,
+  "failed": 1,
+  "pytest_reported_seconds": 605.6,
+  "failing_node": "tests/test_storage_api_cli.py::test_migrations_idempotent",
+  "failure": "Exact expected migration list omitted existing 012_package_versions_index.sql; actual database list had that one additional item",
+  "original_full_pass_claimed": false,
+  "corrected_full_result": "PENDING_NOT_READ",
+  "corrective_commit": "36efed31ae496f42474cd8389236668b05767499",
+  "corrective_commit_source": "Coordinator reported isolated commit; independent reviewer subsequently read git show and confirmed only the same one-line addition, with zero deletions. One-test execution was before commit on836+reviewed diff; corrected full remains pending.",
+  "sources": [
+    {
+      "alias": "original-full-836/backend.txt",
+      "bytes": 3560,
+      "sha256": "fa9bc3fc98d15b6854b70f13aed7f69cd2093a7ed8a0e4c907ed635d8abb8eaa"
+    },
+    {
+      "alias": "original-full-836/verification.json",
+      "bytes": 778,
+      "sha256": "d4dae6452dac27a5930e032c67431e9740cd885522af4d298bfe717463d26467"
+    }
+  ],
+  "transformation": "Safe counts, times, command alias and deterministic assertion failure; omit absolute cwd/basetemp paths, object addresses and raw fixture data",
+  "real_model_calls": 0,
+  "actual_cost_cny": "0",
+  "business_acceptance": "BLOCKED"
+}

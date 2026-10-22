@@ -1,0 +1,36 @@
+{
+  "code_sha": "36efed31ae496f42474cd8389236668b05767499",
+  "run_id": 39858363545,
+  "job_id": 120102336852,
+  "jobs": [
+    {
+      "id": 120102336551,
+      "name": "container",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 120102336768,
+      "name": "frontend",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 120102336852,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "failure"
+    }
+  ],
+  "log_evidence": {
+    "sha256": "6fc62db2a6f8c423b3786e6c68c5008ce1615f658ce6903e5a59bbfa4a5abce4",
+    "bytes": 33922,
+    "selected_lines": [
+      "2026-10-22T21:34:40.7658463Z All checks passed!",
+      "2026-10-22T21:34:40.8426746Z 247 files already formatted",
+      "2026-10-22T21:51:40.2047966Z tests/test_identity_revocation.py:248: AssertionError",
+      "2026-10-22T21:51:40.2049480Z FAILED tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change[updates6] - assert 200 == 400",
+      "2026-10-22T21:51:40.2050795Z ================= 1 failed, 2005 passed in 1015.29s (0:16:55) =================="
+    ]
+  }
+}

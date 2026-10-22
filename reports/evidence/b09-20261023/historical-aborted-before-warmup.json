@@ -1,0 +1,16 @@
+{
+  "status": "ABORTED_BEFORE_WARMUP",
+  "reason_code": "coordinator_requested_new_watchdog_causal_timestamp_commit",
+  "code_sha": "159f573b0862f0399c9fb015dd25a592fba3cacb",
+  "controller_exit_code": 130,
+  "clock_created": false,
+  "plan_created": false,
+  "last_seed_receipt": {
+    "event": "notice_seed_progress",
+    "versions": 3000
+  },
+  "recorded_at": "2026-10-22T20:53:10.311774+00:00",
+  "measurement_claim": "none",
+  "source_sha256": "cb1bfee120c5a754b6bd8f65b214c9e8a2bca5b3b6e80836452f252d2fc38749",
+  "transformation": "Explicit safe failure fields; omit controller and worker process identifiers"
+}

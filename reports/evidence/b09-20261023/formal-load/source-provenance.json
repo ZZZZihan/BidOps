@@ -1,0 +1,139 @@
+{
+  "scope": "Ended raw source integrity only; hashes do not authenticate enterprise acceptance",
+  "sources": [
+    {
+      "source_alias": "formal-load/report.json",
+      "bytes": 2643,
+      "sha256": "abc43ea0161693b0d4c11c1b2e1bbbf8e8e238aef1db0279a65b000a5bb2385b"
+    },
+    {
+      "source_alias": "formal-load/trace.json",
+      "bytes": 3209754,
+      "sha256": "8091cb48901efe3e8528df512cc7b09369f9d215cf8b8c8597fa07b7ffb61257"
+    },
+    {
+      "source_alias": "formal-load/input-pin.json",
+      "bytes": 1132,
+      "sha256": "d3099496e6dc77974df0fb495dd2993533ae26bdfd5923b0725fb68f6f94f01d"
+    },
+    {
+      "source_alias": "formal-load/manifest.json",
+      "bytes": 2699,
+      "sha256": "bd82c7ab050a53610742515d4af082140f6fce5593b203cabaa4e847ffb4a170"
+    },
+    {
+      "source_alias": "formal-load/clock.json",
+      "bytes": 38,
+      "sha256": "22f4133d496a0aeb266007199b281f99b06300aada74919eed28ada793153479"
+    },
+    {
+      "source_alias": "formal-load/plan.json",
+      "bytes": 507,
+      "sha256": "38b6b6f9a319a6569ecae872b70483f7f88c74223ae9aca4899e15a9e65f6f89"
+    },
+    {
+      "source_alias": "formal-load/schedule.json",
+      "bytes": 928649,
+      "sha256": "4c0899264e6729587527bcab02be7064dafa9c3e3effb62b3612dd68dcf5fc89"
+    },
+    {
+      "source_alias": "formal-load/page-inventory.json",
+      "bytes": 700003,
+      "sha256": "ba37262f5b7af4a35229a0b2925603ffd4e820f906fac3ea19d3ea3175d916f1"
+    },
+    {
+      "source_alias": "formal-load/http-accounting.json",
+      "bytes": 750,
+      "sha256": "3fa72467337e3e020ad0b1d0982f75db87c416d0266e814215dcf4b995286cba"
+    },
+    {
+      "source_alias": "formal-load/requests.jsonl",
+      "bytes": 2561903,
+      "sha256": "9f31a93750354fdfdc81cfc926a7904da6899b80bb48b3bd51fa7e43fd4d4777"
+    },
+    {
+      "source_alias": "formal-load/resources.jsonl",
+      "bytes": 575811,
+      "sha256": "a759ec2af84950f1e4d3841411501f8adc61bb4dff7ae112ba31b3d6fdc25b64"
+    },
+    {
+      "source_alias": "formal-load/http-responses.jsonl",
+      "bytes": 445975,
+      "sha256": "631cb6a7787e927f40deb80cbe83a307ddc44231e8fecaa505f7c77a1d9c86b3"
+    },
+    {
+      "source_alias": "formal-load/auth-control.jsonl",
+      "bytes": 26937,
+      "sha256": "566d6bb4fdc5d878753b951b6538041e95d88e614dd51c576178157a69db1671"
+    },
+    {
+      "source_alias": "formal-load/worker-events.jsonl",
+      "bytes": 108968,
+      "sha256": "2da8a46bc3525e384bcb1aa162029a657b9cdf07ffcd690ea893a4436fe41457"
+    },
+    {
+      "source_alias": "formal-load/setup.jsonl",
+      "bytes": 521,
+      "sha256": "c01a44656fe3f05d63561de103f85318eef8efdd06a0c278f08b74eec26b76f9"
+    },
+    {
+      "source_alias": "formal-load/setup-operations.jsonl",
+      "bytes": 194,
+      "sha256": "723529e15271c577d3f7ff48c1ab55fa30abbe89751e57149df989c156a423f3"
+    },
+    {
+      "source_alias": "formal-load/notice-seed.json",
+      "bytes": 164,
+      "sha256": "3e63c57d1d654a6af240779468a6b09663b8b2b9ba91b1fbab3f8bbb8f52a34d"
+    },
+    {
+      "source_alias": "formal-load/synthetic-sources.json",
+      "bytes": 187,
+      "sha256": "da77e67fd0ed9367074eafa2cc4d2b8967375a4c22de2a8ac30b1dddb07bda75"
+    },
+    {
+      "source_alias": "formal-load/worker.log",
+      "bytes": 634,
+      "sha256": "fa101a3df7b2c69b455eee83d6be4b8befd5a61be803ab6da1b2d759ab0efa45"
+    },
+    {
+      "source_alias": "coordinator-completed-load/completion.json",
+      "bytes": 1324,
+      "sha256": "6b4636eaa0042306fef4f06c11b6234a297bb2cc538f07db4c975834d0ff62c7"
+    },
+    {
+      "source_alias": "coordinator-chart/capacity-curves.png",
+      "bytes": 867463,
+      "sha256": "688e5ce6079ee82f9cc48d0ddbc087cf566b32530af44d625fcc1ad3bd0329e1"
+    },
+    {
+      "source_alias": "coordinator-chart/capacity-curves.svg",
+      "bytes": 155334,
+      "sha256": "08c391da157ba6e9754973a04e87d92899569ac9a9ec747f6ed26d4c7eda2261"
+    },
+    {
+      "source_alias": "coordinator-chart/capacity-curves-data.json",
+      "bytes": 666469,
+      "sha256": "22ad908de56731a7507337df7efab2fe64512f3e12df5f01aa4ed309a60b1f44"
+    }
+  ],
+  "transformations": {
+    "safe-report.json": "Explicit original report keys; client identifier map replaced by count distribution; all gates/issues/numerical metrics retained",
+    "safe-trace-summary.json": "Explicit dataset/time/receipt/job/resource/limit counts; all runtime IDs/sessionhashes/PID/raw bodies omitted",
+    "http-summary.json": "Explicit counts plus endpoint templates; no object IDs",
+    "completion.json": "Exact coordinator safe receipt bytes; observed_at is after-run observation, not exact end",
+    "capacity-curves.*": "Exact safe chart files; time buckets descriptive, official3600 steady receipt denominator retained"
+  },
+  "private_exclusions": [
+    "Original trace/report raw identifiers",
+    "sessions/cookies/CSRF/identity data",
+    "PID/process identities",
+    "SQLite/DBOS/WAL/SHM",
+    "raw HTTP paths/bodies",
+    "bootstrap/provider configuration",
+    "material/model private bodies"
+  ],
+  "original_files_written": false,
+  "repo_or_worktree_modified": false,
+  "new_tests_or_external_requests": false
+}

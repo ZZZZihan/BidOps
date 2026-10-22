@@ -1,0 +1,131 @@
+{
+  "baseline_code_sha": "46ef2f7b012d82314d6f324d9c6c03cd24cf947c",
+  "selections": [
+    {
+      "head": "46ef2f7b012d82314d6f324d9c6c03cd24cf947c",
+      "started_at": 1792702585.183011,
+      "finished_at": 1792702601.023485,
+      "nodes": [
+        "tests/test_jobs_repository.py::test_capacity_admission_is_atomic_for_concurrent_distinct_keys",
+        "tests/test_jobs_repository.py::test_capacity_same_key_concurrent_and_later_replays_need_no_slot",
+        "tests/test_jobs_repository.py::test_capacity_includes_each_active_state_and_releases_after_terminal",
+        "tests/test_jobs_repository.py::test_capacity_is_global_across_owners_and_restored_live_work",
+        "tests/test_jobs_api.py::test_actual_http_concurrent_same_key_input_persists_one_job",
+        "tests/test_jobs_api.py::test_actual_http_concurrent_same_key_different_input_has_one_409",
+        "tests/test_jobs_runtime.py::test_waiting_review_releases_calculation_slot_and_cancel_is_terminal",
+        "tests/test_enterprise.py::test_rate_cap_turn_cap_and_secret_exclusion",
+        "tests/test_agent_demo.py::test_provider_error_sanitization[429-provider_rate_limited]",
+        "tests/test_agent_demo.py::test_categorized_provider_errors[ModelRateLimitError-provider_rate_limited]",
+        "tests/test_qualification_budget.py::test_failed_or_cancelled_call_retains_reservation_and_blocks_next_budget",
+        "tests/test_qualification_budget.py::test_two_concurrent_runs_cannot_spend_the_same_unfinished_reservation",
+        "tests/test_qualification_budget.py::test_restore_ack_is_not_a_bypass_for_budget_cost",
+        "tests/test_jobs_model.py::test_restart_cannot_reset_persistent_request_limit",
+        "tests/test_jobs_model.py::test_pre_attempt_ledger_orphan_stays_reserved_and_counts_shared_ceiling",
+        "tests/test_jobs_model.py::test_provider_failure_unknown_reservation_no_private_exception_text",
+        "tests/test_jobs_model.py::test_existing_demo_and_screening_rows_share_the_same_admission_budget"
+      ],
+      "exit_code": 0,
+      "live_network_allowed": false,
+      "real_provider_calls": 0,
+      "label": "b09-03-command.json",
+      "source_sha256": "8801513cc29e6ccc82788bc4f5ecce96bf620a81260fd231e35f296400ef1be8",
+      "command": [
+        "<B09_WORKTREE>/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-v",
+        "tests/test_jobs_repository.py::test_capacity_admission_is_atomic_for_concurrent_distinct_keys",
+        "tests/test_jobs_repository.py::test_capacity_same_key_concurrent_and_later_replays_need_no_slot",
+        "tests/test_jobs_repository.py::test_capacity_includes_each_active_state_and_releases_after_terminal",
+        "tests/test_jobs_repository.py::test_capacity_is_global_across_owners_and_restored_live_work",
+        "tests/test_jobs_api.py::test_actual_http_concurrent_same_key_input_persists_one_job",
+        "tests/test_jobs_api.py::test_actual_http_concurrent_same_key_different_input_has_one_409",
+        "tests/test_jobs_runtime.py::test_waiting_review_releases_calculation_slot_and_cancel_is_terminal",
+        "tests/test_enterprise.py::test_rate_cap_turn_cap_and_secret_exclusion",
+        "tests/test_agent_demo.py::test_provider_error_sanitization[429-provider_rate_limited]",
+        "tests/test_agent_demo.py::test_categorized_provider_errors[ModelRateLimitError-provider_rate_limited]",
+        "tests/test_qualification_budget.py::test_failed_or_cancelled_call_retains_reservation_and_blocks_next_budget",
+        "tests/test_qualification_budget.py::test_two_concurrent_runs_cannot_spend_the_same_unfinished_reservation",
+        "tests/test_qualification_budget.py::test_restore_ack_is_not_a_bypass_for_budget_cost",
+        "tests/test_jobs_model.py::test_restart_cannot_reset_persistent_request_limit",
+        "tests/test_jobs_model.py::test_pre_attempt_ledger_orphan_stays_reserved_and_counts_shared_ceiling",
+        "tests/test_jobs_model.py::test_provider_failure_unknown_reservation_no_private_exception_text",
+        "tests/test_jobs_model.py::test_existing_demo_and_screening_rows_share_the_same_admission_budget",
+        "--junitxml=<B09_WORKTREE>/work/b09-03-06-independent/b09-03-targeted.junit.xml"
+      ]
+    },
+    {
+      "exit_code": 0,
+      "repeat": "fixture import aliases only; one original case, not an extra distinct test",
+      "label": "b09-03-provider429-command.json",
+      "source_sha256": "2473f8f5e9c128ce74f49cd661b231d02ba7e65cc52e3dc301eb92a3dfc6bb81",
+      "command": [
+        "<B09_WORKTREE>/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-p",
+        "conftest",
+        "-v",
+        "work/b09-03-06-independent/test_provider_429.py"
+      ]
+    },
+    {
+      "started_at": 1792702872.044019,
+      "finished_at": 1792702879.510891,
+      "nodes": [
+        "tests/test_company_restore.py::test_real_restore_after_post_backup_revocation_deletion_and_instance_loss",
+        "tests/test_enterprise_backup.py::test_backup_restore_preserves_source_hash_and_revokes_logins",
+        "tests/test_enterprise_backup.py::test_backup_corruption_and_traversal_fail_closed",
+        "tests/test_jobs_backup.py::test_restore_quarantines_each_state_preserves_ledger_and_never_launches",
+        "tests/test_jobs_backup.py::test_expired_restore_erases_private_job_and_native_framework_history_but_keeps_usage",
+        "tests/test_jobs_retention.py::test_backend_failure_reports_failure_and_next_maintenance_retries_all_purged",
+        "tests/test_jobs_retention.py::test_live_inflight_model_cannot_recreate_bodies_results_or_checkpoint_after_expiry",
+        "tests/test_review_retention.py::test_actual_review_commands_and_worker_cannot_recreate_expired_prose"
+      ],
+      "exit_code": 0,
+      "label": "b09-06-existing-command.json",
+      "source_sha256": "cdf0d5b1697a070bb880d7c5db0d6519f9514861e34f79c8cb84d28f09900ddd",
+      "command": [
+        "<B09_WORKTREE>/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-v",
+        "tests/test_company_restore.py::test_real_restore_after_post_backup_revocation_deletion_and_instance_loss",
+        "tests/test_enterprise_backup.py::test_backup_restore_preserves_source_hash_and_revokes_logins",
+        "tests/test_enterprise_backup.py::test_backup_corruption_and_traversal_fail_closed",
+        "tests/test_jobs_backup.py::test_restore_quarantines_each_state_preserves_ledger_and_never_launches",
+        "tests/test_jobs_backup.py::test_expired_restore_erases_private_job_and_native_framework_history_but_keeps_usage",
+        "tests/test_jobs_retention.py::test_backend_failure_reports_failure_and_next_maintenance_retries_all_purged",
+        "tests/test_jobs_retention.py::test_live_inflight_model_cannot_recreate_bodies_results_or_checkpoint_after_expiry",
+        "tests/test_review_retention.py::test_actual_review_commands_and_worker_cannot_recreate_expired_prose",
+        "--junitxml=<B09_WORKTREE>/work/b09-03-06-independent/b09-06-existing.junit.xml"
+      ]
+    },
+    {
+      "head": "46ef2f7b012d82314d6f324d9c6c03cd24cf947c",
+      "started_at": 1792703008.2376058,
+      "finished_at": 1792703014.0116742,
+      "nodes": [
+        "tests/test_ingestion_backup.py::test_restore_pdf_fixed_bytes_and_all_ingestion_isolation",
+        "tests/test_ingestion_backup.py::test_old_schedule_generations_remain_exactly_bound_and_restore_pauses_all",
+        "tests/test_review_backup.py::test_restore_rotates_review_epoch_revokes_assignment_freezes_delivery_and_keeps_history"
+      ],
+      "exit_code": 0,
+      "label": "b09-06-additional-command.json",
+      "source_sha256": "887ebe6a87070ba589cc7189724f0b8a6e2b1d71681c0c166d9779d14985d3cc",
+      "command": [
+        "<B09_WORKTREE>/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-v",
+        "tests/test_ingestion_backup.py::test_restore_pdf_fixed_bytes_and_all_ingestion_isolation",
+        "tests/test_ingestion_backup.py::test_old_schedule_generations_remain_exactly_bound_and_restore_pauses_all",
+        "tests/test_review_backup.py::test_restore_rotates_review_epoch_revokes_assignment_freezes_delivery_and_keeps_history",
+        "--junitxml=<B09_WORKTREE>/work/b09-03-06-independent/b09-06-additional.junit.xml"
+      ]
+    }
+  ],
+  "distinct_parameterized_tests": 49,
+  "not_a_new_final_sha_run": true,
+  "private_work_helpers_not_authorized_for_publication": true
+}

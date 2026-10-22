@@ -1,0 +1,10 @@
+{
+  "status": "FAILED_BEFORE_WARMUP",
+  "error_code": "ReadTimeout",
+  "failed_operation": "setup_freeze_complete_candidate_batch",
+  "deadline_ms": 10000,
+  "clock_created": false,
+  "plan_created": false,
+  "measurement_claim": "none",
+  "recorded_at": "2026-10-22T20:56:39.970200+00:00"
+}

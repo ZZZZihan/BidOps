@@ -1,0 +1,25 @@
+{
+  "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "run_id": 39856326761,
+  "job_id": 120095369153,
+  "conclusion": "failure",
+  "passed": 2004,
+  "failed": 2,
+  "pytest_seconds": 1042.66,
+  "failed_test_ids": [
+    "tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change[updates6]",
+    "tests/test_storage_api_cli.py::test_migrations_idempotent"
+  ],
+  "log_excerpt": [
+    "2026-10-22T21:37:11.5542947Z updates = {'iat': 1792704112}",
+    "2026-10-22T21:37:11.5562053Z E         Left contains one more item: '012_package_versions_index.sql'",
+    "2026-10-22T21:37:11.5571145Z FAILED tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change[updates6] - assert 200 == 400",
+    "2026-10-22T21:37:11.5573084Z FAILED tests/test_storage_api_cli.py::test_migrations_idempotent - AssertionError: assert ['001_initial...esh.sql', ...] == ['001_initial...esh.sql', ...]",
+    "2026-10-22T21:37:11.5574757Z   Left contains one more item: '012_package_versions_index.sql'",
+    "2026-10-22T21:37:11.5580899Z ================= 2 failed, 2004 passed in 1042.66s (0:17:22) ==================",
+    "2026-10-22T21:37:15.3049091Z ##[error]Process completed with exit code 1."
+  ],
+  "scope": "Actual Linux CI failure; distinct from local 2005/1. New identity test collection-time clock failure under investigation; production rules unchanged.",
+  "raw_log_sha256": "fff50d5553fc735a428841ecea563f8a9ad0180a502136036c00682c63790b53",
+  "raw_log_bytes": 37940
+}

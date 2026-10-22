@@ -1,0 +1,24 @@
+{
+  "kind": "actual_synthetic_corpus_copy_index_diagnostic_not_capacity",
+  "source_database_sha256_before": "781134a20ebb876da212e060ecbc771778caacea5de8f9cdde92c6b85fe73647",
+  "source_database_sha256_after": "781134a20ebb876da212e060ecbc771778caacea5de8f9cdde92c6b85fe73647",
+  "notice_versions": 10000,
+  "package_units": 50000,
+  "build_seconds": 3.712809292017482,
+  "validation_seconds": 1.2038415420101956,
+  "canonical_result_bytes": 37690586,
+  "canonical_result_sha256": "ff2d946686c7086cf84b454d3471d8e4db9375d32553aaa5342f030335b4d0c7",
+  "package_query_plan": [
+    [
+      4,
+      0,
+      62,
+      "SEARCH nd_package_versions USING INDEX nd_package_versions_version_package (version_id=?)"
+    ]
+  ],
+  "original_database_writes": 0,
+  "diagnostic_copy_index_added": true,
+  "http_or_authorization_acceptance": false,
+  "real_model_calls": 0,
+  "real_source_calls": 0
+}
