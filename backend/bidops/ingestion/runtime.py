@@ -108,8 +108,20 @@ class IngestionRuntime:
                 # Client enqueue creates an independent root, idempotently by native_id.
                 # Business admission persists before the native enqueue gap.
                 if record["status"] == "queued":
-                    self.repository.require_execution(record["run_id"])
-                    self.enqueue(record)
+                    try:
+                        record = self.repository.require_execution(record["run_id"])
+                    except CompanyError as exc:
+                        # Startup recovery can finish the independently enqueued run
+                        # between this workflow's first read and its current guard.
+                        # Completion needs no dispatch; cancellation and all current
+                        # authorization, version and source guards must still reject.
+                        if exc.code != "ingestion_run_not_active" or self.repository.get_system(
+                            record["run_id"]
+                        )["status"] not in {"completed", "partial", "failed"}:
+                            raise
+                    else:
+                        if record["status"] == "queued":
+                            self.enqueue(record)
             return result
 
         self.workflow, self.schedule_workflow = workflow, scheduled
