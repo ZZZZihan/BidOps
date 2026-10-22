@@ -2,12 +2,14 @@
 
 import time
 import uuid
+from types import SimpleNamespace
 from urllib.parse import parse_qs, urlsplit
 
 import httpx2
 import pytest
 from bidops.agent_demo.runtime import DemoSettings
 from bidops.api import create_app
+from bidops.enterprise import identity_events
 from bidops.enterprise.auth import IdentityService
 from bidops.enterprise.identity_events import LOGOUT_EVENT
 from fastapi.testclient import TestClient
@@ -31,11 +33,12 @@ def identity_app(settings):
 
 
 def logout_claims(**updates):
+    now = int(time.time())
     return {
         "iss": ISSUER,
         "aud": "unit-client",
-        "iat": int(time.time()),
-        "exp": int(time.time()) + 60,
+        "iat": now,
+        "exp": now + 60,
         "jti": uuid.uuid4().hex,
         "sid": "unit-session-a",
         "sub": "alice",
@@ -223,8 +226,8 @@ INVALID_CLAIMS = [
     {"aud": ["unit-client", 1]},
     {"iat": None},
     {"iat": True},
-    {"iat": int(time.time()) - 301},
-    {"iat": int(time.time()) + 120},
+    pytest.param({"iat": lambda now: now - 301}, id="iat-too-old"),
+    pytest.param({"iat": lambda now: now + 120}, id="iat-in-future"),
     {"exp": 1},
     {"exp": "future"},
     {"nonce": None},
@@ -241,14 +244,46 @@ INVALID_CLAIMS = [
 
 
 @pytest.mark.parametrize("updates", INVALID_CLAIMS)
-def test_invalid_signed_logout_claims_rejected_without_state_change(identity_app, updates):
+def test_invalid_signed_logout_claims_rejected_without_state_change(
+    identity_app, updates, monkeypatch
+):
     app, client, provider = identity_app
+    now = int(time.time())
+    # Freeze only logout validation, after real signed login, without changing stdlib time.
+    monkeypatch.setattr(identity_events, "time", SimpleNamespace(time=lambda: now))
+    updates = {key: value(now) if callable(value) else value for key, value in updates.items()}
     before = subject(app)
     response = send_logout(client, provider, logout_claims(**updates))
     assert response.status_code == 400
     assert client.get("/api/notices").status_code == 200
     assert subject(app) == before
     assert not app.state.store.db.rows("SELECT * FROM enterprise_logout_receipts")
+
+
+@pytest.mark.parametrize(
+    "iat_offset,expected_status",
+    [
+        pytest.param(-301, 400, id="older-than-300-seconds"),
+        pytest.param(-300, 200, id="exactly-300-seconds-old"),
+        pytest.param(30, 200, id="exactly-30-seconds-ahead"),
+        pytest.param(31, 400, id="more-than-30-seconds-ahead"),
+    ],
+)
+def test_logout_iat_exact_time_boundaries(identity_app, monkeypatch, iat_offset, expected_status):
+    app, client, provider = identity_app
+    now = int(time.time())
+    monkeypatch.setattr(identity_events, "time", SimpleNamespace(time=lambda: now))
+    before = subject(app)
+    response = send_logout(client, provider, logout_claims(iat=now + iat_offset, exp=now + 300))
+    assert response.status_code == expected_status
+    if expected_status == 400:
+        assert client.get("/api/notices").status_code == 200
+        assert subject(app) == before
+        assert not app.state.store.db.rows("SELECT * FROM enterprise_logout_receipts")
+    else:
+        assert client.get("/api/notices").status_code == 401
+        assert subject(app)["fresh_until"] == 0
+        assert len(app.state.store.db.rows("SELECT * FROM enterprise_logout_receipts")) == 1
 
 
 def test_logout_requires_sub_or_sid_and_rejects_forged_signature(identity_app):
