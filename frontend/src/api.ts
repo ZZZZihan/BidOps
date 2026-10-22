@@ -19,7 +19,7 @@ export type Notice = {
   parse_warnings: string[];
   source: { source_url: string; fetched_at: string; sha256: string; access_method: string; source_completeness: string };
 };
-export type Page = {items: Notice[]; total: number; limit: number; offset: number};
+export type Page = {items: Notice[]; total: number; limit: number; offset: number; has_more: boolean; truncated: boolean};
 export type Source = {id: string; name: string; home_url: string; robots_status: string; terms_status: string};
 export async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
   const response = await fetch(`/api${path}`, {signal});

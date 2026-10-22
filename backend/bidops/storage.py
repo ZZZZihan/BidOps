@@ -10,6 +10,7 @@ from sqlalchemy import text
 from bidops.config import Settings
 from bidops.db import Database
 from bidops.models import Notice, Snapshot, StrictModel
+from bidops.notice_data import NoticeRepository
 from bidops.parser import canonical_text, parse_notice
 from bidops.sources import canonical_url, load_sources
 
@@ -36,6 +37,8 @@ class Store:
         self.db.migrate()
         self.raw = settings.data_dir / "raw"
         self.raw.mkdir(parents=True, exist_ok=True, mode=0o700)
+        self.notice_data = NoticeRepository(self.db, self.raw, max_bytes=settings.max_bytes)
+        self.notice_data.backfill_legacy()
 
     def register_url(self, url: str) -> str:
         url = canonical_url(url, self.sources)
@@ -80,6 +83,7 @@ class Store:
 
     def save(self, snapshot: Snapshot, data: bytes) -> tuple[Snapshot, bool]:
         self.validate_snapshot(snapshot, data)
+        observed_at = snapshot.fetched_at
         normalized = canonical_text(data, snapshot.content_type, snapshot.encoding)
         if not normalized.strip():
             raise ValueError("empty_normalized_text")
@@ -141,6 +145,16 @@ class Store:
                     {"id": snapshot.snapshot_id},
                 ).scalar_one()
                 snapshot = Snapshot.model_validate_json(saved)
+                # A repeated observation cannot change the persisted source time or
+                # manufacture a different parse revision. Reparse is explicit.
+                payload = conn.execute(
+                    text("SELECT payload_json FROM notices WHERE notice_id=:id"),
+                    {"id": snapshot.snapshot_id},
+                ).scalar_one()
+                notice = Notice.model_validate_json(payload)
+            self.notice_data.capture(
+                snapshot, notice, normalized, observed_at=observed_at, conn=conn
+            )
             conn.execute(
                 text("UPDATE urls SET state='snapshot_captured' WHERE source_url=:u"),
                 {"u": snapshot.source_url},
@@ -175,22 +189,36 @@ class Store:
 
     def reparse(self) -> int:
         rows = self.db.rows("SELECT metadata_json FROM snapshots ORDER BY snapshot_id")
+        interpreted_at = datetime.now(UTC)
         for row in rows:
             snapshot = Snapshot.model_validate_json(row["metadata_json"])
             data = (self.raw / snapshot.sha256).read_bytes()
             self.validate_snapshot(snapshot, data)
             normalized = canonical_text(data, snapshot.content_type, snapshot.encoding)
             notice = parse_notice(normalized, snapshot)
-            self.db.execute(
-                "UPDATE notices SET payload_json=:p,project_code=:c,notice_kind=:k "
-                "WHERE notice_id=:id",
-                {
-                    "p": notice.model_dump_json(),
-                    "c": notice.project_code,
-                    "k": notice.notice_kind,
-                    "id": notice.notice_id,
-                },
-            )
+            with self.db.engine.begin() as conn:
+                self.notice_data.capture(
+                    snapshot,
+                    notice,
+                    normalized,
+                    interpreted_at=interpreted_at,
+                    record_observation=False,
+                    conn=conn,
+                )
+                # Only the compatibility projection changes. Immutable revisions,
+                # source bytes and historical session payloads remain intact.
+                conn.execute(
+                    text(
+                        "UPDATE notices SET payload_json=:p,project_code=:c,notice_kind=:k "
+                        "WHERE notice_id=:id"
+                    ),
+                    {
+                        "p": notice.model_dump_json(),
+                        "c": notice.project_code,
+                        "k": notice.notice_kind,
+                        "id": notice.notice_id,
+                    },
+                )
         self.db.audit("parse", "completed", count=len(rows))
         return len(rows)
 

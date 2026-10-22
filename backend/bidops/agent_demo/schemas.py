@@ -29,6 +29,7 @@ class Query(StrictModel):
     future_deadline_only: bool = False
     sort_by: Literal["project_code", "budget", "deadline", "publication"] = "project_code"
     descending: bool = False
+    offset: int = Field(default=0, ge=0, le=2_147_483_647)
     limit: int = Field(
         default=20,
         ge=1,
@@ -85,6 +86,10 @@ class Block(StrictModel):
     items: list[Card]
     metrics: dict[str, str] = Field(default_factory=dict)
     missing_project_codes: list[str] = Field(default_factory=list)
+    offset: int = 0
+    limit: int | None = None
+    has_more: bool = False
+    truncated: bool = False
 
 
 class AnswerPlan(StrictModel):
