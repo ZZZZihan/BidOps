@@ -30,6 +30,7 @@ def test_money_abstains(raw):
     ("raw", "expected"),
     [
         ("2026年10月22日 08时30分", "2026-10-22T08:30:00+08:00"),
+        ("2026年10月22日 08点30分", "2026-10-22T08:30:00+08:00"),
         ("2026-10-22 8:30:12", "2026-10-22T08:30:12+08:00"),
         ("二〇二六年十月二十二日 08:30", "2026-10-22T08:30:00+08:00"),
     ],
@@ -128,6 +129,69 @@ def test_html_inline_label_keeps_evidence(store, url):
     assert notice.project_code == "UNIT-INLINE"
     span = notice.field_evidence["project_code"][0]
     assert canonical_text(html, "text/html", "utf-8")[span.start : span.end] == span.text
+
+
+def test_nested_layout_table_preserves_fields_and_package_columns(store, url):
+    # Self-authored syntax fixture; not a reproduced procurement announcement.
+    html = (
+        "<table><tr><td><div>项目编号：UNIT-NESTED</div>"
+        "<div>预算金额：2万元</div><table><tr>"
+        "<td>包号</td><td>预算（万元）</td></tr>"
+        "<tr><td>第1包</td><td>1.2</td></tr>"
+        "<tr><td>第2包</td><td>0.8</td></tr></table>"
+        "<div>第2包：条件片段，不是新的采购包。</div></td></tr></table>"
+    ).encode()
+    snap, _ = store.ingest(url, html, content_type="text/html", manual_attestation=True)
+    notice = store.get_notice(snap.snapshot_id)
+    assert notice.project_code == "UNIT-NESTED"
+    assert notice.budget.amount == "20000.00"
+    assert [(p.label, p.budget.amount) for p in notice.packages] == [
+        ("第1包", "12000.00"),
+        ("第2包", "8000.00"),
+    ]
+    text = canonical_text(html, "text/html", "utf-8")
+    for package in notice.packages:
+        span = package.evidence
+        assert span.locator == "normalized_text_v2"
+        assert text[span.start : span.end] == span.text
+        assert "预算（万元）" in span.text
+
+
+def test_same_budget_different_format_is_not_a_conflict(store, ingest):
+    snap = ingest("预算金额 | ￥2.000000万元（人民币）\n预算金额：20000元")
+    notice = store.get_notice(snap.snapshot_id)
+    assert notice.budget.amount == "20000.00"
+    assert len(notice.field_evidence["budget"]) == 2
+    conflict = ingest("预算金额：2万元\n预算金额：20001元")
+    assert store.get_notice(conflict.snapshot_id).budget is None
+
+
+def test_publication_date_and_time_agree_without_inventing_time(store, ingest):
+    snap = ingest("公告时间 | 2026年10月22日 08:30\n发布日期：2026年10月22日")
+    assert store.get_notice(snap.snapshot_id).published_at == "2026-10-22T08:30:00+08:00"
+    conflict = ingest("公告时间 | 2026年10月22日 08:30\n发布日期：2026年10月21日")
+    assert store.get_notice(conflict.snapshot_id).published_at is None
+
+
+def test_deadline_under_section_heading_and_duplicate_titles(store, ingest):
+    snap = ingest(
+        "UNIT公开招标公告\nUNIT公开招标公告\n"
+        "四、提交投标文件截止时间、开标时间和地点\n2026年10月22日 08点30分（北京时间）"
+    )
+    notice = store.get_notice(snap.snapshot_id)
+    assert notice.notice_kind == "tender_announcement"
+    assert notice.bid_deadline_at == "2026-10-22T08:30:00+08:00"
+
+
+def test_date_time_does_not_consume_time_on_next_line(store, ingest):
+    snap = ingest("公告日期：2026年10月22日\n08:30是另一段的时间")
+    assert store.get_notice(snap.snapshot_id).published_at is None
+
+
+def test_package_table_with_unknown_unit_abstains(store, ingest):
+    snap = ingest("包号 | 预算\n第1包 | 10\n第2包 | 20")
+    notice = store.get_notice(snap.snapshot_id)
+    assert len(notice.packages) == 2 and all(p.budget is None for p in notice.packages)
 
 
 @pytest.mark.parametrize("kind", ["更正公告", "终止公告", "中标公告"])

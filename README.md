@@ -1,6 +1,6 @@
 # BidOps | Evidence-first Tender Intelligence
 
-> Status: **P0 engineering implementation available; source/data acceptance BLOCKED (2026-10-22)**. Zero real notice snapshots. P1/P2/P3 have not started. See [actual run report](reports/p0-run-20261022.md).
+> Status: **P0 has six real notice snapshots and 15 parsed packages (2026-10-22); human acceptance pending**. The user-requested six-URL check returned six HTTP 200 responses. Recurring collection permission remains unconfirmed. P1/P2/P3 have not started. See [collection follow-up](reports/p0-collection-20261022.md) and the [earlier run](reports/p0-run-20261022.md).
 
 An AI-native procurement notice intelligence workbench for small and medium-sized businesses. Start with authentic Chinese government procurement notices; build a lawful, auditable data pipeline; validate data quality; only then build the Agent harness.
 
@@ -33,7 +33,7 @@ Sources are public notices, but **publicly viewable is not a blanket license for
 - [PRD](docs/PRD-v0.1.md) | [architecture](docs/ARCHITECTURE.md) | [source catalog](docs/DATA-SOURCES.md) | [data contract](docs/DATA-CONTRACT.md) | [experiment plan](docs/EXPERIMENT-PLAN.md)
 - [Kanban](TASKS.md) | [Evidence register](docs/EVIDENCE-REGISTER.md)
 
-This is a local P0 prototype, not a completed competition product. Raw and processed data stay local; only seed references and the generated data schema are public.
+This is a local P0 prototype, not a completed competition product. Raw and full parsed data stay private; seed references, schema, code and sanitized verification metadata are public.
 
 
 ## Run locally
@@ -90,6 +90,24 @@ also requires `--execute`, exact URL membership and reviewed robots/terms permis
 `config/sources.json`. All current sources are `unknown`. Do not flip statuses merely
 to make a test pass. `scripts/audit_sources.py --execute-metadata-audit` inspects only
 public access-rule metadata; it never grants permission or harvests notices.
+
+The 2026-10-22 user-requested access check separately read exactly the six seed notice
+bodies with anonymous HTTPS GET, the declared project user agent, no redirects and
+at least five seconds between requests. It did not enable this recurring collection
+path or authorize attachment downloads. The private capture bundle records
+`access_method=http_fetch`; it is not mislabeled as a human-provided file.
+
+## Replay the private six-notice capture
+
+After placing the separately supplied capture bundle at `data/artifacts/p0-capture-20261022`:
+
+```bash
+uv run bidops import-bundle --input data/artifacts/p0-capture-20261022
+uv run python scripts/verify_collection.py --bundle data/artifacts/p0-capture-20261022 --output data/artifacts/replay-check.json
+```
+
+This is offline. The replay checks raw SHA256, duplicate imports, stable exports, evidence
+offsets and API records. It does not measure field accuracy against independent gold labels.
 
 ## Verification
 

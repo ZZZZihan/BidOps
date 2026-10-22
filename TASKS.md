@@ -1,12 +1,12 @@
 # Project board — dated 2026-10-22
 
-## P0: engineering implementation delivered for review; source/data acceptance BLOCKED
+## P0: engineering and six real samples delivered; human acceptance pending
 - [ ] [P0-01](https://github.com/ZZZZihan/BidOps/issues/1) Obtain organizer answers on eligibility, registration, IP and submission route (user action needed).
 - [ ] [P0-02](https://github.com/ZZZZihan/BidOps/issues/2) Audit actual public tender pages, site ToS/robots, user-agent/access limitations; no bypass.
 - [x] [P0-03](https://github.com/ZZZZihan/BidOps/issues/3) Initialize `uv` Python 3.12 backend + FastAPI health endpoint, SQLite migration, React/Vite TypeScript skeleton and CI.
 - [x] [P0-04](https://github.com/ZZZZihan/BidOps/issues/4) Design immutable raw-data snapshots, manifests, URL dedupe and source evidence chain.
 - [x] [P0-05](https://github.com/ZZZZihan/BidOps/issues/5) Build manual URL importer and optional *allowlisted, rate-limited* public HTML fetcher with dry-run default.
-- [ ] [P0-06](https://github.com/ZZZZihan/BidOps/issues/6) Deterministic parser for at least 6 seeded notices and explicit unsupported cases; never infer unknown fields.
+- [x] [P0-06](https://github.com/ZZZZihan/BidOps/issues/6) Deterministic parser for at least 6 seeded notices and explicit unsupported cases; never infer unknown fields.
 - [x] [P0-07](https://github.com/ZZZZihan/BidOps/issues/7) Implement audit/event logs and error retry/timeout tests.
 - [x] [P0-08](https://github.com/ZZZZihan/BidOps/issues/8) Produce real run report with results, provenance and limitations (not aspirational PASS).
 
@@ -31,7 +31,7 @@
 ## Current acceptance limits (2026-10-22)
 
 - #1 remains a user/organizer action. No registration performed.
-- #2 audit executed, but all three collection-permission decisions remain unknown.
-- #6 parser prototype and isolated tests exist; zero of six real notice bodies verified.
-- #8 actual report delivered in reports/p0-run-20261022.md; P0 is not an overall PASS.
+- #2 the user-requested six-URL access check returned 6 HTTP 200 notice bodies, no failures. Recurring collection/reuse permission remains unconfirmed; source registry is still unknown.
+- #6 parser p0.2 processed all six actual bodies and 15 procurement packages. Offline replay verified 90 evidence spans, six duplicate imports and a stable manifest. This is not P1 gold-label evaluation.
+- #8 the earlier zero-capture report is retained; reports/p0-collection-20261022.md records the follow-up. P0 awaits human access/acceptance review.
 - P1 backlog: #9; P2 backlog: #10; P3 backlog: #11. None has started.

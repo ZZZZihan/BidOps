@@ -13,7 +13,7 @@ class Evidence(StrictModel):
     start: int = Field(ge=0)
     end: int = Field(gt=0)
     text: str
-    locator: Literal["normalized_text_v1"] = "normalized_text_v1"
+    locator: Literal["normalized_text_v1", "normalized_text_v2"] = "normalized_text_v2"
     confidence_type: Literal["rule"] = "rule"
 
 
@@ -74,4 +74,4 @@ class Notice(StrictModel):
     field_evidence: dict[str, list[Evidence]] = Field(default_factory=dict)
     abstain_reason: dict[str, str] = Field(default_factory=dict)
     parse_warnings: list[str] = Field(default_factory=list)
-    parser_version: str = "p0.1"
+    parser_version: str = "p0.2"

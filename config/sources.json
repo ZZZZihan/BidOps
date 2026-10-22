@@ -7,8 +7,8 @@
     "robots_status": "unknown",
     "terms_status": "unknown",
     "permission_evidence": null,
-    "reviewed_at": "2026-10-22T11:09:00+00:00",
-    "decision_reason": "robots returned 404; homepage readable, no automated-collection permission established. See reports/p0-source-audit-20261022.json.",
+    "reviewed_at": "2026-10-22T11:30:21.362321+00:00",
+    "decision_reason": "2026-10-22 user-requested six-URL check: robots 404, homepage 200, six notice bodies HTTP 200; no visible terms link or access gate. Recurring collection/reuse permission is still unconfirmed. See reports/p0-collection-http-20261022.json.",
     "allowed_urls": [
       "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm",
       "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm",

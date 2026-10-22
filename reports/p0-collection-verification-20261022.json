@@ -1,0 +1,168 @@
+{
+  "verification_kind": "offline_provenance_and_replay_not_accuracy_evaluation",
+  "first_import": {
+    "created": 6,
+    "duplicates": 0
+  },
+  "repeated_import": {
+    "created": 0,
+    "duplicates": 6
+  },
+  "evidence_spans_checked": 90,
+  "stable_export": {
+    "snapshots": 6,
+    "sha256": "1f9578666a4297ee75b181c0b629d123516feb757bc4902f67ea89059e57cf54",
+    "includes_raw": true
+  },
+  "input_manifest_sha256": "1f9578666a4297ee75b181c0b629d123516feb757bc4902f67ea89059e57cf54",
+  "api_checks": "passed",
+  "samples": [
+    {
+      "snapshot_id": "02b241d712f67258c9689b9bf2d75f0b9c35502f672266a927901422c19dd94b",
+      "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm",
+      "sha256": "48adb3f1e4a7495a0d7edb9689716589ea1d963009cedbaca8ad052674f75c7b",
+      "byte_size": 20676,
+      "fetched_at": "2026-10-22T11:29:35.950562+00:00",
+      "http_status": 200,
+      "access_method": "http_fetch",
+      "project_code": "TGPC-2026-A-0384",
+      "budget_cny": "1120000.00",
+      "published_at": "2026-10-16T18:51:00+08:00",
+      "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+      "package_count": 1,
+      "package_budgets_cny": [
+        "1120000.00"
+      ],
+      "eligibility_excerpt_count": 1,
+      "missing_required_fields": [],
+      "abstain_reason": {
+        "document_deadline_at": "not_found"
+      },
+      "parser_version": "p0.2"
+    },
+    {
+      "snapshot_id": "38158340784546092bd09dc70610743602104b3a024e4335b11df525a74a16b1",
+      "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202609/t20260918_27358274.htm",
+      "sha256": "0d050a9ffe5e6ee634dccb80ac87b8da443bd931cf41b9eb9f746a09c54a43a9",
+      "byte_size": 20620,
+      "fetched_at": "2026-10-22T11:30:21.362321+00:00",
+      "http_status": 200,
+      "access_method": "http_fetch",
+      "project_code": "TGPC-2026-A-0324",
+      "budget_cny": "29000000.00",
+      "published_at": "2026-09-18T18:51:00+08:00",
+      "bid_deadline_at": "2026-10-10T08:30:00+08:00",
+      "package_count": 2,
+      "package_budgets_cny": [
+        "570000.00",
+        "28430000.00"
+      ],
+      "eligibility_excerpt_count": 1,
+      "missing_required_fields": [],
+      "abstain_reason": {
+        "document_deadline_at": "not_found"
+      },
+      "parser_version": "p0.2"
+    },
+    {
+      "snapshot_id": "4da5920b2f12098a963a7a073ff318ec4b2640bb97c7686d83a052e1292725d7",
+      "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261018_27513837.htm",
+      "sha256": "cdd130977fb2a9e27eaafaf3b68dfb99a4f8f897d9b75c2822c2ad03c5231fcf",
+      "byte_size": 56284,
+      "fetched_at": "2026-10-22T11:30:16.368376+00:00",
+      "http_status": 200,
+      "access_method": "http_fetch",
+      "project_code": "PYGP-2026-A-0826",
+      "budget_cny": "10089800.00",
+      "published_at": "2026-10-18T18:50:00+08:00",
+      "bid_deadline_at": "2026-11-09T09:00:00+08:00",
+      "package_count": 9,
+      "package_budgets_cny": [
+        "600000.00",
+        "200000.00",
+        "2600000.00",
+        "1000.00",
+        "400000.00",
+        "2000000.00",
+        "500000.00",
+        "3500000.00",
+        "288800.00"
+      ],
+      "eligibility_excerpt_count": 3,
+      "missing_required_fields": [],
+      "abstain_reason": {
+        "document_deadline_at": "not_found"
+      },
+      "parser_version": "p0.2"
+    },
+    {
+      "snapshot_id": "af16edb715f2ad306cda3a00db47bdd65f7f3009e0d9321f5636af9889603e74",
+      "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520100.htm",
+      "sha256": "27b3d5a8a6c28411af9f9ca3fa8a2811f50dd5c6c836cf81ad3ec1765d86477c",
+      "byte_size": 22892,
+      "fetched_at": "2026-10-22T11:30:06.364798+00:00",
+      "http_status": 200,
+      "access_method": "http_fetch",
+      "project_code": "TJBH-2026-D-0170",
+      "budget_cny": "2890000.00",
+      "published_at": "2026-10-19T18:50:00+08:00",
+      "bid_deadline_at": "2026-11-20T08:30:00+08:00",
+      "package_count": 1,
+      "package_budgets_cny": [
+        "2890000.00"
+      ],
+      "eligibility_excerpt_count": 2,
+      "missing_required_fields": [],
+      "abstain_reason": {
+        "document_deadline_at": "not_found"
+      },
+      "parser_version": "p0.2"
+    },
+    {
+      "snapshot_id": "ded248a550a4d894f1853e1b1d8b5902b1fb28fa00b5d8dd3c448b007c83974a",
+      "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510616.htm",
+      "sha256": "792f9037ffaf37ba0b52585ccd2e067a51c43c483c66afa0377b2d91a5d500ca",
+      "byte_size": 18032,
+      "fetched_at": "2026-10-22T11:30:11.376658+00:00",
+      "http_status": 200,
+      "access_method": "http_fetch",
+      "project_code": "TGPC-2026-A-0343",
+      "budget_cny": "170000.00",
+      "published_at": "2026-10-16T18:51:00+08:00",
+      "bid_deadline_at": "2026-11-06T08:30:00+08:00",
+      "package_count": 1,
+      "package_budgets_cny": [
+        "170000.00"
+      ],
+      "eligibility_excerpt_count": 1,
+      "missing_required_fields": [],
+      "abstain_reason": {
+        "document_deadline_at": "not_found"
+      },
+      "parser_version": "p0.2"
+    },
+    {
+      "snapshot_id": "eeb9cae1af85a664a2578f7f9c6c8e864f7b8713196effc0acc77512e9d58a74",
+      "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm",
+      "sha256": "583b8ccd74f955d114704ec2b6bf497d69776f7d71f1e24822b1ba39ff9aec0d",
+      "byte_size": 18048,
+      "fetched_at": "2026-10-22T11:30:04.690185+00:00",
+      "http_status": 200,
+      "access_method": "http_fetch",
+      "project_code": "TGPC-2026-D-1131",
+      "budget_cny": "1049700.00",
+      "published_at": "2026-10-19T18:50:00+08:00",
+      "bid_deadline_at": "2026-11-09T08:30:00+08:00",
+      "package_count": 1,
+      "package_budgets_cny": [
+        "1049700.00"
+      ],
+      "eligibility_excerpt_count": 1,
+      "missing_required_fields": [],
+      "abstain_reason": {
+        "document_deadline_at": "not_found"
+      },
+      "parser_version": "p0.2"
+    }
+  ]
+}

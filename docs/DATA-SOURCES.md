@@ -10,7 +10,11 @@ A procurement announcement is *public to read*, which **does not automatically p
 2. [中国政府采购网 / data interface specifications](https://www.ccgp.gov.cn/sjbzjgf/) — has interface specification v1.2 listed (2026-03-16). **Do not assume that publication of a spec grants anonymous/public access**; verify credentials and terms.
 3. [天津市公共资源交易平台](https://ggzy.zwfwb.tj.gov.cn/) and [天津市政府采购网](https://ccgp-tianjin.gov.cn/) — optional secondary sources, legal/technical feasibility to be checked independently.
 
-### Real primary-notice seed URLs (verified existence by web search on 2026-10-22; no bytes fetched into this repo)
+### Real primary-notice seed URLs (initially URL-only; six public bodies sampled on 2026-10-22)
+
+The user-requested follow-up returned HTTP 200 for all six URLs below. Raw bodies are
+private and excluded from Git. See [actual capture results](../reports/p0-collection-20261022.md).
+This finite access check does not establish permission for recurring crawling or redistribution.
 
 - TGPC-2026-A-0384, 天津市生态环境监测中心 环境监测仪器, 2026-10-16: https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm
 - TGPC-2026-D-1131, 天津市环境应急与事故调查中心 云资源及安全服务, 2026-10-19: https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm

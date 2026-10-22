@@ -14,7 +14,7 @@ DATE = (
     r"(?:\d{4}|[二〇零一三四五六七八九]{4})[年/-]"
     r"[\d一二三四五六七八九十]{1,3}[月/-][\d一二三四五六七八九十]{1,3}日?"
 )
-TIME = r"(?:\s*\d{1,2}(?::|：|时)\d{1,2}(?:(?::|：)\d{1,2}|分(?:\d{1,2}秒)?)?)?"
+TIME = r"(?:[ \t]*\d{1,2}(?::|：|时|点)\d{1,2}(?:(?::|：)\d{1,2}|分(?:\d{1,2}秒)?)?)?"
 DATE_TIME = DATE + TIME
 
 
@@ -24,17 +24,30 @@ def canonical_text(data: bytes, content_type: str, encoding: str) -> str:
         raise ValueError("invalid_text_encoding")
     if content_type == "text/html":
         soup = BeautifulSoup(value, "html.parser")
-        for el in soup(["script", "style", "noscript", "template"]):
+        for el in soup(["script", "style", "noscript", "template", "head"]):
             el.decompose()
-        for row in soup.find_all("tr"):
+        soup = soup.select_one(".vF_detail_main") or soup
+        # Only flatten data rows. An outer layout table may contain the entire notice.
+        rows = [
+            row
+            for row in soup.find_all("tr")
+            if not row.find("table") and len(row.find_all(["td", "th"], recursive=False)) > 1
+        ]
+        for row in rows:
             row.replace_with(
                 "\n"
-                + " | ".join(cell.get_text(" ", strip=True) for cell in row.find_all(["td", "th"]))
+                + " | ".join(
+                    cell.get_text(" ", strip=True)
+                    for cell in row.find_all(["td", "th"], recursive=False)
+                )
                 + "\n"
             )
-        for block in reversed(soup.find_all(["p", "li", "h1", "h2", "h3"])):
-            block.replace_with("\n" + block.get_text(" ", strip=True) + "\n")
-        value = soup.get_text("\n")
+        for br in soup.find_all("br"):
+            br.replace_with("\n")
+        for block in soup.find_all(["div", "p", "li", "h1", "h2", "h3", "tr", "table"]):
+            block.insert_before("\n")
+            block.insert_after("\n")
+        value = soup.get_text("")
     return "\n".join(
         re.sub(r"[\t \u3000\xa0]+", " ", line).strip()
         for line in value.splitlines()
@@ -60,7 +73,7 @@ def parse_date(raw: str, require_time: bool = False) -> tuple[str | None, str, s
     parts = re.split(r"[年/月日-]", date_match.group().rstrip("日"))
     year, month, day = [_chinese_number(part) for part in parts]
     trailing = raw[date_match.end() :].strip()
-    time_match = re.match(r"(\d{1,2})(?::|：|时)(\d{1,2})(?:(?::|：|分)(\d{1,2})秒?)?", trailing)
+    time_match = re.match(r"(\d{1,2})(?::|：|时|点)(\d{1,2})(?:(?::|：|分)(\d{1,2})秒?)?", trailing)
     dt = datetime(year, month, day, tzinfo=CST)
     if time_match:
         hour, minute, second = time_match.groups()
@@ -99,12 +112,17 @@ def parse_notice(text: str, snapshot: Snapshot) -> Notice:
             source_snapshot_id=snapshot.snapshot_id, start=start, end=end, text=text[start:end]
         )
 
-    def pick(field: str, pattern: str, area: str | None = None):
+    def pick(field: str, pattern: str, area: str | None = None, normalize=None):
         matches = list(re.finditer(pattern, text if area is None else area, re.M))
         if not matches:
             notice.abstain_reason[field] = "not_found"
             return None
         values = {m.group("v").strip() for m in matches}
+        if normalize:
+            try:
+                values = {normalize(v) for v in values}
+            except ValueError:
+                pass
         if len(values) != 1:
             notice.abstain_reason[field] = "conflicting_values"
             notice.parse_warnings.append(f"{field}:conflicting_values")
@@ -118,7 +136,7 @@ def parse_notice(text: str, snapshot: Snapshot) -> Notice:
 
     for field, names in [
         ("project_code", "项目编号|项目编码"),
-        ("title", "项目名称|公告标题"),
+        ("title", "采购项目名称|项目名称|公告标题"),
         ("buyer_name", "采购人名称|采购单位|采购人|采购单位名称"),
     ]:
         result = pick(field, label(names))
@@ -147,7 +165,7 @@ def parse_notice(text: str, snapshot: Snapshot) -> Notice:
                 re.M,
             )
         )
-        if len(titles) == 1:
+        if len({m.group("v").strip() for m in titles}) == 1:
             title = titles[0]
             for pattern, kind in kind_map:
                 if re.search(pattern, title.group("v")):
@@ -159,7 +177,7 @@ def parse_notice(text: str, snapshot: Snapshot) -> Notice:
                     break
 
     for field, names, requires_time in [
-        ("published_at", "公告日期|发布日期|发布时间", False),
+        ("published_at", "公告日期|发布日期|发布时间|公告时间", False),
         ("bid_deadline_at", "提交投标文件截止时间|投标截止时间|响应文件提交截止时间", True),
         (
             "document_deadline_at",
@@ -167,11 +185,32 @@ def parse_notice(text: str, snapshot: Snapshot) -> Notice:
             True,
         ),
     ]:
-        raw = pick(field, label(names, DATE_TIME))
-        if raw:
+        pattern = label(names, DATE_TIME)
+        if field == "bid_deadline_at":
+            pattern = (
+                rf"(?:^|[ |])(?:{names})[ \t]*[：:|][ \t]*"
+                rf"(?P<v>{DATE_TIME})"
+                rf"|^[一二三四五六七八九十]+、提交投标文件截止时间、开标时间和地点"
+                rf"[：:]?[ \t]*\n(?:时间[：:][ \t]*)?(?P<section>{DATE_TIME})"
+            )
+        matches = list(re.finditer(pattern, text, re.M))
+        if not matches:
+            notice.abstain_reason[field] = "not_found"
+        else:
             try:
-                instant, day, precision = parse_date(raw, requires_time)
+                parsed = []
+                spans = []
+                for match in matches:
+                    group = "v" if match.group("v") is not None else "section"
+                    parsed.append(parse_date(match.group(group), requires_time))
+                    spans.append(evidence(match.start(group), match.end(group)))
+                days = {item[1] for item in parsed}
+                instants = {item[0] for item in parsed if item[0] is not None}
+                if len(days) > 1 or len(instants) > 1:
+                    raise ValueError("conflicting_values")
+                instant, day, precision = max(parsed, key=lambda item: item[0] is not None)
                 setattr(notice, field, instant)
+                notice.field_evidence[field] = spans
                 if field == "published_at":
                     notice.published_date = day
                     notice.publication_precision = precision
@@ -179,16 +218,25 @@ def parse_notice(text: str, snapshot: Snapshot) -> Notice:
                         notice.abstain_reason[field] = "date_only_no_time_in_source"
             except (ValueError, KeyError) as exc:
                 notice.abstain_reason[field] = str(exc)
+                if str(exc) == "conflicting_values":
+                    notice.parse_warnings.append(f"{field}:conflicting_values")
 
     headers = list(
         re.finditer(
-            r"^(?P<v>(?:第[0-9一二三四五六七八九十]+包|(?:采购包|包)[号]?\s*[0-9一二三四五六七八九十]+))[^\n]*",
+            r"^(?P<v>(?:第[0-9一二三四五六七八九十]+包|"
+            r"(?:采购包|包)[号]?[ \t]*[0-9一二三四五六七八九十]+))"
+            r"(?=[ \t]*(?:\||[：:]?[ \t]*$))[^\n]*",
             text,
             re.M,
         )
     )
     total_area = text[: headers[0].start()] if headers else text
-    raw = pick("budget", label("预算金额|采购预算|项目预算|预算总金额"), total_area)
+    raw = pick(
+        "budget",
+        label("预算金额|采购预算|项目预算|预算总金额"),
+        total_area,
+        normalize=lambda value: parse_money(value).amount,
+    )
     if raw:
         try:
             notice.budget = parse_money(raw)
@@ -199,7 +247,34 @@ def parse_notice(text: str, snapshot: Snapshot) -> Notice:
         section = text[header.start() : end]
         budgets = list(re.finditer(label("预算金额|采购预算|预算"), section, re.M))
         package = Package(label=header.group("v"), evidence=evidence(header.start(), end))
-        if len(budgets) == 1:
+        if " | " in header.group():
+            # A column unit is evidence; never infer it from a total or the seed CSV.
+            package.evidence = evidence(header.start(), header.end())
+            preceding = list(re.finditer(r"^.+$", text[: header.start()], re.M))
+            for line in reversed(preceding):
+                if " | " not in line.group():
+                    break
+                columns = line.group().split(" | ")
+                budget_columns = [
+                    (i, re.fullmatch(r"预算(?:金额)?[（(](万元|元)[）)]", column))
+                    for i, column in enumerate(columns)
+                ]
+                budget_columns = [(i, m) for i, m in budget_columns if m]
+                if len(budget_columns) != 1 or columns[0] not in {"包号", "采购包"}:
+                    continue
+                column, unit_match = budget_columns[0]
+                cells = header.group().split(" | ")
+                if len(cells) == len(columns):
+                    try:
+                        package.budget = parse_money(cells[column] + unit_match[1], "package")
+                        package.budget.raw = cells[column]
+                        package.evidence = evidence(line.start(), header.end())
+                    except ValueError:
+                        pass
+                break
+            if package.budget is None:
+                notice.parse_warnings.append(f"package:{idx}:missing_or_ambiguous_budget")
+        elif len(budgets) == 1:
             try:
                 package.budget = parse_money(budgets[0].group("v"), "package")
             except ValueError:

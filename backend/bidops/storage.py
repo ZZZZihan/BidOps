@@ -24,7 +24,7 @@ def snapshot_id(url: str, digest: str) -> str:
 
 class Manifest(StrictModel):
     format_version: int = 1
-    parser_version: str = "p0.1"
+    parser_version: str = "p0.2"
     snapshots: list[Snapshot] = Field(max_length=500)
 
 
@@ -230,7 +230,7 @@ class Store:
         if manifest_path.stat().st_size > 5_000_000:
             raise ValueError("manifest_too_large")
         manifest = Manifest.model_validate_json(manifest_path.read_bytes())
-        if manifest.format_version != 1 or manifest.parser_version != "p0.1":
+        if manifest.format_version != 1 or manifest.parser_version not in {"p0.1", "p0.2"}:
             raise ValueError("unsupported_manifest_version")
         # Fully preflight before changing the destination DB.
         prepared = []
