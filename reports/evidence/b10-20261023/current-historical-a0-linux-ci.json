@@ -1,0 +1,39 @@
+{
+  "code_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "run_id": 39858527890,
+  "job_id": 120102885597,
+  "jobs": [
+    {
+      "id": 120102885597,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 120102886015,
+      "name": "container",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 120102886210,
+      "name": "frontend",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "log_evidence": {
+    "sha256": "4d9fb1144da3d287074c45e7dabed12f656a6c22bc4e7e39d5594b7ff263b516",
+    "bytes": 38114,
+    "selected_lines": [
+      "2026-10-22T21:35:52.3363765Z All checks passed!",
+      "2026-10-22T21:35:52.3980088Z 256 files already formatted",
+      "2026-10-22T21:46:26.5115100Z ======================= 2129 passed in 630.84s (0:10:30) ======================="
+    ]
+  },
+  "scope": "Historical a0 LinuxCI only; not current88dee",
+  "backend_passed": 2129,
+  "backend_failed": 0,
+  "backend_pytest_seconds": "630.84",
+  "ci_url": "https://github.com/ZZZZihan/BidOps/actions/runs/39858527890"
+}

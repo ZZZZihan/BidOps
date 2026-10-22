@@ -1,0 +1,40 @@
+{
+  "source_sha256": "2cf49c2eaa0d4eb4f867a31a6c44ceda4525bf31c5f0f269d50385574a1c89ae",
+  "source_diff_sha256": "eaae6b958063bb20f40d53c53beeddb891ea81028ece89b95d9565fdef28a47d",
+  "scope": "Independent single-test verification on836 baseline plus WIP one-line expected-list fix; not postcommit full verification",
+  "exact_command": [
+    ".venv/bin/pytest",
+    "-q",
+    "tests/test_storage_api_cli.py::test_migrations_idempotent"
+  ],
+  "source_metadata": {
+    "checked_at": "2026-10-22T21:31:51.150362+00:00",
+    "started_at": "2026-10-22T21:31:49.294834+00:00",
+    "worktree": "<PRIVATE_LOCAL_PATH>",
+    "branch": "codex/b09-migration-check-fix",
+    "head": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+    "command": [
+      ".venv/bin/pytest",
+      "-q",
+      "tests/test_storage_api_cli.py::test_migrations_idempotent"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 1.872,
+    "diff_sha256": "eaae6b958063bb20f40d53c53beeddb891ea81028ece89b95d9565fdef28a47d",
+    "scope": "Read-only review of one expected migration addition; one offline test only; no production/source edits.",
+    "conclusion": "NO_BLOCKER",
+    "assertions_removed": 0,
+    "assertions_weakened": false,
+    "diff_added_lines": 1,
+    "diff_deleted_lines": 0,
+    "migration_registration": "Database.migrate discovers sorted packaged *.sql, executes unapplied migrations and records the filename; 012 is already a registered migration through discovery.",
+    "existing_full_suite_result": "836ccbfad779c4b6e52dd1802dd0877989dbe774: 2005 passed, 1 failed in 605.60s; sole failure expected migration list omitted existing 012. This review did not rerun the full suite.",
+    "offline_guards": "tests/conftest.py autouse fixture blocks httpx/httpx2 live HTTP, sets ALLOW_MODEL_REQUESTS=False and BIDOPS_NETWORK_ENABLED=false.",
+    "postcheck": "git diff --check passed; git status/diff numstat unchanged at one addition in tests/test_storage_api_cli.py."
+  },
+  "commit_static_followup": "36efed31ae496f42474cd8389236668b05767499 contains same exact additive line; latera0 candidate same fix",
+  "no_assertion_weakened": true,
+  "not_full_verification": true,
+  "model_calls": 0,
+  "business_acceptance": "BLOCKED"
+}

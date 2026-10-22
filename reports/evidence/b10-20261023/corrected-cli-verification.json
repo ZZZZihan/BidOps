@@ -1,0 +1,54 @@
+{
+  "code_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "executor": "root",
+  "real_model_calls": 0,
+  "network_probes": 0,
+  "commands": [
+    {
+      "name": "template",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--template"
+      ],
+      "start": "2026-10-22T21:36:40.555221+00:00",
+      "end": "2026-10-22T21:36:41.102682+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "environment",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py"
+      ],
+      "start": "2026-10-22T21:36:41.103156+00:00",
+      "end": "2026-10-22T21:36:41.553008+00:00",
+      "exit_code": 2,
+      "expected_exit_code": 2
+    },
+    {
+      "name": "bundle",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--bundle",
+        "<CURRENT_TEMPLATE>",
+        "--evidence-root",
+        "<PRIVATE_EMPTY_EVIDENCE_ROOT>"
+      ],
+      "start": "2026-10-22T21:36:41.553474+00:00",
+      "end": "2026-10-22T21:36:42.007834+00:00",
+      "exit_code": 2,
+      "expected_exit_code": 2
+    }
+  ],
+  "status": "PASS",
+  "working_tree_clean_after": true,
+  "scope": "Actual currenta0 offline CLI; expected0/2/2 is correct missing-real-evidence behavior, not human acceptance",
+  "stderr_empty_for_all_commands": true,
+  "environment_filter": "Coordinator states noBIDOPS/DEEPSEEK/OPENAI inheritance, network disabled; no secret environment archived",
+  "actual_cost_cny": "0",
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO"
+}

@@ -1,0 +1,24 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "run_id": 39860218830,
+  "ci_url": "https://github.com/ZZZZihan/BidOps/actions/runs/39860218830",
+  "snapshot_at": "2026-10-22T22:01:02.015192+00:00",
+  "source_kind": "coordinator_root_reported_partial_status",
+  "direct_remote_query_by_report_agent": false,
+  "frontend": {
+    "conclusion": "success",
+    "reported_browser_passed": 152,
+    "reported_job_minutes": "2.1"
+  },
+  "container": {
+    "conclusion": "success"
+  },
+  "backend": {
+    "status": "in_progress",
+    "conclusion": null,
+    "passed": null,
+    "seconds": null
+  },
+  "all_jobs_pass_claimed": false,
+  "scope": "Root reported partial snapshot only; final backend and run conclusion pending. No false current fullCI claim."
+}

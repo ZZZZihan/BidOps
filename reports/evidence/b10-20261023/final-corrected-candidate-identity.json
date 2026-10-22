@@ -1,0 +1,29 @@
+{
+  "code_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "tree_sha": "62552fc11386d4dbc5101007b37ea77aaf9bc46d",
+  "commit_time": "2026-10-23T05:35:35+08:00",
+  "clean_observed_at": "2026-10-22T21:37:22.569944+00:00",
+  "clean_observed": true,
+  "previous_candidate": "b136ed58c689b30c98bf43a4eee2a1a134181899",
+  "changed_from_previous": {
+    "tests/test_storage_api_cli.py": {
+      "sha256": "a62bd4c24f3ab438253ac27374970ab09ac94856a87b1693ae268ae17df0876a",
+      "added_lines": 1,
+      "removed_lines": 0,
+      "purpose": "Include012_package_versions_index.sql in exact migration-name assertion"
+    }
+  },
+  "all_uat_implementation_files_unchanged_from_b136": true,
+  "production_runtime_identity_or_lock_changed_by_fix": false,
+  "last_completed_cli_code_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "current_candidate_cli_state": "ACTUALLY_EXECUTED_0_2_2_65UPSTREAM_SIXBLOCKED_NO_GO",
+  "current_plan_specialist_ac_count": 71,
+  "current_required_upstream_count": 65,
+  "plan_sha256": "1bcfc395039fb2e61d794efcd6e5be57343efb03799358f60d98e274f961d399",
+  "full_checks_alias": "acceptance-b10-corrected-final",
+  "full_checks_state": "RUNNING_PENDING_TERMINAL_RECORD",
+  "prior_b136_full_result": "2128passed/1failed619.67s exit1, retained",
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "prior_completed_cli_code_sha": "b136ed58c689b30c98bf43a4eee2a1a134181899"
+}

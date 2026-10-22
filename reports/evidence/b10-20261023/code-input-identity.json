@@ -1,0 +1,275 @@
+{
+  "code_sha": "24e3e573c65ef0b5e597aa1c6a95250794d7fcec",
+  "tree_sha": "88ff6d8e3e30a02f54629e60184c49cfbb454676",
+  "clean_observed": true,
+  "changed_files_from_parent": [
+    {
+      "path": "GOAL.md",
+      "sha256": "342669962eb44df6983502426a9b67430ca97f580c9b7518987551a0f7970a1b"
+    },
+    {
+      "path": "TASKS.md",
+      "sha256": "4124ae6028a4611a86c2b626b0cb92ac64010550943d3e93aa4358e0be1d1408"
+    },
+    {
+      "path": "backend/bidops/migrations/012_package_versions_index.sql",
+      "sha256": "94d790f91a354f6450d743da1f8d9cd93dfdb1cab6fa659032ed9cc46aaa1f72"
+    },
+    {
+      "path": "backend/bidops/qualification/candidates.py",
+      "sha256": "ea2ac56a1cfd49a8eea84e189ba7eb22b9b4e979b23deb85b66b2b7852858858"
+    },
+    {
+      "path": "backend/bidops/qualification/repository.py",
+      "sha256": "857d5c0fb28e335a90b34a764230f7ebb9a268e511669903e015b1d041d79644"
+    },
+    {
+      "path": "backend/bidops/qualification/service.py",
+      "sha256": "0a8d4bc800c92cf27e4cc4973118ec0b67c17ba36bf36effba79828c1fad8dee"
+    },
+    {
+      "path": "backend/bidops/review/api.py",
+      "sha256": "739b1e5ecbfeb400a16ded90aeb97910f59cda8b681dcee5986ab941df2a74c1"
+    },
+    {
+      "path": "backend/bidops/review/repository.py",
+      "sha256": "27d9c5ba42c2b878d3108a8aaa93857ad8dbf02816ddab13f5acf8bba82087e4"
+    },
+    {
+      "path": "backend/bidops/review/service.py",
+      "sha256": "bd0e506c7f16d21126daa4c0fc970e09578ab7db4d99358a7ff2f1108664ea45"
+    },
+    {
+      "path": "docs/AUTHORIZED-UPDATES.md",
+      "sha256": "e9c3e8fc0d93fb5f6e356048c7172783b15958f1e2d768b1259ec4f5567ecd0f"
+    },
+    {
+      "path": "docs/ENTERPRISE-PR-PLAN.md",
+      "sha256": "2ce119f8456c78297602c770766ba1a20293e1d6c88040c10a07e4d8dc1c7397"
+    },
+    {
+      "path": "docs/INDEPENDENT-EVALUATION.md",
+      "sha256": "627d52d92d593e87fa3de244ecc4922ff171d308e454db820adaa278f8d4bc86"
+    },
+    {
+      "path": "frontend/src/Reviews.tsx",
+      "sha256": "2efa0fb41dad376b959de366d48b41064dcd83ab91356c802ade3d45b02fa350"
+    },
+    {
+      "path": "frontend/tests/reviews.spec.ts",
+      "sha256": "4aae0674c91e9e414e06d30821c44b2d3643ef009c3b1496f25dc700aef81492"
+    },
+    {
+      "path": "reports/b07-authorized-updates-20261023.md",
+      "sha256": "f8b9ab229dcb74dcab7ab5cc8115e4b91995e608705c3177c473ff006e0382f4"
+    },
+    {
+      "path": "reports/b08-independent-evaluation-20261023.md",
+      "sha256": "64826a7904334370562167fa76f02c4c18f8bae117cd7165293208ab09a25ad2"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/backend.txt",
+      "sha256": "bd4409cd768c5fce61710baa2b28cfbec0f2fd34c7a4e0a23035dbb357b74db4"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/ci-failure.txt",
+      "sha256": "e4922c8d22f9fa5995f61126a81f67aed684012b64c57f5fcb92cfd809778061"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/ci-status.json",
+      "sha256": "76585032b543a62c0d399029e838cd077c829bd15355be7d6c602ab381e1c205"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/evidence-index.json",
+      "sha256": "74cde9bb19bfd5c3eb47241d4605c9e299e8edc4ccec71ec675debb0effe0281"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/format.txt",
+      "sha256": "8e94ed78209e71558d9bcb04ee84a4a93b82507489ea08908162411df0aef622"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/freeze.txt",
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/frontend-browser.txt",
+      "sha256": "c5cd882922d859df6a88335398099e628559f0009ee1782301effdb3fbd2310f"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/frontend-build.txt",
+      "sha256": "f4b5f6362131996e117ccdf7a1c3bb481499695161474e9fd358792d64cf02db"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/frozen-scorer.json",
+      "sha256": "c500bfd2752bcfa5e64873f6ce5ac8fe5da2893c5dfdf1914863ddc2c06a5a32"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/parser-ci-fix.txt",
+      "sha256": "b7c1047ed2656e3592e3b25aad2e2da799101f92c2a48bab6aa50e17e514dd7b"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/recovery-summary.json",
+      "sha256": "37ce28f6120470812d8d92de3a1d32b9355d1fcde33840ffe03626914474ee0c"
+    },
+    {
+      "path": "reports/evidence/b07-20261023/verification.json",
+      "sha256": "869de57bd64e6fbcfe86585e12f0c2c57a1dce9686d7a341943c9dc5817475ee"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/backend.txt",
+      "sha256": "b6d2c8eafb66c89bbd114d644a6bb9998444178bac2a8640a1ee1d2f5d50ae29"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/calibration/execution.json",
+      "sha256": "7212239c304db3c2357aef8309f1ec6c96d7739a2ac05a9e23ec447edcdf79ec"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/calibration/input.json",
+      "sha256": "86cb78ec745d8a04176747d3b1e2a134a14a9696da18fad09e82cd84bbfd2243"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/calibration/manifest.json",
+      "sha256": "7adee39c1ffa5f39f523293fb45379c3059e57e512b22d4ecc7606d0143008e9"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/calibration/report.json",
+      "sha256": "e3cd465c803e8fb3a590088e9b708f63cc85d98c99c43fb63758bc4db5f742be"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/evidence-index.json",
+      "sha256": "a897bdd57d27d4d8d3760898a7e276423757e623050a610b4e91c1c4db111692"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/format.txt",
+      "sha256": "586fb37ab03e326fd7d42974a2af011ba905524a2698a03c5a1b28499f83dd69"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/freeze.txt",
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/frozen-scorer.json",
+      "sha256": "d69f4d47456e754fb6e6d98874c40f2bf9dd1479707a35638daef10078f0f907"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "reports/evidence/b08-20261023/verification.json",
+      "sha256": "211db2c13b8033156f36c0a32e5090bccf77f19f104f3113065483984c72cc82"
+    },
+    {
+      "path": "scripts/capacity_probe.py",
+      "sha256": "6f5f5c0c788b746ae9e00693f69a893240790e78aca5a6c9d44d17e9c2028462"
+    },
+    {
+      "path": "tests/test_attachment_parser.py",
+      "sha256": "22e547f565a0cdf832bb451682fe6ebbf75a0ad6880ac197f269fa094e2c9e2e"
+    },
+    {
+      "path": "tests/test_capacity_batch_storage.py",
+      "sha256": "cf47c35840a6e27c4b97c413f90094c436490fd993bf859c46028376ba2f1a84"
+    },
+    {
+      "path": "tests/test_capacity_load.py",
+      "sha256": "a7b8e44d9bc900c081e82d77806d7f09bcbc0575912ea38855dccdf9a7fa1340"
+    },
+    {
+      "path": "tests/test_notice_integration.py",
+      "sha256": "3cf7cbf4f842edb7e1fb658622fcc6ce4f4fd9920f7ea2fd65dc4cf5304909cc"
+    },
+    {
+      "path": "tests/test_review_api.py",
+      "sha256": "ac58f339530c6ce9258a6345a34249fc6a2ddb806091dd359593a302da231915"
+    },
+    {
+      "path": "tests/test_review_capacity.py",
+      "sha256": "c7698206a0f5dccea2ff35b92c713a4dae31dc9f987a193b2bc23af7ed7775bd"
+    },
+    {
+      "path": "tests/test_review_repository.py",
+      "sha256": "acc0dff649d97f571bc25233566ad4edc035fe3da4b4afbc33347cc0a33919ac"
+    }
+  ],
+  "no_schema_or_migration_change": true,
+  "no_frontend_change": false,
+  "no_lock_or_dependency_change": true,
+  "plan_sha256": "2ce119f8456c78297602c770766ba1a20293e1d6c88040c10a07e4d8dc1c7397",
+  "upstream_ac_ids_required_by_plan": [
+    "B01-01",
+    "B01-02",
+    "B01-03",
+    "B01-04",
+    "B01-05",
+    "B01-06",
+    "B01-07",
+    "B02-01",
+    "B02-02",
+    "B02-03",
+    "B02-04",
+    "B02-05",
+    "B02-06",
+    "B03-01",
+    "B03-02",
+    "B03-03",
+    "B03-04",
+    "B03-05",
+    "B03-06",
+    "B03-07",
+    "B03-08",
+    "B04-01",
+    "B04-02",
+    "B04-03",
+    "B04-04",
+    "B04-05",
+    "B04-06",
+    "B04-07",
+    "B05-01",
+    "B05-02",
+    "B05-03",
+    "B05-04",
+    "B05-05",
+    "B05-06",
+    "B05-07",
+    "B06-01",
+    "B06-02",
+    "B06-03",
+    "B06-04",
+    "B06-05",
+    "B06-06",
+    "B06-07",
+    "B07-01",
+    "B07-02",
+    "B07-03",
+    "B07-04",
+    "B07-05",
+    "B07-06",
+    "B07-07",
+    "B08-01",
+    "B08-02",
+    "B08-03",
+    "B08-04",
+    "B08-05",
+    "B08-06",
+    "B08-07",
+    "B09-01",
+    "B09-02",
+    "B09-03",
+    "B09-04",
+    "B09-05",
+    "B09-06",
+    "B09-07",
+    "B09-08"
+  ],
+  "input_kind": "generated current-SHA NOT_RUN template; no real inventory, artifact, subject or credential",
+  "real_inventory_supplied": false,
+  "real_human_acceptance_supplied": false,
+  "source_calls": 0,
+  "model_calls": 0,
+  "estimated_cost_cny": "0"
+}

@@ -1,0 +1,53 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "recorded_at": "2026-10-22T22:01:02.015192+00:00",
+  "sources": [
+    {
+      "source_alias": "root/acceptance-b10-clock-final/backend.txt",
+      "source_sha256": "1855b89e67a4ee7db67a034e2baf1ab3be82a9419e3980051a92db60237c8eb5",
+      "source_bytes": 2433,
+      "transformation": "Exact safe terminal stdout; progress/summary only, no fixture body or traceback"
+    },
+    {
+      "source_alias": "root/acceptance-b10-clock-final/lint.txt",
+      "source_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source_bytes": 19,
+      "transformation": "Exact safe terminal stdout; progress/summary only, no fixture body or traceback"
+    },
+    {
+      "source_alias": "root/acceptance-b10-clock-final/format.txt",
+      "source_sha256": "cc199a57a5c7fffcf8d4daf5a28ebb8dd97f626dacee6e2fd506ca4d72be1fff",
+      "source_bytes": 28,
+      "transformation": "Exact safe terminal stdout; progress/summary only, no fixture body or traceback"
+    },
+    {
+      "source_alias": "root/acceptance-b10-clock-final/freeze.txt",
+      "source_sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7",
+      "source_bytes": 74,
+      "transformation": "Exact safe terminal stdout; progress/summary only, no fixture body or traceback"
+    },
+    {
+      "source_alias": "root/acceptance-b10-clock-final/verification.json",
+      "source_sha256": "0ad829f8a7d450b5c79df8109ac59a41d316ef5aabf196a58ecd4e23ce9aac9b",
+      "source_bytes": 2263,
+      "transformation": "Preserve exact SHA/tree/commands/UTC/exit/clean; absolute cwd/input/output paths replaced with safe aliases"
+    },
+    {
+      "source_alias": "root/acceptance-b10-clock-final/frozen-scorer.json",
+      "source_sha256": "41be1b7e359f8753d0d54cb024b85bb2d04c28fe47eda96fe1ba11d03ad762c8",
+      "source_bytes": 21515,
+      "transformation": "Only version/pin/dependency/18-file verification and engineering/noAgent/noBusiness summary; detailed fixture scoring omitted"
+    },
+    {
+      "source_alias": "root/ci-snapshots/historical_a0cf-backend.json",
+      "source_sha256": "66f463994834628971c0dae198240b7ebc61647b230d130ead019cc957aaed29",
+      "source_bytes": 898,
+      "transformation": "Safe exact selected job/terminal-log metadata plus explicit historical scope; no raw CI logs copied"
+    }
+  ],
+  "current_ci_partial_origin": "coordinator root message; not direct reportAgent remote query; final backend still pending",
+  "previous_60_members_unchanged": true,
+  "previous_index_sha256": "9df069cb599dcc5755f62f94e67e148eb3c5bfc1c9219e21a2d17e35ac6fc1e5",
+  "previous_report_sha256": "28f118a85e4b6f67d93e63ee4f624a5055859e06de9463e25387b5e4a127a38b",
+  "scope": "Safe explicit terminal raw stdout plus selected metadata; no original private DB/session/material/model bodies, bootstrap or growing logs"
+}

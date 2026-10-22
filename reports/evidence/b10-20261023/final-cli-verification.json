@@ -1,0 +1,51 @@
+{
+  "code_sha": "b136ed58c689b30c98bf43a4eee2a1a134181899",
+  "executor": "root",
+  "commands": [
+    {
+      "name": "template",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--template"
+      ],
+      "start": "2026-10-22T21:24:49.697623+00:00",
+      "end": "2026-10-22T21:24:50.147226+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0
+    },
+    {
+      "name": "environment",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py"
+      ],
+      "start": "2026-10-22T21:24:50.147243+00:00",
+      "end": "2026-10-22T21:24:50.608757+00:00",
+      "exit_code": 2,
+      "expected_exit_code": 2
+    },
+    {
+      "name": "bundle",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--bundle",
+        "<CURRENT_TEMPLATE>",
+        "--evidence-root",
+        "<PRIVATE_EMPTY_EVIDENCE_ROOT>"
+      ],
+      "start": "2026-10-22T21:24:50.608776+00:00",
+      "end": "2026-10-22T21:24:51.078231+00:00",
+      "exit_code": 2,
+      "expected_exit_code": 2
+    }
+  ],
+  "status": "PASS",
+  "scope": "Actual root offline CLI on current clean candidate; expected exit2 is NO_GO, not failed test",
+  "model_calls": 0,
+  "network_probes": 0,
+  "actual_cost_cny": "0",
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO"
+}

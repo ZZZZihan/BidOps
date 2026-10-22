@@ -1,0 +1,47 @@
+{
+  "purpose": "Safe transformations of existing root/historical logs; raw private evidence not archived",
+  "sources": [
+    {
+      "artifact": "integrated-backend.txt",
+      "source_alias": "root_acceptance_b10_integrated/backend.txt",
+      "source_sha256": "3f8e8602458d85f1a7005e1c7f0c75a69b4970d66e22b47d626306cef73ed9ce",
+      "source_size_bytes": 2353,
+      "transform": "local cwd and pytest paths replaced by public placeholders; no test records copied"
+    },
+    {
+      "artifact": "integrated-lint.txt",
+      "source_alias": "root_acceptance_b10_integrated/lint.txt",
+      "source_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "source_size_bytes": 19,
+      "transform": "local cwd and pytest paths replaced by public placeholders; no test records copied"
+    },
+    {
+      "artifact": "integrated-format.txt",
+      "source_alias": "root_acceptance_b10_integrated/format.txt",
+      "source_sha256": "cd83ead2e950d1cadea9ebbf07897f3d4cc11df68a345db6fd25a2994605a54a",
+      "source_size_bytes": 28,
+      "transform": "local cwd and pytest paths replaced by public placeholders; no test records copied"
+    },
+    {
+      "artifact": "integrated-freeze.txt",
+      "source_alias": "root_acceptance_b10_integrated/freeze.txt",
+      "source_sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7",
+      "source_size_bytes": 74,
+      "transform": "local cwd and pytest paths replaced by public placeholders; no test records copied"
+    },
+    {
+      "artifact": "integrated-verification.json",
+      "source_alias": "root_acceptance_b10_integrated/verification.json",
+      "source_sha256": "eff61d101f4a5339dbcbd145626760365c98fdabc59cb38f8285754f42c0461a",
+      "source_size_bytes": 2261,
+      "transform": "local cwd, pytest root and private scorer output paths replaced by public placeholders; no test records copied"
+    },
+    {
+      "artifact": "frozen-scorer-summary.json",
+      "source_alias": "root_acceptance_b10_integrated/frozen-scorer.json",
+      "source_sha256": "85702cfb5a37a32778edc555f6388d3b0b394d8ab849b85cf2f0e3ed81a30c4f",
+      "source_size_bytes": 21515,
+      "transform": "explicit keys only; omit fixture result bodies and scorer predictions"
+    }
+  ]
+}
