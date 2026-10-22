@@ -1,0 +1,112 @@
+{
+  "accounts": 20,
+  "after_last_page_empty": true,
+  "all_ordered_unit_ids_sha256": "202b0e3311c7de5756bf29e371ac5ed313c3504d17ed73ba5316b5cd5edb01a0",
+  "batch_counts": {
+    "candidate": 0,
+    "excluded": 49995,
+    "needs_verification": 5,
+    "total_units": 50000
+  },
+  "batch_manifest_sha256": "86283c5ed0da49054e04d51bea879001e467aded4c50a6ece810b6ff4129320c",
+  "batch_result_bytes": 37690586,
+  "batch_result_sha256": "0f56c9425100293d07724b6e3c707d43b573ac641f6e10006cbdf2a953f5eaf1",
+  "build_save_and_public_validation_seconds": 8.739083374966867,
+  "business_acceptance": "NOT_VERIFIED",
+  "capacity_acceptance": "NOT_EVALUATED",
+  "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "copy_counts_after": {
+    "agent_runs": 0,
+    "durable_jobs": 1,
+    "qualification_results": 2,
+    "review_cases": 1,
+    "review_events": 0
+  },
+  "fixture_result": "authored information_insufficient B01 assessment, not model execution or human decision",
+  "full_export": {
+    "batch_result_matches_fixed_bytes": true,
+    "below_sixty_million_bytes": true,
+    "bytes": 37703148,
+    "candidate_items": 50000,
+    "public_versions": 10000,
+    "review_events": 0,
+    "seconds": 0.44594704103656113,
+    "sha256": "5fbb2844f77d43b9ea4801425d74c5199465191984a74fd34b7d3ee873123789",
+    "unreviewed_items": 1
+  },
+  "last_page": {
+    "complete_record": false,
+    "full_record_in_export": true,
+    "has_more": false,
+    "limit": 100,
+    "matches_fixed_tail": true,
+    "offset": 49900,
+    "ordered_unit_ids_sha256": "ee41a620a9c5f9274efd13fe586307b0923ab583cb07612dd79ec99540165b3c",
+    "public_versions_total": 10000,
+    "returned": 100,
+    "seconds": 0.217881791992113,
+    "total": 50000
+  },
+  "layer": "production ScreeningService/QualificationRepository/JobsRepository/ReviewRepository/ReviewService; no HTTP or DBOS runtime",
+  "measurement_kind": "local_engineering_full_synthetic_repository_service",
+  "new_human_approvals": 0,
+  "notice_versions": 10000,
+  "original_writes": 0,
+  "procurement_packages": 50000,
+  "real_model_calls": 0,
+  "real_source_calls": 0,
+  "serialization_boundary": [
+    {
+      "actual_encoded_bytes": 60000000,
+      "no_truncation": true,
+      "status": 200
+    },
+    {
+      "actual_encoded_bytes": 60000001,
+      "error_code": "review_export_too_large",
+      "status": 413
+    }
+  ],
+  "serialization_boundary_scope": "isolated in-memory repository return hook on complete 50k export shape; padding never persisted; serialization/service guard only",
+  "source_after": {
+    "database_sha256": "781134a20ebb876da212e060ecbc771778caacea5de8f9cdde92c6b85fe73647",
+    "files": 11403,
+    "sha256": "a875488d58507b25633f034e23de9acbef2bef1c4d395caa5c454ee8ba1a882c"
+  },
+  "source_before": {
+    "database_sha256": "781134a20ebb876da212e060ecbc771778caacea5de8f9cdde92c6b85fe73647",
+    "files": 11403,
+    "sha256": "a875488d58507b25633f034e23de9acbef2bef1c4d395caa5c454ee8ba1a882c"
+  },
+  "stored_envelope_bytes": 37692100,
+  "stored_envelope_sha256": "8aed12964535acd27938cbdb4f8c30d24c0e5cf4a0c1e239ef1e6962faf6d8d7",
+  "synthetic_clock": "2026-10-22T20:55:13.026197+00:00",
+  "source_alias": "stopped-46ef-corpus/independent-copy",
+  "source_path_removed": true,
+  "actual_process_exit_code": 0,
+  "process_exit_evidence": "Executor tool result; not a field originally written in raw result.json",
+  "privacy_transformation": "Removed only source absolute path; no account IDs, session tokens, raw bodies or database members published",
+  "source_artifacts": [
+    {
+      "alias": "private-full-review-proof/result.json",
+      "bytes": 3259,
+      "sha256": "aa0939e3106e5ba33a95e0b7fcdc841593a98645d49cbed206299474a88715c7"
+    },
+    {
+      "alias": "private-full-review-proof/proof.py",
+      "bytes": 11382,
+      "sha256": "f80f32dce7ee879b658b482733df43c128bec19f2680161e0bc51f6d3c5279bf"
+    },
+    {
+      "alias": "private-full-review-proof/proof.log",
+      "bytes": 3307,
+      "sha256": "39826f1a5995f22233f9edbd4bcba93798c91ace6378a0ba023d0a82c4b034fe"
+    },
+    {
+      "alias": "private-full-review-proof/README.md",
+      "bytes": 4332,
+      "sha256": "82b16d1c645d09c3cdf4fd406fb99921e65944b2cc26d948cdd3f8881b24f8dc"
+    }
+  ],
+  "method_boundary": "Production repository/service calls on an independent synthetic data copy. No HTTP or DBOS runtime; pinned original synthetic login clock is not current SSO or human acceptance."
+}

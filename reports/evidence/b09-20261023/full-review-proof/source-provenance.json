@@ -1,0 +1,33 @@
+{
+  "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "scope": "Completed local engineering proof on full 10k-version/50k-package synthetic data, not capacity or business acceptance",
+  "raw_artifacts_retained_private": [
+    {
+      "alias": "private-full-review-proof/result.json",
+      "bytes": 3259,
+      "sha256": "aa0939e3106e5ba33a95e0b7fcdc841593a98645d49cbed206299474a88715c7"
+    },
+    {
+      "alias": "private-full-review-proof/proof.py",
+      "bytes": 11382,
+      "sha256": "f80f32dce7ee879b658b482733df43c128bec19f2680161e0bc51f6d3c5279bf"
+    },
+    {
+      "alias": "private-full-review-proof/proof.log",
+      "bytes": 3307,
+      "sha256": "39826f1a5995f22233f9edbd4bcba93798c91ace6378a0ba023d0a82c4b034fe"
+    },
+    {
+      "alias": "private-full-review-proof/README.md",
+      "bytes": 4332,
+      "sha256": "82b16d1c645d09c3cdf4fd406fb99921e65944b2cc26d948cdd3f8881b24f8dc"
+    }
+  ],
+  "raw_script_published": false,
+  "raw_result_published": false,
+  "reason": "Raw script/result/log contain local absolute source paths. Original bytes remain private and are pinned here; only safe projections are allowlisted.",
+  "network": "socket connection functions rejected and Pydantic AI ALLOW_MODEL_REQUESTS=False",
+  "human_approvals": 0,
+  "business_acceptance": "NOT_VERIFIED",
+  "capacity_acceptance": "NOT_EVALUATED"
+}

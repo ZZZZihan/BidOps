@@ -1,0 +1,13 @@
+{
+  "kind": "read_only_actual_synthetic_read_path_not_capacity",
+  "notice_versions_rehashed": 10000,
+  "raw_normalized_bytes": 40960000,
+  "all_public_revalidation_seconds": 5.600955666974187,
+  "target_project_versions": 1,
+  "one_project_versions_seconds": 0.041912458022125065,
+  "one_project_status_seconds": 0.005429458920843899,
+  "maxrss_platform_units": 67944448,
+  "writes": 0,
+  "real_model_calls": 0,
+  "real_source_calls": 0
+}

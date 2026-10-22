@@ -1,0 +1,223 @@
+{
+  "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+  "draft_phase": "FINAL_ENGINEERING_C_PASS_LOCAL_CAPACITY_FAIL_BUSINESS_BLOCKED",
+  "acs": [
+    {
+      "ac_id": "B09-01",
+      "plan_type": "C",
+      "engineering_status": "PASS",
+      "acceptance_scope": "Frozen input contract complete and local synthetic measured-input gatePASS; target environment measurementBLOCKED, capacityFAIL separately underB09-02",
+      "evidence": [
+        "manifest.json",
+        "pending-final-runs.json",
+        "hardware-auxiliary-snapshot.json",
+        "current-setup-summary.json",
+        "final-db4-code-ci.json",
+        "historical-linux-36ef-backend-failure.json",
+        "formal-load/safe-report.json",
+        "formal-load/safe-trace-summary.json"
+      ],
+      "remaining": [],
+      "current_final_integration_status": "FINAL_DB4_CI_PASS",
+      "engineering_closed": true,
+      "measured_input_gate": "PASS_LOCAL_SYNTHETIC_PROFILE_ONLY",
+      "target_environment_measurement_gate": "BLOCKED"
+    },
+    {
+      "ac_id": "B09-02",
+      "plan_type": "B",
+      "current_final_run": "FAIL_LOCAL_ENGINEERING",
+      "fixed_configuration_gap": "FAIL_TARGET2_CONFIGURED1",
+      "acceptance_status": "BLOCKED",
+      "evidence": [
+        "historical-prewarmup-failure.json",
+        "historical-environment-context.json",
+        "pending-final-runs.json",
+        "current-setup-summary.json",
+        "historical-aborted-before-warmup.json",
+        "formal-load/safe-report.json",
+        "formal-load/http-summary.json",
+        "formal-load/completion.json"
+      ],
+      "remaining": [
+        "target4CPU8GiB environment and real-provider measurement not performed",
+        "declared and observed compute1 below frozen target2; no target relaxation"
+      ],
+      "capacity_gates": {
+        "api_performance": "PASS",
+        "data_integrity": "PASS",
+        "declared_compute_target": "FAIL",
+        "input_integrity": "PASS",
+        "manifest_complete": "PASS",
+        "measurement": "BLOCKED",
+        "model_simulation": "PASS",
+        "observed_compute_target": "FAIL"
+      }
+    },
+    {
+      "ac_id": "B09-03",
+      "plan_type": "C",
+      "historical_engineering_status": "29_DISTINCT_CHECKS_PASSED",
+      "current_final_integration_status": "FINAL_DB4_CI_PASS",
+      "evidence": [
+        "independent-recovery/safe-summary.json",
+        "historical-selected-checks.json",
+        "historical-full-backend-836-failure.json",
+        "migration-expectation-independent-review.json",
+        "frontend-completion-and-teardown-summary.json",
+        "corrected-full-36ef-summary.json",
+        "identity-clock-independent-summary.json",
+        "ci-836-backend-failure.json",
+        "version-lineage-summary.json",
+        "final-db4-code-ci.json",
+        "historical-linux-36ef-backend-failure.json"
+      ],
+      "remaining": [],
+      "engineering_status": "PASS",
+      "engineering_closed": true
+    },
+    {
+      "ac_id": "B09-04",
+      "plan_type": "C",
+      "historical_engineering_status": "18_LOCAL_HEALTH_WATCHDOG_CHECKS_PASSED_AND4_INDEPENDENT_TARGETED",
+      "current_final_integration_status": "FINAL_DB4_CI_PASS",
+      "evidence": [
+        "historical-test-results.json",
+        "historical-full-backend-836-failure.json",
+        "migration-expectation-independent-review.json",
+        "frontend-completion-and-teardown-summary.json",
+        "corrected-full-36ef-summary.json",
+        "identity-clock-independent-summary.json",
+        "ci-836-backend-failure.json",
+        "version-lineage-summary.json",
+        "final-db4-code-ci.json",
+        "historical-linux-36ef-backend-failure.json"
+      ],
+      "remaining": [],
+      "engineering_status": "PASS",
+      "engineering_closed": true
+    },
+    {
+      "ac_id": "B09-05",
+      "plan_type": "B",
+      "acceptance_status": "BLOCKED",
+      "evidence": [
+        "pending-final-runs.json"
+      ],
+      "remaining": [
+        "authorized real target fault and external alert/recovery receiver receipts"
+      ]
+    },
+    {
+      "ac_id": "B09-06",
+      "plan_type": "B",
+      "historical_engineering_status": "20_SELECTED_RESTORE_TESTS_AND_ONE_COMPLETE_FAILCLOSED_LOCAL_DRILL",
+      "acceptance_status": "BLOCKED",
+      "business_rto_seconds": null,
+      "evidence": [
+        "independent-recovery/PUBLIC_ENGINEERING_SUMMARY.md",
+        "independent-recovery/safe-summary.json",
+        "historical-selected-checks.json"
+      ],
+      "remaining": [
+        "latest authoritative permissions and whole ledger confirmation",
+        "authorized business reopening and complete RTO in target environment"
+      ]
+    },
+    {
+      "ac_id": "B09-07",
+      "plan_type": "B",
+      "acceptance_status": "BLOCKED",
+      "current_decision": "Keep current SQLite/single-worker/single calculation and limits; complete local run FAIL. Wait for target-environment measurement; do not raise concurrency or approve production scale to manufacturePASS.",
+      "evidence": [
+        "pending-final-runs.json",
+        "formal-load/safe-report.json",
+        "formal-load/capacity-curves-data.json"
+      ],
+      "remaining": [
+        "authorized target capacity/provider evidence; any infrastructure change requires separate migration/rollback/test PR"
+      ]
+    },
+    {
+      "ac_id": "B09-08",
+      "plan_type": "C",
+      "historical_engineering_status": "STRICT_CANDIDATE_INDEX_PAGE_EXPORT_TARGETED_PASS",
+      "current_final_integration_status": "FINAL_DB4_CI_PASS",
+      "evidence": [
+        "historical-candidate-diagnostic.json",
+        "historical-index-diagnostic.json",
+        "historical-readpath-summary.json",
+        "historical-test-results.json",
+        "current-setup-summary.json",
+        "historical-full-backend-836-failure.json",
+        "migration-expectation-independent-review.json",
+        "full-review-proof/safe-result.json",
+        "full-review-proof/PUBLIC_ENGINEERING_SUMMARY.md",
+        "full-review-proof/source-provenance.json",
+        "frontend-completion-and-teardown-summary.json",
+        "corrected-full-36ef-summary.json",
+        "identity-clock-independent-summary.json",
+        "ci-836-backend-failure.json",
+        "version-lineage-summary.json",
+        "final-db4-code-ci.json",
+        "historical-linux-36ef-backend-failure.json"
+      ],
+      "remaining": [],
+      "current_formal_setup_status": "PASS_10584MS_OUTSIDE_TIMED_WINDOW",
+      "fullscale_review_export_engineering_status": "PASS_50000_FIXED_UNITS_10000_PUBLIC_VERSIONS_LAST_PAGE_AND_COMPLETE_EXPORT",
+      "engineering_status": "PASS",
+      "engineering_closed": true,
+      "acceptance_scope": "Strict storage/index/page/export engineering including actual50k proof and finalCI PASS; complete timed local capacityFAIL separately underB09-02"
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G-01",
+      "status": "ENGINEERING_AC_MAPPING_COMPLETE_BUSINESS_BLOCKED",
+      "reason": "All four C gates engineering-closed; complete fixed local load input gatePASS but capacityFAIL and target measurementBLOCKED; all B gates remainBLOCKED"
+    },
+    {
+      "gate_id": "G-02",
+      "status": "PASS",
+      "reason": "Finaldb4 Linux CI39859780307 all3 jobs PASS: backend2010/675.52s, browser152/2.7m, lint/247format/freeze/containerPASS. Prior836 local/Linux and36ef Linux failures preserved; no human/capacity acceptance implied."
+    },
+    {
+      "gate_id": "G-03",
+      "status": "PASS_ENGINEERING",
+      "reason": "Finaldb4 complete CI PASS;012 index/idempotent migration and typed restore coverage plus actual full50k fixed836 service/export proof retained"
+    },
+    {
+      "gate_id": "G-04",
+      "status": "PASS_ENGINEERING",
+      "reason": "Finaldb4 complete CI PASS plus independent clock43/19 overlapping and7 verifier cases; production security times/ACL unchanged; evidence safety remains separately checked"
+    },
+    {
+      "gate_id": "G-05",
+      "status": "PASS_ENGINEERING",
+      "reason": "Production groups836→db4 unchanged per coordinator and finaldb4 lint/format/freeze/containerPASS; no new B09 dependency/lock changes"
+    },
+    {
+      "gate_id": "G-06",
+      "status": "ENGINEERING_DOCUMENTED",
+      "reason": "No real provider/source/alert/IdP/target requests; local FunctionModel only, actual new charge0"
+    },
+    {
+      "gate_id": "G-07",
+      "status": "ENGINEERING_DOCUMENTED",
+      "reason": "All old abort/setup/local/Linux failures preserved; final fixed836 load4200/steady3600 completed naturalexit1 capacityFAIL; finaldb4 CI2010PASS separate; raw SHA/EOF verified, no failed operation excluded"
+    },
+    {
+      "gate_id": "G-08",
+      "status": "PASS_ENGINEERING_BUSINESS_BLOCKED",
+      "reason": "Default-off/rollback negative tests in finaldb4 complete CI PASS; actual business reopening and targetRTO still BLOCKED/null"
+    }
+  ],
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "real_model_calls": 0,
+  "actual_cost_cny": "0",
+  "note": "All four C gates engineering-closed on final CI plus scoped evidence; no measured input/capacity or human acceptance inferred. Older test selections overlap and remain attributed to original versions.",
+  "capacity_code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "complete_regression_code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+  "prior_local_complete_regression_code_sha": "36efed31ae496f42474cd8389236668b05767499"
+}

@@ -1,0 +1,121 @@
+{
+  "scope": "Ended synthetic engineering/protocol full regression; not target capacity or human acceptance",
+  "code_sha": "36efed31ae496f42474cd8389236668b05767499",
+  "tree_sha": "6105084a04c15de80a5443d69e815acfff369602",
+  "executor": "root",
+  "full_backend": {
+    "status": "PASS",
+    "passed": 2006,
+    "failed": 0,
+    "pytest_reported_seconds": 622.67,
+    "exit_code": 0,
+    "includes_four_new_identity_time_boundary_cases": false
+  },
+  "commands": [
+    {
+      "name": "backend",
+      "command": [
+        ".venv/bin/pytest",
+        "-q",
+        "--basetemp",
+        "<isolated-test-output>"
+      ],
+      "start": "2026-10-22T21:34:49.985429+00:00",
+      "end": "2026-10-22T21:45:16.088726+00:00",
+      "exit_code": 0,
+      "log_alias": "backend.txt"
+    },
+    {
+      "name": "lint",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "start": "2026-10-22T21:45:16.089766+00:00",
+      "end": "2026-10-22T21:45:16.769966+00:00",
+      "exit_code": 0,
+      "log_alias": "lint.txt"
+    },
+    {
+      "name": "format",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "start": "2026-10-22T21:45:16.770421+00:00",
+      "end": "2026-10-22T21:45:16.796333+00:00",
+      "exit_code": 0,
+      "log_alias": "format.txt"
+    },
+    {
+      "name": "freeze",
+      "command": [
+        ".venv/bin/python",
+        "scripts/screening_eval.py",
+        "--expected-freeze-sha256",
+        "22a2adf96f07b9a3e9c1493dae2cebbe2499b6e05db21f2b52855686c2afffea",
+        "--expected-input-sha256",
+        "eda43a451ae978251de4be003f1c062d1a4d3e93db9249c9c5458966628f44fb",
+        "--output",
+        "<safe-output>/frozen-scorer.json"
+      ],
+      "start": "2026-10-22T21:45:16.796638+00:00",
+      "end": "2026-10-22T21:45:17.365636+00:00",
+      "exit_code": 0,
+      "log_alias": "freeze.txt"
+    }
+  ],
+  "lint": "PASS",
+  "format": {
+    "status": "PASS",
+    "files": 247
+  },
+  "freeze": {
+    "status": "PASS",
+    "exit_code": 0,
+    "agent_score": null,
+    "business_acceptance": "BLOCKED"
+  },
+  "working_tree_clean_after": true,
+  "actual_model_id": null,
+  "actual_provider_model_calls": 0,
+  "actual_cost_cny": "0",
+  "sources": [
+    {
+      "source_alias": "corrected-full-36ef/verification.json",
+      "bytes": 2279,
+      "sha256": "e3617265e8c1cb28a2146712dda3829a2c7921e32c323182de05f8d666054c6f"
+    },
+    {
+      "source_alias": "corrected-full-36ef/backend.txt",
+      "bytes": 2273,
+      "sha256": "a46011ff28f438eb423d3d40c48a9055d985402717565eed6e8aaeb44d6ae0a2"
+    },
+    {
+      "source_alias": "corrected-full-36ef/lint.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "source_alias": "corrected-full-36ef/format.txt",
+      "bytes": 28,
+      "sha256": "e194b7ef1e83f1a8628937b0eccdf53bb0121c85ee8614e5506383e9484dfbc8"
+    },
+    {
+      "source_alias": "corrected-full-36ef/freeze.txt",
+      "bytes": 74,
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7"
+    },
+    {
+      "source_alias": "corrected-full-36ef/frozen-scorer.json",
+      "bytes": 21515,
+      "sha256": "add3397fea57c4eef35fc9225c883ec83bb22da920a1c7be1f6f0fe2d8737887"
+    }
+  ],
+  "count_boundary": "2006 is the actual complete run before the four added clock-boundary cases. No 2010-test full run is claimed.",
+  "final_candidate_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+  "final_candidate_full_suite_claimed": false
+}
