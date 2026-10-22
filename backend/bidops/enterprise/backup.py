@@ -1,15 +1,20 @@
-"""SQLite's online backup API plus the immutable, hash-addressed source files."""
+"""Consistent offline SQLite/file backups and fail-closed private restoration."""
 
 import hashlib
 import json
 import os
+import re
 import shutil
 import sqlite3
+import tempfile
+import time
 from pathlib import Path
 
 from sqlalchemy.engine import make_url
 
 from bidops.config import Settings
+from bidops.db import Database
+from bidops.enterprise.operations import SingleWorker
 
 
 def sha(path: Path) -> str:
@@ -17,7 +22,7 @@ def sha(path: Path) -> str:
 
 
 def referenced_files(db) -> dict[str, str]:
-    files = {f"raw/{row[0]}": row[0] for row in db.execute("SELECT DISTINCT sha256 FROM snapshots")}
+    files = {f"raw/{r[0]}": r[0] for r in db.execute("SELECT DISTINCT sha256 FROM snapshots")}
     tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
     if "nd_attachments" in tables:
         files.update(
@@ -28,108 +33,182 @@ def referenced_files(db) -> dict[str, str]:
                 )
             }
         )
+    if "company_material_revisions" in tables:
+        for blob, raw_sha, normalized, text_sha in db.execute(
+            "SELECT blob_path,sha256,text_path,text_sha256 FROM company_material_revisions"
+        ):
+            for name, value in ((blob, raw_sha), (normalized, text_sha)):
+                name = "private/company/" + name
+                if name in files and files[name] != value:
+                    raise ValueError("Conflicting private file references")
+                files[name] = value
     return files
 
 
 def valid_path(name):
-    parts = name.split("/")
-    return (
-        len(parts) == 2
-        and parts[0] in {"raw", "attachments"}
-        and len(parts[1]) == 64
-        and all(c in "0123456789abcdef" for c in parts[1])
+    return isinstance(name, str) and bool(
+        re.fullmatch(
+            r"(raw|attachments)/[a-f0-9]{64}|private/company/(blob|text)/[a-f0-9]{32}", name
+        )
     )
 
 
-def backup(settings: Settings, destination: Path):
+def verify_path(root, name, digest):
+    if not valid_path(name) and name != "bidops.sqlite3":
+        raise ValueError("Invalid backup path")
+    if not isinstance(digest, str) or not re.fullmatch(r"[a-f0-9]{64}", digest):
+        raise ValueError("Invalid backup hash")
+    path = root / name
+    if (
+        path.is_symlink()
+        or not path.resolve().is_relative_to(root.resolve())
+        or not path.is_file()
+        or sha(path) != digest
+    ):
+        raise ValueError("Backup integrity check failed")
+    return path
+
+
+def backup(settings: Settings, destination: Path, *, retention_days: int = 7):
+    if isinstance(retention_days, bool) or not 1 <= retention_days <= 30:
+        raise ValueError("Backup retention must be between 1 and 30 days")
     database = Path(make_url(settings.database_url).database).resolve()
     if not database.is_file():
         raise ValueError("Database does not exist; refusing an empty backup")
-    destination.mkdir(parents=True, exist_ok=False, mode=0o700)
-    copied = destination / "bidops.sqlite3"
-    with sqlite3.connect(database.as_uri() + "?mode=ro", uri=True) as source:
-        with sqlite3.connect(copied) as target:
-            source.backup(target)
-            if target.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
-                raise ValueError("Database integrity check failed")
-            references = referenced_files(target)
-    os.chmod(copied, 0o600)
-    (destination / "raw").mkdir(mode=0o700)
-    manifest = {"bidops.sqlite3": sha(copied)}
-    for name, value in references.items():
-        if not valid_path(name):
-            raise ValueError("Invalid source hash")
-        original = settings.data_dir / name
-        if (
-            original.is_symlink()
-            or not original.resolve().is_relative_to(settings.data_dir.resolve())
-            or sha(original) != value
-        ):
-            raise ValueError("Source integrity check failed")
-        target = destination / name
-        target.parent.mkdir(exist_ok=True, mode=0o700)
-        shutil.copyfile(original, target)
-        os.chmod(target, 0o600)
-        manifest[name] = value
-    (destination / "manifest.json").write_text(
-        json.dumps(
-            {
-                "version": 2 if any(n.startswith("attachments/") for n in references) else 1,
-                "files": manifest,
-            },
-            indent=2,
-        )
-    )
-    os.chmod(destination / "manifest.json", 0o600)
-    return {"files": len(manifest), "destination": str(destination)}
+    # The same lock is held throughout enterprise service lifetime and maintenance.
+    # Stop the application before backup; do not race private deletion with copying.
+    worker = SingleWorker(settings.database_url)
+    try:
+        destination.mkdir(parents=True, exist_ok=False, mode=0o700)
+        copied = destination / "bidops.sqlite3"
+        with sqlite3.connect(database.as_uri() + "?mode=ro", uri=True) as source:
+            with sqlite3.connect(copied) as target:
+                source.backup(target)
+                if target.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
+                    raise ValueError("Database integrity check failed")
+                references = referenced_files(target)
+        copied.chmod(0o600)
+        (destination / "raw").mkdir(mode=0o700)
+        manifest = {"bidops.sqlite3": sha(copied)}
+        for name, value in references.items():
+            original = verify_path(settings.data_dir, name, value)
+            target = destination / name
+            target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+            shutil.copyfile(original, target)
+            target.chmod(0o600)
+            manifest[name] = value
+        created = time.time()
+        metadata = {
+            "version": 3,
+            "created_at": created,
+            "expires_at": created + retention_days * 86400,
+            "private_restore_policy": "quarantine_all_objects_remove_all_grants",
+            "files": manifest,
+        }
+        (destination / "manifest.json").write_text(json.dumps(metadata, indent=2))
+        (destination / "manifest.json").chmod(0o600)
+        return {
+            "files": len(manifest),
+            "destination": str(destination),
+            "expires_at": metadata["expires_at"],
+            "requires_stopped_service": True,
+        }
+    finally:
+        worker.close()
 
 
 def restore(bundle: Path, destination: Path):
-    manifest = json.loads((bundle / "manifest.json").read_text())
-    if manifest.get("version") not in {1, 2} or "bidops.sqlite3" not in manifest.get("files", {}):
+    metadata_path = bundle / "manifest.json"
+    if metadata_path.is_symlink() or metadata_path.stat().st_size > 20_000_000:
         raise ValueError("Invalid backup manifest")
-    for name, expected in manifest["files"].items():
-        if name != "bidops.sqlite3" and not valid_path(name):
-            raise ValueError("Invalid backup path")
-        path = bundle / name
+    manifest = json.loads(metadata_path.read_text())
+    if manifest.get("version") not in {1, 2, 3} or not isinstance(manifest.get("files"), dict):
+        raise ValueError("Invalid backup manifest")
+    if "bidops.sqlite3" not in manifest["files"]:
+        raise ValueError("Invalid backup manifest")
+    bounded = manifest["version"] == 3 or any(
+        key in manifest for key in ("created_at", "expires_at")
+    )
+    if bounded:
+        created, expires = manifest.get("created_at"), manifest.get("expires_at")
         if (
-            path.is_symlink()
-            or not path.resolve().is_relative_to(bundle.resolve())
-            or sha(path) != expected
+            type(created) not in {float, int}
+            or type(expires) not in {float, int}
+            or not 0 < expires - created <= 30 * 86400
+            or not created <= time.time() < expires
         ):
-            raise ValueError("Backup integrity check failed")
-    # Validate the database/file closure before creating any usable restored DB.
+            raise ValueError("Backup expired or invalid retention window")
+    for name, value in manifest["files"].items():
+        verify_path(bundle, name, value)
     with sqlite3.connect(
         (bundle / "bidops.sqlite3").resolve().as_uri() + "?mode=ro", uri=True
     ) as db:
         if db.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
             raise ValueError("Backup database integrity check failed")
         references = referenced_files(db)
+        tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
+        private_objects = (
+            "company_objects" in tables
+            and db.execute("SELECT 1 FROM company_objects LIMIT 1").fetchone()
+        )
+        if (private_objects or any(name.startswith("private/") for name in references)) and (
+            not bounded or manifest["version"] not in {2, 3}
+        ):
+            raise ValueError("Private backup requires a bounded retention window")
         if set(manifest["files"]) != {"bidops.sqlite3", *references}:
             raise ValueError("Backup file closure does not match database")
         if any(manifest["files"].get(name) != value for name, value in references.items()):
             raise ValueError("Backup is missing a referenced blob")
-    destination.mkdir(parents=True, exist_ok=False, mode=0o700)
-    (destination / "raw").mkdir(mode=0o700)
-    for name in manifest["files"]:
-        (destination / name).parent.mkdir(exist_ok=True, mode=0o700)
-        shutil.copyfile(bundle / name, destination / name)
-        os.chmod(destination / name, 0o600)
-    with sqlite3.connect(destination / "bidops.sqlite3") as db:
-        if db.execute("PRAGMA integrity_check").fetchone()[0] != "ok":
-            raise ValueError("Restored database integrity check failed")
-        for name, value in referenced_files(db).items():
-            if manifest["files"].get(name) != value:
-                raise ValueError("Backup is missing a referenced blob")
-        # A restored deployment must require new SSO login; old callbacks cannot be reused.
-        tables = {r[0] for r in db.execute("SELECT name FROM sqlite_master WHERE type='table'")}
-        if "enterprise_logins" in tables:
-            db.execute("DELETE FROM enterprise_logins")
-        if "enterprise_oauth_state" in tables:
-            db.execute("DELETE FROM enterprise_oauth_state")
-        db.commit()
-    return {
-        "files": len(manifest["files"]),
-        "destination": str(destination),
-        "logins_revoked": True,
-    }
+    if destination.exists() or destination.is_symlink():
+        raise FileExistsError(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    staging = Path(tempfile.mkdtemp(prefix=".bidops-restore-", dir=destination.parent))
+    try:
+        (staging / "raw").mkdir(mode=0o700)
+        for name in manifest["files"]:
+            target = staging / name
+            target.parent.mkdir(parents=True, exist_ok=True, mode=0o700)
+            shutil.copyfile(bundle / name, target)
+            target.chmod(0o600)
+        with sqlite3.connect(staging / "bidops.sqlite3") as conn:
+            tables = {
+                r[0] for r in conn.execute("SELECT name FROM sqlite_master WHERE type='table'")
+            }
+            # These are all credential-bearing/session snapshot stores, including
+            # the current identity cache. A restored IdP snapshot is never fresh.
+            for table in (
+                "enterprise_login_identities",
+                "enterprise_logins",
+                "enterprise_oauth_state",
+            ):
+                if table in tables:
+                    conn.execute(f"DELETE FROM {table}")
+            if "enterprise_subjects" in tables:
+                conn.execute("UPDATE enterprise_subjects SET fresh_until=0")
+            conn.commit()
+        quarantined = 0
+        if "company_objects" in tables:
+            from bidops.company import CompanyService
+            from bidops.company.retention import prune_company_materials, quarantine_after_restore
+
+            db = Database(f"sqlite:///{staging}/bidops.sqlite3")
+            try:
+                quarantined = quarantine_after_restore(db)["quarantined_objects"]
+                result = prune_company_materials(CompanyService(db, staging))
+                if result["status"] != "PASS":
+                    raise ValueError("Restored private retention cleanup failed")
+            finally:
+                db.engine.dispose()
+        # Claim the destination only after all security transformations succeed.
+        destination.mkdir(mode=0o700, exist_ok=False)
+        for child in staging.iterdir():
+            os.rename(child, destination / child.name)
+        return {
+            "files": len(manifest["files"]),
+            "destination": str(destination),
+            "logins_revoked": True,
+            "quarantined_objects": quarantined,
+            "old_private_grants_removed": True,
+        }
+    finally:
+        shutil.rmtree(staging)

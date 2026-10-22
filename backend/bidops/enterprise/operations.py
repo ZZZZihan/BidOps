@@ -1,6 +1,7 @@
 import fcntl
 import json
 import logging
+import re
 import time
 import uuid
 from pathlib import Path
@@ -85,7 +86,20 @@ class OperationsMiddleware:
             await send(message)
 
         try:
-            if self.enterprise and scope["method"] in {"POST", "PUT", "PATCH"}:
+            # The two upload handlers authenticate before consuming input and count
+            # every streamed chunk against the material limit. Other JSON/form
+            # requests retain their independent 16 KiB bound.
+            material_upload = (
+                scope["method"] == "POST" and scope["path"] == "/api/company/materials"
+            ) or (
+                scope["method"] == "PUT"
+                and re.fullmatch(r"/api/company/materials/[0-9a-f]{32}", scope["path"])
+            )
+            if (
+                self.enterprise
+                and scope["method"] in {"POST", "PUT", "PATCH"}
+                and not material_upload
+            ):
                 body = b""
                 while True:
                     message = await receive()

@@ -36,6 +36,13 @@ jobs:
         working-directory: frontend
     steps:
       - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+          enable-cache: true
+      - name: Install real company API browser fixture backend
+        run: uv sync --frozen --python 3.12
+        working-directory: .
       - uses: actions/setup-node@v4
         with:
           node-version: '22'

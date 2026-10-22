@@ -1,0 +1,37 @@
+.company-panel { max-width: 1500px; margin: auto; padding: 32px; }
+.company-columns { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.company-card { min-width: 0; background: white; border: 1px solid #dce7ed; border-radius: 10px; padding: 24px; color: #263b49; }
+.company-card-heading, .company-pagination, .company-actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.company-card-heading { justify-content: space-between; margin-bottom: 12px; }
+.company-card h2 { color: #16394c; font-size: 21px; }
+.company-card h3 { margin-top: 18px; }
+.company-card label { display: grid; gap: 6px; margin: 12px 0; font-size: 13px; font-weight: 550; min-width: 0; }
+.company-card input:not([type="checkbox"]), .company-card select, .company-card textarea { width: 100%; min-width: 0; padding: 10px; color: #263b49; background: white; border: 1px solid #b8cbd5; border-radius: 5px; font: inherit; }
+.company-card input[type="file"] { font-size: 12px; }
+.company-card textarea { min-height: 85px; resize: vertical; }
+.company-card fieldset { min-width: 0; border: 1px solid #dce7ed; border-radius: 6px; padding: 14px; margin: 20px 0; }
+.company-card legend { padding: 0 6px; font-weight: 650; }
+.company-form-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; }
+.company-card .company-choice { display: flex; align-items: flex-start; gap: 8px; font-weight: 400; }
+.company-choice input { margin-top: 5px; flex-shrink: 0; }
+.company-choice span { min-width: 0; overflow-wrap: anywhere; }
+.company-card .company-primary { background: #0873b9; color: white; border-color: #0873b9; }
+.company-object-list { list-style: none; padding: 0; margin: 0; }
+.company-object-list li { padding: 12px 0; border-bottom: 1px solid #e7eef3; }
+.company-object-list button { padding: 2px 0; background: none; border: 0; color: #0873b9; text-align: left; overflow-wrap: anywhere; }
+.company-pagination { margin: 14px 0; justify-content: space-between; font-size: 12px; }
+.company-pagination button { font-size: 12px; padding: 6px 9px; }
+.company-version { background: #f0f7fb; padding: 14px; margin: 20px 0; border-radius: 6px; }
+.company-version p, .company-card code { overflow-wrap: anywhere; word-break: break-word; font-size: 12px; }
+.company-fact { border-top: 1px solid #dce7ed; margin-top: 20px; }
+.company-card .company-sources { border-style: dashed; }
+.company-card p, .company-card small { color: #617581; }
+.company-material-text { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; max-height: 350px; overflow-y: auto; padding: 12px; background: white; }
+.company-permissions { margin-top: 24px; }
+.company-notice { padding: 12px 15px; background: #edf6f4; border-left: 3px solid #277461; color: #245747; }
+.company-check { padding: 10px; border-left: 3px solid #b8cbd5; background: #f0f7fb; }
+.company-search { border-bottom: 1px solid #dce7ed; padding-bottom: 16px; }
+.company-search-results p { white-space: pre-wrap; overflow-wrap: anywhere; }
+.company-panel :focus-visible { outline: 3px solid #76a8d2; outline-offset: 3px; }
+@media(max-width: 1050px) { .company-columns { grid-template-columns: 1fr; } }
+@media(max-width: 600px) { .company-panel { padding: 20px 16px; } .company-card { padding: 18px 14px; } .company-form-row { grid-template-columns: 1fr; gap: 0; } .app-header nav { flex-wrap: wrap; justify-content: flex-start; padding: 0; } .company-panel .agent-heading { align-items: flex-start; flex-direction: column; } }

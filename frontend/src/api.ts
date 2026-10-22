@@ -21,8 +21,18 @@ export type Notice = {
 };
 export type Page = {items: Notice[]; total: number; limit: number; offset: number; has_more: boolean; truncated: boolean};
 export type Source = {id: string; name: string; home_url: string; robots_status: string; terms_status: string};
-export async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
-  const response = await fetch(`/api${path}`, {signal});
-  if (!response.ok) throw new Error(`接口返回 ${response.status}`);
+export class ApiError extends Error {
+  constructor(public status: number, public code: string) { super(code); }
+}
+export async function request<T>(path: string, options: RequestInit = {}): Promise<T> {
+  const response = await fetch(`/api${path}`, options);
+  if (!response.ok) {
+    const data = await response.json().catch(() => ({})) as {detail?: unknown; error?: string};
+    const code = typeof data.detail === 'string' ? data.detail : data.error || `http_${response.status}`;
+    throw new ApiError(response.status, code);
+  }
   return response.json() as Promise<T>;
+}
+export async function get<T>(path: string, signal?: AbortSignal): Promise<T> {
+  return request<T>(path, {signal});
 }
