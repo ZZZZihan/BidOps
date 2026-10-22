@@ -9,8 +9,20 @@ def quarantine_after_restore(db):
     with transaction(db) as conn:
         conn.execute(text("DELETE FROM company_grants"))
         count = conn.execute(text("UPDATE company_objects SET quarantined=1")).rowcount
+        tables = {
+            r[0] for r in conn.execute(text("SELECT name FROM sqlite_master WHERE type='table'"))
+        }
+        derived = 0
+        if "qualification_result_lifecycle" in tables:
+            derived = conn.execute(
+                text("UPDATE qualification_result_lifecycle SET quarantined=1")
+            ).rowcount
     audit(db, "company_restore_quarantined", objects=count)
-    return {"quarantined_objects": count, "old_grants_removed": True}
+    return {
+        "quarantined_objects": count,
+        "quarantined_results": derived,
+        "old_grants_removed": True,
+    }
 
 
 def prune_company_materials(service):
@@ -43,6 +55,12 @@ def prune_company_materials(service):
                 "(SELECT object_id FROM company_objects WHERE purge_state='pending')"
             )
         )
+    # Derived quotes/raw outputs must be erased even if private file unlink fails.
+    derived = {"purged_ids": []}
+    if db.rows("SELECT 1 FROM sqlite_master WHERE type='table' AND name='qualification_results'"):
+        from bidops.qualification.repository import prune_results
+
+        derived = prune_results(db, now)
     pending = db.rows(
         "SELECT * FROM company_objects WHERE purge_state='pending' ORDER BY object_id"
     )
@@ -95,4 +113,9 @@ def prune_company_materials(service):
             )
         purged.append(oid)
     audit(db, "company_retention_pruned", purged_count=len(purged), failed_object_ids=failures)
-    return {"status": "FAIL" if failures else "PASS", "purged_ids": purged, "failure_ids": failures}
+    return {
+        "status": "FAIL" if failures else "PASS",
+        "purged_ids": purged,
+        "failure_ids": failures,
+        "purged_result_ids": derived["purged_ids"],
+    }

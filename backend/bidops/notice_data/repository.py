@@ -549,6 +549,14 @@ class NoticeRepository:
             raise ValueError("attachment_text_unavailable")
         return record.version_ref, self._verify_attachment_content(record)
 
+    def read_text(self, version_id: str, *, object_kind="notice"):
+        """Read a fixed, integrity-checked version; never accept a caller file path."""
+        if object_kind == "notice":
+            return self._verified_notice_text(version_id)
+        if object_kind == "attachment":
+            return self._verified_attachment_text(version_id)
+        raise ValueError("notice_evidence_kind_unsupported")
+
     def make_evidence(
         self, version_id: str, start: int, end: int, *, object_kind="notice"
     ) -> EvidenceRef:

@@ -27,6 +27,10 @@ from bidops.enterprise.operations import Operations, OperationsMiddleware, Singl
 from bidops.enterprise.sessions import PersistentConversations, prune_private_history
 from bidops.models import Notice
 from bidops.notice_api import notice_router
+from bidops.notice_data import NoticeRepository
+from bidops.qualification.api import screening_router
+from bidops.qualification.config import ScreeningSettings
+from bidops.qualification.service import ScreeningService
 from bidops.storage import Store
 
 
@@ -34,6 +38,7 @@ def create_app(
     settings: Settings | None = None,
     demo_settings: DemoSettings | None = None,
     enterprise_settings: EnterpriseSettings | None = None,
+    screening_settings: ScreeningSettings | None = None,
 ) -> FastAPI:
     settings = settings or Settings()
     enterprise = enterprise_settings or EnterpriseSettings()
@@ -50,6 +55,11 @@ def create_app(
                 app.state.store.db, settings.data_dir, max_bytes=settings.max_bytes
             )
             app.state.conversations = PersistentConversations(app.state.agent_service, enterprise)
+            app.state.screening = ScreeningService(
+                app.state.company,
+                NoticeRepository(app.state.store.db, settings.data_dir / "raw"),
+                screening_settings,
+            )
             app.state.maintenance_failed = False
             if enterprise.enabled:
                 prune_private_history(app.state.store.db, enterprise.history_days)
@@ -77,6 +87,7 @@ def create_app(
                     with suppress(asyncio.CancelledError):
                         await maintenance
                 await app.state.agent_service.close()
+                await app.state.screening.close()
                 app.state.store.db.engine.dispose()
         finally:
             if worker:
@@ -219,6 +230,7 @@ def create_app(
 
     app.include_router(auth_router())
     app.include_router(company_router())
+    app.include_router(screening_router())
     router.include_router(notice_router())
     app.include_router(router)
     app.include_router(router, prefix="/api", include_in_schema=False)

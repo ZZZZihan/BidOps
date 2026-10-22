@@ -60,7 +60,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t bidops:ci .
+      - run: docker build --build-arg BIDOPS_CODE_SHA="$GITHUB_SHA" -t bidops:ci .
       - name: Start enterprise container with ephemeral protocol-only configuration
         run: |
           docker run -d --name bidops-smoke -p 127.0.0.1:8765:8765 \
@@ -73,5 +73,6 @@ jobs:
         run: |
           python scripts/container_smoke.py
           test "$(docker exec bidops-smoke id -u)" = 10001
+          docker exec bidops-smoke python -c 'import os; from bidops.qualification.service import implementation_version; p=implementation_version(); assert p["code_sha"] == os.environ["BIDOPS_CODE_SHA"] and len(p["code_sha"]) == 40; assert p["lock_sha256"] and p["implementation_sha256"]; print("Installed qualification provenance passed")'
       - if: always()
         run: docker rm -f bidops-smoke

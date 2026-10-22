@@ -132,6 +132,7 @@ def test_migrations_idempotent(store):
         "004_notice_versions.sql",
         "005_company_access.sql",
         "006_identity_refresh.sql",
+        "007_qualification_screening.sql",
     ]
 
 
