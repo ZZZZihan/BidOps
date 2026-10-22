@@ -8,7 +8,7 @@
 - [x] [P0-05](https://github.com/ZZZZihan/BidOps/issues/5) Build manual URL importer and optional *allowlisted, rate-limited* public HTML fetcher with dry-run default.
 - [ ] [P0-06](https://github.com/ZZZZihan/BidOps/issues/6) Deterministic parser for at least 6 seeded notices and explicit unsupported cases; never infer unknown fields.
 - [x] [P0-07](https://github.com/ZZZZihan/BidOps/issues/7) Implement audit/event logs and error retry/timeout tests.
-- [ ] [P0-08](https://github.com/ZZZZihan/BidOps/issues/8) Produce real run report with results, provenance and limitations (not aspirational PASS).
+- [x] [P0-08](https://github.com/ZZZZihan/BidOps/issues/8) Produce real run report with results, provenance and limitations (not aspirational PASS).
 
 ## P1: data verification (next phase; do not start automatically)
 - [ ] Label >=30 notice samples from truly permitted sources and their source snapshots.
@@ -33,5 +33,5 @@
 - #1 remains a user/organizer action. No registration performed.
 - #2 audit executed, but all three collection-permission decisions remain unknown.
 - #6 parser prototype and isolated tests exist; zero of six real notice bodies verified.
-- #8 actual report is being finalized; P0 is not an overall PASS.
+- #8 actual report delivered in reports/p0-run-20261022.md; P0 is not an overall PASS.
 - P1 backlog: #9; P2 backlog: #10; P3 backlog: #11. None has started.

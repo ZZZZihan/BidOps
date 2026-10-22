@@ -1,0 +1,305 @@
+{
+  "commit": "647d32da33d85fa599b490e12316d3673f349363",
+  "fresh_clone": true,
+  "commands": [
+    {
+      "command": [
+        "uv",
+        "sync",
+        "--frozen"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:14:57.680216+00:00",
+      "log": "00.txt",
+      "output": "Checked 30 packages in 0.56ms\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "ruff",
+        "check",
+        "."
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:14:57.739397+00:00",
+      "log": "01.txt",
+      "output": "All checks passed!\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:14:57.773292+00:00",
+      "log": "02.txt",
+      "output": "41 files already formatted\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:14:57.811860+00:00",
+      "log": "03.txt",
+      "output": "........................................................................ [100%]\n=============================== warnings summary ===============================\n.venv/lib/python3.12/site-packages/fastapi/testclient.py:1\n  <fresh-checkout>/.venv/lib/python3.12/site-packages/fastapi/testclient.py:1: StarletteDeprecationWarning: Using `httpx` with `starlette.testclient` is deprecated; install `httpx2` instead.\n    from starlette.testclient import TestClient as TestClient  # noqa\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n72 passed, 1 warning in 1.91s\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "bidops",
+        "migrate"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:15:01.631696+00:00",
+      "log": "04.txt",
+      "output": "{\n  \"schema\": \"001_initial.sql\",\n  \"status\": \"ok\"\n}\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "bidops",
+        "source",
+        "inspect"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:15:02.143700+00:00",
+      "log": "05.txt",
+      "output": "{\n  \"network_enabled\": false,\n  \"sources\": [\n    {\n      \"allowed_urls\": [\n        \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm\",\n        \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm\",\n        \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520100.htm\",\n        \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510616.htm\",\n        \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261018_27513837.htm\",\n        \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202609/t20260918_27358274.htm\"\n      ],\n      \"decision_reason\": \"robots returned 404; homepage readable, no automated-collection permission established. See reports/p0-source-audit-20261022.json.\",\n      \"home_url\": \"https://www.ccgp.gov.cn/\",\n      \"host\": \"www.ccgp.gov.cn\",\n      \"id\": \"ccgp\",\n      \"name\": \"中国政府采购网\",\n      \"permission_evidence\": null,\n      \"reviewed_at\": \"2026-10-22T11:09:00+00:00\",\n      \"robots_status\": \"unknown\",\n      \"terms_status\": \"unknown\"\n    },\n    {\n      \"allowed_urls\": [],\n      \"decision_reason\": \"Seed domain redirects to www; canonical robots returned 404; no automated-collection terms established. See source audit report.\",\n      \"home_url\": \"https://www.ccgp-tianjin.gov.cn/\",\n      \"host\": \"www.ccgp-tianjin.gov.cn\",\n      \"id\": \"tianjin\",\n      \"name\": \"天津市政府采购网\",\n      \"permission_evidence\": null,\n      \"reviewed_at\": \"2026-10-22T11:09:00+00:00\",\n      \"robots_status\": \"unknown\",\n      \"terms_status\": \"unknown\"\n    },\n    {\n      \"allowed_urls\": [],\n      \"decision_reason\": \"Metadata requests received upstream connection-timeout 503; origin policy remains unknown. See source audit report.\",\n      \"home_url\": \"https://ggzy.zwfwb.tj.gov.cn/\",\n      \"host\": \"ggzy.zwfwb.tj.gov.cn\",\n      \"id\": \"tjggzy\",\n      \"name\": \"天津市公共资源交易平台\",\n      \"permission_evidence\": null,\n      \"reviewed_at\": \"2026-10-22T11:09:00+00:00\",\n      \"robots_status\": \"unknown\",\n      \"terms_status\": \"unknown\"\n    }\n  ]\n}\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "bidops",
+        "import-urls",
+        "--csv",
+        "data/seeds/seed_urls.csv"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:15:02.662252+00:00",
+      "log": "06.txt",
+      "output": "{\n  \"registered_unique_urls\": 6,\n  \"snapshots_captured\": 0\n}\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "bidops",
+        "parse"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:15:03.250770+00:00",
+      "log": "07.txt",
+      "output": "{\n  \"parsed\": 0\n}\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "python",
+        "scripts/p0_pilot.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:15:03.914907+00:00",
+      "log": "08.txt",
+      "output": "{\n  \"seed_urls\": 6,\n  \"captured\": 0,\n  \"duplicates\": 0,\n  \"failed_requests\": 0,\n  \"blocked_before_request\": 6,\n  \"results\": [\n    {\n      \"url\": \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm\",\n      \"state\": \"blocked\",\n      \"code\": \"network_disabled\",\n      \"http_status\": null,\n      \"attempts\": 0\n    },\n    {\n      \"url\": \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm\",\n      \"state\": \"blocked\",\n      \"code\": \"network_disabled\",\n      \"http_status\": null,\n      \"attempts\": 0\n    },\n    {\n      \"url\": \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520100.htm\",\n      \"state\": \"blocked\",\n      \"code\": \"network_disabled\",\n      \"http_status\": null,\n      \"attempts\": 0\n    },\n    {\n      \"url\": \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510616.htm\",\n      \"state\": \"blocked\",\n      \"code\": \"network_disabled\",\n      \"http_status\": null,\n      \"attempts\": 0\n    },\n    {\n      \"url\": \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261018_27513837.htm\",\n      \"state\": \"blocked\",\n      \"code\": \"network_disabled\",\n      \"http_status\": null,\n      \"attempts\": 0\n    },\n    {\n      \"url\": \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202609/t20260918_27358274.htm\",\n      \"state\": \"blocked\",\n      \"code\": \"network_disabled\",\n      \"http_status\": null,\n      \"attempts\": 0\n    }\n  ],\n  \"manifest\": {\n    \"snapshots\": 0,\n    \"sha256\": \"df75f1bd86c8525c0e6d44539b1de20795c8ed07469b7d55b5f74fd095706963\",\n    \"includes_raw\": false\n  }\n}\n\n"
+    },
+    {
+      "command": [
+        "npm",
+        "ci",
+        "--prefix",
+        "frontend"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:15:04.504530+00:00",
+      "log": "09.txt",
+      "output": "\nadded 22 packages in 871ms\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "npm",
+        "run",
+        "build",
+        "--prefix",
+        "frontend"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:15:05.500839+00:00",
+      "log": "10.txt",
+      "output": "\n> bidops-ui@0.1.0 build\n> tsc -b && vite build\n\nvite v7.3.7 building client environment for production...\ntransforming...\n✓ 30 modules transformed.\nrendering chunks...\ncomputing gzip size...\ndist/index.html                   0.38 kB │ gzip:  0.29 kB\ndist/assets/index-Bn-66-76.css    3.77 kB │ gzip:  1.34 kB\ndist/assets/index-CzSNsk26.js   229.08 kB │ gzip: 72.28 kB\n✓ built in 1.23s\nnpm warn Unknown env config \"http-proxy\". This will stop working in the next major version of npm.\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "python",
+        "scripts/http_smoke.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T11:15:08.731632+00:00",
+      "log": "11.txt",
+      "output": "[\n  {\n    \"path\": \"/health\",\n    \"status\": 200,\n    \"expected_status\": 200,\n    \"body\": {\n      \"status\": \"ok\",\n      \"phase\": \"P0\",\n      \"network_enabled\": false\n    }\n  },\n  {\n    \"path\": \"/sources\",\n    \"status\": 200,\n    \"expected_status\": 200,\n    \"body\": {\n      \"items\": [\n        {\n          \"id\": \"ccgp\",\n          \"name\": \"中国政府采购网\",\n          \"host\": \"www.ccgp.gov.cn\",\n          \"home_url\": \"https://www.ccgp.gov.cn/\",\n          \"robots_status\": \"unknown\",\n          \"terms_status\": \"unknown\",\n          \"permission_evidence\": null,\n          \"reviewed_at\": \"2026-10-22T11:09:00+00:00\",\n          \"decision_reason\": \"robots returned 404; homepage readable, no automated-collection permission established. See reports/p0-source-audit-20261022.json.\",\n          \"allowed_urls\": [\n            \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm\",\n            \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm\",\n            \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520100.htm\",\n            \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510616.htm\",\n            \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261018_27513837.htm\",\n            \"https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202609/t20260918_27358274.htm\"\n          ]\n        },\n        {\n          \"id\": \"tianjin\",\n          \"name\": \"天津市政府采购网\",\n          \"host\": \"www.ccgp-tianjin.gov.cn\",\n          \"home_url\": \"https://www.ccgp-tianjin.gov.cn/\",\n          \"robots_status\": \"unknown\",\n          \"terms_status\": \"unknown\",\n          \"permission_evidence\": null,\n          \"reviewed_at\": \"2026-10-22T11:09:00+00:00\",\n          \"decision_reason\": \"Seed domain redirects to www; canonical robots returned 404; no automated-collection terms established. See source audit report.\",\n          \"allowed_urls\": []\n        },\n        {\n          \"id\": \"tjggzy\",\n          \"name\": \"天津市公共资源交易平台\",\n          \"host\": \"ggzy.zwfwb.tj.gov.cn\",\n          \"home_url\": \"https://ggzy.zwfwb.tj.gov.cn/\",\n          \"robots_status\": \"unknown\",\n          \"terms_status\": \"unknown\",\n          \"permission_evidence\": null,\n          \"reviewed_at\": \"2026-10-22T11:09:00+00:00\",\n          \"decision_reason\": \"Metadata requests received upstream connection-timeout 503; origin policy remains unknown. See source audit report.\",\n          \"allowed_urls\": []\n        }\n      ]\n    }\n  },\n  {\n    \"path\": \"/notices\",\n    \"status\": 200,\n    \"expected_status\": 200,\n    \"body\": {\n      \"items\": [],\n      \"total\": 0,\n      \"limit\": 50,\n      \"offset\": 0\n    }\n  },\n  {\n    \"path\": \"/notices/nonexistent\",\n    \"status\": 404,\n    \"expected_status\": 404,\n    \"body\": {\n      \"detail\": \"Notice not found\"\n    }\n  },\n  {\n    \"path\": \"frontend /\",\n    \"status\": 200,\n    \"html_root_present\": true\n  },\n  {\n    \"path\": \"frontend /api/health\",\n    \"status\": 200,\n    \"proxied_backend_ok\": true\n  }\n]\n"
+    }
+  ],
+  "http_smoke": [
+    {
+      "path": "/health",
+      "status": 200,
+      "expected_status": 200,
+      "body": {
+        "status": "ok",
+        "phase": "P0",
+        "network_enabled": false
+      }
+    },
+    {
+      "path": "/sources",
+      "status": 200,
+      "expected_status": 200,
+      "body": {
+        "items": [
+          {
+            "id": "ccgp",
+            "name": "中国政府采购网",
+            "host": "www.ccgp.gov.cn",
+            "home_url": "https://www.ccgp.gov.cn/",
+            "robots_status": "unknown",
+            "terms_status": "unknown",
+            "permission_evidence": null,
+            "reviewed_at": "2026-10-22T11:09:00+00:00",
+            "decision_reason": "robots returned 404; homepage readable, no automated-collection permission established. See reports/p0-source-audit-20261022.json.",
+            "allowed_urls": [
+              "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm",
+              "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm",
+              "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520100.htm",
+              "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510616.htm",
+              "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261018_27513837.htm",
+              "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202609/t20260918_27358274.htm"
+            ]
+          },
+          {
+            "id": "tianjin",
+            "name": "天津市政府采购网",
+            "host": "www.ccgp-tianjin.gov.cn",
+            "home_url": "https://www.ccgp-tianjin.gov.cn/",
+            "robots_status": "unknown",
+            "terms_status": "unknown",
+            "permission_evidence": null,
+            "reviewed_at": "2026-10-22T11:09:00+00:00",
+            "decision_reason": "Seed domain redirects to www; canonical robots returned 404; no automated-collection terms established. See source audit report.",
+            "allowed_urls": []
+          },
+          {
+            "id": "tjggzy",
+            "name": "天津市公共资源交易平台",
+            "host": "ggzy.zwfwb.tj.gov.cn",
+            "home_url": "https://ggzy.zwfwb.tj.gov.cn/",
+            "robots_status": "unknown",
+            "terms_status": "unknown",
+            "permission_evidence": null,
+            "reviewed_at": "2026-10-22T11:09:00+00:00",
+            "decision_reason": "Metadata requests received upstream connection-timeout 503; origin policy remains unknown. See source audit report.",
+            "allowed_urls": []
+          }
+        ]
+      }
+    },
+    {
+      "path": "/notices",
+      "status": 200,
+      "expected_status": 200,
+      "body": {
+        "items": [],
+        "total": 0,
+        "limit": 50,
+        "offset": 0
+      }
+    },
+    {
+      "path": "/notices/nonexistent",
+      "status": 404,
+      "expected_status": 404,
+      "body": {
+        "detail": "Notice not found"
+      }
+    },
+    {
+      "path": "frontend /",
+      "status": 200,
+      "html_root_present": true
+    },
+    {
+      "path": "frontend /api/health",
+      "status": 200,
+      "proxied_backend_ok": true
+    }
+  ],
+  "pilot": {
+    "seed_urls": 6,
+    "captured": 0,
+    "duplicates": 0,
+    "failed_requests": 0,
+    "blocked_before_request": 6,
+    "results": [
+      {
+        "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510682.htm",
+        "state": "blocked",
+        "code": "network_disabled",
+        "http_status": null,
+        "attempts": 0
+      },
+      {
+        "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520096.htm",
+        "state": "blocked",
+        "code": "network_disabled",
+        "http_status": null,
+        "attempts": 0
+      },
+      {
+        "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261019_27520100.htm",
+        "state": "blocked",
+        "code": "network_disabled",
+        "http_status": null,
+        "attempts": 0
+      },
+      {
+        "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261016_27510616.htm",
+        "state": "blocked",
+        "code": "network_disabled",
+        "http_status": null,
+        "attempts": 0
+      },
+      {
+        "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202610/t20261018_27513837.htm",
+        "state": "blocked",
+        "code": "network_disabled",
+        "http_status": null,
+        "attempts": 0
+      },
+      {
+        "url": "https://www.ccgp.gov.cn/cggg/dfgg/gkzb/202609/t20260918_27358274.htm",
+        "state": "blocked",
+        "code": "network_disabled",
+        "http_status": null,
+        "attempts": 0
+      }
+    ],
+    "manifest": {
+      "snapshots": 0,
+      "sha256": "df75f1bd86c8525c0e6d44539b1de20795c8ed07469b7d55b5f74fd095706963",
+      "includes_raw": false
+    }
+  }
+}
