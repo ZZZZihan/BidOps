@@ -1,39 +1,53 @@
 # 企业内部部署与运维
 
-交付范围：Linux / 单组织 / 一个 ASGI 进程 / SQLite 持久卷。它可作为企业内部试用基线；
-真实身份系统接入和目标机器验收仍需完成。成熟 Agent 与认证框架选型见 ADR-0003。
+部署边界是 **Linux、单组织、一个 ASGI 进程、单机 SQLite 持久卷**。实现和本地工程检查
+不等于目标环境、真实身份、容量或业务验收。容量输入与运行命令见
+[容量与恢复](CAPACITY-RECOVERY.md)，保守架构裁决见
+[ADR-0007](ADR-0007-CAPACITY-RECOVERY.md)。未完成的 B 类门槛继续为 BLOCKED。
 
-B05 的可选持久任务默认关闭。启用、精确 overlay、原生恢复、私有框架库及 v4 配套备份步骤见
-[DURABLE-RUNS](DURABLE-RUNS.md)。装好 overlay 后使用下面的 `--frozen --no-sync` 命令，
-避免普通 `uv run` 自动同步主锁而移除 DBOS；重新执行 `uv sync` 后须重新安装 overlay。
+资格核对、持久任务、人工审核和授权更新分别由独立开关控制，默认关闭；启用其中一个不会
+自动启用真实模型或其他功能。详见 [资格核对](QUALIFICATION-SCREENING.md)、
+[持久任务](DURABLE-RUNS.md)、[人工审核](HUMAN-REVIEW.md)。
 
-## 身份系统接入
+## 身份、角色和私有对象
 
-可以使用现有符合 OIDC 的企业 IdP，或由企业自行部署 Keycloak。创建 confidential client：
+当前撤销适配明确限定为 **Keycloak OIDC、RS256、非加密 Back-Channel Logout Token**，
+不泛称所有 OIDC IdP 已兼容。创建 confidential client，启用 Authorization Code 和
+PKCE S256，禁用 implicit/password grant。Redirect URI 精确设置为
+`https://<origin>/api/auth/callback`，Scope 为 `openid profile`，issuer 与配置一致。
+在经过签名验证的 ID token 中配置字符串数组 `bidops_roles`，只映射所需应用角色。
 
-- Client ID：`bidops`，启用 Authorization Code，启用 PKCE S256；禁用 implicit/password grant。
-- Redirect URI：精确填写 `https://<你的域名>/api/auth/callback`，不要通配。
-- Scope：`openid profile`。签名算法 RS256；发现文档的 issuer 必须和配置完全一致。
-- 在 **ID token** 中增加字符串数组 claim `bidops_roles`。只将需要的应用角色映射进去；
-  不要直接把全局管理员组等同于本应用角色。没有已知角色的账户被拒绝。
+| 角色 | 权限 |
+| --- | --- |
+| viewer | `catalog:read` |
+| analyst | `catalog:read`、`agent:use` |
+| reviewer | `catalog:read`、`review:decide` |
+| auditor | `catalog:read`、`audit:read` |
+| admin | `catalog:read`、`agent:use`、`audit:read`、`source:manage` |
 
-| 角色 | 公告档案 | 使用 Agent / 自己的历史 | 审计 / 指标 |
-|---|---|---|---|
-| viewer | 是 | 否 | 否 |
-| analyst | 是 | 是 | 否 |
-| auditor | 是 | 否 | 是 |
-| admin | 是 | 是 | 是 |
+多角色按权限并集生效。admin 没有隐含 `review:decide`；需要审核的管理员也须取得 reviewer
+角色。角色不替代私有材料、画像、结果的对象 ACL。审核还要求有效人类登录、显式 case
+assignment 和全部来源权限；assignment 不授予材料权限。管理员不能借角色读取他人正文。
 
-权限在服务端强制执行。审计 API 不提供其他用户的提问正文。角色在登录时读取，默认登录
-一小时有效。退出按钮撤销 BidOps 本地登录；若 IdP 仍有登录，下一次 SSO 可能自动认证。
-需要禁用账号即刻退出、全局单点退出时，应在企业试用阶段接入 IdP 的撤销机制。
+`BIDOPS_ENTERPRISE_SESSION_SECONDS` 默认 3600 秒，控制应用登录最长寿命；
+`BIDOPS_ENTERPRISE_IDENTITY_SNAPSHOT_SECONDS` 默认 240 秒，允许 30–240 秒，控制身份和
+角色可信期限。两者同时校验，不能用一小时会话延长四分钟快照。每次受保护请求及共享对象
+授权均重查主体 active、当前角色、快照和来源权限；快照过期必须重新 SSO，不顺延缓存。
 
-## 本机启动（连接企业 IdP）
+Keycloak Backchannel logout URL 设置为 `https://<origin>/api/auth/backchannel-logout`，
+建议启用 session required。退出按钮撤销本地登录；Back-Channel Logout 可提前撤销，
+无事件时仍受 240 秒期限约束。真实 Keycloak、角色 mapper、停用和撤销路径须在 B10 实测。
+完整协议与乱序处理见 [ADR-0004](ADR-0004-IDENTITY-REVOCATION.md)。
+
+## 安装和本机启动
+
+在仓库根目录使用 Python 3.12。主锁与两个带哈希的 overlay 都是运行版本的一部分：
 
 ```bash
-uv sync --frozen
+uv sync --frozen --python 3.12
 uv pip install --python .venv/bin/python --require-hashes \
-  --index-url https://pypi.tuna.tsinghua.edu.cn/simple -r requirements/durable.lock
+  --index-url https://pypi.tuna.tsinghua.edu.cn/simple \
+  -r requirements/durable.lock -r requirements/attachments.lock
 npm ci --prefix frontend
 npm run build --prefix frontend
 mkdir -p private
@@ -42,105 +56,160 @@ cp config/enterprise.env.example private/enterprise.env
 chmod 600 private/enterprise.env
 ```
 
-填写 `private/enterprise.env` 中的 HTTPS 域名、issuer、client secret 与随机 cookie secret。
-生成 cookie secret 的命令在示例文件中。DeepSeek Key 继续使用忽略的 `private/deepseek.env`
-或注入环境变量；不要进入前端、配置示例或版本库。
+DBOS 和 pypdf overlay 不重写 `pyproject.toml` 或 `uv.lock`。再次执行 `uv sync` 后须重新
+加装两个 overlay；后续命令用 `.venv/bin/...` 或 `uv run --frozen --no-sync ...`，避免同步
+移除 overlay。pypdf 的严格解析、隔离进程、页定位和资源边界见
+[ADR-0006](ADR-0006-ATTACHMENT-PARSING.md)，不支持 OCR 或加密 PDF 解密。
+
+填写 `private/enterprise.env` 的 HTTPS origin、issuer、client secret 和随机 cookie secret。
+DeepSeek Key 只能放在忽略的私有文件或部署注入环境，不能进入前端、日志、示例或版本库。
 
 ```bash
-uv run --frozen --no-sync bidops-enterprise check-config
-uv run --frozen --no-sync bidops migrate
-# 首次部署需要放置已有的合法采集包；缺少包不会虚构数据
-uv run --frozen --no-sync bidops import-bundle --input data/artifacts/p0-capture-20261022
-uv run --frozen --no-sync bidops parse
-uv run --frozen --no-sync bidops-enterprise serve
+.venv/bin/bidops-enterprise --env-file private/enterprise.env check-config
+.venv/bin/bidops migrate
+# 仅导入已有合法来源包；没有数据时不制造公告
+.venv/bin/bidops import-bundle --input data/artifacts/p0-capture-20261022
+.venv/bin/bidops parse
+.venv/bin/bidops-enterprise --env-file private/enterprise.env serve \
+  --host 127.0.0.1 --port 8765
 ```
 
-`check-config` 只验证本地配置，**不代表 IdP 或 DeepSeek 已认证成功**。enterprise serve
-拒绝静默降级为匿名 Demo。已有个人本地 Demo 仍可用 `uv run --frozen --no-sync bidops-demo` 在 loopback 运行。
+`--env-file` 是顶层参数，放在子命令前；进程环境优先于文件。`bidops` 数据命令须使用与服务
+一致的 `BIDOPS_DATA_DIR` 和 `BIDOPS_DATABASE_URL`。`check-config` 只校验本地配置，
+不证明 IdP、模型、来源网络、费用账本或业务效果已经验收。enterprise serve 拒绝降级为匿名 Demo。
 
-反向代理须在配置的同一 HTTPS 域名提供 UI/API，转发正确 Host；不得暴露内部 8765 端口。
-设置请求体上限 16 KiB、上游超时至少 70 秒；不要记录 OAuth 回调 query string、Cookie 或
-Authorization。只有受信代理可以设置 forwarded headers。后端为单 worker，第二个同库
-企业进程会拒绝启动。不要用 NFS、多个容器副本或绕过文件锁来扩容。
+反向代理在同一 HTTPS origin 提供 UI/API，正确转发 Host，内部 8765 端口不直接对外暴露。
+普通企业 JSON/form 写请求上限为 16,384 bytes；材料上传、材料更新和授权导入由精确路由
+单独鉴权及流式限额，不能对全部路由统一设置 16 KiB 而阻断合法上传，也不能把上传豁免
+推广到其他写请求。代理响应超时应按路由设置；异步任务受理与轮询不应等待完整模型计算，
+完整候选构建和受控导出另有成本。不要记录 OAuth query、Cookie、Authorization 或正文。
 
-开发用 HTTP 只允许显式 `BIDOPS_ENTERPRISE_ALLOW_INSECURE_LOOPBACK=true` 且 URL 指向
-localhost/127.0.0.1；默认配置强制 HTTPS。这个选项不用于企业部署。
+仅受信代理可设置 forwarded headers。后端固定一个 Uvicorn worker，第二个同库企业进程
+会拒绝启动。不要用 NFS、多个容器副本、第二个 DBOS worker 或删除锁文件来扩容。
+开发 HTTP 仅允许显式 `BIDOPS_ENTERPRISE_ALLOW_INSECURE_LOOPBACK=true` 且为
+localhost/127.0.0.1；企业部署仍要求 HTTPS。
 
-## 容器
+## 容器与运行限额
 
 ```bash
 docker compose -f compose.enterprise.yaml build
 docker compose -f compose.enterprise.yaml up -d
 ```
 
-容器使用 UID 10001、只读根目录、无额外 capabilities，数据保存在 named volume 中。
-新卷没有数据；空库的 `/api/ready` 正确返回 503。把合法采集包复制到卷并导入：
+容器使用 UID 10001、只读根目录和无额外 capabilities，数据保存在 named volume。新卷为空，
+`/api/ready` 应返回 503。导入包须有合法来源并仅调整该包的容器所有权：
 
 ```bash
 docker compose -f compose.enterprise.yaml cp data/artifacts/p0-capture-20261022 app:/app/data/capture
-# 只调整这份导入包的所有权，不改原始宿主机文件
 docker compose -f compose.enterprise.yaml exec --user 0 app chown -R 10001:10001 /app/data/capture
 docker compose -f compose.enterprise.yaml exec app bidops import-bundle --input /app/data/capture
 docker compose -f compose.enterprise.yaml exec app bidops parse
 ```
 
-环境文件通过运行配置注入，不进入镜像。Docker 管理员和数据库管理员属于信任边界；备份、
-数据库、宿主机及秘密配置由企业磁盘加密、访问控制和密钥管理保护，本基线没有实现应用层加密。
+当前持久资格计算同时只运行 **1 份**。`BIDOPS_JOBS_MAX_ACTIVE_JOBS=100` 是业务活动任务
+和原生父工作流队列的上限，包含排队、等待审核等，不能解释为 100 个模型并发。B09 冻结
+目标要求两份活跃计算，当前配置只有一份，该差距如实 FAIL，不擅自提高并发。
 
-## 健康、审计与成本
+资格核对默认限额为每次最多 12 个模型请求、90 秒运行时间、120,000 输入 bytes、6,000 输出
+tokens；真实调用和账本确认分别受 `BIDOPS_SCREENING_LIVE_CALLS_ENABLED`、
+`BIDOPS_SCREENING_LEDGER_VERIFIED` 控制。每用户企业请求默认 20 次/分钟。历史 Demo 的
+两条请求槽和 60 秒默认值属于旧 Demo 路径，不代表持久资格计算能力。
 
-- `/api/health`：本地存活与数据库可用；公开，无用户数据。
-- `/api/ready`：本地配置、Agent 开关和已导入公告存在。它不主动消耗模型额度，不探测
-  IdP/模型网络，不声称真实上游可用。
-- `/api/audit`：auditor/admin 可分页读取事件；表禁止更新和删除。
-- `/api/metrics`：auditor/admin 可读 Prometheus 格式请求计数、状态与延迟直方图。
-  自动采集尚需企业认证代理或服务身份方案，不能把人工 cookie 当长期抓取凭据。
-- 结构化请求日志含随机 request_id、路由模板、状态码和耗时，不含正文或回调 query。
-  框架/模型用量保存在 agent_runs，企业事件可通过 run_id 关联。
-- 默认两条活跃模型请求、每用户 20 请求/分钟、60 秒运行超时，沿用保守成本上限 10 元。
-  该估算不是供应商账单硬限额；失败或未知运行保留预留额，运维需对账后再调整上限。
+共享成本上限保持 10 元；它是保守预留和估算控制，不能充当供应商账单硬上限。未知费用保留
+预留，不能按零费用释放。同一 owner、幂等 key 和相同输入重放读取原任务；不同输入返回 409。
+任务取消、中断或恢复仍须核验当前授权和固定版本，不保证供应商计费 exactly-once。
 
-同一个用户、Idempotency-Key 和相同输入重复提交时只读已保存结果。输入不一致返回 409。
-中断请求不自动重跑；先查看历史/审计再发起新的请求，避免掩盖重复计费。限流为单进程内存
-状态，重启后重置；成本、请求防重和会话状态持久化。不要宣称 exactly-once 的供应商计费保证。
+候选专用存储上限为 50,000,000 bytes，普通结果及原始模型输出仍受原 10,000,000-byte 通道
+约束。复核页默认 20、最多 100 个候选，完整导出上限 60,000,000 bytes；超限明确 413，不截断。
+这些是 UTF-8 序列化后的十进制 bytes，不是 MiB。索引、页面语义及回退见
+[容量与恢复](CAPACITY-RECOVERY.md)。
 
-## 备份、恢复、回滚
+## 健康、指标与本地告警
+
+- `/api/health` 是不含用户数据的公开基础存活检查。
+- `/api/ready` 校验本地配置、Agent 开关和公告存在；不调用 IdP、模型或来源网络。
+  启用依赖监测后还要求依赖健康及观察未过期。
+- `/api/audit` 和 `/api/metrics` 要求 `audit:read`。指标及请求日志使用有界路由/组件标签，
+  不携带私有正文、Cookie、查询参数或 provider token。自动抓取仍需独立服务身份方案，
+  不能把人工浏览器 cookie 当长期采集凭据。
+- `BIDOPS_OPERATIONS_ENABLED` 默认 **false**。打开后每 30 秒观察业务库、工作流库、
+  worker、磁盘、队列、来源失败和维护状态；默认观察有效期 120 秒。观察过期使 ready 失败。
+  `/api/operations/health` 还要求企业模式、监测开关和 `audit:read`；关闭时返回 404。
+- 默认磁盘门槛 268,435,456 bytes，积压门槛 80，最老排队 120 秒；这些是依赖异常触发值，
+  不是容量验收硬件要求或队列准入上限。阈值配置前缀均为 `BIDOPS_OPERATIONS_`。
+
+进程内部监测不能发现自身整个进程死亡。独立 watchdog 仅轮询 ready，在本地 JSONL 和
+stdout 输出 firing/resolved，**没有配置或发送企业外部告警**。示例只连接本机已运行服务：
 
 ```bash
-# 输出目录必须尚不存在。包含私有会话、身份摘要和原文，仅存于受控位置
-uv run --frozen --no-sync bidops-enterprise backup --output data/artifacts/backup-YYYYMMDD
-uv run --frozen --no-sync bidops-enterprise restore --input data/artifacts/backup-YYYYMMDD --output data/artifacts/restore-YYYYMMDD
+.venv/bin/python scripts/operations_watch.py \
+  --origin http://127.0.0.1:8765 --duration-seconds 300 --interval-seconds 30 \
+  --output work/operations-watch-new.jsonl
 ```
 
-备份用 SQLite online backup API 创建一致数据库，再复制其引用的不可变原文并逐个核验 SHA256。
-恢复验证 manifest、数据库完整性、所有引用的原文，拒绝路径穿越/校验失败/覆盖现有目录。
-恢复时撤销所有应用登录和未完成的 OAuth state；保留会话与费用审计。切换恢复库前停止应用，
-将 `BIDOPS_DATA_DIR` 指向恢复目录、`BIDOPS_DATABASE_URL` 指向其中的 bidops.sqlite3；启动后
-重新登录、核对公告数量/证据/历史与费用。不得把恢复目录中的模型历史提交 GitHub。
+输出文件必须不存在；观察时间在检查结束后记录。每次 I/O 有 5 秒超时，分块间还有 10 秒
+elapsed 检查，不能宣称严格 10 秒 wall-clock 强杀。该进程同样位于本机，不能证明主机死亡
+时的外部送达。B09-05 必须另有真实接收端和发送授权；缺失时为 BLOCKED。
 
-升级前备份；回滚时使用已验证镜像和升级前备份，停止写入后再切换目录。不要执行反向破坏性
-迁移。备份恢复的实际耗时不等于已承诺 RPO/RTO，企业需在目标数据规模下演练。
+## 一致备份、恢复和回滚
 
-会话默认保存 30 天，启动及每小时清理过期会话和登录。可手动运行：
+**先停止服务及 worker，再备份。** 备份与服务共享独占锁；不能在服务仍运行时复制两个
+SQLite 文件或绕过锁。输出包含敏感正文，必须放在受控目录并单独管理备份留存：
 
 ```bash
-uv run --frozen --no-sync bidops-enterprise prune
+.venv/bin/bidops-enterprise --env-file private/enterprise.env backup \
+  --output data/artifacts/backup-YYYYMMDD --retention-days 7
+.venv/bin/bidops-enterprise --env-file private/enterprise.env restore \
+  --input data/artifacts/backup-YYYYMMDD --output data/artifacts/restore-YYYYMMDD
 ```
 
-审计/费用表继续保留，备份需另设留存；SQLite 删除不保证擦除磁盘旧页。管理员需采用企业
-磁盘与备份生命周期控制。没有静默外传或托管遥测。
+v4 bundle 通过 SQLite backup API 复制业务库和 `private/jobs/dbos.sqlite3`，核验私有文件、
+公告/附件固定字节与解析 receipt、任务/结果/账本映射和许可调度代际闭包。不能只替换某个
+数据库并重算单文件 SHA；typed 关联也须匹配。新空任务库可无系统库，包含持久任务的旧
+v1–v3 备份不能据此省略必需 DBOS 库。路径越界、丢失、篡改、未知工作流或关联损坏均拒绝。
 
-## 验收命令
+恢复到新目录，不覆盖原实例。恢复会撤销登录和 OAuth state、过期身份快照、移除旧对象
+授权并隔离私有对象/结果/任务。原生任务不可自动恢复执行，采集 run/schedule 也隔离且原生
+schedule 暂停。人工 case 使用新的 review epoch、清空 assignment、冻结旧 outbox；历史
+决定和 hash 保留，但不能重新成为当前批准。job reauthorize 不授予来源权限，也不解除 review
+隔离。应先对账当前授权，再按各领域显式重新授权、分配审核和决定是否恢复任务。
+
+所有 restore 都生成新的共享预算对账屏障，保留已用、未知和预留费用。部署人员对账后才可
+配置本次 `BIDOPS_SCREENING_LEDGER_RESTORE_TOKEN` 与旧 Demo 对应的
+`BIDOPS_DEMO_BUDGET_RESTORE_TOKEN`；旧 token 不可复用。确认屏障不意味着找回备份后
+丢失的供应商费用。无法确认最新授权或成本时，保持私有访问/真实调用关闭。
+
+切换时将 `BIDOPS_DATA_DIR` 和 `BIDOPS_DATABASE_URL` 同时指向恢复目录及其中的
+`bidops.sqlite3`，检查固定版本、页证据、全部历史、账本、隔离和撤权结果。RTO 必须计入
+上述授权核验和业务可用，不能仅计 `/api/health` 首次成功。目标 RPO≤24 小时、RTO≤30 分钟
+仍需目标环境的完整演练，当前保持 B09-06 BLOCKED。
+
+升级前备份；回退用已验证镜像和升级前 typed bundle，停写后切换，不做破坏性反向迁移。
+012 索引可保留，不需要 DROP；旧镜像的 10 MB 通道和未分页复核不能替代新增 50 MB 批次/
+60 MB 导出能力，不能仅降镜像就声称兼容这些新增记录。
+
+会话历史默认保存 30 天，启动和定期维护执行清理。人工运行 prune 也须先停服务取得锁：
 
 ```bash
-uv run ruff check .
-uv run ruff format --check .
-uv run pytest
+.venv/bin/bidops-enterprise --env-file private/enterprise.env prune
+```
+
+来源到期删除其私有正文及依赖正文、冻结写回，并清理对应 DBOS 历史；事件 metadata/hash
+和 usage/账本继续保留。case 联合来源到期清掉 case 的事件正文，不扩大删除本不依赖新增
+材料的旧 job。SQLite 删除不保证安全擦除旧页；宿主机、秘密配置和备份的磁盘加密、权限及
+生命周期由企业管理。当前没有应用层静态加密。
+
+## 检查与验收边界
+
+```bash
+.venv/bin/ruff check .
+.venv/bin/ruff format --check .
+.venv/bin/pytest
 npm run build --prefix frontend
 npm run test:e2e --prefix frontend
-# 三次真实模型提问 + 重启/防重；写入独立私有数据库，不覆盖历史报告
-uv run python scripts/enterprise_live.py --execute --run-id enterprise-check-unique-id
 ```
 
-CI 在隔离测试中检查真正 RSA 签名的 OIDC 协议，并构建/启动非 root 企业容器；它不包含
-真实企业用户、SSO 登录或 DeepSeek 凭证。实际执行及限制见 reports/enterprise-run-20261022.md。
+这些命令不触发实际 IdP、来源或模型验收。`scripts/enterprise_live.py --execute` 会调用真实
+模型，只有另有明确授权和预算时才可执行，不属于默认检查。CI、合成数据、真实本机 HTTP/
+DBOS、目标环境负载、企业接收告警和具名人工验收分别记录。正式容量命令与失败留存规则
+见 [CAPACITY-RECOVERY](CAPACITY-RECOVERY.md)，不能用 UNIT smoke 或全量单测替代。

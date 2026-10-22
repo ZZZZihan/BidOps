@@ -1,0 +1,55 @@
+{
+  "snapshot_at": "2026-10-22T21:27:24.797067+00:00",
+  "kind": "PARTIAL_SETUP_RECEIPT_NOT_CAPACITY_RESULT",
+  "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "source_tree_dirty": false,
+  "measurement_kind": "local_engineering",
+  "setup": {
+    "deadline_ms": 300000,
+    "elapsed_ms": 10584,
+    "included_in_timed_capacity_metrics": false,
+    "operation": "freeze_complete_candidate_batch",
+    "outcome": "PASS"
+  },
+  "hardware_at_input_pin": {
+    "disk_free_bytes": 152031666176,
+    "logical_cpus": 24,
+    "memory_bytes": 68719476736,
+    "storage": "local_disk"
+  },
+  "planned_business_operations": 4200,
+  "planned_business_operations_per_second": 2,
+  "fixed_inputs": {
+    "dataset_sha256": "1d4cef8d24072bd03e94521c77586d5d033dbb7ff70af1dffaf7a8af60a05095",
+    "page_inventory_sha256": "b5ee8aede5757b0b87c9c4d4e0eb523f36bdf7ca1b06712c73a99f5750181919",
+    "manifest_bytes_sha256": "bd82c7ab050a53610742515d4af082140f6fce5593b203cabaa4e847ffb4a170",
+    "manifest_sha256": "9a2ba864807a249e01ba4d6b07f643a7972f2a5f8dc1d05833e24a8073237e9c",
+    "plan_sha256": "459c3803f4832e0a39f7dacaf430ad87b40e8168afcac73aafc12130322d3d1d",
+    "load_sha256": "7ae46b443676f3716ecf7db4fccc810a7f04d5a6c63faf40878fe8386241a237",
+    "script_sha256": "6f5f5c0c788b746ae9e00693f69a893240790e78aca5a6c9d44d17e9c2028462"
+  },
+  "hash_semantics": {
+    "manifest_bytes_sha256": "Raw frozen JSON bytes; required CLI external pin",
+    "manifest_sha256": "Canonical JSON digest, distinct from raw bytes hash",
+    "plan_sha256": "Generated fixed load plan, distinct from enterprise acceptance plan hash"
+  },
+  "source_files": [
+    {
+      "alias": "formal-load/input-pin.json",
+      "bytes": 1132,
+      "sha256": "d3099496e6dc77974df0fb495dd2993533ae26bdfd5923b0725fb68f6f94f01d",
+      "projection": "Omit PID and platform identifiers; hardware/configuration/hash fields only"
+    },
+    {
+      "alias": "formal-load/setup-operations.jsonl",
+      "bytes": 194,
+      "sha256": "723529e15271c577d3f7ff48c1ab55fa30abbe89751e57149df989c156a423f3",
+      "projection": "Five explicit operation/deadline/outcome fields only"
+    }
+  ],
+  "final_window_status": "PENDING_COMPLETION",
+  "capacity_pass_claimed": false,
+  "full_test_pass_claimed": false,
+  "target_hardware_equivalent": false,
+  "business_acceptance": "BLOCKED"
+}

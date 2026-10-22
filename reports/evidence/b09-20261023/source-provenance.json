@@ -1,0 +1,284 @@
+{
+  "scope": "Only explicit safe sources copied; source hashes preserve original diagnostics and old engineering receipts",
+  "sources": [
+    {
+      "artifact": "manifest.json",
+      "source_alias": "manifest.json",
+      "source_sha256": "bd82c7ab050a53610742515d4af082140f6fce5593b203cabaa4e847ffb4a170",
+      "scope": "Frozen public capacity-v1 inputs, unchanged target2/configured1",
+      "transformation": "exact safe bytes copied"
+    },
+    {
+      "artifact": "historical-prewarmup-failure.json",
+      "source_alias": "failure.json",
+      "source_sha256": "cb6a6eeb75fc40062ba56cb591e1fffea51c36ba26dd8d78f03a6a8130f1ea81",
+      "scope": "Real first formal setup failure, no measurement claim",
+      "transformation": "exact safe bytes copied"
+    },
+    {
+      "artifact": "historical-environment-context.json",
+      "source_alias": "environment-context.json",
+      "source_sha256": "84751a85a68b17884974cacf3c7ce298336dbfbea7eb6a029243ee9a70163652",
+      "scope": "Historical local nonexclusive environment declaration",
+      "transformation": "exact safe bytes copied"
+    },
+    {
+      "artifact": "historical-candidate-diagnostic.json",
+      "source_alias": "capacity-batch-diagnostic.json",
+      "source_sha256": "14ab349187110f67f39560db51ac3bf91631b9f4fc733db694c821fa648d0c1a",
+      "scope": "Read-only synthetic corpus diagnostic, not capacity",
+      "transformation": "exact safe bytes copied"
+    },
+    {
+      "artifact": "historical-index-diagnostic.json",
+      "source_alias": "result.json",
+      "source_sha256": "0038df0041b1d4a655ccde48b48f5da8410d144fd38dc79afbe1d6f8a6299f71",
+      "scope": "Synthetic copied database index diagnostic, not HTTP acceptance",
+      "transformation": "exact safe bytes copied"
+    },
+    {
+      "artifact": "independent-recovery/PUBLIC_ENGINEERING_SUMMARY.md",
+      "source_alias": "PUBLIC_ENGINEERING_SUMMARY.md",
+      "source_sha256": "a43bb7c3b4f60a03c77913e2c8732c1b97102e8ca6f29329d1fe3c93b0548a96",
+      "scope": "Previously reviewed explicit engineering recovery allowlist; fixed older code46ef",
+      "transformation": "exact safe bytes copied"
+    },
+    {
+      "artifact": "independent-recovery/safe-summary.json",
+      "source_alias": "safe-summary.json",
+      "source_sha256": "fc35100555d7cadaaaf8fee0196636603c79648ab54648833a828211fccbaa7c",
+      "scope": "Previously reviewed explicit engineering recovery allowlist; fixed older code46ef",
+      "transformation": "exact safe bytes copied"
+    },
+    {
+      "artifact": "independent-recovery/evidence-index.json",
+      "source_alias": "evidence-index.json",
+      "source_sha256": "a6318bc7e9a3d698125a98d8b155a423263a1cc8ef938d5fe2668504a181c58b",
+      "scope": "Previously reviewed explicit engineering recovery allowlist; fixed older code46ef",
+      "transformation": "exact safe bytes copied"
+    },
+    {
+      "artifact": "historical-readpath-summary.json",
+      "source_alias": "capacity-readpath-diagnostic.json",
+      "source_sha256": "a957c26b69c16d90ec79ce5b41b898212ed9bf3ae4680632d2c151b99ba856f3",
+      "scope": "Synthetic read path diagnostic only",
+      "transformation": "Explicit numeric fields only; omit all project/source/notice identifiers"
+    },
+    {
+      "artifact": "current-setup-summary.json",
+      "source_alias": "formal-load/input-pin.json + setup-operations.jsonl",
+      "source_sha256": [
+        "d3099496e6dc77974df0fb495dd2993533ae26bdfd5923b0725fb68f6f94f01d",
+        "723529e15271c577d3f7ff48c1ab55fa30abbe89751e57149df989c156a423f3"
+      ],
+      "scope": "Partial successful setup only; no final measurement",
+      "transformation": "Explicit allowlisted fields, no runtime PID, cookies, account or raw body"
+    },
+    {
+      "artifact": "historical-aborted-before-warmup.json",
+      "source_alias": "historical-159f573b/aborted.json",
+      "source_sha256": "cb1bfee120c5a754b6bd8f65b214c9e8a2bca5b3b6e80836452f252d2fc38749",
+      "scope": "Preserve earlier abort; no measurement claim",
+      "transformation": "Explicit safe fields only; omit PID"
+    },
+    {
+      "artifact": "full-review-proof/safe-result.json",
+      "source_alias": "private-full-review-proof/result.json",
+      "source_sha256": "aa0939e3106e5ba33a95e0b7fcdc841593a98645d49cbed206299474a88715c7",
+      "scope": "Actual full50k synthetic repository/service proof, no capacity/human claim",
+      "transformation": "Remove source absolute path; retain numeric/hash results and append explicit method boundaries"
+    },
+    {
+      "artifact": "full-review-proof/source-provenance.json",
+      "source_alias": "private-full-review-proof/proof.py + result/log/README",
+      "source_sha256": [
+        "aa0939e3106e5ba33a95e0b7fcdc841593a98645d49cbed206299474a88715c7",
+        "f80f32dce7ee879b658b482733df43c128bec19f2680161e0bc51f6d3c5279bf",
+        "39826f1a5995f22233f9edbd4bcba93798c91ace6378a0ba023d0a82c4b034fe",
+        "82b16d1c645d09c3cdf4fd406fb99921e65944b2cc26d948cdd3f8881b24f8dc"
+      ],
+      "scope": "Pins original private script/result and execution log",
+      "transformation": "Hashes and aliases only; raw files not published"
+    },
+    {
+      "artifact": "historical-full-backend-836-failure.json",
+      "source_alias": "original-full-836/backend.txt + verification.json",
+      "source_sha256": [
+        "fa9bc3fc98d15b6854b70f13aed7f69cd2093a7ed8a0e4c907ed635d8abb8eaa",
+        "d4dae6452dac27a5930e032c67431e9740cd885522af4d298bfe717463d26467"
+      ],
+      "scope": "Completed full suite with one failure retained",
+      "transformation": "Explicit safe check metadata; omit local paths and fixture addresses"
+    },
+    {
+      "artifact": "migration-expectation-independent-review.json",
+      "source_alias": "independent-migration-review/verification.json + pytest.txt + reviewed.diff + review.md",
+      "source_sha256": [
+        "2cf49c2eaa0d4eb4f867a31a6c44ceda4525bf31c5f0f269d50385574a1c89ae",
+        "941fd927604956af95533710b95a4b5cfe32fe875376a69b8cd3d6db814e3c2b",
+        "eaae6b958063bb20f40d53c53beeddb891ea81028ece89b95d9565fdef28a47d",
+        "45afa523137b225a9d7506292c8c0339c76af598149322971a554c182d23970f"
+      ],
+      "scope": "Independent one-test technical review, no full rerun or human acceptance",
+      "transformation": "Explicit check metadata, no worktree absolute path"
+    },
+    {
+      "artifact": "frontend-completion-and-teardown-summary.json",
+      "source_alias": "completed-frontend-836/verification + build/browser logs + teardown intervention/process evidence",
+      "source_sha256": [
+        "f60fbbe2a2c16b9e4e57a266c0a0a1a389c272e9ef1db6c9cb8678898faf7c14",
+        "fcba024c498599c85d747fbfb050550c1ea4d77f6f2dffd075b74932d954584c",
+        "ad35563bd793421b81f570aaf4e1f70432f5d964d4c6b2187aebdf4a91edfc48",
+        "f1fa2bc2e15258baddf24e949f1e1bf539d901f047cb07100096952638da9e6d",
+        "14ef6b639a33d9cf64987d4fdfdf069c0ba9072583afe9bf2c7e6dcc29ee1ea5"
+      ],
+      "scope": "Local152 assertion pass and exit0 after targeted teardown; remote CI frontend/container coordinator-verified observation is separately labeled",
+      "transformation": "Explicit safe timing/count/intervention fields. No process IDs, absolute paths, full lsof or screenshots published"
+    },
+    {
+      "artifact": "corrected-full-36ef-summary.json",
+      "sources": [
+        {
+          "source_alias": "corrected-full-36ef/verification.json",
+          "bytes": 2279,
+          "sha256": "e3617265e8c1cb28a2146712dda3829a2c7921e32c323182de05f8d666054c6f"
+        },
+        {
+          "source_alias": "corrected-full-36ef/backend.txt",
+          "bytes": 2273,
+          "sha256": "a46011ff28f438eb423d3d40c48a9055d985402717565eed6e8aaeb44d6ae0a2"
+        },
+        {
+          "source_alias": "corrected-full-36ef/lint.txt",
+          "bytes": 19,
+          "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+        },
+        {
+          "source_alias": "corrected-full-36ef/format.txt",
+          "bytes": 28,
+          "sha256": "e194b7ef1e83f1a8628937b0eccdf53bb0121c85ee8614e5506383e9484dfbc8"
+        },
+        {
+          "source_alias": "corrected-full-36ef/freeze.txt",
+          "bytes": 74,
+          "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7"
+        },
+        {
+          "source_alias": "corrected-full-36ef/frozen-scorer.json",
+          "bytes": 21515,
+          "sha256": "add3397fea57c4eef35fc9225c883ec83bb22da920a1c7be1f6f0fe2d8737887"
+        }
+      ],
+      "scope": "Ended2006-test full on36ef, no added4 included",
+      "transformation": "Explicit safe count/UTC/command metadata; raw paths/private test state omitted"
+    },
+    {
+      "artifact": "identity-clock-independent-summary.json",
+      "sources": [
+        {
+          "source_alias": "independent-identity-clock-review/checks.json",
+          "bytes": 2051,
+          "sha256": "fbd9daea1ae79c517e41884aa101abe4c90e469e00a092b78343d81b62788e74"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/file.txt",
+          "bytes": 99,
+          "sha256": "b3b240c1eb14330f976693d7e30f54e6ea332e75d3ada0dd7057b46f85b33a3c"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/delay.txt",
+          "bytes": 126,
+          "sha256": "585b85c9e0b518c8285f231a4c456f628f34d0a997bd790182597c44c91899e5"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/probe.py",
+          "bytes": 3372,
+          "sha256": "f9bd0d90386e68d12bfa7d7c04920347dbb811dde4ff6ea819f9f551ab12d1a4"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/probe-result.json",
+          "bytes": 1569,
+          "sha256": "7177c8a1e90fee97173713d44732a830a63403fdf41151cbebc788e3a2e29d68"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/assertion-integrity.json",
+          "bytes": 597,
+          "sha256": "492aa1e55404425b128e8b4059d6600ad4a3dd7a22b7c58aa66e27517c18f8b9"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/reviewed.diff",
+          "bytes": 3764,
+          "sha256": "21351b4946920f6bdc244dead18058ae1e9e504f63297e70e50ec2f04371d677"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/review.md",
+          "bytes": 4063,
+          "sha256": "1959378502bd7a7e39f827c11fa9a96c1d235d037f27b8a65b2aeadb0b2b697a"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/baseline-provenance.json",
+          "bytes": 644,
+          "sha256": "ac4e92d2b8526f970479a60d0196260397a2d9beb853b94dce3815e72f3b08d9"
+        },
+        {
+          "source_alias": "independent-identity-clock-review/evidence-index.json",
+          "bytes": 1829,
+          "sha256": "a007e9e37c8c513195ace1f3f67392bb3bc4dc2377691a44bf2d2131ea766256"
+        }
+      ],
+      "scope": "Independent43/19 overlapping file and delay runs plus7 RS256 script cases; all original assertions retained",
+      "transformation": "Safe aliases/hashes/boundary results only; no JWT/cookies/private fixture state"
+    },
+    {
+      "artifact": "ci-836-backend-failure.json",
+      "sources": [
+        {
+          "source_alias": "coordinator-ci-snapshot/b09-836-ci-failure.json",
+          "bytes": 1545,
+          "sha256": "dddad1ebfafa688dc7ba0690e54f5c2bfec5374ccea5366c119e936289b534dd"
+        }
+      ],
+      "scope": "ActualLinux2004PASS2FAIL; snapshot's former investigation wording retained as historical observation",
+      "transformation": "Exact safe snapshot bytes; no new external request"
+    },
+    {
+      "artifact": "version-lineage-summary.json",
+      "source_kind": "Explicit coordinator handoff",
+      "scope": "Finaldb4 vs measured836 vs full36ef; production equivalence coordinator verified, not rerun by draft editor",
+      "transformation": "Only fixed SHAs and claim boundaries; no worktree paths or live CI/load reads"
+    },
+    {
+      "artifact": "final-db4-code-ci.json",
+      "source_alias": "coordinator-ci-snapshot/final-b09-code-ci.json",
+      "source_bytes": 1542,
+      "source_sha256": "08750b2178ca12cd1b541ef6ee2c41c10323ab826ec87dc9a1ea2a21d1fcf3cf",
+      "transformation": "Exact safe snapshot bytes; no external requests by draft editor",
+      "scope": "Actual completed remote CI; engineering fixtures, not target capacity or enterprise human acceptance"
+    },
+    {
+      "artifact": "historical-linux-36ef-backend-failure.json",
+      "source_alias": "coordinator-ci-snapshot/historical_36ef-backend.json",
+      "source_bytes": 1164,
+      "source_sha256": "52295d74146c2f5c7b176a05ebd21ff42e9af4469a7820081c1a6d3922adaa9e",
+      "transformation": "Exact safe snapshot bytes; no external requests by draft editor",
+      "scope": "Actual completed remote CI; engineering fixtures, not target capacity or enterprise human acceptance"
+    },
+    {
+      "source_alias": "ended-full-load-fixed836 + coordinator-safe-completion/charts",
+      "scope": "Complete measured local_engineeringFAIL, not target/human acceptance",
+      "detailed_provenance": "formal-load/source-provenance.json",
+      "transformation": "Explicit safe aggregate fields/templates plus exact safe chart/completion bytes; no original trace/IDs/PID/DB archived",
+      "artifacts": [
+        "formal-load/safe-report.json",
+        "formal-load/safe-trace-summary.json",
+        "formal-load/http-summary.json",
+        "formal-load/completion.json",
+        "formal-load/source-provenance.json",
+        "formal-load/capacity-curves.png",
+        "formal-load/capacity-curves.svg",
+        "formal-load/capacity-curves-data.json"
+      ]
+    }
+  ],
+  "all_raw_private_directories_excluded": true
+}

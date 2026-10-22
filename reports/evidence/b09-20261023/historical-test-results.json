@@ -1,0 +1,158 @@
+{
+  "history": [
+    {
+      "phase": "candidate-first",
+      "source_sha256": "600e9a2f959853f4179349a3d509d3b72d218f88bf1df9061a05fb6b8f0defba",
+      "terminal_summary": [
+        "28 passed in 4.87s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "candidate-strengthened",
+      "source_sha256": "5348c8acea09c1bcdb25bbc4f4fdde28af6faff640f491ab38eb231797b6e0e7",
+      "terminal_summary": [
+        "37 passed in 5.01s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "candidate-adjacent",
+      "source_sha256": "8d717e5e32a43ffea5317ddd4666cda7eebc393c8eded3506597d89d4124f486",
+      "terminal_summary": [
+        "154 passed in 92.53s (0:01:32)"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "health-independent",
+      "source_sha256": "29705242d4ebbb03a855581a17470390cbdf7bd12a62507d9e95d6b3f2be6268",
+      "terminal_summary": [
+        "4 passed in 0.87s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "review-final-release-race",
+      "source_sha256": "3644d946dd36394dce3f8b38b47e24e2656a0539f65e4c57fed7a53f164b4ede",
+      "terminal_summary": [
+        "15 passed in 3.59s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "scale-targeted77",
+      "source_sha256": "b105aaf37649c31bb2a858e298ce3bc4d030bec6440190563950ea36c9285b4b",
+      "terminal_summary": [
+        "77 passed in 17.35s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "health17",
+      "source_sha256": "bddcd797a9b97fac1bf697f41f8c9e7a6021d4078394474fc19326b07549e515",
+      "terminal_summary": [
+        "17 passed in 9.69s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "health-causal18",
+      "source_sha256": "7afc95c2acdbc775e5c1a4e6dd35382793b8d80ed7938ebd1ad1eecf9507c176",
+      "terminal_summary": [
+        "18 passed in 9.55s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "health-previous-red",
+      "source_sha256": "662d7bd3e26ad3f8503140ce08fb69a7db7d279bf4a54abd800d8fd3d7fc96c6",
+      "terminal_summary": [
+        "FAILED tests/test_operations_health.py::test_health_route_requires_auditor_and_readiness_exposes_only_fixed_checks",
+        "1 failed, 16 passed in 9.79s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "health-initial-red",
+      "source_sha256": "96a543c8f43436c1a788ed4280863ff8da9c7715f198b2e3601cbcd19d06e634",
+      "terminal_summary": [
+        "FAILED tests/test_operations_health.py::test_health_route_requires_auditor_and_readiness_exposes_only_fixed_checks",
+        "1 failed, 15 passed in 9.76s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "review-capacity63",
+      "source_sha256": "a5141abd82978ac1ba1522acf664cc2defd29a6fc40697a6ea9bcfa6405e0d0d",
+      "terminal_summary": [
+        "63 passed in 68.94s (0:01:08)"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "review-api-page1",
+      "source_sha256": "5abacfdbc788acf4b2308e0dbb84e9a6b6a2c5b7f66ebefc12f0f1dba7681f9a",
+      "terminal_summary": [
+        "1 passed, 16 deselected in 4.67s"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "review-browser-chrome32",
+      "source_sha256": "f7f646dd653969d20448fb8e118929e3647cf4190b8b5487b5c3b5bf40288aa7",
+      "terminal_summary": [
+        "  32 passed (13.0s)"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    },
+    {
+      "phase": "review-browser-environment-failure32",
+      "source_sha256": "4495f47aae425f9df8651b495bfc38b6a4b5573739d5d96edc3a45e8a1513cac",
+      "terminal_summary": [
+        "  32 failed"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections",
+      "bounded_cause": "Playwright bundled Chromium executable unavailable; all32 failed before browser launch. Later explicitly installed Chrome-channel run32 passed; both retained."
+    },
+    {
+      "phase": "review-build",
+      "source_sha256": "6a2f304ba2f66604ff6bb92bcbe135282d3868e85865c2c4512d96f04fde35d7",
+      "terminal_summary": [
+        "✓ built in 532ms"
+      ],
+      "code_sha": "not_recorded_by_this_log",
+      "time": "not_recorded_by_this_log",
+      "classification": "historical local engineering only; do not sum overlapping selections"
+    }
+  ],
+  "caution": "These logs predate final836ccbf. Full exact candidate rerun is still in progress. No historical intermediate SHA is invented; counts overlap and are not additive."
+}

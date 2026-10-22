@@ -137,6 +137,7 @@ def test_migrations_idempotent(store):
         "009_human_review.sql",
         "010_authorized_ingestion.sql",
         "011_attachment_receipts.sql",
+        "012_package_versions_index.sql",
     ]
 
 

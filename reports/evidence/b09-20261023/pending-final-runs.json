@@ -1,0 +1,108 @@
+{
+  "snapshot_at": "2026-10-22T22:09:25.941751+00:00",
+  "candidate_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+  "specialist_ac_count": 71,
+  "upstream_pre_b10_ac_count": 65,
+  "formal_local_load": {
+    "state": "COMPLETED_NATURAL_EXIT1_CAPACITY_FAIL",
+    "directory_alias": "capacity-local-836ccbfad779-01",
+    "result_not_yet_read": false,
+    "engineering_kind": "local_engineering",
+    "target_acceptance": "BLOCKED",
+    "target_compute_concurrency": 2,
+    "actual_compute_limit": 1,
+    "capacity_target_mismatch": "FAIL",
+    "setup_status": "PASS_10584MS_ONLY",
+    "setup_evidence": "current-setup-summary.json",
+    "load_plan_sha256": "459c3803f4832e0a39f7dacaf430ad87b40e8168afcac73aafc12130322d3d1d",
+    "logical_operation_dispatch_complete_coordinator_reported": 4200,
+    "dispatch_count_is_not_achieved_input_or_capacity_acceptance": true,
+    "completion_evidence": "formal-load/completion.json",
+    "capacity_evidence": "formal-load/safe-report.json",
+    "trace_summary_evidence": "formal-load/safe-trace-summary.json",
+    "exit_code": 1,
+    "capacity_status": "FAIL",
+    "measurement_gate": "BLOCKED",
+    "recovery_status": "BLOCKED",
+    "input_integrity_gate": "PASS",
+    "all_issue_codes": [
+      "configured_compute_below_target",
+      "observed_compute_below_target",
+      "sampled_compute_below_target"
+    ],
+    "ended_offset_ms": 2618000
+  },
+  "full_backend_and_browser": {
+    "state": "FINAL_DB4_CI_PASS_PRIOR_LOCAL_AND_LINUX_FAILURES_RETAINED",
+    "original_full": {
+      "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+      "exit_code": 1,
+      "passed": 2005,
+      "failed": 1,
+      "pytest_reported_seconds": 605.6,
+      "evidence": "historical-full-backend-836-failure.json"
+    },
+    "independent_one_line_test_review": {
+      "status": "PASS",
+      "passed": 1,
+      "pytest_reported_seconds": 0.8,
+      "evidence": "migration-expectation-independent-review.json"
+    },
+    "corrective_commit_coordinator_reported": "36efed31ae496f42474cd8389236668b05767499",
+    "corrected_full": {
+      "code_sha": "36efed31ae496f42474cd8389236668b05767499",
+      "status": "PASS",
+      "passed": 2006,
+      "failed": 0,
+      "pytest_reported_seconds": 622.67,
+      "includes_four_new_identity_time_boundary_cases": false,
+      "evidence": "corrected-full-36ef-summary.json"
+    },
+    "frontend": "BUILD_EXIT0_152_BROWSER_PASS_EXIT0_AFTER_TARGETED_TEARDOWN_NOT_NATURAL",
+    "ci": "FINAL_DB4_RUN39859780307_ALL_THREE_JOBS_PASS",
+    "frontend_evidence": "frontend-completion-and-teardown-summary.json",
+    "final_db4_full_pass_not_claimed": false,
+    "old_ci_backend_evidence": "ci-836-backend-failure.json",
+    "identity_scoped_independent_review": "identity-clock-independent-summary.json",
+    "final_ci": {
+      "status": "PASS",
+      "run_id": 39859780307,
+      "evidence": "final-db4-code-ci.json",
+      "backend_passed": 2010,
+      "backend_seconds": 675.52,
+      "frontend_passed": 152,
+      "frontend_minutes": 2.7,
+      "container": "PASS",
+      "lint": "PASS",
+      "format_files": 247,
+      "freeze": "COORDINATOR_VERIFIED_PASS"
+    },
+    "historical_linux_36ef": {
+      "passed": 2005,
+      "failed": 1,
+      "pytest_reported_seconds": 1015.29,
+      "failure": "identity collection-time iat test updates6",
+      "run_id": 39858363545,
+      "evidence": "historical-linux-36ef-backend-failure.json"
+    }
+  },
+  "network_scope": "loopback HTTP / synthetic protocol and FunctionModel only; no actual provider, source, alert recipient or target host",
+  "business_acceptance": "BLOCKED",
+  "actual_cost_cny": "0",
+  "enterprise_plan_sha256": "1bcfc395039fb2e61d794efcd6e5be57343efb03799358f60d98e274f961d399",
+  "manifest_bytes_sha256": "bd82c7ab050a53610742515d4af082140f6fce5593b203cabaa4e847ffb4a170",
+  "manifest_canonical_sha256": "9a2ba864807a249e01ba4d6b07f643a7972f2a5f8dc1d05833e24a8073237e9c",
+  "actual_provider_model_calls": 0,
+  "fullscale_review_export": {
+    "status": "PASS_LOCAL_ENGINEERING_ONLY",
+    "evidence": "full-review-proof/safe-result.json",
+    "capacity_acceptance": "NOT_EVALUATED",
+    "business_acceptance": "NOT_VERIFIED"
+  },
+  "capacity_code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "capacity_tree_sha": "3a0b67e03f1e8a250bf5ad8272451c772be9c867",
+  "capacity_checkout_clean_at_original_snapshot": true,
+  "final_candidate_tree_sha": null,
+  "final_candidate_status_source": "Coordinator handoff; no worktree or remote reads by draft editor",
+  "version_evidence": "version-lineage-summary.json"
+}

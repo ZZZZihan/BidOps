@@ -1,0 +1,60 @@
+{
+  "checked_at": "2026-10-22T21:31:51.150362+00:00",
+  "started_at": "2026-10-22T21:31:49.294834+00:00",
+  "head": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "command": [
+    ".venv/bin/pytest",
+    "-q",
+    "tests/test_storage_api_cli.py::test_migrations_idempotent"
+  ],
+  "exit_code": 0,
+  "diff_sha256": "eaae6b958063bb20f40d53c53beeddb891ea81028ece89b95d9565fdef28a47d",
+  "scope": "Read-only review of one expected migration addition; one offline test only; no production/source edits.",
+  "conclusion": "NO_BLOCKER",
+  "assertions_removed": 0,
+  "assertions_weakened": false,
+  "diff_added_lines": 1,
+  "diff_deleted_lines": 0,
+  "migration_registration": "Database.migrate discovers sorted packaged *.sql, executes unapplied migrations and records the filename; 012 is already a registered migration through discovery.",
+  "existing_full_suite_result": "836ccbfad779c4b6e52dd1802dd0877989dbe774: 2005 passed, 1 failed in 605.60s; sole failure expected migration list omitted existing 012. This review did not rerun the full suite.",
+  "offline_guards": "tests/conftest.py autouse fixture blocks httpx/httpx2 live HTTP, sets ALLOW_MODEL_REQUESTS=False and BIDOPS_NETWORK_ENABLED=false.",
+  "postcheck": "git diff --check passed; git status/diff numstat unchanged at one addition in tests/test_storage_api_cli.py.",
+  "worktree_alias": "isolated-b09-validation-final",
+  "reviewer": "Independent b03_identity_adapter agent; not a human business approver",
+  "pytest_passed": 1,
+  "pytest_reported_seconds": 0.8,
+  "controller_elapsed_seconds": 1.872,
+  "reviewed_change": "Add only \"012_package_versions_index.sql\" to the existing exact full-list equality expectation",
+  "full_suite_rerun_by_reviewer": false,
+  "corrected_full_result": "PENDING_NOT_READ",
+  "sources": [
+    {
+      "alias": "independent-migration-review/verification.json",
+      "bytes": 1480,
+      "sha256": "2cf49c2eaa0d4eb4f867a31a6c44ceda4525bf31c5f0f269d50385574a1c89ae"
+    },
+    {
+      "alias": "independent-migration-review/pytest.txt",
+      "bytes": 98,
+      "sha256": "941fd927604956af95533710b95a4b5cfe32fe875376a69b8cd3d6db814e3c2b"
+    },
+    {
+      "alias": "independent-migration-review/reviewed.diff",
+      "bytes": 404,
+      "sha256": "eaae6b958063bb20f40d53c53beeddb891ea81028ece89b95d9565fdef28a47d"
+    },
+    {
+      "alias": "independent-migration-review/review.md",
+      "bytes": 2123,
+      "sha256": "45afa523137b225a9d7506292c8c0339c76af598149322971a554c182d23970f"
+    }
+  ],
+  "privacy_transformation": "Omit absolute worktree path; publish only check metadata and source hashes",
+  "business_acceptance": "BLOCKED",
+  "later_committed_change": {
+    "commit": "36efed31ae496f42474cd8389236668b05767499",
+    "confirmation_source": "Independent reviewer message after read-only git show; no test rerun on committed hash claimed",
+    "same_reviewed_one_line_addition": true,
+    "deleted_lines": 0
+  }
+}

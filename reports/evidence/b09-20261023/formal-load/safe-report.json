@@ -1,0 +1,119 @@
+{
+  "capacity_status": "FAIL",
+  "gates": {
+    "api_performance": "PASS",
+    "data_integrity": "PASS",
+    "declared_compute_target": "FAIL",
+    "input_integrity": "PASS",
+    "manifest_complete": "PASS",
+    "measurement": "BLOCKED",
+    "model_simulation": "PASS",
+    "observed_compute_target": "FAIL"
+  },
+  "manifest_sha256": "9a2ba864807a249e01ba4d6b07f643a7972f2a5f8dc1d05833e24a8073237e9c",
+  "manifest_status": "PASS",
+  "model_evidence": "offline_simulation_only",
+  "plan_sha256": "459c3803f4832e0a39f7dacaf430ad87b40e8168afcac73aafc12130322d3d1d",
+  "recovery_status": "BLOCKED",
+  "issues": [
+    {
+      "code": "configured_compute_below_target",
+      "affected_record_count": 0
+    },
+    {
+      "code": "observed_compute_below_target",
+      "affected_record_count": 0
+    },
+    {
+      "code": "sampled_compute_below_target",
+      "affected_record_count": 0
+    }
+  ],
+  "metrics": {
+    "accepted_jobs": 84,
+    "actual_requests_per_second": 2.0,
+    "admission_p95_ms": 108,
+    "clients_invalid_count": 0,
+    "clients_raw_count": 10,
+    "compute_p95_ms": 31774,
+    "cpu_peak_percent": 105.7,
+    "disk_free_min_bytes": 145508294656,
+    "ended_offset_ms": 2618000,
+    "error_rate": 0.0011111111111111111,
+    "expected_steady_requests": 3600,
+    "jobs_invalid_count": 0,
+    "jobs_raw_count": 84,
+    "model_wait_p95_ms": 30008,
+    "non_model_api_p95_ms": 263,
+    "observed_compute_peak": 1,
+    "observed_jobs": 84,
+    "observed_steady_requests": 3600,
+    "operation_counts": {
+      "read_search": 2808,
+      "review": 72,
+      "submit_task": 72,
+      "task_status": 648
+    },
+    "queue_peak": 17,
+    "queue_wait_p95_ms": 480734,
+    "rate_bucket_counts": [
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ],
+    "requests_invalid_count": 0,
+    "requests_raw_count": 4200,
+    "resource_compute_peak": 1,
+    "resources_invalid_count": 0,
+    "resources_raw_count": 2619,
+    "rss_peak_bytes": 856440832,
+    "steady_error_denominator": 3600,
+    "steady_errors": 4,
+    "steady_start_ms": 300000,
+    "steady_stop_ms": 2100000,
+    "target_concurrency_overlap_ms": 0,
+    "steady_client_operation_count_distribution": [
+      {
+        "clients": 10,
+        "operations_each": 360
+      }
+    ]
+  },
+  "scope": "One completed real loopback FastAPI HTTP/synthetic local_engineering run. Not target hardware, provider throughput or enterprise human acceptance.",
+  "original_report": {
+    "bytes": 2643,
+    "sha256": "abc43ea0161693b0d4c11c1b2e1bbbf8e8e238aef1db0279a65b000a5bb2385b"
+  },
+  "original_trace": {
+    "bytes": 3209754,
+    "sha256": "8091cb48901efe3e8528df512cc7b09369f9d215cf8b8c8597fa07b7ffb61257"
+  },
+  "projection": "Explicit keys only; runtime/client/account/result IDs and session hashes omitted; all issue codes and official numerical metrics retained."
+}

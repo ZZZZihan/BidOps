@@ -23,6 +23,7 @@ from bidops.company.retention import prune_company_materials
 from bidops.config import Settings
 from bidops.enterprise.auth import IdentityService, auth_router
 from bidops.enterprise.config import EnterpriseSettings
+from bidops.enterprise.health import DependencyHealth, HealthSettings
 from bidops.enterprise.operations import Operations, OperationsMiddleware, SingleWorker
 from bidops.enterprise.sessions import PersistentConversations, prune_private_history
 from bidops.ingestion.api import ingestion_router
@@ -50,10 +51,12 @@ def create_app(
     jobs_settings: JobsSettings | None = None,
     review_settings: ReviewSettings | None = None,
     ingestion_settings: IngestionSettings | None = None,
+    health_settings: HealthSettings | None = None,
 ) -> FastAPI:
     settings = settings or Settings()
     enterprise = enterprise_settings or EnterpriseSettings()
     operations = Operations()
+    health_config = health_settings or HealthSettings()
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -91,6 +94,31 @@ def create_app(
             )
             if app.state.jobs:
                 await asyncio.to_thread(app.state.jobs.start)
+
+            app.state.dependency_health = DependencyHealth(
+                health_config, operations.registry, app.state, settings
+            )
+
+            async def dependency_observation():
+                while True:
+                    task = asyncio.create_task(
+                        asyncio.to_thread(app.state.dependency_health.sample)
+                    )
+                    try:
+                        await asyncio.shield(task)
+                    except asyncio.CancelledError:
+                        with suppress(Exception):
+                            await task
+                        raise
+                    except Exception:
+                        logging.getLogger("bidops.operations").error(
+                            '{"event":"dependency_observation_failed"}'
+                        )
+                    await asyncio.sleep(health_config.interval_seconds)
+
+            monitor = (
+                asyncio.create_task(dependency_observation()) if health_config.enabled else None
+            )
 
             async def review_delivery():
                 while True:
@@ -133,6 +161,10 @@ def create_app(
             try:
                 yield
             finally:
+                if monitor:
+                    monitor.cancel()
+                    with suppress(asyncio.CancelledError):
+                        await monitor
                 if maintenance:
                     maintenance.cancel()
                     with suppress(asyncio.CancelledError):
@@ -283,7 +315,19 @@ def create_app(
             )
         except Exception:
             ok = False
-        return JSONResponse({"ready": ok}, status_code=200 if ok else 503)
+        result = {"ready": ok}
+        if health_config.enabled:
+            health = app.state.dependency_health.snapshot()
+            ok = ok and health["ready"]
+            result = {"ready": ok, "checks": health["checks"]}
+        return JSONResponse(result, status_code=200 if ok else 503)
+
+    @app.get("/api/operations/health")
+    def dependency_health(request: Request):
+        if not enterprise.enabled or not health_config.enabled:
+            raise HTTPException(404)
+        app.state.identity.require(request, "audit:read")
+        return app.state.dependency_health.snapshot()
 
     app.include_router(auth_router())
     app.include_router(company_router())
