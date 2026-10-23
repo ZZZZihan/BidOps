@@ -5,7 +5,9 @@
 **结构预检成功不能关闭 B02-06、G-01/G-03/G-08 或 E06。**
 
 2026-10-23 接续的[本机实际查找、缺件清单与复验结果](../reports/b02-06-local-asset-search-20261023.md)
-单独留证；原独立报告和失败记录不覆盖。真实原件仍未取得，门槛保持 BLOCKED。
+单独留证；原独立报告和失败记录不覆盖。随后从原云端会话取回六公告 ZIP，
+[原文包实测与剩余缺件](../reports/b02-06-cloud-capture-recovery-20261023.md)
+记录原 manifest 与六 raw 全部匹配。真实旧库、三轮历史和最新完整账本仍缺，门槛保持 BLOCKED。
 
 脚本只使用 Python 标准库，不导入 BidOps 应用，不启动模型、采集或工作流。
 实际原件、数据库、会话、费用报告留在受控环境；公开提交只接受显式白名单投影。
@@ -15,20 +17,22 @@
 
 | 资产 | 确切线索 | 能证明什么 |
 |---|---|---|
-| 原采集 ZIP | BidOps-P0-samples-20261022.zip | 历史报告记载单独交付；不在公开 Git |
+| 原采集 ZIP | BidOps-P0-samples-20261022.zip | 已从原云端会话取回并验证 manifest/六 raw；原件不在公开 Git |
 | 导入包 | data/artifacts/p0-capture-20261022/ | manifest、六份 raw、解析导出与采集说明 |
 | 默认源库 | data/processed/bidops.sqlite3、data/raw/ | 原环境未覆盖配置时的路径 |
 | **真实三轮历史库** | data/artifacts/enterprise-live-20261022/restored/bidops.sqlite3 | 原集成脚本实际写入问答的副本 |
 | 历史配套文件 | 上述 restored/raw/、外层 responses.json | 原文与私有响应证据 |
 | 运行前备份 | data/artifacts/enterprise-live-20261022/backup/ | 三轮运行之前的库与 raw；未必有三轮历史 |
 
-旧脚本只把 agent_runs 从 restored 库合并回源库，**没有合并会话表**。
+归档旧脚本只把 agent_runs 从 restored 库合并回源库，**没有合并会话表**。
+原云端执行记录另显示三轮运行后手工回并三条 agent_runs；该次执行发生在
+`6a41a067` 归档提交之前，不能把最终脚本等同于当时 clean checkout 的运行版本。
 因此默认源库或运行前备份不能自动代替真实历史库。
 见[固定旧脚本 L22–54](https://github.com/ZZZZihan/BidOps/blob/6a41a067b08f67b5d9c46bd68f5b3acc0101bf80/scripts/enterprise_live.py#L22-L54)及
 [L129–145](https://github.com/ZZZZihan/BidOps/blob/6a41a067b08f67b5d9c46bd68f5b3acc0101bf80/scripts/enterprise_live.py#L129-L145)。
 
-原 ZIP 被记载含六份 HTML、manifest、notices.jsonl、访问说明，
-没有证据说明它含 SQLite、持久会话或最新完整账本。
+本次实际 ZIP 含六份 HTML、manifest、notices.jsonl、README.txt、capture-events.json，
+共 10 个条目；不含 SQLite、持久会话或费用账本。
 最初采集附件为 **0**；后续旧库若有附件引用，按实际引用补齐，不能补造附件。
 原件清单依据：[采集报告](../reports/p0-collection-20261022.md)、
 [逐样本指纹](../reports/p0-collection-verification-20261022.json)。
@@ -41,7 +45,8 @@
 
 六 raw 合计 156,552 bytes、六个不同哈希、15 个采购包。
 完整预期身份保存在 [expected JSON](../data/seeds/p0-capture-20261022.expected.json)；
-它是核对依据，不是已经交付的原文。没有公开的 ZIP 整体哈希，不能伪称 ZIP 已验。
+它是核对依据，不是原文。本次取得的 ZIP 整体哈希在接续报告中记录为新观测值；
+历史未公布 ZIP 整体哈希，身份匹配依赖原 manifest 指纹与六 raw 的逐项核验。
 
 ## 2. 旧 schema 与代码归属
 
@@ -49,7 +54,7 @@
 |---|---|
 | 015ce3cfd4d7140411c60633df0c2bc689b5e276 | 真实采集回放；001 基础公告表 |
 | 2060d0e3da8d85465659e2d3fa09719a3acca714 | Demo；002 agent_runs，当时 Demo 会话为内存态 |
-| 6a41a067b08f67b5d9c46bd68f5b3acc0101bf80 | 真实三轮集成对应代码；003 企业持久会话 |
+| 6a41a067b08f67b5d9c46bd68f5b3acc0101bf80 | 企业集成事后归档代码；003 企业持久会话，未证为三轮运行时 clean SHA |
 | cfcd7c8a331f26952ac6ad0493d92c1bd623d9d0 | 本次查到的 main；相对 6a 只有两份文档提交 |
 | 069e4b495828caca4c64447062c030a0f313aada | B02 前 B01 基线；仍为 001–003 |
 | 0ff9413cff5e3cb13b85697e5a0c9181e4b86658 | 本轮固定目标；含 004–012 |

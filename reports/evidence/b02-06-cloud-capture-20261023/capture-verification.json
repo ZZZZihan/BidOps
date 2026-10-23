@@ -1,0 +1,79 @@
+{
+  "evidence_kind": "REAL_ORIGINAL_CAPTURE_IDENTITY_ONLY",
+  "observed_at_utc": "2026-10-23T04:18:46.161859+00:00",
+  "verified_checkout": "9c8dbd17c92d6d87a274552206c8229869758c94",
+  "python": "3.12.12",
+  "sqlite": "3.50.4",
+  "command": "python3 scripts/legacy_preflight.py --capture \"$bidops_capture_copy\"",
+  "exit_code": 0,
+  "stderr_empty": true,
+  "archive": {
+    "name": "BidOps-P0-samples-20261022.zip",
+    "bytes": 52663,
+    "sha256": "3999b73e550ea0f0a410d86d0b11f58f070c63c350b68f5124188358e0a83aa3",
+    "entries": 10,
+    "crc_ok": true,
+    "database_entries": 0,
+    "hash_scope": "newly observed archive fingerprint; original manifest and six raw matched pinned metadata"
+  },
+  "script_sha256": "475ebf102e6406b1dd1b67c3665f8d60b430cda0bed8ffd25f5291072a6234f7",
+  "result": {
+    "scope": "read-only structural preflight, not historical migration acceptance",
+    "b02_06_status": "NOT_EVALUATED",
+    "e06_status": "NOT_EVALUATED",
+    "new_model_calls": 0,
+    "database_writes": 0,
+    "expected_reference_sha256": "f722bf3269ce2c6b98a56a2f04a4ad87a2b7c1b07ff15f2f348c2ef75064d5ad",
+    "expected_reference_limit": "Compare this digest with the pinned public metadata; custom expectations do not authenticate the original six notices.",
+    "capture": {
+      "status": "CHECKS_OK",
+      "manifest_sha256": "1f9578666a4297ee75b181c0b629d123516feb757bc4902f67ea89059e57cf54",
+      "raw_files": [
+        {
+          "path": "raw/48adb3f1e4a7495a0d7edb9689716589ea1d963009cedbaca8ad052674f75c7b",
+          "sha256": "48adb3f1e4a7495a0d7edb9689716589ea1d963009cedbaca8ad052674f75c7b",
+          "bytes": 20676
+        },
+        {
+          "path": "raw/0d050a9ffe5e6ee634dccb80ac87b8da443bd931cf41b9eb9f746a09c54a43a9",
+          "sha256": "0d050a9ffe5e6ee634dccb80ac87b8da443bd931cf41b9eb9f746a09c54a43a9",
+          "bytes": 20620
+        },
+        {
+          "path": "raw/cdd130977fb2a9e27eaafaf3b68dfb99a4f8f897d9b75c2822c2ad03c5231fcf",
+          "sha256": "cdd130977fb2a9e27eaafaf3b68dfb99a4f8f897d9b75c2822c2ad03c5231fcf",
+          "bytes": 56284
+        },
+        {
+          "path": "raw/27b3d5a8a6c28411af9f9ca3fa8a2811f50dd5c6c836cf81ad3ec1765d86477c",
+          "sha256": "27b3d5a8a6c28411af9f9ca3fa8a2811f50dd5c6c836cf81ad3ec1765d86477c",
+          "bytes": 22892
+        },
+        {
+          "path": "raw/792f9037ffaf37ba0b52585ccd2e067a51c43c483c66afa0377b2d91a5d500ca",
+          "sha256": "792f9037ffaf37ba0b52585ccd2e067a51c43c483c66afa0377b2d91a5d500ca",
+          "bytes": 18032
+        },
+        {
+          "path": "raw/583b8ccd74f955d114704ec2b6bf497d69776f7d71f1e24822b1ba39ff9aec0d",
+          "sha256": "583b8ccd74f955d114704ec2b6bf497d69776f7d71f1e24822b1ba39ff9aec0d",
+          "bytes": 18048
+        }
+      ],
+      "limitation": "Raw identity only; no old database, history, accuracy or migration proven."
+    },
+    "preflight_status": "CHECKS_OK_NOT_ACCEPTANCE"
+  },
+  "real_database_preflight": "NOT_RUN_MISSING_CONSISTENT_INPUT",
+  "real_migration": "NOT_RUN",
+  "real_rollback": "NOT_RUN",
+  "latest_complete_ledger_verified": false,
+  "remaining_budget_cny": null,
+  "gate_status": {
+    "B02-06": "BLOCKED",
+    "E06": "BLOCKED",
+    "G-01": "BLOCKED",
+    "G-03": "BLOCKED",
+    "G-08": "BLOCKED"
+  }
+}
