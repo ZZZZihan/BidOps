@@ -1,0 +1,30 @@
+{
+  "started_at": "2026-10-22T22:47:09.043984+00:00",
+  "finished_at": "2026-10-22T22:47:17.570791+00:00",
+  "dbos_version": "3.3.0",
+  "python": "3.12.12",
+  "sqlite": "3.50.4",
+  "scripts_sha256": {
+    "worker.py": "58286f5a462c61dcb33ecb83946b4d3866514f8c185faf295b74281e38105151",
+    "run_probe.py": "0cb0d6fb2b53b0ce3b9c775bf81e9a01c820388c6c7bda97f9d27146e6de9d7a"
+  },
+  "scope": "One worker process at a time; native DBOS parent16 and calculation2 queues; synthetic asyncio steps, no app/model/auth/real workload; cancellation can be cooperative; unknown pre-crash step is replayed.",
+  "network_calls": 0,
+  "model_calls": 0,
+  "actual_cost_cny": "0",
+  "scenarios": [
+    {
+      "scenario": "baseline",
+      "status": "PASS",
+      "checks": {
+        "exactly_two_started_third_native_enqueued": true,
+        "three_parents_native_pending_while_waiting": true,
+        "fourth_calc_starts_while_three_wait_for_review": true,
+        "physical_and_native_compute_peak_exactly_two": true,
+        "positive_measured_overlap": true,
+        "no_unclosed_compute_interval": true
+      }
+    }
+  ],
+  "status": "PASS"
+}

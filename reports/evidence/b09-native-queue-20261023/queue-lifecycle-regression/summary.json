@@ -1,0 +1,441 @@
+{
+  "schema_version": "native-queue-lifecycle-regression-v1",
+  "created_at_utc": "2026-10-22T23:48:16.191663+00:00",
+  "scope": "Independent controlled asynchronous slowdown experiment on real DBOS/SQLite queue tests; does not replace the original failed CI or validate production latency.",
+  "model_request": {
+    "model": "gpt-6.1-sol",
+    "reasoning_effort": "ultra",
+    "actual_configuration_independently_verified": false
+  },
+  "versions": {
+    "python": "3.12.12",
+    "dbos": "3.3.0",
+    "pydantic_ai_slim": "2.59.0"
+  },
+  "code_at_execution": {
+    "base_commit": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+    "red_tracked_source": "clean2425fc2; original target test",
+    "green_tracked_source": "same2425fc2 base plus root-owned uncommitted target-test correction; not a clean-commit full-suite run",
+    "original_test_sha256": "cedb06ddb89d059623937bccaaf7d1b88949f754b2fdc1b6c72d1931f902e4b5",
+    "corrected_test_sha256": "95cbaab11ce3222e1ed0569d9d2f381da18d81a0352764797569ffd6855b0e5e",
+    "same_plugin_sha256": "3ee55abca5bd56939c90fb1e2f725e4cd8b8768d099dd8434d0b23907dddc8ed",
+    "production_source_sha256_unchanged_red_to_green": {
+      "backend/bidops/jobs/model.py": "4a46eeed67693dc6ed68cd726b84b75aaf222bf525089317b867b09f395b0163",
+      "backend/bidops/jobs/runtime.py": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54",
+      "backend/bidops/qualification/config.py": "e3854ac276a5817ecef4c887bdfe40a153ec08f3898d1588d3e9e902b561162c"
+    },
+    "shared_wait_helper_sha256_unchanged": "be54365449564f39e6a6eff2c1200c8d08681a1ac861445120551fb9cd57c66a",
+    "green_test_source_unchanged_through_execution": true,
+    "later_identical_commit": {
+      "commit": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+      "corrected_test_sha256": "95cbaab11ce3222e1ed0569d9d2f381da18d81a0352764797569ffd6855b0e5e",
+      "changed_files": [
+        "tests/test_jobs_compute_queue.py"
+      ],
+      "matching_blob_independently_read": true,
+      "tests_rerun_after_commit": false,
+      "note": "Local slow green ran before this commit with the same target-test bytes; later commit does not change attribution."
+    }
+  },
+  "injection": {
+    "delay": "await asyncio.sleep(2) before awaiting the original async FunctionModel callback",
+    "delay_seconds_per_request": 2,
+    "affected_tests_only": [
+      "test_authorized_resume_returns_child_to_bounded_queue",
+      "test_cancelled_inflight_call_holds_physical_slot_until_it_returns",
+      "test_native_calculation_queue_bounds_two_and_review_wait_frees_computation"
+    ],
+    "constructor_patch_scope": "test_jobs_compute_queue.FunctionModel only, autouse fixture bound to these three test names",
+    "unchanged": [
+      "original Event barriers and async callback",
+      "original scripted model responses and9calls per noncancelled task",
+      "real native parent/calculation queues",
+      "actual SQLite repositories and persistent attempts",
+      "production90s deadline",
+      "12s observation of third entry after predecessor success",
+      "shared12s waiting_review helper",
+      "original admission, cancellation, resume and peak2 assertions"
+    ],
+    "no_synchronous_sleep_in_injected_wrapper": true
+  },
+  "red": {
+    "started_at_utc": "2026-10-22T23:43:20.602050+00:00",
+    "ended_at_utc": "2026-10-22T23:43:38.933214+00:00",
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "slow_compute_queue_plugin",
+      "-q",
+      "tests/test_jobs_compute_queue.py::test_native_calculation_queue_bounds_two_and_review_wait_frees_computation"
+    ],
+    "exit_code": 1,
+    "pytest_result": "1 failed in17.27s",
+    "process_elapsed_seconds": 18.316266999929212,
+    "failure_site": "until(default12s) for third callback entry after releasing first two9call calculations",
+    "effective_business_limit_seconds": 90,
+    "failure_was_business_timeout": false,
+    "failure_snapshot": {
+      "event": "business_snapshot",
+      "native_compute_concurrency": 2,
+      "observed_original_callback_peak": 2,
+      "original_callbacks_currently_active": 0,
+      "original_model_limit_seconds": 90.0,
+      "original_model_request_limit": 20,
+      "phase": "call",
+      "runs": [
+        {
+          "business_status": "queued",
+          "child_queue": "bidops_qualification_calculations_v1",
+          "child_status": "ENQUEUED",
+          "fixture_original_call_count": 0,
+          "has_result": false,
+          "persisted_attempt_count": 0,
+          "persisted_attempt_status_counts": {},
+          "plugin_original_callback_enter_count": 0,
+          "plugin_original_callback_return_count": 0,
+          "plugin_wrapped_call_count": 0,
+          "root_queue": "bidops_qualification_jobs_v1",
+          "root_status": "PENDING",
+          "run_alias": "run-3"
+        },
+        {
+          "business_status": "running",
+          "child_queue": "bidops_qualification_calculations_v1",
+          "child_status": "PENDING",
+          "fixture_original_call_count": 5,
+          "has_result": false,
+          "persisted_attempt_count": 6,
+          "persisted_attempt_status_counts": {
+            "response_received": 5,
+            "started": 1
+          },
+          "plugin_original_callback_enter_count": 5,
+          "plugin_original_callback_return_count": 5,
+          "plugin_wrapped_call_count": 6,
+          "root_queue": "bidops_qualification_jobs_v1",
+          "root_status": "PENDING",
+          "run_alias": "run-1"
+        },
+        {
+          "business_status": "running",
+          "child_queue": "bidops_qualification_calculations_v1",
+          "child_status": "PENDING",
+          "fixture_original_call_count": 5,
+          "has_result": false,
+          "persisted_attempt_count": 6,
+          "persisted_attempt_status_counts": {
+            "response_received": 5,
+            "started": 1
+          },
+          "plugin_original_callback_enter_count": 5,
+          "plugin_original_callback_return_count": 5,
+          "plugin_wrapped_call_count": 6,
+          "root_queue": "bidops_qualification_jobs_v1",
+          "root_status": "PENDING",
+          "run_alias": "run-2"
+        }
+      ],
+      "test": "test_native_calculation_queue_bounds_two_and_review_wait_frees_computation"
+    },
+    "sources": {
+      "pytest.txt": {
+        "bytes": 1778,
+        "sha256": "78185bc4de08eb2def88c72a74ce247b16a3a0bb2b735085ccfdcac7eec24542"
+      },
+      "plugin-events.jsonl": {
+        "bytes": 12559,
+        "sha256": "8abbde3a9a85287d20fdbe6e520666c9b95b6445b7df0eec2d85ea30cddf2607"
+      },
+      "verification.json": {
+        "bytes": 992,
+        "sha256": "c0586fd55a4324a8becb7faaaeb41ab8a5bf43e971bfac69506a517046f0148d"
+      }
+    }
+  },
+  "green": {
+    "started_at_utc": "2026-10-22T23:44:49.311767+00:00",
+    "ended_at_utc": "2026-10-22T23:46:53.433214+00:00",
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-p",
+      "slow_compute_queue_plugin",
+      "-q",
+      "tests/test_jobs_compute_queue.py::test_native_calculation_queue_bounds_two_and_review_wait_frees_computation",
+      "tests/test_jobs_compute_queue.py::test_cancelled_inflight_call_holds_physical_slot_until_it_returns",
+      "tests/test_jobs_compute_queue.py::test_authorized_resume_returns_child_to_bounded_queue",
+      "--junitxml=$CONTROLLED_OUTPUT/junit.xml"
+    ],
+    "exit_code": 0,
+    "pytest_result": "3 passed,2 warnings in123.13s",
+    "process_elapsed_seconds": 124.11314570892137,
+    "warnings": "Two record_property/xunit2 compatibility warnings; XML nevertheless contains both signed observation properties.",
+    "test_results": [
+      {
+        "test": "test_native_calculation_queue_bounds_two_and_review_wait_frees_computation",
+        "result": "passed",
+        "call_phase_seconds": 45.96288058301434,
+        "effective_business_limit_seconds": 90,
+        "native_compute_concurrency": 2,
+        "observed_original_callback_peak": 2,
+        "callbacks_active_at_assertion_end": 0,
+        "request_async_delay_min_seconds": 2.0005799999999994,
+        "request_async_delay_max_seconds": 2.0272499999999987,
+        "request_count": 27,
+        "recorded_signed_observation_properties_seconds": {
+          "next_call_minus_observed_predecessor_success_seconds": 2.13851425005123
+        },
+        "final_runs": [
+          {
+            "business_status": "waiting_review",
+            "child_queue": "bidops_qualification_calculations_v1",
+            "child_status": "SUCCESS",
+            "fixture_original_call_count": 9,
+            "has_result": true,
+            "persisted_attempt_count": 9,
+            "persisted_attempt_status_counts": {
+              "response_received": 9
+            },
+            "plugin_original_callback_enter_count": 9,
+            "plugin_original_callback_return_count": 9,
+            "plugin_wrapped_call_count": 9,
+            "root_queue": "bidops_qualification_jobs_v1",
+            "root_status": "PENDING",
+            "run_alias": "run-1",
+            "first_wrapper_to_last_original_return_seconds": 21.910427
+          },
+          {
+            "business_status": "waiting_review",
+            "child_queue": "bidops_qualification_calculations_v1",
+            "child_status": "SUCCESS",
+            "fixture_original_call_count": 9,
+            "has_result": true,
+            "persisted_attempt_count": 9,
+            "persisted_attempt_status_counts": {
+              "response_received": 9
+            },
+            "plugin_original_callback_enter_count": 9,
+            "plugin_original_callback_return_count": 9,
+            "plugin_wrapped_call_count": 9,
+            "root_queue": "bidops_qualification_jobs_v1",
+            "root_status": "PENDING",
+            "run_alias": "run-2",
+            "first_wrapper_to_last_original_return_seconds": 21.941521
+          },
+          {
+            "business_status": "waiting_review",
+            "child_queue": "bidops_qualification_calculations_v1",
+            "child_status": "SUCCESS",
+            "fixture_original_call_count": 9,
+            "has_result": true,
+            "persisted_attempt_count": 9,
+            "persisted_attempt_status_counts": {
+              "response_received": 9
+            },
+            "plugin_original_callback_enter_count": 9,
+            "plugin_original_callback_return_count": 9,
+            "plugin_wrapped_call_count": 9,
+            "root_queue": "bidops_qualification_jobs_v1",
+            "root_status": "PENDING",
+            "run_alias": "run-3",
+            "first_wrapper_to_last_original_return_seconds": 19.78249
+          }
+        ]
+      },
+      {
+        "test": "test_cancelled_inflight_call_holds_physical_slot_until_it_returns",
+        "result": "passed",
+        "call_phase_seconds": 28.427338917041197,
+        "effective_business_limit_seconds": 90,
+        "native_compute_concurrency": 2,
+        "observed_original_callback_peak": 2,
+        "callbacks_active_at_assertion_end": 0,
+        "request_async_delay_min_seconds": 2.0003150000000005,
+        "request_async_delay_max_seconds": 2.024428999999998,
+        "request_count": 19,
+        "recorded_signed_observation_properties_seconds": {},
+        "final_runs": [
+          {
+            "business_status": "cancelled",
+            "child_queue": null,
+            "child_status": "CANCELLED",
+            "fixture_original_call_count": 1,
+            "has_result": false,
+            "persisted_attempt_count": 1,
+            "persisted_attempt_status_counts": {
+              "response_received": 1
+            },
+            "plugin_original_callback_enter_count": 1,
+            "plugin_original_callback_return_count": 1,
+            "plugin_wrapped_call_count": 1,
+            "root_queue": null,
+            "root_status": "CANCELLED",
+            "run_alias": "run-4",
+            "first_wrapper_to_last_original_return_seconds": 2.267218
+          },
+          {
+            "business_status": "waiting_review",
+            "child_queue": "bidops_qualification_calculations_v1",
+            "child_status": "SUCCESS",
+            "fixture_original_call_count": 9,
+            "has_result": true,
+            "persisted_attempt_count": 9,
+            "persisted_attempt_status_counts": {
+              "response_received": 9
+            },
+            "plugin_original_callback_enter_count": 9,
+            "plugin_original_callback_return_count": 9,
+            "plugin_wrapped_call_count": 9,
+            "root_queue": "bidops_qualification_jobs_v1",
+            "root_status": "PENDING",
+            "run_alias": "run-5",
+            "first_wrapper_to_last_original_return_seconds": 24.341366
+          },
+          {
+            "business_status": "waiting_review",
+            "child_queue": "bidops_qualification_calculations_v1",
+            "child_status": "SUCCESS",
+            "fixture_original_call_count": 9,
+            "has_result": true,
+            "persisted_attempt_count": 9,
+            "persisted_attempt_status_counts": {
+              "response_received": 9
+            },
+            "plugin_original_callback_enter_count": 9,
+            "plugin_original_callback_return_count": 9,
+            "plugin_wrapped_call_count": 9,
+            "root_queue": "bidops_qualification_jobs_v1",
+            "root_status": "PENDING",
+            "run_alias": "run-6",
+            "first_wrapper_to_last_original_return_seconds": 21.936797
+          }
+        ]
+      },
+      {
+        "test": "test_authorized_resume_returns_child_to_bounded_queue",
+        "result": "passed",
+        "call_phase_seconds": 46.18160729203373,
+        "effective_business_limit_seconds": 90,
+        "native_compute_concurrency": 2,
+        "observed_original_callback_peak": 2,
+        "callbacks_active_at_assertion_end": 0,
+        "request_async_delay_min_seconds": 2.000980999999996,
+        "request_async_delay_max_seconds": 2.034644,
+        "request_count": 27,
+        "recorded_signed_observation_properties_seconds": {
+          "next_call_minus_observed_predecessor_success_seconds": 2.1903596250340343
+        },
+        "final_runs": [
+          {
+            "business_status": "waiting_review",
+            "child_queue": "bidops_qualification_calculations_v1",
+            "child_status": "SUCCESS",
+            "fixture_original_call_count": 9,
+            "has_result": true,
+            "persisted_attempt_count": 9,
+            "persisted_attempt_status_counts": {
+              "response_received": 9
+            },
+            "plugin_original_callback_enter_count": 9,
+            "plugin_original_callback_return_count": 9,
+            "plugin_wrapped_call_count": 9,
+            "root_queue": "bidops_qualification_jobs_v1",
+            "root_status": "PENDING",
+            "run_alias": "run-8",
+            "first_wrapper_to_last_original_return_seconds": 22.138188
+          },
+          {
+            "business_status": "waiting_review",
+            "child_queue": "bidops_qualification_calculations_v1",
+            "child_status": "SUCCESS",
+            "fixture_original_call_count": 9,
+            "has_result": true,
+            "persisted_attempt_count": 9,
+            "persisted_attempt_status_counts": {
+              "response_received": 9
+            },
+            "plugin_original_callback_enter_count": 9,
+            "plugin_original_callback_return_count": 9,
+            "plugin_wrapped_call_count": 9,
+            "root_queue": "bidops_qualification_jobs_v1",
+            "root_status": "PENDING",
+            "run_alias": "run-7",
+            "first_wrapper_to_last_original_return_seconds": 22.242249
+          },
+          {
+            "business_status": "waiting_review",
+            "child_queue": "bidops_qualification_calculations_v1",
+            "child_status": "SUCCESS",
+            "fixture_original_call_count": 9,
+            "has_result": true,
+            "persisted_attempt_count": 9,
+            "persisted_attempt_status_counts": {
+              "response_received": 9
+            },
+            "plugin_original_callback_enter_count": 9,
+            "plugin_original_callback_return_count": 9,
+            "plugin_wrapped_call_count": 9,
+            "root_queue": "bidops_qualification_jobs_v1",
+            "root_status": "PENDING",
+            "run_alias": "run-9",
+            "first_wrapper_to_last_original_return_seconds": 19.934316
+          }
+        ]
+      }
+    ],
+    "total_original_callbacks": 73,
+    "total_persistent_attempts": 73,
+    "result_counts": {
+      "waiting_review_with_result": 8,
+      "cancelled_without_result": 1
+    },
+    "sources": {
+      "pytest.txt": {
+        "bytes": 933,
+        "sha256": "2e399f8a548ceacb7c4bf8d255efb7da30c6abd327d5e53cac3e6c64a1eb9991"
+      },
+      "plugin-events.jsonl": {
+        "bytes": 61886,
+        "sha256": "7437f25dd64150e68c81116d613888eae60ede43160d06b63766284090fd431d"
+      },
+      "verification.json": {
+        "bytes": 1403,
+        "sha256": "80f27bc74a02af57e913faf8f858f888b68eaf6f110a02de240c42b050b28325"
+      },
+      "junit.xml": {
+        "bytes": 947,
+        "sha256": "24ae988a8e063adda6b8beae942bf37a124a1878e6692d1ea1d9e191ec9a7eea"
+      }
+    },
+    "unique_result_evidence": "The bounds test explicitly asserted3distinct result IDs; this summary does not claim an independent global uniqueness check over all8 saved results."
+  },
+  "preserved_failed_ci": {
+    "code_commit": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+    "result": "3failed,2172passed in1274.81s",
+    "source": "coordinator supplied failed Linux backend log; distinct from this controlled local reproduction",
+    "raw_log_alias": "native-ci-2425fc2-backend-failed.log",
+    "raw_log_sha256": "b6165b8bd13e9e19921cdd0a6f3dcb211070a72aedd79cd01422e8f529c59cab",
+    "all_three_failures": "test_jobs_compute_queue lifecycle observations; original outcome is not overwritten by these local green tests"
+  },
+  "interpretation": {
+    "supported": "A valid two-slot queue can remain busy beyond a12s observer while each9call calculation is within its90s business limit. Waiting for native child success before timing short next-admission observations preserves the original lifecycle assertions under this controlled2s async delay.",
+    "not_supported": [
+      "Exact reproduction of CI host scheduling or proof that no other CI issue exists",
+      "Full-suite or remote CI pass for the corrected test or a future commit",
+      "Real provider latency, target host capacity, budget expansion or complete business RTO"
+    ]
+  },
+  "privacy": {
+    "public_payloads": [
+      "summary.json",
+      "plugin.py.txt"
+    ],
+    "raw_pytest_xml_and_plugin_events": "remain controlled private work; only hashes, anonymous ordinal aliases and explicit safe numerical fields are public",
+    "real_network_calls": 0,
+    "real_model_calls": 0,
+    "actual_cost_cny": "0"
+  }
+}

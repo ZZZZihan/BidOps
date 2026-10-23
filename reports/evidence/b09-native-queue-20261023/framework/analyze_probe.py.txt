@@ -1,0 +1,43 @@
+"""Read-only analysis of completed isolated probe; outputs safe evidence only."""
+from collections import Counter
+from datetime import datetime,timezone
+import hashlib
+import json
+from pathlib import Path
+import sqlite3
+
+HERE=Path(__file__).resolve().parent
+RUN=HERE/'run-02'
+sha=lambda b:hashlib.sha256(b).hexdigest()
+rows=[]
+combined=[]
+for name in ['baseline','cancel_default','cancel_preemptible','restart_active','restart_cancelled','restart_waiting']:
+    p=RUN/name
+    result=json.loads((p/'result.json').read_text())
+    events=[json.loads(x) for x in (p/'events.jsonl').read_text().splitlines()]
+    controller=json.loads((p/'controller.json').read_text())
+    samples=json.loads((p/'samples.json').read_text())
+    with sqlite3.connect('file:'+str((p/'dbos.sqlite3').resolve())+'?mode=ro',uri=True) as c:
+        c.row_factory=sqlite3.Row
+        links=[dict(x) for x in c.execute('SELECT workflow_uuid,parent_workflow_id,queue_name,status,application_version,recovery_attempts FROM workflow_status ORDER BY workflow_uuid')]
+        children=[dict(x) for x in c.execute("SELECT workflow_uuid,function_id,function_name,child_workflow_id FROM operation_outputs WHERE child_workflow_id IS NOT NULL ORDER BY workflow_uuid,function_id")]
+        q=[dict(x) for x in c.execute('SELECT name,concurrency,worker_concurrency,polling_interval_sec FROM queues ORDER BY name')]
+        assert all(x['parent_workflow_id']=='parent-'+x['workflow_uuid'][len('parent-'):-len('-calculation')] for x in links if x['workflow_uuid'].endswith('-calculation'))
+        assert all(x['child_workflow_id']==x['workflow_uuid']+'-calculation' for x in children)
+        native_relation_rows=len(children)
+        native_unique_relations=len({(x['workflow_uuid'],x['child_workflow_id']) for x in children})
+    cancel_delay=[]
+    for cancel in [x for x in events if x['event']=='cancel_ack']:
+        ends=[x for x in events if x['event']=='compute_end' and x['task']==cancel['task'] and x['monotonic_ns']>=cancel['monotonic_ns']]
+        cancel_delay.append({'task':cancel['task'],'step_exit_after_cancel_ack_seconds':(ends[0]['monotonic_ns']-cancel['monotonic_ns'])/1e9 if ends else None,'step_end_outcome':ends[0]['outcome'] if ends else 'SIGKILL_before_step_return'})
+    observations=result['observations']
+    row={'scenario':name,'status':result['status'],'checks':result['checks'],'physical_compute_peak':observations['physical_compute_peak'],'sampled_native_calculation_pending_peak':observations['native_calculation_pending_peak'],'two_or_more_compute_overlap_seconds':observations['observed_two_or_more_overlap_seconds'],'compute_starts_by_task':observations['compute_starts_by_task'],'completed_prepare_calls_by_task':observations['prepare_calls_by_task'],'process_generations':observations['process_generations'],'worker_exit_codes':observations['worker_exit_codes'],'native_child_relationship_rows':native_relation_rows,'native_unique_child_relations_verified':native_unique_relations,'native_child_relationships':children,'native_workflows_final':links,'queues':q,'cancellation_details':cancel_delay,'sqlite_journal_mode':observations['sqlite_journal_mode'],'sqlite_version':observations['sqlite_version'],'event_rows':len(events),'status_samples':len(samples),'event_log_sha256':sha((p/'events.jsonl').read_bytes()),'native_database_sha256':sha((p/'dbos.sqlite3').read_bytes())}
+    rows.append(row)
+    for event in sorted(events+controller,key=lambda x:x['monotonic_ns']):combined.append({'scenario':name,**event})
+summary=json.loads((RUN/'summary.json').read_text())
+safe={'schema_version':'dbos-native-queue-probe-v1','recorded_at':datetime.now(timezone.utc).isoformat(),'dbos_version':summary['dbos_version'],'python_version':summary['python'],'sqlite_version':summary['sqlite'],'actual_started_at':summary['started_at'],'actual_finished_at':summary['finished_at'],'single_worker_process_at_a_time':True,'sqlite_system_database':True,'application_version_source':'SHA256 of unchanged worker.py; identical between process generations','queue_policy':{'parent_worker_and_global':16,'calculation_worker_and_global':2,'poll_interval_seconds':0.025},'network':'socket connections denied in every worker; minimal child environment; no provider/model imports','model_calls':0,'actual_cost_cny':'0','status':summary['status'],'scenarios':rows,'limitations':['Framework feasibility only; no BidOps business state, ACL, budget ledger, PAI agent or real provider in these functions.','Async sleep models cooperative waiting; not a CPU-bound throughput or SQLite contention benchmark.','Parent waits still count against the separate finite parent queue cap16. They do not consume calculation queue slots; no claim that infinite waiting parents can be admitted.','Both per-worker and global limits are configured2 in one process; cross-worker global enforcement was not tested.','SIGKILL kills the old process before starting the next. Split-brain/overlapping workers and process lease takeover were not tested.','Pre-crash unfinished computation is replayed, not exactly-once external execution. Production unknown reservations and shared attempt limits remain necessary.','Cancellation is cooperative: default step may return after cancel; native terminal state and worker accounting must be distinguished from physical execution.','No business acceptance, B09 capacity failure remediation, new load result or mandate to migrate to PostgreSQL follows from this probe.'],'sources':{'worker.py':sha((HERE/'worker.py').read_bytes()),'run_probe.py':sha((HERE/'run_probe.py').read_bytes()),'sdk-interfaces.json':sha((HERE/'sdk-interfaces.json').read_bytes()),'run-01_baseline_result_sha256':sha((HERE/'run-01/baseline/result.json').read_bytes())}}
+assert safe['status']=='PASS' and all(r['physical_compute_peak']==2 for r in rows)
+assert {r['scenario']:r['compute_starts_by_task'] for r in rows}['restart_waiting']=={'a':1,'b':1,'c':1}
+(HERE/'safe-result.json').write_text(json.dumps(safe,ensure_ascii=False,indent=2)+'\n')
+(HERE/'events-sanitized.jsonl').write_text(''.join(json.dumps(r,sort_keys=True)+'\n' for r in combined))
+print(json.dumps({'status':safe['status'],'scenarios':[{k:r[k] for k in ['scenario','physical_compute_peak','sampled_native_calculation_pending_peak','two_or_more_compute_overlap_seconds','compute_starts_by_task','completed_prepare_calls_by_task','cancellation_details','native_unique_child_relations_verified','worker_exit_codes']} for r in rows]},indent=2))

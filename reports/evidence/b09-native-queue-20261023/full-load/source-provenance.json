@@ -1,0 +1,100 @@
+{
+  "scope": "Hashes of controlled raw artifacts; raw data, IDs, session hashes and DB files are excluded from public delivery.",
+  "sources": [
+    {
+      "source_alias": "full-load/report.json",
+      "bytes": 2394,
+      "sha256": "45e6d99450bd468b72542daf411dd4916a9fd599feaa568a092c27c668a671bd"
+    },
+    {
+      "source_alias": "full-load/trace.json",
+      "bytes": 3063088,
+      "sha256": "547160ca72dba383349249812068de60773e5ef3a334d66b7e2cd07a40c74a59"
+    },
+    {
+      "source_alias": "full-load/input-pin.json",
+      "bytes": 1132,
+      "sha256": "575a60a3655dc05e5e5ce56145c1566d4d1650221a3e85b4e3f3090d259a0cdb"
+    },
+    {
+      "source_alias": "full-load/manifest.json",
+      "bytes": 2706,
+      "sha256": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c"
+    },
+    {
+      "source_alias": "full-load/clock.json",
+      "bytes": 38,
+      "sha256": "b584e0489e60659c213da5004e4ac40836aba9cc6ad5ddcdf88d849ce1aa796c"
+    },
+    {
+      "source_alias": "full-load/plan.json",
+      "bytes": 507,
+      "sha256": "0a751897db3a7f36245b0cb1ac60b0bc4a299fcd7005942d8baf02e3ac78bd41"
+    },
+    {
+      "source_alias": "full-load/schedule.json",
+      "bytes": 928649,
+      "sha256": "1c574828a8d7e66ca6827ce1b9331c2d742fcc5a708fbeb32cb16f7de5dfdb13"
+    },
+    {
+      "source_alias": "full-load/page-inventory.json",
+      "bytes": 700003,
+      "sha256": "ba37262f5b7af4a35229a0b2925603ffd4e820f906fac3ea19d3ea3175d916f1"
+    },
+    {
+      "source_alias": "full-load/http-accounting.json",
+      "bytes": 750,
+      "sha256": "021e6a5081a7632937db47c0031413113fa1a7a4cab2202e41f0bf8f0385d6dc"
+    },
+    {
+      "source_alias": "full-load/requests.jsonl",
+      "bytes": 2561935,
+      "sha256": "fd0d68c7af6ea7b9a15e23cc87e9350b720af5491cfb5d09840464c26eb32530"
+    },
+    {
+      "source_alias": "full-load/resources.jsonl",
+      "bytes": 464880,
+      "sha256": "1717a6b57487fea81e3225ee7f80fdd232ead5cc6ca46bb013f8057651406dfa"
+    },
+    {
+      "source_alias": "full-load/http-responses.jsonl",
+      "bytes": 438927,
+      "sha256": "f2b128710b8acb28bbcc1e047fcc59cb291f80c3ef8b6b94463d1e307392c7fd"
+    },
+    {
+      "source_alias": "full-load/auth-control.jsonl",
+      "bytes": 22458,
+      "sha256": "3ede3aeba860ca6455d2b503d30a25925fb0f6e0baa2034895c29a3aa790d11e"
+    },
+    {
+      "source_alias": "full-load/worker-events.jsonl",
+      "bytes": 108896,
+      "sha256": "94bb0aa3ff34bbe8c547772a179b1d0b7d7751152a94577b40e3ab5f4d0dafb0"
+    },
+    {
+      "source_alias": "full-load/setup.jsonl",
+      "bytes": 521,
+      "sha256": "c01a44656fe3f05d63561de103f85318eef8efdd06a0c278f08b74eec26b76f9"
+    },
+    {
+      "source_alias": "full-load/setup-operations.jsonl",
+      "bytes": 193,
+      "sha256": "be7362a73cccd8bb91cac90f858f0f79915e7810e0dc0880bfe8cfdd8c52bbae"
+    },
+    {
+      "source_alias": "full-load/notice-seed.json",
+      "bytes": 164,
+      "sha256": "3e63c57d1d654a6af240779468a6b09663b8b2b9ba91b1fbab3f8bbb8f52a34d"
+    },
+    {
+      "source_alias": "full-load/synthetic-sources.json",
+      "bytes": 187,
+      "sha256": "da77e67fd0ed9367074eafa2cc4d2b8967375a4c22de2a8ac30b1dddb07bda75"
+    },
+    {
+      "source_alias": "full-load/worker.log",
+      "bytes": 634,
+      "sha256": "fa101a3df7b2c69b455eee83d6be4b8befd5a61be803ab6da1b2d759ab0efa45"
+    }
+  ]
+}

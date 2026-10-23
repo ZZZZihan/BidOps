@@ -1,0 +1,59 @@
+{
+  "dbos_version": "3.3.0",
+  "interfaces": [
+    {
+      "name": "DBOS.register_queue",
+      "signature": "(name: 'str', *, worker_concurrency: 'Optional[int]' = None, global_concurrency: 'Optional[int]' = None, partition_concurrency: 'Optional[int]' = None, partition_worker_concurrency: 'Optional[int]' = None, partition_limiter: 'Optional[QueueRateLimit]' = None, limiter: 'Optional[QueueRateLimit]' = None, polling_interval_sec: 'float' = 1.0, on_conflict: 'QueueConflictResolution' = 'update_if_latest_version', concurrency: 'Optional[int]' = None) -> 'Queue'",
+      "sdk_file": "_dbos.py",
+      "line": 948,
+      "source_sha256": "b25af7d1717e43cca5b85992a63ac766b8c4f41b8b0336fd27375e933518707e"
+    },
+    {
+      "name": "DBOS.enqueue_workflow_async",
+      "signature": "(queue_name: 'str', func: 'Callable[P, Coroutine[Any, Any, R]]', *args: 'P.args', **kwargs: 'P.kwargs') -> 'WorkflowHandleAsync[R]'",
+      "sdk_file": "_dbos.py",
+      "line": 1354,
+      "source_sha256": "b1be063e68088d6245067ac93f8c0ff750e6f6e5282c1242f5ad5cbb49fcbc7e"
+    },
+    {
+      "name": "Queue.enqueue_async",
+      "signature": "(self, func: 'Callable[P, Coroutine[Any, Any, R]]', *args: P.args, **kwargs: P.kwargs) -> 'WorkflowHandleAsync[R]'",
+      "sdk_file": "_queue.py",
+      "line": 639,
+      "source_sha256": "618cb3c8aee3a2c1c6c8512eb534f0c589111918edc90a5f0fa4161f0f7955e4"
+    },
+    {
+      "name": "DBOS.recv_async",
+      "signature": "(topic: 'Optional[str]' = None, timeout_seconds: 'float' = 60) -> 'Any'",
+      "sdk_file": "_dbos.py",
+      "line": 1788,
+      "source_sha256": "32717aad514ee1b551290a04b7d6906bbd3b4ffb3481fb0c18723b41db661aa0"
+    },
+    {
+      "name": "DBOS.step",
+      "signature": "(*, name: 'Optional[str]' = None, retries_allowed: 'bool' = False, interval_seconds: 'float' = 1.0, max_attempts: 'int' = 3, backoff_rate: 'float' = 2.0, should_retry: 'Optional[Callable[[BaseException], Union[bool, Awaitable[bool]]]]' = None, preemptible: 'bool' = False, timeout_seconds: 'Optional[float]' = None) -> 'Callable[[Callable[P, R]], Callable[P, R]]'",
+      "sdk_file": "_dbos.py",
+      "line": 1169,
+      "source_sha256": "4c8fc727e3645638df8565749941ad9748b5d9ae4bce729bd4a32abd7e1c2c10"
+    },
+    {
+      "name": "DBOS.cancel_workflow_async",
+      "signature": "(workflow_id: 'str', *, cancel_children: 'bool' = False) -> 'None'",
+      "sdk_file": "_dbos.py",
+      "line": 2105,
+      "source_sha256": "371776dad3928dfbe2dc87f4cf9e930b0418f7915472b785fdbc25bd0927e2a9"
+    },
+    {
+      "name": "DBOSClient.resume_workflow",
+      "signature": "(self, workflow_id: str, *, queue_name: Optional[str] = None) -> 'WorkflowHandle[Any]'",
+      "sdk_file": "_client.py",
+      "line": 842,
+      "source_sha256": "07263e82102bf33e8a486d1f75fd93aa455fc17c9e11d1b73c1f503e016aa1ea"
+    }
+  ],
+  "inspection_failures_retained": [
+    "Initial assumption Queue.enqueue_workflow was rejected by installed SDK: actual interface is DBOS.enqueue_workflow_async; no scheduling implementation attempted.",
+    "Initial private WorkflowHandleAsync import module was incorrect; handle public get_result is used, no private class imported by probe."
+  ],
+  "sdk_scope": "Exact installed 3.3.0 primary code inspected offline; no external documentation/network lookup."
+}

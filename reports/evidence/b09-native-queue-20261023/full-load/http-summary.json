@@ -1,0 +1,36 @@
+{
+  "scope": "Logical operations, returned HTTP and no-response failures are distinct denominators.",
+  "logical_operations": 4200,
+  "warmup_operations": 600,
+  "steady_operations": 3600,
+  "operation_status_counts_all": {
+    "200": 4113,
+    "202": 84,
+    "no_response": 3
+  },
+  "outcomes_all": {
+    "response": 4197,
+    "exception": 3
+  },
+  "failed_or_unverified_all": 3,
+  "steady_errors": 1,
+  "steady_error_denominator": 3600,
+  "steady_error_rate": 0.0002777777777777778,
+  "no_response_error_types": {
+    "ReadError": 3
+  },
+  "timed_returned_http_responses_including_auth_and_dependents": 4611,
+  "all_returned_http_responses_including_setup": 4810,
+  "returned_http_failure_status_count": 0,
+  "timed_path_template_counts": {
+    "/api/auth/callback": 110,
+    "/api/auth/login": 110,
+    "/api/auth/me": 110,
+    "/api/jobs/runs": 84,
+    "/api/jobs/runs/{object}": 756,
+    "/api/notices": 3273,
+    "/api/reviews/cases/{object}": 84,
+    "/api/reviews/cases/{object}/decisions": 84
+  },
+  "two_per_second_meaning": "2 logical operations/second; authentication/dependent HTTP adds server load. Failed no-response attempts remain in the business error denominator."
+}

@@ -1,0 +1,40 @@
+{
+  "observed_at": "2026-10-22T22:05:00.433186+00:00",
+  "command_session_exit": 1,
+  "exit_meaning": "capacity FAIL, not infrastructure interruption",
+  "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "source_tree_dirty": false,
+  "source_alias": "capacity-local-836ccbfad779-01",
+  "capacity_status": "FAIL",
+  "run_ended_offset_ms": 2618000,
+  "files": {
+    "input-pin.json": {
+      "bytes": 1132,
+      "sha256": "d3099496e6dc77974df0fb495dd2993533ae26bdfd5923b0725fb68f6f94f01d"
+    },
+    "trace.json": {
+      "bytes": 3209754,
+      "sha256": "8091cb48901efe3e8528df512cc7b09369f9d215cf8b8c8597fa07b7ffb61257"
+    },
+    "report.json": {
+      "bytes": 2643,
+      "sha256": "abc43ea0161693b0d4c11c1b2e1bbbf8e8e238aef1db0279a65b000a5bb2385b"
+    },
+    "http-accounting.json": {
+      "bytes": 750,
+      "sha256": "3fa72467337e3e020ad0b1d0982f75db87c416d0266e814215dcf4b995286cba"
+    },
+    "requests.jsonl": {
+      "bytes": 2561903,
+      "sha256": "9f31a93750354fdfdc81cfc926a7904da6899b80bb48b3bd51fa7e43fd4d4777"
+    },
+    "manifest.json": {
+      "bytes": 2699,
+      "sha256": "bd82c7ab050a53610742515d4af082140f6fce5593b203cabaa4e847ffb4a170"
+    },
+    "resources.jsonl": {
+      "bytes": 575811,
+      "sha256": "a759ec2af84950f1e4d3841411501f8adc61bb4dff7ae112ba31b3d6fdc25b64"
+    }
+  }
+}
