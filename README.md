@@ -175,6 +175,13 @@ uv run python scripts/verify_collection.py --bundle data/artifacts/p0-capture-20
 This is offline. The replay checks raw SHA256, duplicate imports, stable exports, evidence
 offsets and API records. It does not measure field accuracy against independent gold labels.
 
+For B02-06 historical migration preparation, follow
+[the legacy asset and ledger verification guide](docs/LEGACY-ASSET-VERIFICATION.md).
+`python3 scripts/legacy_preflight.py` checks supplied consistent copies without importing
+the application or changing a database. The bundled expected fingerprints are public
+metadata; the original capture, old database and historical sessions must be supplied
+separately. A successful preflight does not pass B02-06 or certify the latest cost ledger.
+
 ## Verification
 
 ```bash
