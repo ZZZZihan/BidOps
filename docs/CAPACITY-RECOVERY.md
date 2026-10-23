@@ -1,13 +1,13 @@
 # 容量与完整恢复验收
 
-本文规定 B09 的可复现工程运行和验收边界，不是已完成容量或恢复验收的报告。当前部署仍为
-单组织、单 ASGI worker、SQLite、单份资格计算；目标要求两份活跃计算而实际只有一份，
-该差距必须 FAIL。目标环境负载、真实告警接收、完整恢复及数据库扩容裁决等 B 类门槛未满足
-时保持 BLOCKED。决策依据见 [ADR-0007](ADR-0007-CAPACITY-RECOVERY.md)。
+本文规定 B09 的可复现工程运行和验收边界。单组织、单 ASGI worker 和 SQLite 约束保持；
+默认计算1，可显式配置原生队列计算2。原 capacity-v1 的实测1/目标2仍为 FAIL；新档位不覆盖
+旧结果。目标环境负载、真实告警、完整业务恢复和数据库扩容裁决仍按 B 类门槛独立判断。
+新计算队列的配置、兼容与回退见 [ADR-0008](ADR-0008-NATIVE-COMPUTE-QUEUE.md)。
 
 ## 固定输入
 
-正式输入是 [manifest.json](../evals/capacity-v1/manifest.json) 原始文件字节，SHA256 为：
+原正式输入是 [manifest.json](../evals/capacity-v1/manifest.json) 原始文件字节，SHA256 为：
 
 ```text
 bd82c7ab050a53610742515d4af082140f6fce5593b203cabaa4e847ffb4a170
@@ -174,3 +174,11 @@ RPO 从故障/丢失时点与实际可恢复业务记录界限计算；RTO 从�
 watchdog 只生成本地日志，没有真实外部接收端；B09-05 需要另外明确授权和实际收件证据。
 当前脚本不发送告警，也不自动部署。目标 RPO/RTO、真实接收和数据库扩容结论在相应实际
 证据完成前一律 BLOCKED；保留 SQLite、单 worker 和原有成本/并发限制。
+
+## 原生计算队列复验档位
+
+新增 `evals/capacity-native-queue-v2/manifest.json`，只改变档位标识和
+`configured_compute_concurrency: 1 → 2`；数据、硬件、负载、目标并发2、延迟、错误率、
+30秒模型等待、300秒预热与1800秒稳态保持逐字段相同。运行仍使用上面的完整命令，
+将 `--manifest` 和对应原始 SHA 替换为 [新冻结说明](../evals/capacity-native-queue-v2/README.md)。
+新运行必须使用新目录、干净完整 SHA，不得重用或删除 v1 失败证据。

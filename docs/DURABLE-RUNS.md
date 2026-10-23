@@ -13,17 +13,18 @@ B05 将 B04 资格核对放入 DBOS 持久工作流，保存稳定任务 ID、�
 
 主项目的 `pyproject.toml`、`uv.lock` 保持冻结。DBOS 依赖使用独立的
 [requirements/durable.in](../requirements/durable.in) 和带下载哈希的
-[requirements/durable.lock](../requirements/durable.lock) 加装到项目环境。在仓库根目录执行：
+[requirements/durable.lock](../requirements/durable.lock) 加装到项目环境；当前附件解析还需带哈希的
+[requirements/attachments.lock](../requirements/attachments.lock)。在仓库根目录执行：
 
 ```bash
 uv sync --frozen --python 3.12
 uv pip install --python .venv/bin/python --require-hashes \
   --index-url https://pypi.tuna.tsinghua.edu.cn/simple \
-  -r requirements/durable.lock
+  -r requirements/durable.lock -r requirements/attachments.lock
 ```
 
 随后运行应用、CLI 或检查时使用 `uv run --frozen --no-sync ...`。普通同步可能移除主锁之外
-的 overlay；若重建或再次同步基础环境，应重新按上述带哈希命令加装。不要用只包含 overlay
+的 overlay；若重建或再次同步基础环境，应重新按上述带哈希命令加装两个 overlay。不要用只包含 overlay
 的 `pip sync` 裁剪完整项目环境，也不要为安装 DBOS 重写冻结主锁。
 
 默认配置如下，均不启用真实模型调用：
@@ -31,6 +32,7 @@ uv pip install --python .venv/bin/python --require-hashes \
 ```dotenv
 BIDOPS_JOBS_ENABLED=false
 BIDOPS_JOBS_MAX_ACTIVE_JOBS=100
+BIDOPS_JOBS_COMPUTE_CONCURRENCY=1
 BIDOPS_SCREENING_ENABLED=false
 BIDOPS_SCREENING_LIVE_CALLS_ENABLED=false
 BIDOPS_SCREENING_LEDGER_VERIFIED=false
@@ -39,8 +41,11 @@ BIDOPS_SCREENING_LEDGER_VERIFIED=false
 持久执行需要企业模式、资格核对和任务功能均已配置，且满足 B04 的模型与预算准入。
 `BIDOPS_JOBS_MAX_ACTIVE_JOBS` 范围为 1–100，默认 100。该值限制包括排队、计算、等待审核、
 中断和取消处理中任务在内的全局活动任务数量；容量已满返回 `429 job_capacity_exhausted`。
-它也是原生父工作流的队列并发上限。等待审核的父任务可占用这些等待槽位，但计算子工作流
-另有一个并发槽，**同时只进行一份资格计算**，不能据此推导出 100 路模型并发。
+它也是原生父工作流的队列并发上限。等待审核的父任务可占用这些等待槽位，但不占计算名额。
+`BIDOPS_JOBS_COMPUTE_CONCURRENCY` 默认1、仅允许1或2；DBOS原生计算子队列的worker/global
+上限与实际计算Semaphore均取该值。取消后尚未退出的调用继续持有实际计算名额；显式恢复
+仍指定原父/计算队列。不能把100个业务活动任务解释为100路模型并发。单进程双计算的依据、
+版本切换和回退边界见[ADR-0008](ADR-0008-NATIVE-COMPUTE-QUEUE.md)。
 
 服务持有业务库旁的独占运行锁，`bidops-enterprise serve` 固定使用一个 Uvicorn worker。
 DBOS 使用固定 executor `bidops-single-worker`。不要对同一业务库或状态目录启动第二个服务、
@@ -67,13 +72,17 @@ uv run --frozen --no-sync bidops-enterprise --env-file private/enterprise.env se
 
 | 接口 | 当前行为 |
 | --- | --- |
-| `GET /api/jobs/status` | 返回 `enabled`、`configured`、`backend: "dbos"`、`live_calls_enabled` 等状态。默认关闭时不启动模型。 |
+| `GET /api/jobs/status` | 返回 `enabled`、`configured`、`backend: "dbos"`、`compute_concurrency`、`live_calls_enabled` 等状态。默认关闭时不启动模型。 |
 | `POST /api/jobs/runs` | 必需 `Idempotency-Key`，接收 B04 `ChecklistRequest`，返回 HTTP 202 和稳定任务概要。 |
 | `GET /api/jobs/runs?offset=0&limit=20` | 当前主体可读历史分页，返回 `items`、`total`、`offset`、`limit`；`limit` 为 1–100。按当前全部来源权限过滤后分页。 |
 | `GET /api/jobs/runs/{run_id}` | 返回固定任务、`manifest`、版本依据、用量和完整 `result` 或 null；不重新计算。 |
 | `POST /api/jobs/runs/{run_id}/cancel` | 先持久记录取消意图，再取消原生工作流及子工作流。 |
 | `POST /api/jobs/runs/{run_id}/resume` | 仅中断且服务端允许的任务可显式恢复；重新检查当前权限、输入、代码、设置、预算和原生检查点。 |
 | `POST /api/jobs/runs/{run_id}/reauthorize` | 恢复后 owner 对隔离任务显式再授权；仅处理指定 job 与其校验通过的结果的可见性。 |
+
+Jobs启用时，原同步 `POST /api/screening/checklists` 在认证/权限检查后返回
+`409 screening_use_durable_jobs`，页面引导到持久任务。worker未就绪或缺模型时也不会回退
+同步计算；候选/历史读取仍按原权限可用。只有确认Jobs关闭时才开放原同步入口。
 
 创建请求包含 `profile_revision`（`object_id`、`version_id`、`sha256`）、`project_id`、
 `target_package_ids`、`additional_material_revisions` 和可选带时区 `as_of`，与 B04 清单请求相同。
@@ -94,7 +103,7 @@ uv run --frozen --no-sync bidops-enterprise --env-file private/enterprise.env se
 | --- | --- |
 | `queued` | 已接收，等待计算。 |
 | `running` | 正在执行固定输入的计算。 |
-| `waiting_review` | 计算结果已保存，等待后续 B06 人审接入；页面不提供跳过审核或批准按钮。 |
+| `waiting_review` | 计算结果已保存，等待正式人工审核；流程见 [人审说明](HUMAN-REVIEW.md)，须满足 reviewer 角色、assignment 及全部来源权限。 |
 | `cancel_requested` | 取消意图已持久化，尚待原生后端确认；后续执行检查会拒绝继续。 |
 | `cancelled` | 取消终态，不能恢复或复活。 |
 | `failed` | 执行失败，可能保留部分清单、原始输出和费用。 |
@@ -107,9 +116,10 @@ uv run --frozen --no-sync bidops-enterprise --env-file private/enterprise.env se
 可按最新 `state_version` 显式重试。取消并不承诺撤回供应商已接收的请求或退款。
 
 缺少模型配置或实时预算准入时，保持任务和资格核对功能开启的服务仍可作为历史读取器启动，
-不会注入替代模型或启动执行 worker。已授权、未过期的历史可读，`configured=false`、
-`allowed_actions=[]`，需要 worker 的创建、取消或恢复返回 503。若关闭任务功能本身，执行
-和历史接口均不作为可用任务服务；不能把关闭模型与关闭整个功能混为一谈。
+不会注入替代模型或启动资格计算。未启用来源 worker 的历史读取模式下，已授权、未过期的历史可读，
+`configured=false`、`allowed_actions=[]`，需要 worker 的状态操作被拒绝。来源采集可独立启动
+共享 DBOS worker；组合模式下仍不因此开放资格计算，操作以服务端当前动作及准入检查为准。
+若关闭任务功能本身，执行和历史接口均不作为可用任务服务；不能把关闭模型与关闭整个功能混为一谈。
 
 界面遇到 401、403 或 404 会清空任务私有内容、固定输入、引用和历史缓存。读取、刷新和
 页面重载只读取保存的 run；不会增加模型调用。保存在页面中的旧结果也不构成继续访问的授权。
@@ -120,13 +130,17 @@ uv run --frozen --no-sync bidops-enterprise --env-file private/enterprise.env se
 状态库保存父/子工作流及步骤输出。业务 `run_id` 与结果 `result_id` 不同，结果修订在任务
 创建时固定。恢复会校验结果与任务的 manifest、版本、哈希和关系，不能给旧任务接入另一份结果。
 
-运行版本绑定后端代码、主锁和 durable overlay 哈希；影响计算的设置也单独固定。当前代码或
+运行版本绑定实际后端代码、主锁 `uv.lock`、`durable.lock` 和 `attachments.lock` 三份锁的哈希；
+任务另固定资格核对 `ScreeningSettings` 快照。当前代码或
 依赖版本不匹配时拒绝执行，返回 `job_application_version_changed`；固定设置改变时返回
 `job_settings_changed`。来源版本、生命周期或其他执行依据变化会触发 `job_inputs_changed`。
 公告的新旧来源另通过 `source_state` 标记；单独的 `public_sources_stale` 可保留为旧来源提示，
 不能把读取旧结果描述为重新核对了最新公告。
 
-升级、改画像、材料或计算设置后，保留旧任务与结果，使用新输入修订和新的幂等键另建任务。
+升级、改画像、材料或固定的资格核对设置后，保留旧任务与结果，使用新输入修订和新的幂等键另建任务。
+`BIDOPS_JOBS_COMPUTE_CONCURRENCY` 是部署队列与实际计算上限，不属于该任务设置快照。
+同版本调整1／2须先停 worker 再重启，由原生队列更新限制，历史不重写；后端或锁字节改变
+仍触发应用版本保护，不能借调整并发恢复版本不匹配的任务。
 不要改写旧 manifest、把新代码冒充旧 `application_version`，或重置旧结果修订。
 已完成且仍有权限、未过期的历史可以保留读取。若原生检查点已成为无法恢复的 SUCCESS/ERROR
 终态，接口返回 `job_checkpoint_not_resumable`；另建任务，不把无效的 SDK resume 当作恢复成功。
@@ -269,7 +283,7 @@ uv run --frozen --no-sync bidops-enterprise --env-file private/enterprise.env pr
 
 ## 打包依据与当前证明范围
 
-Docker 镜像先装冻结基础依赖，再安装带哈希 overlay，保留两份锁文件。用已审阅的干净提交
+Docker 镜像先装冻结基础依赖，再安装 durable、attachments 两个带哈希 overlay，保留三份锁文件。用已审阅的干净提交
 构建时传入实际代码 SHA：
 
 ```bash
@@ -278,7 +292,8 @@ docker build --build-arg BIDOPS_CODE_SHA="$(git rev-parse HEAD)" \
 ```
 
 当前镜像设置 `BIDOPS_LOCK_PATH=/app/uv.lock` 和
-`BIDOPS_DURABLE_LOCK_PATH=/app/requirements/durable.lock`。其他打包方式同样应保留实际安装
+`BIDOPS_DURABLE_LOCK_PATH=/app/requirements/durable.lock`，以及
+`BIDOPS_ATTACHMENT_LOCK_PATH=/app/requirements/attachments.lock`。其他打包方式同样应保留实际安装
 使用的锁字节，设置可读取的正确绝对路径，并提供真实 `BIDOPS_CODE_SHA`。HEAD 不包含未提交
 修改，不能把有 WIP 的构建描述为该提交的精确产物。运行版本还绑定实际后端源文件和依赖锁，
 升级时不能手工改成旧任务版本来绕过恢复检查。
@@ -290,6 +305,7 @@ B05 当前的实际 HTTP、浏览器、SQLite/DBOS 和进程恢复证明使用�
 当作冻结后的最终验收数字。
 
 `review_fixture` 只供进程内工程测试，不暴露 HTTP 路由、模型工具或生产人审按钮。合成 confirm
-事件不产生真实人工批准，保存的 B04 清单仍是 `human_review_state: unreviewed`。B06 的审核人
-身份、签署、事件和正式继续流程尚待接入。真实资质材料、真实 IdP、完整实时费用账本及质量
-评测仍是 BLOCKED；保持这些边界可见，不以页面可用或工程测试通过替代它们。
+事件不产生真实人工批准，保存的 B04 清单仍是 `human_review_state: unreviewed`。正式人审工程接线
+已在 B06 实现，运行方法见 [人审说明](HUMAN-REVIEW.md)，须显式启用并满足当前角色、分派及来源权限。
+这不等于真实人工业务验收。真实资质材料、真实 IdP、完整实时费用账本及质量评测仍是 BLOCKED；
+不以页面可用或工程测试通过替代它们。

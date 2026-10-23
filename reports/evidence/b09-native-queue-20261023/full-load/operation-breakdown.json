@@ -1,0 +1,57 @@
+{
+  "load_code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "source_trace_sha256": "547160ca72dba383349249812068de60773e5ef3a334d66b7e2cd07a40c74a59",
+  "scope": "Root supplementary arithmetic over all frozen steady operations by operation; includes failed attempts with a finished offset. This descriptive split adds no threshold and does not overwrite the frozen combined-API verdict.",
+  "p95_rule": "Nearest-rank ceil(n*0.95); no filtering by outcome, HTTP status or content_verified.",
+  "steady_start_ms": 300000,
+  "steady_stop_ms": 2100000,
+  "steady_operations": 3600,
+  "operations": [
+    {
+      "operation": "read_search",
+      "scheduled_operations": 2808,
+      "outcomes": {
+        "response": 2807,
+        "exception": 1
+      },
+      "latency_observation_count": 2808,
+      "p95_ms": 250
+    },
+    {
+      "operation": "task_status",
+      "scheduled_operations": 648,
+      "outcomes": {
+        "response": 648
+      },
+      "latency_observation_count": 648,
+      "p95_ms": 100
+    },
+    {
+      "operation": "submit_task",
+      "scheduled_operations": 72,
+      "outcomes": {
+        "response": 72
+      },
+      "latency_observation_count": 72,
+      "p95_ms": 109
+    },
+    {
+      "operation": "review",
+      "scheduled_operations": 72,
+      "outcomes": {
+        "response": 72
+      },
+      "latency_observation_count": 72,
+      "p95_ms": 1362
+    }
+  ],
+  "combined_non_model_api_p95_ms": 259,
+  "review_single_operation_p95_exceeds_1000ms": true,
+  "terminal_resource": {
+    "offset_ms": 2115002,
+    "compute_active": 0,
+    "queued_jobs": 0,
+    "active_jobs": 94,
+    "worker_alive": true
+  }
+}

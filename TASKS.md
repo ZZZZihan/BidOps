@@ -1,11 +1,22 @@
 # Project board — updated 2026-10-23
 
-## 当前交接：等待外部验收条件
+## 当前交接：73项工程矩阵，等待外部验收条件
 
-71专项 = 55C工程PASS + 1C BLOCKED（B02-06）+ 15B BLOCKED；B09-02另有实际计算并发1/目标2的容量FAIL。
-最终整合代码88dee00a的实际本机2133后端和Linux2133后端/152浏览器、三个CI job通过。
-全部实施PR均未合并/未部署，旧历史测试不冒充当前结果；[完整交接](reports/enterprise-phase-handoff-20261023.md)、[逐项矩阵](reports/enterprise-acceptance-matrix-20261023.md)。
-下一步接收原旧库与完整累计费用账本的受控路径，分别执行真实迁移/回退验收与预算核对；缺口不重置¥10累计预算。
+- B01–B10 PR #16–25及后续原生计算/采集恢复PR #26均未合并、未部署。
+- 73专项 = 57C PASS + B02-06一项C BLOCKED + 15B BLOCKED；8G中5PASS/3BLOCKED。
+- 固定修复 `76ce23720c14e9e66e583e4cc15ad95356f5e519` CI实际后端2175、浏览器159及容器通过；
+  695初次后端2166PASS/1FAIL已确定性复现并修复，原失败及红绿结果保留。
+- 2425随后CI的2172PASS/3FAIL同样保留；仅修正队列测试中业务计算与空槽放行的等待阶段，
+  原短放行检查、90秒业务期限、完整结果和用量断言保留，生产代码与冻结指标不变。
+- 完整本机容量属于clean6956042：4200操作/3600稳态，计算峰2，
+  本机门槛PASS，总体BLOCKED；未在修复SHA完整重跑。
+- UAT仍检查67个上游门槛；空证据实际NO_GO、6个B10 BLOCKED，不能跳过缺失门槛。
+- 代码默认Jobs关闭、计算1。真实模型/来源调用与新增费用0，累计¥10余额仍待核对。
+
+当前入口：[运行与恢复报告](reports/b09-native-compute-queue-20261023.md)、
+[73项矩阵](reports/enterprise-current-acceptance-20261023.md)及[JSON证据](reports/enterprise-current-acceptance-20261023.json)。
+下一项可执行工作：接收原旧库与完整累计费用账本受控路径，分别完成E01迁移/回退验收和E06费用核对；
+核对账本本身不授权模型调用。其余真实许可/样本/独立人员/IdP/HTTPS/目标机缺口按AC继续BLOCKED。
 
 ## Enterprise application goal (historical baseline)
 

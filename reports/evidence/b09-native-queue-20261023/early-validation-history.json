@@ -1,0 +1,33 @@
+{
+  "scope": "Preserved actual earlier failures and focused follow-up. Final code CI and full local suite are separate.",
+  "runs": [
+    {
+      "source_alias": "native-queue-initial-runtime.log",
+      "bytes": 4347,
+      "sha256": "04fda27d8d2dd41a70867d531668f4dd52ae13d20d8935ea387e87cb650c071a",
+      "observed_final_line": "1 failed, 15 passed in 80.58s (0:01:20)",
+      "reason": "Restore version changed while backend bytes were being edited; no clean frozen-code failure claim."
+    },
+    {
+      "source_alias": "native-queue-focused.log",
+      "bytes": 6394,
+      "sha256": "60e5f9edd56659534288e666478725425c44cdbe204b6a8de5404669f32ee5ad",
+      "observed_final_line": "1 failed, 21 passed in 46.93s",
+      "reason": "Test incorrectly expected queued native child to become PENDING immediately after cancel; corrected to accept ENQUEUED/PENDING while requiring no third physical call until cancellation returns."
+    },
+    {
+      "source_alias": "native-queue-focused-stable.log",
+      "bytes": 1932,
+      "sha256": "170bfbecf60d96250bc9a32af1dc6377175e04c3a3b63a72d3eacf5e359f3ce3",
+      "observed_final_line": "1 failed, 136 passed in 117.57s (0:01:57)",
+      "reason": "Future-contract test used B09-09 which is now a real required ID; corrected future ID to B09-11, expected68."
+    },
+    {
+      "source_alias": "native-queue-uat-gates.log",
+      "bytes": 179,
+      "sha256": "3062550d3cf368043c591454d1cd91bb29179636c5f70c562c906148d4b6afd9",
+      "observed_final_line": "98 passed in 1.98s",
+      "reason": "Corrected contract gate suite passed after the future-ID fix."
+    }
+  ]
+}

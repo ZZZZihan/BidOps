@@ -20,9 +20,11 @@ function batch(offset = 0) {
   const items = Array.from({length: offset === 0 ? 20 : 1}, (_, index) => {const n = offset + index; return {unit_id: `unit-${n}`, project_id: `unit-project-${n}`, package_id: `unit-package-${n}`, title: `UNIT 候选工程记录 ${n}`, disposition: n === 1 ? 'excluded' : n === 2 ? 'needs_verification' : 'candidate', reasons: n === 1 ? ['keyword_mismatch'] : n === 2 ? ['budget_unknown'] : [], missing_fields: n === 2 ? ['预算金额'] : []};});
   return {profile_revision: PROFILE, filters: {keyword: 'SAVED_KEYWORD', min_budget_yuan: '0.01', max_budget_yuan: null}, batch_id: 'unit-batch', manifest_sha256: '7'.repeat(64), as_of: '2026-10-23T01:00:00Z', counts: {total_units: 21, candidate: 19, excluded: 1, needs_verification: 1}, total: 21, offset, limit: 20, has_more: offset === 0, truncated: true, items};
 }
-async function protocol(page: Page, options: {enabled?: boolean; configured?: boolean; state?: string; emptyGroups?: boolean; mode?: string; authenticated?: boolean} = {}) {
-  const control = {enabled: options.enabled ?? true, denySaved: 0, denyMaterial: false, stale: false, posts: [] as {path: string; body: Record<string, unknown>; csrf: string | undefined}[], companyReads: 0};
+async function protocol(page: Page, options: {enabled?: boolean; configured?: boolean; state?: string; emptyGroups?: boolean; mode?: string; authenticated?: boolean; jobsEnabled?: boolean; jobsConfigured?: boolean} = {}) {
+  const control = {enabled: options.enabled ?? true, jobsEnabled: options.jobsEnabled ?? false, jobsStatusCode: 200, denyChecklist: false, denySaved: 0, denyMaterial: false, stale: false, posts: [] as {path: string; body: Record<string, unknown>; csrf: string | undefined}[], companyReads: 0};
   await page.route('**/api/auth/me', route => route.fulfill({json: {mode: options.mode || 'enterprise', authenticated: options.authenticated ?? true, organization: 'UNIT', user: {name: 'UNIT analyst', roles: ['analyst']}, permissions: ['agent:use', 'catalog:read'], csrf_token: 'unit-csrf'}}));
+  await page.route('**/api/jobs/status', route => route.fulfill({status: control.jobsStatusCode, json: control.jobsStatusCode === 200 ? {enabled: control.jobsEnabled, configured: options.jobsConfigured ?? false, backend: 'dbos', live_calls_enabled: false} : {detail: 'job_backend_unavailable'}}));
+  await page.route('**/api/jobs/runs**', route => route.fulfill({json: {items: [], total: 0, offset: 0, limit: 20}}));
   await page.route('**/api/agent/status', route => route.fulfill({json: {enabled: false, configured: false, notice_count: 0}}));
   await page.route('**/api/sessions', route => route.fulfill({json: {items: []}}));
   await page.route('**/api/company/profiles**', route => {control.companyReads++; return route.fulfill({json: new URL(route.request().url()).pathname.endsWith('/profiles') ? {items: [{object_id: PROFILE.object_id, head_version: 'list-head-does-not-supply-a-hash'}], total: 1, offset: 0, limit: 20, has_more: false} : {...PROFILE, payload: {display_name: COMPANY_NAME}}});});
@@ -30,7 +32,7 @@ async function protocol(page: Page, options: {enabled?: boolean; configured?: bo
   await page.route('**/api/screening/**', route => {
     const request = route.request(), url = new URL(request.url()), path = url.pathname;
     if (path.endsWith('/status')) return route.fulfill({json: {enabled: control.enabled, configured: options.configured ?? true, model: 'offline-ui-protocol', live_calls_enabled: false}});
-    if (request.method() === 'POST') {control.posts.push({path, body: request.postDataJSON(), csrf: request.headers()['x-csrf-token']}); return route.fulfill({json: path.endsWith('/candidates') ? batch() : result(options.state)});}
+    if (request.method() === 'POST') {control.posts.push({path, body: request.postDataJSON(), csrf: request.headers()['x-csrf-token']}); if (path.endsWith('/checklists') && control.denyChecklist) return route.fulfill({status: 409, json: {detail: 'screening_use_durable_jobs'}}); return route.fulfill({json: path.endsWith('/candidates') ? batch() : result(options.state)});}
     if (control.denySaved) return route.fulfill({status: control.denySaved, json: {detail: control.denySaved === 401 ? 'current_identity_required' : 'screening_result_not_found'}});
     const saved = path.includes('/candidates/') ? batch(Number(url.searchParams.get('offset') || 0)) : {...result(options.state), ...(options.emptyGroups ? {groups: []} : {})}; return route.fulfill({json: {...saved, source_state: {current: !control.stale, stale_reasons: control.stale ? ['profile_head_changed', 'notice_versions_changed'] : []}}});
   });
@@ -198,4 +200,62 @@ test('saved batch exposes its own pinned profile and filters independently of th
   await expect(saved).not.toContainText('NEW_UNSUBMITTED_INPUT');
   await expect(page.getByRole('textbox', {name: '项目关键词'})).toHaveValue('NEW_UNSUBMITTED_INPUT');
   expect(control.posts).toHaveLength(0);
+});
+
+
+for (const configured of [false, true]) test(`durable enabled blocks synchronous execution regardless of worker configured=${configured}`, async ({page}) => {
+  const control = await protocol(page, {jobsEnabled: true, jobsConfigured: configured}); await open(page); await choose(page);
+  await expect(page.getByText('新的资格核对统一进入持久队列', {exact: false})).toBeVisible();
+  await expect(page.getByRole('button', {name: '生成逐条资格清单'})).toBeDisabled();
+  await page.getByRole('button', {name: '生成固定候选批次'}).click();
+  await expect(page.locator('.screening-batch')).toBeVisible();
+  await page.getByRole('textbox', {name: '已有核对记录编号'}).fill('unit-run');
+  await page.getByRole('button', {name: '读取已保存核对'}).click();
+  await expect(page.locator('.screening-condition')).toHaveCount(5);
+  expect(control.posts.map(item => item.path)).toEqual(['/api/screening/candidates']);
+  await page.getByRole('button', {name: '前往持久核对任务', exact: true}).click();
+  await expect(page.getByRole('heading', {name: '持久核对任务', exact: true})).toBeVisible();
+  if (!configured) await expect(page.getByRole('button', {name: '提交持久核对任务'})).toBeDisabled();
+});
+
+test('a failed jobs status read disables sync while candidates and historical results remain readable', async ({page}) => {
+  const control = await protocol(page); control.jobsStatusCode = 503; await open(page); await choose(page);
+  await expect(page.getByText('尚未确认持久任务设置', {exact: false})).toBeVisible();
+  await expect(page.getByRole('button', {name: '生成逐条资格清单'})).toBeDisabled();
+  await page.getByRole('button', {name: '生成固定候选批次'}).click();
+  await expect(page.locator('.screening-batch')).toBeVisible();
+  await page.getByRole('textbox', {name: '已有核对记录编号'}).fill('unit-run');
+  await page.getByRole('button', {name: '读取已保存核对'}).click();
+  await expect(page.locator('.screening-condition')).toHaveCount(5);
+  expect(control.posts.map(item => item.path)).toEqual(['/api/screening/candidates']);
+  control.jobsStatusCode = 200;
+  await page.getByRole('button', {name: '刷新权限与运行结果'}).click();
+  await expect(page.getByRole('button', {name: '生成逐条资格清单'})).toBeEnabled();
+  control.jobsStatusCode = 503;
+  await page.getByRole('button', {name: '刷新权限与运行结果'}).click();
+  await expect(page.getByRole('button', {name: '生成逐条资格清单'})).toBeDisabled();
+  await expect(page.locator('.screening-condition')).toHaveCount(5);
+});
+
+for (const status of [401, 403, 404]) test(`jobs status ${status} clears cached private data and never admits a sync fallback`, async ({page}) => {
+  const control = await protocol(page); await open(page); await run(page);
+  control.jobsStatusCode = status;
+  await page.getByRole('button', {name: '刷新权限与运行结果'}).click();
+  await expect(page.getByRole('alert')).toBeVisible();
+  await expect(page.locator('.screening-result')).toHaveCount(0);
+  await expect(page.getByRole('heading', {name: COMPANY_NAME})).toHaveCount(0);
+  if (status !== 401) await expect(page.getByRole('button', {name: '生成逐条资格清单'})).toBeDisabled();
+  expect(control.posts).toHaveLength(1);
+});
+
+test('a server 409 after a stale disabled status switches to the durable entry without retrying', async ({page}) => {
+  const control = await protocol(page); await open(page); await choose(page);
+  control.denyChecklist = true;
+  await page.getByRole('textbox', {name: '项目编号', exact: true}).fill('unit-project');
+  await page.getByRole('button', {name: '生成逐条资格清单'}).click();
+  await expect(page.getByRole('alert')).toContainText('持久任务已开启');
+  await expect(page.getByRole('button', {name: '生成逐条资格清单'})).toBeDisabled();
+  await expect(page.getByRole('button', {name: '前往持久核对任务', exact: true})).toBeVisible();
+  await expect(page.locator('.screening-result')).toHaveCount(0);
+  expect(control.posts).toHaveLength(1);
 });

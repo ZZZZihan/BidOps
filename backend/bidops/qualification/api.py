@@ -59,6 +59,11 @@ def screening_router():
     @router.post("/checklists", status_code=201)
     async def checklist(payload: ChecklistRequest, request: Request):
         service, context = current(request, "agent:use")
+        jobs = request.app.state.jobs
+        if jobs is not None and jobs.settings.enabled:
+            # An unavailable durable worker must not silently admit an extra
+            # synchronous calculation outside its native compute queue.
+            raise HTTPException(409, "screening_use_durable_jobs")
         return await service.checklist(context, **payload.model_dump())
 
     @router.get("/runs/{run_id}")

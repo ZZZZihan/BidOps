@@ -6,3 +6,4 @@ class JobsSettings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="BIDOPS_JOBS_", extra="ignore")
     enabled: bool = False
     max_active_jobs: int = Field(default=100, ge=1, le=100)
+    compute_concurrency: int = Field(default=1, ge=1, le=2)

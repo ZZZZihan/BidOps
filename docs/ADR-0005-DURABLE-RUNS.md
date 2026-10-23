@@ -74,6 +74,11 @@ uv pip install --python .venv/bin/python --require-hashes \
 
 ## 升级路径与尚未执行项
 
+后续修订：[ADR-0008](ADR-0008-NATIVE-COMPUTE-QUEUE.md) 以原生队列和实际恢复实验，
+单独评估同一单进程内的两个计算任务。以下历史 PG 前置不再涵盖这个有界单进程工程档位；
+生产、多主机、多 worker 和 HA 的 PostgreSQL 评审要求继续保留。原 B05 证据不重写。
+
+
 生产上线、多主机、多 worker、HA 或容量扩大前，先把 DBOS 状态库迁移到 PostgreSQL，在对应部署上重新执行 SIGKILL、并发、版本升级、取消、预算不确定窗口及全存储备份恢复测试。该步骤不要求业务 SQLite 同步迁移，但仍需一致停写和配套 manifest。**本次没有部署或测试 PostgreSQL，也没有启动或测试 Temporal 恢复。** 若未来选择 Temporal，应新增基于真实 Service/worker 的同等级故障证据，再变更此决策。
 
 B05-02..07 的业务任务状态、全故障点、并发幂等、取消、审核暂停/恢复、撤权、留存与备份恢复均不能由这一个探针代验。当前证据是本地框架工程证据，既不是业务效果评测，也不是用户人工验收。

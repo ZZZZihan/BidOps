@@ -1,0 +1,28 @@
+{
+  "scope": "Root independent arithmetic from all completed raw receipts; this is not an independent real-data evaluation.",
+  "source_trace_sha256": "547160ca72dba383349249812068de60773e5ef3a334d66b7e2cd07a40c74a59",
+  "all_compared_metrics_match": true,
+  "metrics": {
+    "steady_errors": 1,
+    "steady_error_denominator": 3600,
+    "observed_compute_peak": 2,
+    "target_concurrency_overlap_ms": 409609,
+    "queue_wait_p95_ms": 306,
+    "compute_p95_ms": 30868,
+    "non_model_api_p95_ms": 259,
+    "admission_p95_ms": 109,
+    "resource_compute_peak": 2
+  },
+  "job_status_counts": {
+    "waiting_review": 84
+  },
+  "terminal_resource": {
+    "offset_ms": 2115002,
+    "compute_active": 0,
+    "queued_jobs": 0,
+    "active_jobs": 94,
+    "worker_alive": true
+  },
+  "real_model_calls": 0,
+  "real_source_calls": 0
+}

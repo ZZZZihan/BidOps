@@ -32,6 +32,7 @@ from bidops.screening.schemas import ReviewEvent
 
 ACTIVE = {"queued", "running", "waiting_review", "interrupted", "cancel_requested"}
 QUEUE = "bidops_qualification_jobs_v1"
+CALCULATION_QUEUE = "bidops_qualification_calculations_v1"
 
 
 def application_version():
@@ -102,7 +103,11 @@ class JobsService:
         self.path = Path(data_dir) / "private/jobs/dbos.sqlite3"
         self.versions = application_version()
         self.fault, self.started = fault, False
-        self.slots = asyncio.Semaphore(1)
+        # Native queuing bounds admission, including after restart/resume. A
+        # cancelled workflow may still be returning from an in-flight provider
+        # request after DBOS releases its queue slot, so keep a local bound on
+        # actual calculations until their finally blocks have completed too.
+        self.slots = asyncio.Semaphore(self.settings.compute_concurrency)
         self.agents = None
         self.reviews = None
         self.ingestion = None
@@ -113,6 +118,7 @@ class JobsService:
             "enabled": self.settings.enabled,
             "configured": self.started and self.screening.status()["configured"],
             "backend": "dbos",
+            "compute_concurrency": self.settings.compute_concurrency,
         }
 
     def enabled(self, *, worker=False):
@@ -460,7 +466,9 @@ class JobsService:
                     return {"run_id": run_id, "status": "completed"}
                 self.require_execution(run_id)
                 with SetWorkflowID(run_id + "-calculation"):
-                    child = await DBOS.start_workflow_async(calculation, run_id)
+                    child = await DBOS.enqueue_workflow_async(
+                        CALCULATION_QUEUE, calculation, run_id
+                    )
                 result = await child.get_result()
                 self.require_execution(run_id)
                 status = await waiting(run_id, result)
@@ -495,6 +503,12 @@ class JobsService:
         if self.ingestion:
             self.ingestion.register()
         DBOS.launch()
+        DBOS.register_queue(
+            CALCULATION_QUEUE,
+            worker_concurrency=self.settings.compute_concurrency,
+            global_concurrency=self.settings.compute_concurrency,
+            polling_interval_sec=0.1,
+        )
         DBOS.register_queue(
             QUEUE,
             worker_concurrency=self.settings.max_active_jobs,
@@ -652,11 +666,13 @@ class JobsService:
         self.repository.transition(run_id, expected_version, status, _context=context)
         try:
             if child and child.status != "SUCCESS":
-                DBOS.resume_workflow(run_id + "-calculation")
+                # The SDK otherwise moves resumed workflows to its unlimited
+                # internal queue, losing the calculation admission policy.
+                DBOS.resume_workflow(run_id + "-calculation", queue_name=CALCULATION_QUEUE)
             if DBOS.get_workflow_status(run_id) is None:
                 self.enqueue(run_id)
             else:
-                DBOS.resume_workflow(run_id)
+                DBOS.resume_workflow(run_id, queue_name=QUEUE)
         except Exception:
             self._interrupt(run_id, "job_backend_unavailable")
             raise CompanyError("job_backend_unavailable", 503) from None

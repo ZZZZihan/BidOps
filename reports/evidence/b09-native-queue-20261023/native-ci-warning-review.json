@@ -1,0 +1,302 @@
+{
+  "schema_version": "native-ci-warning-review-v1",
+  "generated_at": "2026-10-23T00:06:32.580912+00:00",
+  "review_kind": "bounded_read_only_log_and_source_review",
+  "scope": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "ultra",
+    "actual_allocation_independently_verified": false,
+    "new_test_runs": 0,
+    "new_load_runs": 0,
+    "new_runtime_reproductions": 0,
+    "new_network_requests": 0,
+    "real_provider_model_calls": 0,
+    "repository_files_modified": false,
+    "dependencies_modified": false
+  },
+  "conclusion": {
+    "status": "NO_PROVEN_BUSINESS_BLOCKER_WARNING_REMAINS_OPEN",
+    "warning_confirmed": true,
+    "root_cause_confirmed": false,
+    "teardown_phase_confirmed": false,
+    "business_state_corruption_or_lost_work_proven": false,
+    "zero_warning_claim_supported": false,
+    "summary": "现有证据未证明业务阻塞；真实未 await 协程警告仍须保留。SDK 存在与之相容的派发/关闭竞态路径，但缺少本次分配堆栈和异常消息，不能确认根因、发生阶段或受影响工作流。"
+  },
+  "ci": {
+    "run_id": 39874101082,
+    "run_url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+    "pr": 26,
+    "candidate_head": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+    "executed_pr_merge_commit": "0189e8154aa1f910018af7c9c383802670b19a51",
+    "merge_base_head": "215fca737e0e466a9781cd020b6b9d3b89e4b43f",
+    "all_three_jobs_pass": "coordinator_reported_not_independently_queried_in_this_review",
+    "backend_command": "uv run --frozen --no-sync pytest",
+    "backend_collected": 2175,
+    "backend_passed": 2175,
+    "backend_failed": 0,
+    "pytest_warning_count": 1,
+    "pytest_seconds": 802.13,
+    "python_version": "3.12.3",
+    "platform": "linux",
+    "dbos_version": "3.3.0",
+    "pytest_version": "9.1.1",
+    "summary_emitted_at": "2026-10-23T00:01:17.7977904Z",
+    "source": {
+      "path": "work/native-ci-76ce237-backend.log",
+      "bytes": 39490,
+      "sha256": "e6b1d149a52f60bf473b59605da4501eb939d020801780b673b217565d40accc",
+      "line_ranges": [
+        [
+          119,
+          122
+        ],
+        [
+          270,
+          270
+        ],
+        [
+          292,
+          305
+        ],
+        [
+          400,
+          408
+        ]
+      ]
+    },
+    "warning": {
+      "test_node": "tests/test_jobs_runtime.py::test_revoked_review_wait_replays_native_checkpoints_after_authorized_resume[request_materials-waiting_review]",
+      "category": "RuntimeWarning",
+      "sdk_reported_location": "dbos/_queue.py:690",
+      "message": "coroutine 'execute_dequeued_workflow.<locals>.start_workflow_task' was never awaited",
+      "source_line": "dbos.logger.error(f\"Error executing workflow {id}: {e}\")",
+      "allocation_traceback_present": false,
+      "actual_dispatch_exception_message_present": false,
+      "phase_or_occurrence_time_present": false,
+      "note": "这是 pytest 警告摘要中的关联用例和发出位置；摘要时间不是已知的警告发生时间。日志另有 actions Node.js 弃用注记，不计入这 1 条 pytest RuntimeWarning。"
+    }
+  },
+  "test_evidence": {
+    "source": "tests/test_jobs_runtime.py:86-125",
+    "assertions_reached_in_passing_case": [
+      "撤销材料权限后业务 interrupted、原生根工作流 CANCELLED",
+      "授权恢复前 resume 拒绝，重新授予当前权限后允许 resume",
+      "request_materials 分支回到 waiting_review",
+      "保存 usage.model_calls 仍为 9、result_id 不变、原 Agent 判断 human_review_state 仍 unreviewed",
+      "过期 state_version 再次 resume 拒绝"
+    ],
+    "fixture_cleanup": "tests/test_jobs_runtime.py:41-52 调用 runtime.close()，再调用 DBOS.destroy(destroy_registry=True)。",
+    "business_wait_is_not_dispatch_drain": "测试等待的是业务 waiting_review，不是全部 SDK 派发线程清空或所有原生工作流终态。request_materials 路径在 runtime.py:475-490 继续 recv_async 等待下一审核事件。通过不能证明 SDK 无后台清理资源问题。",
+    "fixture_second_destroy": "第一次 destroy 正常返回后，全局实例已置 None；仅凭第二次调用不能把它认定为本次原因。"
+  },
+  "proven_static_facts": [
+    {
+      "id": "S1",
+      "source": "dbos/_core.py:1338-1355",
+      "fact": "异步出队路径创建名为 execute_dequeued_workflow.<locals>.start_workflow_task 的协程，再传入 submit_coroutine；该名字与实际警告一致。"
+    },
+    {
+      "id": "S2",
+      "source": "dbos/_queue.py:683-690,704-744",
+      "fact": "派发异常在 _queue.py:690 捕获并记录；stop_event 在循环开始和 polling wait 被检查，claim 到 dispatch 之间没有另一次 stop 检查。690 是异常记录点，不是协程创建点。"
+    },
+    {
+      "id": "S3",
+      "source": "backend/bidops/jobs/runtime.py:701-704; dbos/_dbos.py:436-446,912-946",
+      "fact": "应用 close 调用 SDK destroy，未传工作流完成等待时间，SDK 默认 0 秒；SDK 先置 stop events，再 stop 背景事件循环，之后 join 背景线程；队列管理线程会 join 各队列 worker。"
+    },
+    {
+      "id": "S4",
+      "source": "dbos/_event_loop.py:39-78,93-122",
+      "fact": "背景循环 shutdown 取消并 gather 已知任务后 stop/close；submit_coroutine 对无循环及本循环线程调用显式 close(coro)，但 run_coroutine_threadsafe 抛异常的路径没有相同的 coro.close 清理。"
+    },
+    {
+      "id": "S5",
+      "source": "python3.12/asyncio/tasks.py:931-952; python3.12/asyncio/base_events.py:543-545,842-852",
+      "fact": "本机 Python 3.12.12 源码中 run_coroutine_threadsafe 调用 loop.call_soon_threadsafe；已关闭循环会抛 RuntimeError，且该同步失败路径不会接管或关闭传入协程。这只是本机源码佐证，不是对 CI Python 3.12.3 标准库字节的核验。"
+    }
+  ],
+  "hypothesis": {
+    "status": "STATICALLY_SUPPORTED_NOT_REPRODUCED_OR_CONFIRMED_FOR_THIS_CI",
+    "sequence": [
+      "队列 worker 已通过 polling stop 检查，正在 claim/dispatch。",
+      "另一个线程进入 DBOS.destroy，置 stop event 后关闭事件循环，而 worker 尚未退出。",
+      "worker 构造 start_workflow_task 协程后提交到已关闭循环，提交抛异常，SDK 无该分支的 coroutine close。",
+      "异常在 _queue.py:690 被捕获，未被 await 或显式 close 的协程可能触发所见 RuntimeWarning。"
+    ],
+    "possible_effect_not_observed_here": "在该假设路径中，claim 与真正启动之间可能中断；当前日志没有受影响 workflow_id 或最终原生行快照，不能据此证明丢任务，也不能证明所有被 claim 的任务均已恢复。",
+    "alternative_or_unknown": "也不能排除其他提交异常或发生在测试调用阶段；缺乏本次异常文本、allocation traceback 和阶段级线程状态，不能将警告肯定归为 teardown。"
+  },
+  "assessment": {
+    "current_delivery_blocker": "NOT_ESTABLISHED_BY_AVAILABLE_EVIDENCE",
+    "not_a_fix": "未修改依赖、框架、runtime、测试或 warnings 过滤规则；未把该警告标为已修复或无害。",
+    "proportionate_followup": "保留原警告与日志哈希。若后续再次出现，针对同一用例或关闭窗口收集 tracemalloc 分配堆栈、实际派发异常及关闭阶段线程/原生状态，再判断是否存在未恢复 claim 或线程泄漏；本次未执行该复现。",
+    "blocking_triggers": [
+      "出现已 claim 工作流无法按既有恢复路径继续，或实际丢失/重复业务结果",
+      "关闭后持续线程/事件循环泄漏，或生产正常运行阶段持续出现派发失败",
+      "权限、预算、取消或恢复断言出现实质失败"
+    ]
+  },
+  "source_integrity": {
+    "reviewed_repository_head": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+    "relevant_ci_merge_blobs_equal_to_reviewed_head": true,
+    "repository_sources": [
+      {
+        "path": "backend/bidops/jobs/runtime.py",
+        "bytes": 30557,
+        "sha256": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54",
+        "line_ranges": [
+          [
+            432,
+            490
+          ],
+          [
+            701,
+            704
+          ]
+        ],
+        "matches_reviewed_head": true,
+        "ci_merge_matches_reviewed_head": true,
+        "ci_merge_sha256": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54"
+      },
+      {
+        "path": "tests/test_jobs_runtime.py",
+        "bytes": 18092,
+        "sha256": "be54365449564f39e6a6eff2c1200c8d08681a1ac861445120551fb9cd57c66a",
+        "line_ranges": [
+          [
+            25,
+            52
+          ],
+          [
+            86,
+            125
+          ]
+        ],
+        "matches_reviewed_head": true,
+        "ci_merge_matches_reviewed_head": true,
+        "ci_merge_sha256": "be54365449564f39e6a6eff2c1200c8d08681a1ac861445120551fb9cd57c66a"
+      },
+      {
+        "path": "requirements/durable.lock",
+        "bytes": 43615,
+        "sha256": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+        "line_ranges": [
+          [
+            28,
+            33
+          ]
+        ],
+        "matches_reviewed_head": true,
+        "ci_merge_matches_reviewed_head": true,
+        "ci_merge_sha256": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88"
+      }
+    ],
+    "installed_sdk_version": "3.3.0",
+    "installed_sdk_sources": [
+      {
+        "path": "dbos/_queue.py",
+        "bytes": 41082,
+        "sha256": "33c287b8f31ee498216ebb4751c914eaccc02077b09ad5be42207c86dc8ff03f",
+        "line_ranges": [
+          [
+            667,
+            690
+          ],
+          [
+            704,
+            744
+          ],
+          [
+            850,
+            918
+          ]
+        ]
+      },
+      {
+        "path": "dbos/_core.py",
+        "bytes": 128939,
+        "sha256": "71932bf0b5c7dc45f082bc38157e3ee13bc5c98cf0398fcb28b92a1ee68e2da2",
+        "line_ranges": [
+          [
+            1317,
+            1356
+          ]
+        ]
+      },
+      {
+        "path": "dbos/_event_loop.py",
+        "bytes": 4429,
+        "sha256": "ef1ed32d7cffa70f7890c39059cd26e3a6cbf720aea15fea42195489495860c2",
+        "line_ranges": [
+          [
+            39,
+            78
+          ],
+          [
+            93,
+            122
+          ]
+        ]
+      },
+      {
+        "path": "dbos/_dbos.py",
+        "bytes": 155695,
+        "sha256": "f338f73ca54ba6c7645c0db0959d479f7296287b9c43ee1d1abaae1824931640",
+        "line_ranges": [
+          [
+            436,
+            453
+          ],
+          [
+            746,
+            754
+          ],
+          [
+            912,
+            946
+          ]
+        ]
+      }
+    ],
+    "local_python_version": "3.12.12",
+    "local_python_sources": [
+      {
+        "path": "python3.12/asyncio/tasks.py",
+        "bytes": 37362,
+        "sha256": "6f6aad82d597fea1800004075b9a2481604da0035f1143af1eb267823ec460e3",
+        "line_ranges": [
+          [
+            931,
+            952
+          ]
+        ]
+      },
+      {
+        "path": "python3.12/asyncio/base_events.py",
+        "bytes": 78567,
+        "sha256": "53b71bbbd79e7fb2251460119afc379ebd71bbc599d9018313cc62ef218ae795",
+        "line_ranges": [
+          [
+            543,
+            545
+          ],
+          [
+            842,
+            852
+          ]
+        ]
+      }
+    ],
+    "ci_sdk_file_bytes_independently_downloaded_or_hashed": false,
+    "local_sdk_equals_ci_wheel_bytes_proven": false
+  },
+  "limitations": [
+    "没有新的测试、压力运行、进程退出复现或外部查询。",
+    "CI 未开启 tracemalloc，未获得协程 allocation traceback。",
+    "CI 摘要未提供实际派发异常 e、workflow_id、线程退出顺序或该对象的最终原生状态。",
+    "本机 SDK 版本与锁及 CI 安装行均为 DBOS 3.3.0，但未从 CI 下载源码逐字节比对；本机 Python 3.12.12 与 CI 3.12.3 不同。",
+    "2175 PASS 与这条真实 warning 并存；本结论不认证零泄漏、零清理竞态或业务人工验收。"
+  ]
+}

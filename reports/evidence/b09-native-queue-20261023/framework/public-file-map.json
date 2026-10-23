@@ -1,0 +1,87 @@
+{
+  "source_index_sha256": "db13b86b0ca72c503fb19990368a5424103a32ec11552c4bf9cb51621f91bbd7",
+  "scope": "Exact safe allowlist bytes. Python source is stored as .py.txt to remain an immutable evidence attachment; copy back to the named .py file before reproducing.",
+  "executed_controller_is_private": "run_probe.redacted.py is a path projection and was not separately executed; exact executed script hash remains in the source evidence.",
+  "files": [
+    {
+      "source_relative_path": "EVIDENCE.md",
+      "public_path": "EVIDENCE.md",
+      "sha256": "104914424a36eb3f0af8c63f14abf87e40562dab72b690db015945c40cb48f69"
+    },
+    {
+      "source_relative_path": "safe-result.json",
+      "public_path": "safe-result.json",
+      "sha256": "b861ab417ae2724e9987761eb2317e28ce4b37714a0d66c1ee37154f52e481c6"
+    },
+    {
+      "source_relative_path": "events-sanitized.jsonl",
+      "public_path": "events-sanitized.jsonl",
+      "sha256": "7d6b7b81dc0e26385832d0bb4686a02e8af63ff1f4362d4c086caa7b122dac0e"
+    },
+    {
+      "source_relative_path": "sdk-interfaces.json",
+      "public_path": "sdk-interfaces.json",
+      "sha256": "bab9c5c05fa427226577d2e7bc918a4dcc72fdf6ba5ca6b18cd0c13411555f57"
+    },
+    {
+      "source_relative_path": "worker.py",
+      "public_path": "worker.py.txt",
+      "sha256": "58286f5a462c61dcb33ecb83946b4d3866514f8c185faf295b74281e38105151"
+    },
+    {
+      "source_relative_path": "run_probe.redacted.py",
+      "public_path": "run_probe.redacted.py.txt",
+      "sha256": "2ae3b6df30f1be46d3a2dbd97c00b460731fd195e1e8e3d1ab4f1915f3f7fe2e"
+    },
+    {
+      "source_relative_path": "analyze_probe.py",
+      "public_path": "analyze_probe.py.txt",
+      "sha256": "77c86870dafc59061a4a189897b7cd6c2035198cd4f8497d9f5a84ab8674138b"
+    },
+    {
+      "source_relative_path": "run-01/summary.json",
+      "public_path": "run-01/summary.json",
+      "sha256": "8bd7befb69d5176a8bf1d4f2c4e652593243d8d91123ef0717baf26f657b464f"
+    },
+    {
+      "source_relative_path": "run-01/baseline/result.json",
+      "public_path": "run-01/baseline/result.json",
+      "sha256": "a006ea04f0c79b72b30599354d4b289c5831e66bcada787225bd56acf572753e"
+    },
+    {
+      "source_relative_path": "run-02/summary.json",
+      "public_path": "run-02/summary.json",
+      "sha256": "bd4d4640075177e7ad209bf3878b84ea319739d1c4f62254de8a773ab762c60a"
+    },
+    {
+      "source_relative_path": "run-02/baseline/result.json",
+      "public_path": "run-02/baseline/result.json",
+      "sha256": "05615dcd52f7f7fdb3608e9bdf0e5205b17fcde4032c22a38fc0c864a134acea"
+    },
+    {
+      "source_relative_path": "run-02/cancel_default/result.json",
+      "public_path": "run-02/cancel_default/result.json",
+      "sha256": "bebc7523e2c71cd937bd2d8dfd940d37efdb6d72cf7058464febe92f9667ec64"
+    },
+    {
+      "source_relative_path": "run-02/cancel_preemptible/result.json",
+      "public_path": "run-02/cancel_preemptible/result.json",
+      "sha256": "49a35a300a8f14cf2868ba142fb2c717439d0f321cfb4e4b5139b166392defc1"
+    },
+    {
+      "source_relative_path": "run-02/restart_active/result.json",
+      "public_path": "run-02/restart_active/result.json",
+      "sha256": "7b1d47de1d7346538ff23ca08c1f582cdd6f8d925653b2563e0afedbaf1bc65c"
+    },
+    {
+      "source_relative_path": "run-02/restart_cancelled/result.json",
+      "public_path": "run-02/restart_cancelled/result.json",
+      "sha256": "86764f4d1bdf8783c10221dd0798c436961629274c4a371a9a84d49df7616f6d"
+    },
+    {
+      "source_relative_path": "run-02/restart_waiting/result.json",
+      "public_path": "run-02/restart_waiting/result.json",
+      "sha256": "65dadd6ca4a192794860a943b807b51a17ac35b87eadddb8e186ea874c1433f1"
+    }
+  ]
+}

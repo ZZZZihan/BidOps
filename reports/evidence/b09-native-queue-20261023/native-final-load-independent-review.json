@@ -1,0 +1,481 @@
+{
+  "schema_version": "independent-native-load-review-v1",
+  "review_status": "PASS",
+  "scope": "Completed-file consistency, independent arithmetic and safe projection review only; not real target, provider or enterprise acceptance.",
+  "review_started_at_utc": "2026-10-22T23:40:50.815233+00:00",
+  "review_completed_at_utc": "2026-10-22T23:40:51.208471+00:00",
+  "requested_model": "gpt-6.1-sol",
+  "requested_reasoning_effort": "ultra",
+  "actual_model_configuration_independently_verified": false,
+  "load_code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "followup_code_not_covered": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+  "natural_exit": {
+    "source": "coordinator tool observation relayed to reviewer",
+    "exec_session": 76289,
+    "exit_code": 2,
+    "reviewer_observed_process_directly": false,
+    "reviewer_restarted_workload": false
+  },
+  "verdict": {
+    "capacity_status": "BLOCKED",
+    "recovery_status": "BLOCKED",
+    "business_acceptance": "NOT_VERIFIED",
+    "gates": {
+      "api_performance": "PASS",
+      "data_integrity": "PASS",
+      "declared_compute_target": "PASS",
+      "input_integrity": "PASS",
+      "manifest_complete": "PASS",
+      "measurement": "BLOCKED",
+      "model_simulation": "PASS",
+      "observed_compute_target": "PASS"
+    },
+    "all_operation_classes_p95_below1000ms": false
+  },
+  "frozen_input_pins": {
+    "manifest_bytes_sha256": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c",
+    "manifest_canonical_sha256": "959d12fc6876a281899225a9f797f892df71a17c1fa8ed43104e89d14268eda7",
+    "plan_canonical_sha256": "1a489b639fd20d247ed51c73edb0318dab7e0c5d62cf6b6f02ab056104bdb916",
+    "schedule_canonical_sha256": "bf6b0cff6cf27a99633adf4722894aabd74cac9748aea82047ddd00b0ab81e0b",
+    "dataset_sha256": "a7577d5b70ce38812a2247357f0e49b723981f4275c0114da817290ede85ea65",
+    "page_inventory_canonical_sha256": "b5ee8aede5757b0b87c9c4d4e0eb523f36bdf7ca1b06712c73a99f5750181919",
+    "git_blob_sha256": {
+      "evals/capacity-native-queue-v2/manifest.json": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c",
+      "backend/bidops/operations_acceptance/load.py": "ce7200e7bfdc858e6e9d3d602191510e6bbbe4cd4bd5e93deb55ce87a445cce8",
+      "scripts/capacity_probe.py": "6f5f5c0c788b746ae9e00693f69a893240790e78aca5a6c9d44d17e9c2028462",
+      "backend/bidops/operations_acceptance/capacity.py": "7319a6ca90adf0c88520b301555eda17b534c80aa8400568d84637f8c92e86f0",
+      "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+      "requirements/durable.lock": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88"
+    },
+    "original_v1_only_changes": [
+      "profile_id",
+      "configured_compute_concurrency: 1 -> 2"
+    ],
+    "thresholds_unchanged": true
+  },
+  "workload": {
+    "planned": 4200,
+    "observed": 4200,
+    "warmup": 600,
+    "steady": 3600,
+    "response": 4197,
+    "no_response": 3,
+    "no_response_types": {
+      "ReadError": 3
+    },
+    "warmup_errors": 2,
+    "steady_errors": 1,
+    "steady_error_denominator": 3600,
+    "steady_error_rate": 0.0002777777777777778,
+    "steady_error_percent": 0.027777777777777776,
+    "invalid": 0,
+    "missing_or_duplicate_fixed_receipts": 0,
+    "client_count": 10,
+    "steady_operations_per_client": 360,
+    "steady_minutes": 30,
+    "operations_each_steady_minute": 120,
+    "fixed_window_ms": [
+      300000,
+      2100000
+    ],
+    "arrival_rate_logical_ops_per_second": 2,
+    "receipt_order": "asynchronous completion order; schedule binding checked by unique sequence without filtering",
+    "all_operation_counts": {
+      "read_search": 3276,
+      "task_status": 756,
+      "submit_task": 84,
+      "review": 84
+    },
+    "failures": [
+      {
+        "sequence": 30,
+        "phase": "warmup",
+        "scheduled_offset_ms": 15000,
+        "started_offset_ms": 15002,
+        "finished_offset_ms": 15066,
+        "operation": "read_search",
+        "error_type": "ReadError"
+      },
+      {
+        "sequence": 330,
+        "phase": "warmup",
+        "scheduled_offset_ms": 165000,
+        "started_offset_ms": 165002,
+        "finished_offset_ms": 165068,
+        "operation": "read_search",
+        "error_type": "ReadError"
+      },
+      {
+        "sequence": 4080,
+        "phase": "steady",
+        "scheduled_offset_ms": 2040000,
+        "started_offset_ms": 2040002,
+        "finished_offset_ms": 2040089,
+        "operation": "read_search",
+        "error_type": "ReadError"
+      }
+    ]
+  },
+  "latency": {
+    "method": "nearest-rank ceil(0.95*n), finished-started; no outcome/status filtering",
+    "steady_pooled_p95_ms": 259,
+    "steady_admission_p95_ms": 109,
+    "steady_by_operation": {
+      "read_search": {
+        "steady_count": 2808,
+        "responses": 2807,
+        "failed_or_unverified": 1,
+        "p95_ms": 250,
+        "p50_ms": 160
+      },
+      "task_status": {
+        "steady_count": 648,
+        "responses": 648,
+        "failed_or_unverified": 0,
+        "p95_ms": 100,
+        "p50_ms": 64
+      },
+      "submit_task": {
+        "steady_count": 72,
+        "responses": 72,
+        "failed_or_unverified": 0,
+        "p95_ms": 109,
+        "p50_ms": 99
+      },
+      "review": {
+        "steady_count": 72,
+        "responses": 72,
+        "failed_or_unverified": 0,
+        "p95_ms": 1362,
+        "p50_ms": 929
+      }
+    },
+    "job_metric_scope": "all84 measured jobs, including warmup arrivals; not just72 steady admissions",
+    "all84_queue_wait_p95_ms": 306,
+    "all84_compute_p95_ms": 30868,
+    "all84_model_wait_p95_ms": 30016
+  },
+  "http_accounting": {
+    "all_returned_including_setup": 4810,
+    "timed_returned_including_auth_dependents": 4611,
+    "setup_returned": 199,
+    "timed_logical_responses": 4197,
+    "timed_auth_responses": 330,
+    "timed_dependent_review_reads": 84,
+    "returned_status_failures": 0,
+    "logical_no_response_errors": 3,
+    "note": "2 logical operations/s is not2 raw HTTP/s; zero returned failure statuses is not zero logical-operation errors."
+  },
+  "compute_jobs": {
+    "accepted_measured": 84,
+    "measured_status_counts": {
+      "waiting_review": 84
+    },
+    "unique_saved_results": 84,
+    "setup_waiting_review": 10,
+    "steady_compute_peak": 2,
+    "steady_dual_overlap_ms": 409609,
+    "required_overlap_ms": 30000,
+    "steady_duration_by_compute_count_ms": {
+      "1": 1390391,
+      "2": 409609
+    },
+    "sampled_queue_peak": 0,
+    "sampled_queue_zero_does_not_exclude_transient_wait": true,
+    "last_measured_compute_finished_offset_ms": 2113811,
+    "all_business_jobs_terminal": false,
+    "worker_event_counts_setup": {
+      "worker_ready": 1,
+      "compute_started": 10,
+      "local_model_call": 20,
+      "compute_finished": 10
+    },
+    "worker_event_counts_timed": {
+      "compute_started": 84,
+      "model_wait_started": 168,
+      "model_wait_part_finished": 168,
+      "local_model_call": 168,
+      "compute_finished": 84
+    }
+  },
+  "resources": {
+    "trace_samples": 2116,
+    "raw_samples": 2119,
+    "rss_peak_bytes": 863813632,
+    "worker_process_cpu_peak_percent": 99.2,
+    "cpu_is_host_utilization": false,
+    "disk_free_min_bytes": 144337653760,
+    "oom_events": 0,
+    "deadlock_events": 0,
+    "terminal": {
+      "active_jobs": 94,
+      "compute_active": 0,
+      "cpu_percent": 14.0,
+      "deadlock_events": 0,
+      "disk_free_bytes": 145567756288,
+      "offset_ms": 2115002,
+      "oom_events": 0,
+      "queued_jobs": 0,
+      "rss_bytes": 305381376,
+      "worker_alive": true
+    },
+    "terminal_active_explanation": {
+      "measured_waiting_review": 84,
+      "setup_waiting_review": 10,
+      "active_total": 94
+    },
+    "trace_ended_offset_ms": 2115000,
+    "terminal_sample_minus_recorded_end_ms": 2,
+    "resource_interval_ms": 1000,
+    "maximum_allowed_gap_ms": 2000,
+    "actual_max_gap_ms": 1095,
+    "end_boundary_note": "Two distinct observations: terminal sampler tick2115002ms and rounded trace end2115000ms. Within frozen one-interval end tolerance; consistent with asynchronous sampling/quantization, exact cause unproven. Do not relabel as one exact timestamp.",
+    "raw_tail_samples_excluded_from_trace": [
+      {
+        "offset_ms": 2116002,
+        "compute_active": 0,
+        "queued_jobs": 0,
+        "active_jobs": 94
+      },
+      {
+        "offset_ms": 2117008,
+        "compute_active": 0,
+        "queued_jobs": 0,
+        "active_jobs": 94
+      },
+      {
+        "offset_ms": 2118000,
+        "compute_active": 0,
+        "queued_jobs": 0,
+        "active_jobs": 94
+      }
+    ]
+  },
+  "timing": {
+    "started_at_utc": "2026-10-22T22:55:14.481055Z",
+    "trace_ended_offset_ms": 2115000,
+    "derived_end_utc": "2026-10-22T23:30:29.481055+00:00",
+    "derived_end_is_exact_exit_utc": false,
+    "warmup_seconds": 300,
+    "steady_seconds": 1800,
+    "drain_seconds": 15
+  },
+  "hardware": {
+    "actual": {
+      "disk_free_bytes": 145039679488,
+      "logical_cpus": 24,
+      "memory_bytes": 68719476736,
+      "storage": "local_disk"
+    },
+    "target": {
+      "logical_cpus": 4,
+      "memory_bytes": 8589934592,
+      "disk_free_bytes": 21474836480,
+      "storage": "local_disk"
+    },
+    "equivalent": false,
+    "parallel_host_load": "coordinator disclosed concurrent isolated backend tests; frontend CI was remote, not concurrent local load"
+  },
+  "simulation": {
+    "kind": "offline_function_model",
+    "requested_delay_per_measured_job_ms": 30000,
+    "measured_local_model_calls": 168,
+    "setup_local_model_calls": 20,
+    "real_model_calls_from_receipts_and_worker_counters": 0,
+    "real_source_calls_from_receipts_and_worker_counters": 0,
+    "real_cost_cny": "0",
+    "real_provider_verified": false
+  },
+  "projections": {
+    "status": "PASS",
+    "safe_json_files": 6,
+    "all_curve_resource_points": 2116,
+    "all_curve_minute_buckets": 35,
+    "all_provenance_sources": 19,
+    "png_visually_inspected": true,
+    "svg_external_code_link_image_absent": true,
+    "public_json_no_raw_private_identifier_values": true,
+    "public_text_no_local_path_or_credentials": true,
+    "note": "Minute pooled curves do not prove per-operation P95; review class is1362ms. PNG visual review is not a pixel-level proof."
+  },
+  "checks_passed": [
+    "clean_run_code_pin",
+    "manifest_bytes_and_canonical_pin",
+    "plan_schedule_inventory_canonical_pins",
+    "dataset_before_after_exact",
+    "official_pure_evaluator_report_exact",
+    "git_blob_pin:evals/capacity-native-queue-v2/manifest.json",
+    "git_blob_pin:backend/bidops/operations_acceptance/load.py",
+    "git_blob_pin:scripts/capacity_probe.py",
+    "git_blob_pin:backend/bidops/operations_acceptance/capacity.py",
+    "git_blob_pin:uv.lock",
+    "git_blob_pin:requirements/durable.lock",
+    "no_threshold_reduction_from_v1",
+    "frozen_arrival_schedule_all4200_exact",
+    "all_receipts_match_fixed_schedule_no_missing_duplicate",
+    "trace_exact_unfiltered_request_jsonl",
+    "invalid_record_counts_zero",
+    "fixed_window4200_600_3600",
+    "all_attempts_have_complete_latency",
+    "failed_no_response_retained_in_denominator",
+    "per_operation_counts_and_p95",
+    "steady_aggregate_p95_and_error_rate",
+    "client_counts_and_30_minute_buckets",
+    "independent_midpoint_integral_peak2_overlap409609",
+    "all84_jobs_results_unique_waiting_review",
+    "all84_job_latency_p95",
+    "simulated_model_delay_and_real_call_zero",
+    "resources_exact2116_prefix_of2119_raw",
+    "resource_clock_bounds_and_end_tolerance",
+    "all_resource_compute_samples_match_intervals_1ms",
+    "terminal_compute0_queue0_active94_and_no_failures",
+    "all_resource_summary_metrics",
+    "10_setup84_measured_compute_starts_finishes",
+    "worker_real_call_counters_zero",
+    "last_measured_compute_finish_before_end",
+    "4810_http_4611_timed_zero_returned_failure_not_zero_operation_error",
+    "safe_report_all_metrics_and_status_exact",
+    "http_projection_exact_counts_denominators_paths",
+    "recomputed_metrics_projection_exact",
+    "completion_pin_time_and_hardware_projection_exact",
+    "completion_derived_end_not_exact_exit",
+    "all19_provenance_source_hashes",
+    "curve_input_pins_and_scope_exact",
+    "all2116_chart_resource_rows_exact",
+    "all35_chart_minute_buckets_including_errors_exact",
+    "operation_breakdown_all_counts_p95_and_terminal_exact",
+    "public_json_no_raw_private_identifier_values",
+    "public_text_no_private_paths_or_credential_headers",
+    "svg_no_script_external_image_or_link",
+    "all_sources_unchanged_during_review",
+    "all_public_projections_unchanged_during_review",
+    "review_json_no_raw_private_identifier_values",
+    "review_outputs_no_local_paths_or_credential_headers"
+  ],
+  "check_count": 52,
+  "issues": [],
+  "source_hashes": {
+    "report.json": {
+      "bytes": 2394,
+      "sha256": "45e6d99450bd468b72542daf411dd4916a9fd599feaa568a092c27c668a671bd"
+    },
+    "trace.json": {
+      "bytes": 3063088,
+      "sha256": "547160ca72dba383349249812068de60773e5ef3a334d66b7e2cd07a40c74a59"
+    },
+    "input-pin.json": {
+      "bytes": 1132,
+      "sha256": "575a60a3655dc05e5e5ce56145c1566d4d1650221a3e85b4e3f3090d259a0cdb"
+    },
+    "manifest.json": {
+      "bytes": 2706,
+      "sha256": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c"
+    },
+    "clock.json": {
+      "bytes": 38,
+      "sha256": "b584e0489e60659c213da5004e4ac40836aba9cc6ad5ddcdf88d849ce1aa796c"
+    },
+    "plan.json": {
+      "bytes": 507,
+      "sha256": "0a751897db3a7f36245b0cb1ac60b0bc4a299fcd7005942d8baf02e3ac78bd41"
+    },
+    "schedule.json": {
+      "bytes": 928649,
+      "sha256": "1c574828a8d7e66ca6827ce1b9331c2d742fcc5a708fbeb32cb16f7de5dfdb13"
+    },
+    "page-inventory.json": {
+      "bytes": 700003,
+      "sha256": "ba37262f5b7af4a35229a0b2925603ffd4e820f906fac3ea19d3ea3175d916f1"
+    },
+    "http-accounting.json": {
+      "bytes": 750,
+      "sha256": "021e6a5081a7632937db47c0031413113fa1a7a4cab2202e41f0bf8f0385d6dc"
+    },
+    "requests.jsonl": {
+      "bytes": 2561935,
+      "sha256": "fd0d68c7af6ea7b9a15e23cc87e9350b720af5491cfb5d09840464c26eb32530"
+    },
+    "resources.jsonl": {
+      "bytes": 464880,
+      "sha256": "1717a6b57487fea81e3225ee7f80fdd232ead5cc6ca46bb013f8057651406dfa"
+    },
+    "http-responses.jsonl": {
+      "bytes": 438927,
+      "sha256": "f2b128710b8acb28bbcc1e047fcc59cb291f80c3ef8b6b94463d1e307392c7fd"
+    },
+    "auth-control.jsonl": {
+      "bytes": 22458,
+      "sha256": "3ede3aeba860ca6455d2b503d30a25925fb0f6e0baa2034895c29a3aa790d11e"
+    },
+    "worker-events.jsonl": {
+      "bytes": 108896,
+      "sha256": "94bb0aa3ff34bbe8c547772a179b1d0b7d7751152a94577b40e3ab5f4d0dafb0"
+    },
+    "setup.jsonl": {
+      "bytes": 521,
+      "sha256": "c01a44656fe3f05d63561de103f85318eef8efdd06a0c278f08b74eec26b76f9"
+    },
+    "setup-operations.jsonl": {
+      "bytes": 193,
+      "sha256": "be7362a73cccd8bb91cac90f858f0f79915e7810e0dc0880bfe8cfdd8c52bbae"
+    },
+    "notice-seed.json": {
+      "bytes": 164,
+      "sha256": "3e63c57d1d654a6af240779468a6b09663b8b2b9ba91b1fbab3f8bbb8f52a34d"
+    },
+    "synthetic-sources.json": {
+      "bytes": 187,
+      "sha256": "da77e67fd0ed9367074eafa2cc4d2b8967375a4c22de2a8ac30b1dddb07bda75"
+    },
+    "worker.log": {
+      "bytes": 634,
+      "sha256": "fa101a3df7b2c69b455eee83d6be4b8befd5a61be803ab6da1b2d759ab0efa45"
+    }
+  },
+  "projection_hashes": {
+    "capacity-curves-data.json": {
+      "bytes": 539431,
+      "sha256": "96e9f08aabce853a892ae40d456e25fd5989586db460c86ea9f42294159a8d73"
+    },
+    "capacity-curves.png": {
+      "bytes": 896934,
+      "sha256": "6dd32cc3f500a4d7fa6f12f3c7fe39a302bea81845f1ae0a367f3fdedc93fb67"
+    },
+    "capacity-curves.svg": {
+      "bytes": 139447,
+      "sha256": "b2c90179dd171cf16b5830e05ec62dbf7c907301362ace3a34d95e375b727a5a"
+    },
+    "completion.json": {
+      "bytes": 3010,
+      "sha256": "b455613d4cd75211a30b42cfe3dc82f77ee1da9b9f1c7e669b3c0a7da54f7656"
+    },
+    "http-summary.json": {
+      "bytes": 1186,
+      "sha256": "e53f982afb07595aa45d657b1062fa4263afbc636f332a78e8e38f3547ecdddb"
+    },
+    "operation-breakdown.json": {
+      "bytes": 1650,
+      "sha256": "3803c0b0f958500fada889e70690068d80573a341a14967197e5483f8093a22a"
+    },
+    "recomputed-metrics.json": {
+      "bytes": 826,
+      "sha256": "6e15e09fc4e479275cced0afb4d12ba8e12fb9307eebcbd103c8bb0994e263f5"
+    },
+    "safe-report.json": {
+      "bytes": 2815,
+      "sha256": "5328beb53398f4f7b00b80940c9c2a9613e639554aa663ae50e87f52efb4af5c"
+    },
+    "source-provenance.json": {
+      "bytes": 3351,
+      "sha256": "bf8497e99cdf90dcc5649f21312183713e20757247cb01d6c1071406407fc471"
+    }
+  },
+  "limits": [
+    "Only pure evaluator replay and read-only arithmetic; no product tests, service startup, workload rerun or network/model calls.",
+    "No runtime DB reads or original/projection writes.",
+    "6956042 evidence does not qualify later2425 ingestion race fix.",
+    "Hardware differs from4CPU/8GiB target; measurement gate remainsBLOCKED.",
+    "No real recovery or complete business RTO measured.",
+    "Actual reviewer model configuration cannot be independently verified."
+  ]
+}

@@ -13,11 +13,11 @@ from bidops.uat.environment import check_environment, non_placeholder_https, sha
 from bidops.uat.schemas import UatBundle
 
 AC_IDS = tuple(f"B10-{number:02}" for number in range(1, 7))
-# The existing 71 contractual gates cannot disappear through a damaged plan
+# The existing 73 contractual gates cannot disappear through a damaged plan
 # row (or deletion). Future upstream gates may be added and are required as well.
 MINIMUM_ACCEPTANCE_IDS = frozenset(
     f"B{section:02}-{number:02}"
-    for section, count in enumerate((7, 6, 8, 8, 7, 7, 7, 7, 8, 6), start=1)
+    for section, count in enumerate((7, 6, 8, 8, 7, 7, 7, 7, 10, 6), start=1)
     for number in range(1, count + 1)
 )
 # B09-04/06 minima remain binding in B10. Inventory may tighten these

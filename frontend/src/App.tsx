@@ -41,7 +41,7 @@ export function App() {
     {error && <p className="agent-alert" role="alert">{error}</p>}
     {!identity && !error && <p role="status" className="login-panel">正在确认工作区…</p>}
     {identity && enterprise && !identity.authenticated && <Login identity={identity} />}
-    {allowed && (view === 'agent' && canChat ? <AgentWorkbench identity={identity} /> : view === 'audit' ? <Audit /> : view === 'company' && enterprise ? <Company identity={identity} /> : view === 'screening' && enterprise ? <Screening identity={identity} /> : view === 'jobs' && enterprise ? <Jobs identity={identity} /> : view === 'reviews' && enterprise ? <Reviews identity={identity} /> : view === 'ingestion' && enterprise ? <Ingestion identity={identity} /> : <Archive />)}
+    {allowed && (view === 'agent' && canChat ? <AgentWorkbench identity={identity} /> : view === 'audit' ? <Audit /> : view === 'company' && enterprise ? <Company identity={identity} /> : view === 'screening' && enterprise ? <Screening identity={identity} onOpenJobs={() => setView('jobs')} /> : view === 'jobs' && enterprise ? <Jobs identity={identity} /> : view === 'reviews' && enterprise ? <Reviews identity={identity} /> : view === 'ingestion' && enterprise ? <Ingestion identity={identity} /> : <Archive />)}
     <footer>根据已保存的公告提供证据。投标资格与最新状态请人工复核。</footer>
   </>;
 }

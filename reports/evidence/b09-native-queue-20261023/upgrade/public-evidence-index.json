@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "scope": "Public redacted projection only; retained original execution evidence was not modified.",
+  "publication_whitelist": [
+    "REPORT.public.md",
+    "safe-summary.public.json",
+    "public-evidence-index.json"
+  ],
+  "public_payloads": {
+    "REPORT.public.md": {
+      "sha256": "702e4029132c213fd78c2a049dca3e45bd47cda18412b798535b6f006a266838",
+      "bytes": 6177
+    },
+    "safe-summary.public.json": {
+      "sha256": "6f879e29f2c6c40397495f96c5656943b67297f4a707798714d41010519abcce",
+      "bytes": 11238
+    }
+  },
+  "index_self_hash_policy": "The index is whitelisted but does not embed its own hash. Obtain its hash from the handoff or enclosing publication manifest.",
+  "retained_source_originals_sha256": {
+    "REPORT.md": "6b908f5b65c80ddb75a0bee4879ccbce449630f96c1d0941c4cd30af4f9a39cc",
+    "safe-summary.json": "efea77952cac7c7c4446bb2578303f5bded114954f1f2b59c85498c5ec3059dc",
+    "evidence-index.json": "ecc8fc3e2f41d16038bd18f2bf8e725c309b5e136e061f4168c0f0f5c45f18a6",
+    "commands.json": "48ea140860230621889ec32b5e33703e69c66cfbb8ad816bc9dac230cf13afb0",
+    "rollback-native-command.json": "a9820c953c3521d3f0f2bf4bb1e3fc96eabea5f9be681e9452114b89a4cd9c7d",
+    "probe-initial.py": "d0186ebba101e611e938cf8433aa3138733088ae56f4236a8880ae0df37e3ae6",
+    "probe-native-executed.py": "4eedfca17be0675859cad0d5bd4c0f3d079df9ead72128d5c3ef0def1f2861f9",
+    "old-events.json": "3ad4d96d950d70e57ccbcdb410407dec3b29dfd9ce31173cc19feb0a5a291c03",
+    "upgrade-events.json": "43dc511a40dd595f8cd64de529ac11e34f77a34bda23467f285b650044e7b14e",
+    "rollback-events.json": "2eb1abe24a1b20b3db57f57c0780aea8c67d1267b67b162b7534011d42b30b06",
+    "rollback-native-events.json": "5688e827d770c378f50881e83214c1aa5b190857d0966f79e93f5da92fdeab47",
+    "old-version.json": "4bc5cf24ae3827f6b349641efd10f5c09160a6a31f73ccff0e83a5b5ba90e22e",
+    "upgrade-version.json": "0e8c1a6b1065a3762414ce1677b8ab6f0639bc97454eb0427f20478e6b59ead2",
+    "rollback-version.json": "4bc5cf24ae3827f6b349641efd10f5c09160a6a31f73ccff0e83a5b5ba90e22e",
+    "rollback-native-version.json": "4bc5cf24ae3827f6b349641efd10f5c09160a6a31f73ccff0e83a5b5ba90e22e",
+    "old-stopped-snapshot.json": "816563038a09aaf32405648c148c8b7e8b29605b62fd8d08f4f92893f31952ad",
+    "upgrade-stopped-snapshot.json": "d52127e69ad948437e923fc375c37946bfa0d5d40fb64693150789ac28de6a09",
+    "rollback-native-after-restore-snapshot.json": "04a7ecaeea798b1f36fd970d984eb42178102807075879dd66bcf435025aa2b6",
+    "rollback-native-stopped-snapshot.json": "a0804f86bfb393f0e257064fbd7bb6be9203d03bf1b59b1bb99c6cb01cbce040"
+  },
+  "source_originals_in_publication": false,
+  "projection_rules": [
+    "Replace only local path prefixes in command projections with the documented $OLD_WORKTREE, $NEW_WORKTREE and $PROBE_DIR placeholders; no real path values are published.",
+    "Replace misleading HTTP-denial field names with typed in-process CompanyError denial observations. No HTTP/ASGI acceptance claim is made.",
+    "Preserve code/application versions, UTC execution ranges, exit codes, 9 persisted calls, zero new calls, first ENQUEUED and second confirmed PENDING observations.",
+    "Publish original evidence names and SHA256 only for traceability. Do not include original files, databases, raw/private directories, secret acknowledgement values, session data, detailed logs or runtime IDs.",
+    "The prior original index remains immutable; its safe_public_projection labels are superseded for publication by this explicit whitelist."
+  ],
+  "reexecution_performed": false,
+  "repository_modifications_performed": false
+}
