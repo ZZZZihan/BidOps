@@ -4,10 +4,12 @@ import { get } from './api';
 export type Identity = {
   mode: 'local' | 'enterprise'; authenticated: boolean; organization: string;
   user: {name: string; roles: string[]; subject_id?: string} | null; permissions: string[]; csrf_token: string | null;
+  demo?: {kind: 'local_workflow'; label: string; description: string; start_view?: string};
 };
 
 export function Login({ identity }: {identity: Identity}) {
   const failed = new URLSearchParams(window.location.search).has('login_error');
+  if (identity.demo?.kind === 'local_workflow') return <main className="login-panel"><p className="eyebrow">{identity.demo.label}</p><h1>进入本机演示</h1><p>{identity.demo.description}</p><p>使用本机固定示例身份体验完整流程，非公司 SSO。企业画像与证明材料为明确虚构的演示资料。</p>{failed && <p className="agent-alert" role="alert">本机演示登录未完成，请重试或检查本机服务。</p>}<a className="login-link" href="/api/auth/login">进入本机演示</a><p className="subtle">真实 AI 问答与资格核对是否开启，以登录后的运行状态为准；登录不会自动调用模型。</p></main>;
   return <main className="login-panel"><p className="eyebrow">{identity.organization} · 企业工作区</p><h1>用企业账户进入工作台</h1><p>查询采购公告、核对证据，并保存自己的分析记录。</p>
     {failed && <p className="agent-alert" role="alert">登录未完成。请确认账户拥有 BidOps 角色，或联系身份系统管理员。</p>}
     <a className="login-link" href="/api/auth/login">企业统一登录</a><p className="subtle">账户由企业身份系统管理，个人会话按账户隔离。请勿在提问中填写凭证。</p></main>;
