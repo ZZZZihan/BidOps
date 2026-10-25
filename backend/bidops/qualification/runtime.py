@@ -160,7 +160,7 @@ def assessment_agent(model, settings, **options):
         start: int = 0,
         end: int | None = None,
     ) -> dict:
-        """读取本任务已授权且固定版本的企业材料段落；范围以字符计，可继续分页。"""
+        """读取已授权的固定材料。首次仅传版本号，不猜测end；按返回total/end继续分页。"""
         deps = ctx.deps
         deps.recheck()
         ref = next(
@@ -181,7 +181,12 @@ def assessment_agent(model, settings, **options):
             or not 0 <= start < end <= len(normalized)
             or end - start > 4000
         ):
-            raise ModelRetry("材料范围无效；单页最多4000字符。")
+            raise ModelRetry(
+                f"材料范围无效：这份已授权材料共 {len(normalized)} 字符，"
+                "必须 0 <= start < end <= 总长度，单页最多4000字符。"
+                "首次读取请只传 material_version_id，省略 start/end，"
+                "由工具返回实际总长度与下一页信息；不要估算 end。"
+            )
         citation = deps.adapter.company.materials.citation(
             deps.context, ref.object_id, ref.version_id, start, end
         )

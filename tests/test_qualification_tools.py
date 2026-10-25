@@ -299,3 +299,104 @@ def test_notice_injection_remains_data_and_authorized_tool_returns_server_bound_
     assert assessment["company_evidence"][0]["quote"] == "SYNTHETIC"
     assert assessment["notice_evidence"][0]["quote"] == injection
     assert_safe_result(runtime, result, seen_messages)
+
+
+def test_material_range_hint_allows_default_full_read_and_insufficient_judgment(
+    tool_case, monkeypatch
+):
+    runtime, _, _, authorized, _, injection = tool_case
+    _, _, normalized = runtime.sources.company.materials.read(
+        ALICE, authorized["object_id"], authorized["version_id"]
+    )
+    assert 0 < len(normalized) < 400
+    seen_messages, citation_spans = [], []
+    original_citation = runtime.sources.company.materials.citation
+
+    def citation(context, object_id, version_id, start, end):
+        citation_spans.append((object_id, version_id, start, end))
+        return original_citation(context, object_id, version_id, start, end)
+
+    monkeypatch.setattr(runtime.sources.company.materials, "citation", citation)
+    assessment_calls = 0
+
+    def model(messages, info):
+        nonlocal assessment_calls
+        seen_messages.append(ModelMessagesTypeAdapter.dump_json(messages).decode())
+        prompt = prompt_data(messages)
+        if prompt["stage"] == "extraction":
+            return extraction_response(prompt, info, injection)
+        assessment_calls += 1
+        returned = [
+            part
+            for message in messages
+            for part in message.parts
+            if isinstance(part, ToolReturnPart) and part.tool_name == "read_company_material"
+        ]
+        if assessment_calls == 1:
+            arguments = {"material_version_id": authorized["version_id"], "start": 0, "end": 400}
+        elif assessment_calls == 2:
+            retries = [
+                str(part.content)
+                for message in messages
+                for part in message.parts
+                if isinstance(part, RetryPromptPart) and part.tool_name == "read_company_material"
+            ]
+            assert len(retries) == 1
+            assert f"共 {len(normalized)} 字符" in retries[0]
+            assert "省略 start/end" in retries[0]
+            assert "不要估算 end" in retries[0]
+            assert not returned
+            # The invalid request must fail before citation creation, never clamp.
+            assert citation_spans == []
+            arguments = {"material_version_id": authorized["version_id"]}
+        else:
+            assert assessment_calls == 3 and len(returned) == 1
+            value = returned[0].content
+            assert value["text"] == normalized
+            assert value["offset"] == 0
+            assert value["end"] == value["total"] == len(normalized)
+            assert value["has_more"] is False and value["truncated"] is False
+            assert value["citation"]["quote"] == normalized
+            assert value["citation"]["version"]["version_id"] == authorized["version_id"]
+            condition = prompt["condition"]
+            return ModelResponse(
+                parts=[
+                    ToolCallPart(
+                        info.output_tools[0].name,
+                        {
+                            "condition_id": condition["condition_id"],
+                            "judgments": [
+                                {
+                                    "node_id": condition["expression"]["node_id"],
+                                    "status": "information_insufficient",
+                                    "reason": "工程夹具材料不足以证明该条件。",
+                                    "company_evidence": [value["citation"]],
+                                    "missing_items": ["缺少真实资质证明"],
+                                }
+                            ],
+                        },
+                    )
+                ],
+                model_name="offline-tool-attacker",
+            )
+        return ModelResponse(
+            parts=[
+                ToolCallPart(
+                    "read_company_material", arguments, tool_call_id=f"range-{assessment_calls}"
+                )
+            ],
+            model_name="offline-tool-attacker",
+        )
+
+    result = run_tool_case(tool_case, model)
+    assert result["state"] == "completed"
+    assert assessment_calls == 3 and result["provenance"]["model_calls"] == 4
+    assert citation_spans
+    assert set(citation_spans) == {
+        (authorized["object_id"], authorized["version_id"], 0, len(normalized))
+    }
+    assessment = result["groups"][0]["assessment"]["assessments"][0]
+    assert assessment["status"] == "information_insufficient"
+    assert assessment["company_evidence"][0]["quote"] == normalized
+    assert assessment["missing_items"] == ["缺少真实资质证明"]
+    assert_safe_result(runtime, result, seen_messages)
