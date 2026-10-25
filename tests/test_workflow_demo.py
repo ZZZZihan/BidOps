@@ -370,6 +370,9 @@ def test_preview_settings_ignore_inherited_key_and_live_gate(settings, prepared,
     app = create_workflow_app(settings, origin=ORIGIN)
     with TestClient(app, base_url=ORIGIN, client=("127.0.0.1", 50000)):
         assert app.state.screening.settings.api_key is None
+        assert app.state.screening.settings.max_request_bytes == 40_000
+        assert app.state.screening.settings.max_output_tokens == 2_000
+        assert app.state.screening.settings.max_requests == 12
         assert app.state.screening.settings.live_calls_enabled is False
         assert app.state.screening.settings.ledger_verified is False
         assert app.state.screening.settings.ledger_restore_token is None
@@ -392,6 +395,9 @@ def test_live_settings_use_explicit_key_alias_and_shared_cap_without_calls(
         assert app.state.agent_service.settings.api_key is not None
         assert app.state.screening.settings.api_key is not None
         assert app.state.screening.settings.budget_cny == Decimal("1")
+        assert app.state.screening.settings.max_request_bytes == 40_000
+        assert app.state.screening.settings.max_output_tokens == 2_000
+        assert app.state.screening.settings.max_requests == 12
         assert app.state.agent_service.settings.max_cost_cny == 1
         assert app.state.screening.settings.ledger_restore_token is None
         assert app.state.agent_service.settings.budget_restore_token is None

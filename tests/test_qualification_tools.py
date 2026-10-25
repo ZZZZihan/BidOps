@@ -503,3 +503,72 @@ def test_compound_assessment_repairs_parent_judgment_using_exact_atom_hint(tool_
     assert assessment["status"] == "information_insufficient"
     assert assessment["company_evidence"][0]["version"]["version_id"] == authorized["version_id"]
     assert_safe_result(runtime, result, seen_messages)
+
+
+def test_satisfied_without_company_evidence_gets_specific_insufficient_correction(tool_case):
+    runtime, _, profile, authorized, foreign, _ = tool_case
+    clause = "特定资格要求：无"
+    notice = persist(
+        runtime.sources.notices,
+        BODY.replace("P-001", "P-NO-SPECIFIC-QUALIFICATION") + "\n" + clause,
+        path="unsupported-definite-judgment",
+    )
+    case = runtime, notice, profile, authorized, foreign, clause
+    seen_messages = []
+    assessment_calls = 0
+
+    def model(messages, info):
+        nonlocal assessment_calls
+        seen_messages.append(ModelMessagesTypeAdapter.dump_json(messages).decode())
+        prompt = prompt_data(messages)
+        if prompt["stage"] == "extraction":
+            # Deliberately script this source clause as a condition. This tests
+            # safe recovery from an unsupported judgment, not extraction quality.
+            return extraction_response(prompt, info, clause)
+        assessment_calls += 1
+        assert assessment_calls <= 2
+        if assessment_calls == 2:
+            retries = [
+                str(part.content)
+                for message in messages
+                for part in message.parts
+                if isinstance(part, RetryPromptPart)
+            ]
+            assert len(retries) == 1
+            assert "definite_judgment_requires_company_evidence" in retries[0]
+            assert "information_insufficient" in retries[0]
+            assert "列出需要核实的材料或适用性问题" in retries[0]
+            assert "人工确认该条是否构成实质资格条件" in retries[0]
+        return ModelResponse(
+            parts=[
+                ToolCallPart(
+                    info.output_tools[0].name,
+                    {
+                        "condition_id": prompt["condition"]["condition_id"],
+                        "judgments": [
+                            {
+                                "node_id": prompt["condition"]["expression"]["node_id"],
+                                "status": "satisfied"
+                                if assessment_calls == 1
+                                else "information_insufficient",
+                                "reason": "公告写无特定资格，尚需人工确认适用性。",
+                                "company_evidence": [],
+                                "missing_items": []
+                                if assessment_calls == 1
+                                else ["需人工确认该条是否构成企业资格条件"],
+                            }
+                        ],
+                    },
+                )
+            ],
+            model_name="offline-tool-attacker",
+        )
+
+    result = run_tool_case(case, model)
+    assert result["state"] == "completed"
+    assert assessment_calls == 2 and result["provenance"]["model_calls"] == 3
+    assessment = result["groups"][0]["assessment"]["assessments"][0]
+    assert assessment["status"] == "information_insufficient"
+    assert assessment["company_evidence"] == []
+    assert assessment["missing_items"] == ["需人工确认该条是否构成企业资格条件"]
+    assert_safe_result(runtime, result, seen_messages)

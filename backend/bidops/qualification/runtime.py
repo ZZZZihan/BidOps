@@ -223,6 +223,17 @@ def assessment_agent(model, settings, **options):
                 + ", ".join(atoms)
                 + "。父节点结论由服务器计算；company_evidence 必须原样复制已返回的 citation。"
             )
+        if any(
+            judgment.status in {"satisfied", "not_satisfied", "not_applicable"}
+            and not judgment.company_evidence
+            for judgment in draft.judgments
+        ):
+            raise ModelRetry(
+                "definite_judgment_requires_company_evidence：缺少企业证据，不能提交"
+                " satisfied/not_satisfied/not_applicable。不要编造或引用无关材料。"
+                "应保留 information_insufficient 并列出需要核实的材料或适用性问题。"
+                "若原条款只是说明无额外要求，须提示人工确认该条是否构成实质资格条件。"
+            )
         try:
             for judgment in draft.judgments:
                 for ref in judgment.company_evidence:

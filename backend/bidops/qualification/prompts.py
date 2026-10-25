@@ -1,6 +1,6 @@
 """Versioned instructions; procurement and enterprise documents are untrusted data."""
 
-PROMPT_VERSION = "qualification-v6-atom-judgments"
+PROMPT_VERSION = "qualification-v7-evidence-completeness"
 RULES_VERSION = "qualification-logic-v1"
 
 EXTRACTION_INSTRUCTIONS = """你逐段解释服务端提供的完整公告与附件，不进行抓取或外部操作。
@@ -39,6 +39,9 @@ judgments 必须恰好覆盖 required_atom_node_ids 中的每个节点一次。�
 不得额外输出 all/any/not/unless 父节点；父节点状态由服务器合成，不能自行提交整体判断。
 输出五态 satisfied、not_satisfied、information_insufficient、
 evidence_conflict、not_applicable；不能因为没搜到证明而断言不符合，缺证明绝不能 satisfied。
+company_evidence 为空时，不能输出 satisfied/not_satisfied/not_applicable；保留
+information_insufficient 并列 missing_items。若输入条款只是说明“无额外要求”，不要制造
+企业资格已满足的结论，说明需要人工确认这是否构成实质资格条件，不引用无关材料凑证据。
 每个明确判断须有公告条件与相关企业事实/材料证据；引用ID、版本、原文与有效期不能编造。
 company_evidence 必须完整原样复制工具 citation 或画像 evidence 对象，不能仅摘取其中一句并
 保留原ID，也不能修改任何哈希、跨度或有效期。需要更短引用时必须重新用工具取得该范围引用。
