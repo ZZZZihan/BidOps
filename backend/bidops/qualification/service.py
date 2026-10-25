@@ -327,6 +327,11 @@ class ScreeningService:
                         payload = {
                             "stage": "assessment",
                             "condition": condition.model_dump(mode="json"),
+                            "required_atom_node_ids": [
+                                node.node_id
+                                for node in condition.expression.nodes()
+                                if node.operator == "atom"
+                            ],
                             "target_package_id": package,
                             "profile": bundle.profile,
                             "material_versions": [

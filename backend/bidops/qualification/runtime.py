@@ -213,6 +213,16 @@ def assessment_agent(model, settings, **options):
         deps.recheck()
         if draft.condition_id != deps.condition.condition_id:
             raise ModelRetry("只能判断本次指定条件。")
+        atoms = [
+            node.node_id for node in deps.condition.expression.nodes() if node.operator == "atom"
+        ]
+        supplied = [judgment.node_id for judgment in draft.judgments]
+        if len(supplied) != len(atoms) or set(supplied) != set(atoms):
+            raise ModelRetry(
+                "judgments 必须恰好覆盖下列 atom 节点一次，不得提交 all/any/not/unless 父节点："
+                + ", ".join(atoms)
+                + "。父节点结论由服务器计算；company_evidence 必须原样复制已返回的 citation。"
+            )
         try:
             for judgment in draft.judgments:
                 for ref in judgment.company_evidence:
@@ -225,7 +235,10 @@ def assessment_agent(model, settings, **options):
             )
         except (ValueError, CompanyError):
             raise ModelRetry(
-                "判断必须覆盖所有原子条件，使用真实授权证据与固定有效期；缺证明不能判满足。"
+                "判断必须使用真实授权证据与固定有效期；company_evidence 中每个引用应完整原样复制"
+                "工具返回的 citation 或画像 evidence，不能保留旧ID却改写"
+                "quote、start/end、哈希或有效期。"
+                "没有对应依据时，scope_evidence_ids/validity_evidence_ids 留空；缺证明不能判满足。"
             ) from None
         deps.recheck()
         return draft

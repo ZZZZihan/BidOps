@@ -400,3 +400,106 @@ def test_material_range_hint_allows_default_full_read_and_insufficient_judgment(
     assert assessment["company_evidence"][0]["quote"] == normalized
     assert assessment["missing_items"] == ["缺少真实资质证明"]
     assert_safe_result(runtime, result, seen_messages)
+
+
+def test_compound_assessment_repairs_parent_judgment_using_exact_atom_hint(tool_case):
+    runtime, _, profile, authorized, foreign, _ = tool_case
+    clause = "UNIT-COMPOUND：应具有工程夹具资质甲，且提交工程夹具证书乙。"
+    child_quotes = ["应具有工程夹具资质甲", "提交工程夹具证书乙"]
+    notice = persist(
+        runtime.sources.notices,
+        BODY.replace("P-001", "P-COMPOUND") + "\n" + clause,
+        path="compound-judgment-repair",
+    )
+    case = runtime, notice, profile, authorized, foreign, clause
+    seen_messages, corrected_ids = [], []
+    assessment_calls = 0
+
+    def model(messages, info):
+        nonlocal assessment_calls
+        seen_messages.append(ModelMessagesTypeAdapter.dump_json(messages).decode())
+        prompt = prompt_data(messages)
+        if prompt["stage"] == "extraction":
+            response = extraction_response(prompt, info, clause)
+            draft = response.parts[0].args["segments"][0]["conditions"][0]
+            draft["expression"]["operator"] = "all"
+            draft["expression"]["operands"] = [
+                {
+                    "operator": "atom",
+                    "start": draft["start"] + clause.index(quote),
+                    "end": draft["start"] + clause.index(quote) + len(quote),
+                    "text": quote,
+                }
+                for quote in child_quotes
+            ]
+            return response
+        assessment_calls += 1
+        expression = prompt["condition"]["expression"]
+        atom_ids = [node["node_id"] for node in expression["operands"]]
+        assert prompt["required_atom_node_ids"] == atom_ids
+        assert expression["node_id"] not in atom_ids
+        if assessment_calls == 1:
+            return ModelResponse(
+                parts=[
+                    ToolCallPart(
+                        "read_company_material",
+                        {"material_version_id": authorized["version_id"]},
+                        tool_call_id="compound-material-read",
+                    )
+                ],
+                model_name="offline-tool-attacker",
+            )
+        citation = next(
+            part.content["citation"]
+            for message in messages
+            for part in message.parts
+            if isinstance(part, ToolReturnPart) and part.tool_name == "read_company_material"
+        )
+        if assessment_calls == 2:
+            # All references are untouched server output: only the extra parent
+            # judgment is invalid, so the retry must identify the exact atom set.
+            node_ids = [expression["node_id"], *atom_ids]
+        else:
+            assert assessment_calls == 3
+            retries = [
+                str(part.content)
+                for message in messages
+                for part in message.parts
+                if isinstance(part, RetryPromptPart)
+            ]
+            assert len(retries) == 1
+            assert "judgments 必须恰好覆盖下列 atom 节点一次" in retries[0]
+            assert all(node_id in retries[0] for node_id in atom_ids)
+            assert expression["node_id"] not in retries[0]
+            corrected_ids.extend(atom_ids)
+            node_ids = atom_ids
+        return ModelResponse(
+            parts=[
+                ToolCallPart(
+                    info.output_tools[0].name,
+                    {
+                        "condition_id": prompt["condition"]["condition_id"],
+                        "judgments": [
+                            {
+                                "node_id": node_id,
+                                "status": "information_insufficient",
+                                "reason": "工程夹具材料不足以证明该条件。",
+                                "company_evidence": [citation],
+                                "missing_items": ["缺少真实资质证明"],
+                            }
+                            for node_id in node_ids
+                        ],
+                    },
+                )
+            ],
+            model_name="offline-tool-attacker",
+        )
+
+    result = run_tool_case(case, model)
+    assert result["state"] == "completed"
+    assert assessment_calls == 3 and result["provenance"]["model_calls"] == 4
+    assert len(corrected_ids) == 2
+    assessment = result["groups"][0]["assessment"]["assessments"][0]
+    assert assessment["status"] == "information_insufficient"
+    assert assessment["company_evidence"][0]["version"]["version_id"] == authorized["version_id"]
+    assert_safe_result(runtime, result, seen_messages)
