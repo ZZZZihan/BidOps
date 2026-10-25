@@ -19,6 +19,16 @@ are still required before an enterprise trial. The local Demo below remains avai
 
 ## Run the Agent Demo
 
+已有独立 Demo 数据目录时，优先使用 [本机真实 AI Demo 指南](docs/LOCAL-LIVE-DEMO.md)：
+
+```bash
+.venv/bin/python scripts/live_demo.py --data-dir /absolute/path/to/existing-bidops-demo
+```
+
+将路径替换为已经导入公告、保留费用账本的同一个目录。默认仅预览；真实问答需明确授权后使用
+`--live --max-cost-cny 1`，其中 1 元是该目录账本的累计估算上限，重启不会增加额度。
+启动器不负责创建、导入或重置数据库。以下是新 checkout 的依赖与数据准备步骤。
+
 Python 3.12+, uv and Node 22.12+ are required. Run these commands from the repository root:
 
 ```bash
@@ -32,8 +42,8 @@ uv run bidops parse
 ```
 
 Set `DEEPSEEK_API_KEY` in your environment, or in ignored `private/deepseek.env` (mode 0600).
-The current workspace already has the user-provided credential configured; it is never
-included in GitHub, browser JavaScript or reports. A new checkout needs its own local setup.
+Credential availability depends on the current machine and environment; this README does
+not confirm that a key is configured. Keep credentials out of GitHub, browser JavaScript and reports.
 An optional terminal prompt keeps the key out of shell history:
 
 ```bash
