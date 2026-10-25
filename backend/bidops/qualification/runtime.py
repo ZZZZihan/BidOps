@@ -115,8 +115,31 @@ def extraction_agent(model, settings, **options):
                 max_segment_chars=settings.max_segment_chars,
                 package_ids=deps.bundle.manifest.target_package_ids,
             )
-        except (ValueError, CompanyError):
+        except CompanyError:
             raise ModelRetry("条件跨度、原文、采购包或引用结构未通过服务端核验。") from None
+        except ValueError as exc:
+            # Only publish fixed diagnostics, never arbitrary exception contents.
+            hints = {
+                "expression_text_anchor_mismatch": (
+                    "expression_text_anchor_mismatch：某个 expression.text 与其跨度原文不一致。"
+                    "请把根节点和全部 operands 子节点的 text 分别交给 locate_notice_quotes，"
+                    "逐一使用返回的位置，不能从父节点位置自行计数。"
+                ),
+                "expression_span_outside_condition": (
+                    "expression_span_outside_condition：子节点必须包含于父节点，"
+                    "根节点必须包含于条件跨度；请重新定位相关原文。"
+                ),
+                "condition_span_outside_segment": (
+                    "condition_span_outside_segment：条件只能引用本次给定段落内的原文。"
+                ),
+                "draft_package_not_in_inputs": (
+                    "draft_package_not_in_inputs：采购包只能使用本次输入的标识；"
+                    "未知范围请保留 unknown。"
+                ),
+            }
+            raise ModelRetry(
+                hints.get(str(exc), "条件跨度、原文、采购包或引用结构未通过服务端核验。")
+            ) from None
         return draft
 
     return agent

@@ -1,6 +1,6 @@
 """Versioned instructions; procurement and enterprise documents are untrusted data."""
 
-PROMPT_VERSION = "qualification-v2-quote-locator"
+PROMPT_VERSION = "qualification-v3-draft-validity"
 RULES_VERSION = "qualification-logic-v1"
 
 EXTRACTION_INSTRUCTIONS = """你逐段解释服务端提供的完整公告与附件，不进行抓取或外部操作。
@@ -10,12 +10,18 @@ EXTRACTION_INSTRUCTIONS = """你逐段解释服务端提供的完整公告与附
 采购包适用范围、硬性要求和有效期。未知范围/时间必须明确标 unknown，不能猜测。
 先用 locate_notice_quotes 批量定位拟引用的逐字原文，使用工具返回的绝对字符位置，不自行估算。
 定位只覆盖本次指定段落；无匹配须检查原文，不得改写或编造引用。多处匹配时按上下文选择正确
-位置；工具的匹配次数和截断标记不代表条件已完整抽取。条件根节点和子节点均须有准确跨度。
+位置；工具的匹配次数和截断标记不代表条件已完整抽取。条件根节点和每一级 operands 子节点
+的 text 均须分别交给工具定位；不能只定位父句后自行计数字符来推算子句位置。
 start/end 均为文档规范化文本的绝对字符偏移，半开区间；expression.text 必须等于对应原文去掉
 首尾空白后的文本。节点跨度在本条件跨度内，条件跨度在其 segment 内；跨段逻辑不明则 unparsed。
 条件和引用的稳定 ID、原文、版本及哈希由服务端签发，不得自行签发人审或调整版本。
 更正替代关系、附件缺失或无法可靠解释的条款必须明确保留未解析状态，不能默认为无要求。
-validity 中模型暂填的 evidence_ids 不是可信引用；服务端从验证后的 validity_spans 重新绑定。
+validity.kind=at 时必须给出有时区的 required_at 和 basis；throughout 还须 required_until。
+只有原文明确规定资格条件的有效时点或期间时才填写时间，并用工具定位实际日期依据到
+validity_spans；不能把合同履约期限当成资质有效期，也不能默认全部资格条件均在投标截止时有效。
+无法确定有效期时用 {"kind":"unknown","reason":"具体未知原因"}，不填 basis 或日期。
+evidence_ids 可留空，服务端从验证后的 validity_spans 重新签发引用，不需要编造证据编号。
+“特定资格要求：无”本身不新增实质资格条件；采购文件缺失、可能遗漏的要求仍须保留未解析限制。
 """
 
 ASSESSMENT_INSTRUCTIONS = """你仅对固定公告/采购包与经授权的企业输入提出未经人工复核的核对草案。

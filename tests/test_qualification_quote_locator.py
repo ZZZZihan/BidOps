@@ -10,10 +10,13 @@ from types import SimpleNamespace
 import pytest
 from bidops.company.authorization import CompanyError
 from bidops.qualification.config import ScreeningSettings
+from bidops.qualification.contracts import ConditionDraft, DraftValidityRequirement, ExtractionDraft
 from bidops.qualification.requirements import bind_inventory, segment_documents
 from bidops.qualification.runtime import Dependencies, extraction_agent
+from bidops.screening.schemas import ValidityRequirement
+from pydantic import ValidationError
 from pydantic_ai import ModelRetry
-from pydantic_ai.messages import ModelResponse, ToolCallPart, ToolReturnPart
+from pydantic_ai.messages import ModelResponse, RetryPromptPart, ToolCallPart, ToolReturnPart
 from pydantic_ai.models.function import FunctionModel
 from test_company_access import ALICE
 from test_notice_versions import BODY, persist
@@ -243,3 +246,225 @@ def test_actual_agent_tool_round_trip_binds_quotes_and_rejects_forgery(locator, 
             ),
             max_segment_chars=100,
         )
+
+
+AT = "2026-11-06T08:30:00+08:00"
+UNTIL = "2026-11-07T08:30:00+08:00"
+
+
+@pytest.mark.parametrize(
+    "payload",
+    [
+        {"kind": "at", "basis": "explicit", "required_at": AT},
+        {"kind": "throughout", "basis": "explicit", "required_at": AT, "required_until": UNTIL},
+        {"kind": "unknown", "reason": "工程夹具缺少有效期依据"},
+        {"kind": "not_required"},
+    ],
+)
+def test_draft_validity_accepts_unbound_evidence_without_inventing_ids(payload):
+    draft = DraftValidityRequirement.model_validate(payload)
+    assert draft.evidence_ids == []
+    if draft.kind in {"at", "throughout"}:
+        # The final server-bound type deliberately retains the stronger contract.
+        with pytest.raises(ValidationError, match="time_basis_and_evidence"):
+            ValidityRequirement.model_validate(payload)
+
+
+@pytest.mark.parametrize(
+    "payload,error",
+    [
+        ({"kind": "at", "basis": "explicit"}, "time_and_basis"),
+        ({"kind": "at", "required_at": AT}, "time_and_basis"),
+        ({"kind": "at", "basis": "explicit", "required_at": "2026-11-06T08:30:00"}, "timezone"),
+        (
+            {"kind": "at", "basis": "explicit", "required_at": AT, "required_until": UNTIL},
+            "end_only",
+        ),
+        ({"kind": "throughout", "basis": "explicit", "required_at": AT}, "end_only"),
+        (
+            {"kind": "throughout", "basis": "explicit", "required_at": UNTIL, "required_until": AT},
+            "inverted",
+        ),
+        ({"kind": "unknown", "reason": "未知", "required_at": AT}, "cannot_claim_time"),
+        ({"kind": "unknown", "reason": "未知", "basis": "as_of"}, "cannot_claim_time"),
+        ({"kind": "not_required", "required_at": AT}, "cannot_claim_time"),
+        ({"kind": "unknown"}, "requires_reason"),
+    ],
+)
+def test_draft_keeps_time_basis_timezone_period_and_unknown_constraints(payload, error):
+    with pytest.raises(ValidationError, match=error):
+        DraftValidityRequirement.model_validate(payload)
+
+
+def simple_condition(locator, validity):
+    match = locator.call([UNICODE_QUOTE])["results"][0]["matches"][0]
+    return ConditionDraft.model_validate(
+        {
+            **match,
+            "hard_requirement": True,
+            "expression": {**match, "operator": "atom", "text": UNICODE_QUOTE},
+            "scope_kind": "all",
+            "validity": validity,
+        }
+    )
+
+
+@pytest.mark.parametrize("temporary_ids", [[], ["UNIT_MODEL_MADE_UP_ID"]])
+def test_binder_replaces_optional_temporary_validity_ids_with_verified_source(
+    locator, temporary_ids
+):
+    condition = simple_condition(
+        locator,
+        {"kind": "at", "basis": "explicit", "required_at": AT, "evidence_ids": temporary_ids},
+    )
+    draft = ExtractionDraft(
+        document_id=locator.deps.document.document_id,
+        segments=[
+            {
+                "segment_id": locator.deps.segment.segment_id,
+                "disposition": "requirement",
+                "conditions": [condition],
+            }
+        ],
+    )
+    inventory = bind_inventory(
+        [locator.deps.document],
+        [draft],
+        lambda doc, start, end: locator.deps.adapter.make_evidence(
+            locator.deps.bundle, doc, start, end
+        ),
+        max_segment_chars=100,
+    )
+    bound = inventory.conditions[0]
+    assert type(bound.validity) is ValidityRequirement
+    assert bound.validity.evidence_ids
+    assert "UNIT_MODEL_MADE_UP_ID" not in bound.validity.evidence_ids
+    evidence = {item.evidence_id: item for item in bound.notice_evidence}
+    for evidence_id in bound.validity.evidence_ids:
+        actual = evidence[evidence_id]
+        assert actual.quote == UNICODE_QUOTE
+        assert locator.deps.adapter.resolve_evidence(ALICE, locator.deps.bundle, actual) == actual
+
+
+def test_condition_draft_accepts_existing_bound_validity_instances(locator):
+    existing = ValidityRequirement(
+        kind="at", basis="explicit", required_at=AT, evidence_ids=["UNIT_OLD_INPUT_ID"]
+    )
+    condition = simple_condition(locator, existing)
+    assert type(condition.validity) is DraftValidityRequirement
+    assert condition.validity.required_at == existing.required_at
+    assert condition.validity.evidence_ids == existing.evidence_ids
+
+
+def test_compound_child_offset_error_gets_diagnostic_then_tool_correction(locator):
+    document = locator.deps.document
+    child_start = document.text.index(UNICODE_QUOTE)
+    second = document.text.index("重复条款")
+    parent_text = document.text[child_start : second + 4]
+    messages_seen = []
+    stage = 0
+
+    def output(info, parent, children):
+        return ModelResponse(
+            parts=[
+                ToolCallPart(
+                    info.output_tools[0].name,
+                    {
+                        "document_id": document.document_id,
+                        "segments": [
+                            {
+                                "segment_id": locator.deps.segment.segment_id,
+                                "disposition": "requirement",
+                                "conditions": [
+                                    {
+                                        **parent,
+                                        "hard_requirement": True,
+                                        "scope_kind": "all",
+                                        "validity": {
+                                            "kind": "unknown",
+                                            "reason": "工程夹具未声明有效期",
+                                        },
+                                        "expression": {
+                                            **parent,
+                                            "operator": "all",
+                                            "text": parent_text,
+                                            "operands": children,
+                                        },
+                                    }
+                                ],
+                            }
+                        ],
+                    },
+                )
+            ],
+            model_name="offline-compound-repair",
+        )
+
+    def respond(messages, info):
+        nonlocal stage
+        stage += 1
+        if stage == 1:
+            # An otherwise valid composite proposal has one child one character
+            # too short, reproducing the observed nested off-by-one failure.
+            return output(
+                info,
+                {"start": child_start, "end": second + 4},
+                [
+                    {
+                        "start": child_start,
+                        "end": child_start + len(UNICODE_QUOTE) - 1,
+                        "operator": "atom",
+                        "text": UNICODE_QUOTE,
+                    },
+                    {"start": second, "end": second + 4, "operator": "atom", "text": "重复条款"},
+                ],
+            )
+        if stage == 2:
+            retry = [
+                part.content
+                for message in messages
+                for part in message.parts
+                if isinstance(part, RetryPromptPart)
+            ]
+            messages_seen.extend(retry)
+            assert any(
+                isinstance(hint, str)
+                and "expression_text_anchor_mismatch" in hint
+                and "operands" in hint
+                and "locate_notice_quotes" in hint
+                for hint in retry
+            )
+            return ModelResponse(
+                parts=[
+                    ToolCallPart(
+                        "locate_notice_quotes", {"quotes": [parent_text, UNICODE_QUOTE, "重复条款"]}
+                    )
+                ],
+                model_name="offline-compound-repair",
+            )
+        assert stage == 3
+        located = next(
+            part.content
+            for message in reversed(messages)
+            for part in message.parts
+            if isinstance(part, ToolReturnPart) and part.tool_name == "locate_notice_quotes"
+        )["results"]
+        parent = located[0]["matches"][0]
+        repaired = []
+        for query in located[1:]:
+            within_parent = [
+                match
+                for match in query["matches"]
+                if parent["start"] <= match["start"] < match["end"] <= parent["end"]
+            ]
+            assert len(within_parent) == 1
+            repaired.append({**within_parent[0], "operator": "atom", "text": query["quote"]})
+        return output(info, parent, repaired)
+
+    agent = extraction_agent(FunctionModel(respond), locator.settings)
+    result = asyncio.run(agent.run("UNIT 复合父子条件纠错闭环", deps=locator.deps))
+    assert result.usage.requests == stage == 3
+    assert messages_seen
+    children = result.output.segments[0].conditions[0].expression.operands
+    assert len(children) == 2
+    assert all(document.text[child.start : child.end] == child.text for child in children)
