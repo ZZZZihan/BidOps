@@ -59,6 +59,46 @@ def _agent(model, output_type, instructions, settings, **options):
 def extraction_agent(model, settings, **options):
     agent = _agent(model, ExtractionDraft, EXTRACTION_INSTRUCTIONS, settings, **options)
 
+    @agent.tool
+    def locate_notice_quotes(ctx: RunContext[Dependencies], quotes: list[str]) -> dict:
+        """精确定位本次公告段落中的原文，批量返回绝对字符位置；重复匹配须结合上下文选择。"""
+        deps = ctx.deps
+        deps.recheck()
+        if (
+            not 1 <= len(quotes) <= 32
+            or any(not isinstance(quote, str) or not quote.strip() for quote in quotes)
+            or sum(len(quote) for quote in quotes) > 4000
+        ):
+            raise ModelRetry("每次提供1至32条非空原文，总长度不超过4000字符。")
+        segment = deps.segment
+        results = []
+        for quote in quotes:
+            matches, count, offset = [], 0, 0
+            while (position := segment.text.find(quote, offset)) != -1:
+                count += 1
+                if len(matches) < 20:
+                    matches.append(
+                        {
+                            "start": segment.start + position,
+                            "end": segment.start + position + len(quote),
+                        }
+                    )
+                offset = position + 1
+            results.append(
+                {
+                    "quote": quote,
+                    "matches": matches,
+                    "match_count": count,
+                    "truncated": count > len(matches),
+                }
+            )
+        deps.recheck()
+        return {
+            "document_id": deps.document.document_id,
+            "segment_id": segment.segment_id,
+            "results": results,
+        }
+
     @agent.output_validator
     def validate(ctx: RunContext[Dependencies], draft: ExtractionDraft):
         deps = ctx.deps

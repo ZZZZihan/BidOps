@@ -218,7 +218,7 @@ def test_injected_automatic_approval_tool_does_not_exist_and_retries_are_bounded
         )
 
     result = run_tool_case(tool_case, attacker)
-    assert offered_tools == {"read_company_material"}
+    assert offered_tools == {"locate_notice_quotes", "read_company_material"}
     assert "approve_project" in retry_names
     assert assessment_calls == 2 and result["provenance"]["model_calls"] == 3
     assert result["state"] == "failed"

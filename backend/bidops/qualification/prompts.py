@@ -1,6 +1,6 @@
 """Versioned instructions; procurement and enterprise documents are untrusted data."""
 
-PROMPT_VERSION = "qualification-v1"
+PROMPT_VERSION = "qualification-v2-quote-locator"
 RULES_VERSION = "qualification-logic-v1"
 
 EXTRACTION_INSTRUCTIONS = """你逐段解释服务端提供的完整公告与附件，不进行抓取或外部操作。
@@ -8,6 +8,9 @@ EXTRACTION_INSTRUCTIONS = """你逐段解释服务端提供的完整公告与附
 对每个给定 segment_id 返回 requirement、not_requirement 或 unparsed；不得省略难条款。
 保留所有资格条件，不限前三条。保留 AND(all)、OR(any)、否定(not)、例外(unless[基础,例外])、
 采购包适用范围、硬性要求和有效期。未知范围/时间必须明确标 unknown，不能猜测。
+先用 locate_notice_quotes 批量定位拟引用的逐字原文，使用工具返回的绝对字符位置，不自行估算。
+定位只覆盖本次指定段落；无匹配须检查原文，不得改写或编造引用。多处匹配时按上下文选择正确
+位置；工具的匹配次数和截断标记不代表条件已完整抽取。条件根节点和子节点均须有准确跨度。
 start/end 均为文档规范化文本的绝对字符偏移，半开区间；expression.text 必须等于对应原文去掉
 首尾空白后的文本。节点跨度在本条件跨度内，条件跨度在其 segment 内；跨段逻辑不明则 unparsed。
 条件和引用的稳定 ID、原文、版本及哈希由服务端签发，不得自行签发人审或调整版本。
