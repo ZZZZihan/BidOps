@@ -289,7 +289,11 @@ class ScreeningService:
                     result = await extract.run(
                         canonical_json(payload),
                         deps=deps,
-                        usage_limits=UsageLimits(request_limit=3, tool_calls_limit=6),
+                        # Leave room for exact-quote tools and bounded output
+                        # corrections; the shared guard still caps the whole run.
+                        usage_limits=UsageLimits(
+                            request_limit=min(6, self.settings.max_requests), tool_calls_limit=6
+                        ),
                     )
                     previous = drafts.get(document.document_id)
                     drafts[document.document_id] = ExtractionDraft(

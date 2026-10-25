@@ -35,13 +35,13 @@ class Dependencies:
         self.adapter.recheck(self.context, self.bundle)
 
 
-def _agent(model, output_type, instructions, settings, **options):
+def _agent(model, output_type, instructions, settings, *, output_retries=1, **options):
     return Agent(
         model,
         deps_type=Dependencies,
         output_type=ToolOutput(output_type),
         instructions=instructions,
-        retries=1,
+        retries={"tools": 1, "output": output_retries},
         tool_timeout=5,
         **options,
         model_settings=OpenAIChatModelSettings(
@@ -57,7 +57,9 @@ def _agent(model, output_type, instructions, settings, **options):
 
 
 def extraction_agent(model, settings, **options):
-    agent = _agent(model, ExtractionDraft, EXTRACTION_INSTRUCTIONS, settings, **options)
+    agent = _agent(
+        model, ExtractionDraft, EXTRACTION_INSTRUCTIONS, settings, output_retries=3, **options
+    )
 
     @agent.tool
     def locate_notice_quotes(ctx: RunContext[Dependencies], quotes: list[str]) -> dict:
@@ -106,7 +108,10 @@ def extraction_agent(model, settings, **options):
         if draft.document_id != deps.document.document_id or [
             s.segment_id for s in draft.segments
         ] != [deps.segment.segment_id]:
-            raise ModelRetry("必须完整且只覆盖服务端本次指定的文档段落。")
+            raise ModelRetry(
+                "必须完整且只覆盖服务端本次指定的文档段落：segments 只能包含当前 segment_id "
+                "的一条记录，不能为同一段分别重复提交 requirement/not_requirement/unparsed。"
+            )
         try:
             bind_inventory(
                 [deps.document],

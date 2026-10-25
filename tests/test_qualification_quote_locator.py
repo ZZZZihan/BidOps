@@ -16,8 +16,10 @@ from bidops.qualification.runtime import Dependencies, extraction_agent
 from bidops.screening.schemas import ValidityRequirement
 from pydantic import ValidationError
 from pydantic_ai import ModelRetry
+from pydantic_ai.exceptions import UnexpectedModelBehavior
 from pydantic_ai.messages import ModelResponse, RetryPromptPart, ToolCallPart, ToolReturnPart
 from pydantic_ai.models.function import FunctionModel
+from pydantic_ai.usage import UsageLimits
 from test_company_access import ALICE
 from test_notice_versions import BODY, persist
 from test_qualification_sources import domain as domain
@@ -356,7 +358,7 @@ def test_condition_draft_accepts_existing_bound_validity_instances(locator):
     assert condition.validity.evidence_ids == existing.evidence_ids
 
 
-def test_compound_child_offset_error_gets_diagnostic_then_tool_correction(locator):
+def test_duplicate_segment_then_child_offset_gets_diagnostic_and_tool_correction(locator):
     document = locator.deps.document
     child_start = document.text.index(UNICODE_QUOTE)
     second = document.text.index("重复条款")
@@ -403,10 +405,24 @@ def test_compound_child_offset_error_gets_diagnostic_then_tool_correction(locato
     def respond(messages, info):
         nonlocal stage
         stage += 1
-        if stage == 1:
+        if stage in {1, 2}:
+            if stage == 2:
+                retry = [
+                    part.content
+                    for message in messages
+                    for part in message.parts
+                    if isinstance(part, RetryPromptPart)
+                ]
+                messages_seen.extend(retry)
+                assert any(
+                    isinstance(hint, str)
+                    and "本次" in hint
+                    and ("段落" in hint or "segment" in hint)
+                    for hint in retry
+                )
             # An otherwise valid composite proposal has one child one character
             # too short, reproducing the observed nested off-by-one failure.
-            return output(
+            response = output(
                 info,
                 {"start": child_start, "end": second + 4},
                 [
@@ -419,7 +435,22 @@ def test_compound_child_offset_error_gets_diagnostic_then_tool_correction(locato
                     {"start": second, "end": second + 4, "operator": "atom", "text": "重复条款"},
                 ],
             )
-        if stage == 2:
+            if stage == 1:
+                response.parts[0].args["segments"].extend(
+                    [
+                        {
+                            "segment_id": locator.deps.segment.segment_id,
+                            "disposition": "not_requirement",
+                        },
+                        {
+                            "segment_id": locator.deps.segment.segment_id,
+                            "disposition": "unparsed",
+                            "reason": "UNIT deliberate duplicate segment",
+                        },
+                    ]
+                )
+            return response
+        if stage == 3:
             retry = [
                 part.content
                 for message in messages
@@ -442,7 +473,7 @@ def test_compound_child_offset_error_gets_diagnostic_then_tool_correction(locato
                 ],
                 model_name="offline-compound-repair",
             )
-        assert stage == 3
+        assert stage == 4
         located = next(
             part.content
             for message in reversed(messages)
@@ -462,9 +493,95 @@ def test_compound_child_offset_error_gets_diagnostic_then_tool_correction(locato
         return output(info, parent, repaired)
 
     agent = extraction_agent(FunctionModel(respond), locator.settings)
-    result = asyncio.run(agent.run("UNIT 复合父子条件纠错闭环", deps=locator.deps))
-    assert result.usage.requests == stage == 3
+    result = asyncio.run(
+        agent.run(
+            "UNIT 重复段落与复合父子条件纠错闭环",
+            deps=locator.deps,
+            usage_limits=UsageLimits(request_limit=6, tool_calls_limit=6),
+        )
+    )
+    assert result.usage.requests == stage == 4
     assert messages_seen
     children = result.output.segments[0].conditions[0].expression.operands
     assert len(children) == 2
     assert all(document.text[child.start : child.end] == child.text for child in children)
+
+
+@pytest.mark.parametrize("failure", ["duplicate_segment", "offset"])
+def test_extraction_still_rejects_after_three_output_corrections(locator, failure):
+    condition = simple_condition(locator, {"kind": "unknown", "reason": "UNIT unknown period"})
+    if failure == "offset":
+        condition.expression.end -= 1
+    segments = [
+        {
+            "segment_id": locator.deps.segment.segment_id,
+            "disposition": "requirement",
+            "conditions": [condition.model_dump(mode="json")],
+        }
+    ]
+    if failure == "duplicate_segment":
+        segments.append(
+            {
+                "segment_id": locator.deps.segment.segment_id,
+                "disposition": "not_requirement",
+            }
+        )
+    calls = 0
+    retries = []
+
+    def respond(messages, info):
+        nonlocal calls
+        calls += 1
+        retries.extend(
+            part.content
+            for message in messages
+            for part in message.parts
+            if isinstance(part, RetryPromptPart)
+        )
+        return ModelResponse(
+            parts=[
+                ToolCallPart(
+                    info.output_tools[0].name,
+                    {
+                        "document_id": locator.deps.document.document_id,
+                        "segments": segments,
+                    },
+                )
+            ],
+            model_name="offline-never-repairs",
+        )
+
+    agent = extraction_agent(FunctionModel(respond), locator.settings)
+    with pytest.raises(UnexpectedModelBehavior, match="maximum output retries.*3"):
+        asyncio.run(
+            agent.run(
+                "UNIT repeated invalid extraction",
+                deps=locator.deps,
+                usage_limits=UsageLimits(request_limit=6, tool_calls_limit=6),
+            )
+        )
+    assert calls == 4
+    assert retries
+
+
+def test_locator_tool_retries_remain_one_when_output_corrections_are_three(locator):
+    calls = 0
+
+    def respond(messages, info):
+        nonlocal calls
+        calls += 1
+        return ModelResponse(
+            parts=[ToolCallPart("locate_notice_quotes", {"quotes": []})],
+            model_name="offline-invalid-tool-batch",
+        )
+
+    agent = extraction_agent(FunctionModel(respond), locator.settings)
+    with pytest.raises(UnexpectedModelBehavior, match="retries.*1"):
+        asyncio.run(
+            agent.run(
+                "UNIT tool retries remain bounded",
+                deps=locator.deps,
+                usage_limits=UsageLimits(request_limit=6, tool_calls_limit=6),
+            )
+        )
+    assert calls == 2
