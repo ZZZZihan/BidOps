@@ -96,6 +96,14 @@ def service(sources):
         path="qualification-only",
         at=AT + timedelta(minutes=1),
     )
+    # Process recovery uses the real clock; its synthetic input must be fresh
+    # before the worker fixes a manifest, without changing historical versions.
+    persist(
+        adapter.notices,
+        BODY.replace("P-001", "P-QUAL") + "\nUNIT-1 UNIT-2 UNIT-3 UNIT-4",
+        path="qualification-only",
+        at=datetime.now(UTC),
+    )
     runtime = ScreeningService(
         adapter.company,
         adapter.notices,
