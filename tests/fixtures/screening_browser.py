@@ -10,6 +10,7 @@ import os
 import re
 import sys
 from contextlib import asynccontextmanager
+from datetime import UTC, datetime
 from pathlib import Path
 from urllib.parse import parse_qs
 
@@ -222,9 +223,11 @@ async def lifespan(app):
             "UNIT_A 要求证明 A。\nUNIT_B 要求证明 B。\n"
             "UNIT_C 要求证明 C。\nUNIT_D 要求解决证明冲突。\n"
         )
-        notice = persist(app.state.store.notice_data, body)
+        observed_at = datetime.now(UTC)
+        notice = persist(app.state.store.notice_data, body, at=observed_at)
         record = app.state.store.notice_data.record_attachment(
-            attachment(notice), "UNIT_E 条款：要求 E，已列明豁免 UNIT_EXCEPTION。".encode()
+            attachment(notice, observed_at=observed_at),
+            "UNIT_E 条款：要求 E，已列明豁免 UNIT_EXCEPTION。".encode(),
         )
         persist(
             app.state.store.notice_data,
@@ -232,6 +235,7 @@ async def lifespan(app):
                 "UNIT-SCREENING", "UNIT-OTHER"
             ),
             path="other",
+            at=observed_at,
         )
         persist(
             app.state.store.notice_data,
@@ -239,6 +243,7 @@ async def lifespan(app):
             .replace("UNIT-SCREENING", "UNIT-UNKNOWN")
             .replace("预算金额：100元\n", ""),
             path="unknown",
+            at=observed_at,
         )
         (data / "seed.json").write_text(
             json.dumps(

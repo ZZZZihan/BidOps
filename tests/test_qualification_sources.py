@@ -23,6 +23,9 @@ def sources(domain, settings):
     raw.mkdir(parents=True, exist_ok=True)
     notices = NoticeRepository(domain.db, raw)
     notice = persist(notices)
+    # Keep the historical AT version for as-of tests, but observe the same
+    # synthetic bytes now before live review/job manifests are fixed.
+    persist(notices, at=datetime.now(UTC))
     doc, profile, fact = supported_profile(domain)
     adapter = SourceAdapter(domain, notices)
     bundle = adapter.resolve(ALICE, VersionRef(**profile), notice.project_id, datetime.now(UTC))

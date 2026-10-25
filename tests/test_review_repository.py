@@ -604,6 +604,49 @@ def test_source_update_preserves_history_but_never_presents_old_approval_as_curr
         )
 
 
+def test_source_freshness_boundary_preserves_history_and_rejects_new_decisions(
+    reviews, monkeypatch
+):
+    repo, alice, bob, *_ = reviews
+    case = create_case(reviews)
+    manifest = reviews[5]["manifest"]
+    observed_at = datetime.fromisoformat(
+        manifest["notice_versions"][0]["last_observed_at"]
+    ).timestamp()
+    # At exactly 24 hours the source is current and an actual decision succeeds.
+    monkeypatch.setattr(repo.sources.company.auth, "clock", lambda: observed_at + 86400)
+    decided = decide(reviews, case)
+    assert decided["source_state"] == {"current": True, "stale_reasons": []}
+    assert decided["items"][0]["effective"]
+
+    monkeypatch.setattr(repo.sources.company.auth, "clock", lambda: observed_at + 86401)
+    stale = repo.get(bob, case["case_id"])
+    assert stale["source_state"] == {
+        "current": False,
+        "stale_reasons": ["public_sources_stale"],
+    }
+    assert stale["events"] == decided["events"]
+    assert not stale["items"][0]["effective"]
+    assert "decide" not in stale["allowed_actions"]
+    assert not repo.export(alice, case["case_id"])["current"]
+    with pytest.raises(CompanyError, match="review_sources_changed") as caught:
+        decide(
+            reviews,
+            stale,
+            command={
+                "decision": "reject",
+                "expected_result_revision": "result-v1",
+                "reason": "Expired public sources require a fresh run",
+                "idempotency_key": "after-expiry",
+            },
+            supersedes_event_id=decided["events"][0]["event_id"],
+        )
+    assert caught.value.status_code == 409
+    unchanged = repo.get(bob, case["case_id"])
+    assert unchanged["events"] == decided["events"]
+    assert unchanged["review_version"] == decided["review_version"]
+
+
 def test_restore_epoch_isolation_needs_explicit_assignment_and_new_decisions(reviews):
     repo, alice, bob, *_ = reviews
     first = create_case(reviews)

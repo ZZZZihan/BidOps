@@ -1,0 +1,80 @@
+{
+  "review_scope": "Independent targeted checks of the read-only preflight checker only; synthetic negative fixtures, not original historical assets.",
+  "script_sha256": "475ebf102e6406b1dd1b67c3665f8d60b430cda0bed8ffd25f5291072a6234f7",
+  "script_unchanged": true,
+  "expected_reference_sha256": "f722bf3269ce2c6b98a56a2f04a4ad87a2b7c1b07ff15f2f348c2ef75064d5ad",
+  "python_version": "3.12.14",
+  "case_count": 7,
+  "passed_count": 7,
+  "results": [
+    {
+      "case": "empty_expected_rejected",
+      "exit_code": 1,
+      "preflight_status": "FAIL",
+      "json_output": true,
+      "stderr_empty": true,
+      "input_db_unchanged": true,
+      "passed": true
+    },
+    {
+      "case": "metadata_array_structured_failure",
+      "exit_code": 1,
+      "preflight_status": "FAIL",
+      "json_output": true,
+      "stderr_empty": true,
+      "input_db_unchanged": true,
+      "passed": true
+    },
+    {
+      "case": "private_state_and_table_not_echoed",
+      "exit_code": 0,
+      "preflight_status": "CHECKS_OK_NOT_ACCEPTANCE",
+      "json_output": true,
+      "stderr_empty": true,
+      "input_db_unchanged": true,
+      "passed": true
+    },
+    {
+      "case": "ledger_independent_of_migration_columns",
+      "exit_code": 0,
+      "preflight_status": "CHECKS_OK_NOT_ACCEPTANCE",
+      "json_output": true,
+      "stderr_empty": true,
+      "input_db_unchanged": true,
+      "passed": true
+    },
+    {
+      "case": "strict_json_rejects_nan",
+      "exit_code": 1,
+      "preflight_status": "FAIL",
+      "json_output": true,
+      "stderr_empty": true,
+      "input_db_unchanged": true,
+      "passed": true
+    },
+    {
+      "case": "strict_json_rejects_infinity",
+      "exit_code": 1,
+      "preflight_status": "FAIL",
+      "json_output": true,
+      "stderr_empty": true,
+      "input_db_unchanged": true,
+      "passed": true
+    },
+    {
+      "case": "expected_reference_digest_matches",
+      "exit_code": 2,
+      "preflight_status": "BLOCKED",
+      "json_output": true,
+      "stderr_empty": true,
+      "input_db_unchanged": null,
+      "passed": true
+    }
+  ],
+  "actual_model_calls": 0,
+  "actual_source_fetches": 0,
+  "real_database_access": false,
+  "b02_06_status": "BLOCKED",
+  "e06_status": "BLOCKED",
+  "limitations": "No real asset, migration, rollback, provider ledger reconciliation or complete application regression performed."
+}

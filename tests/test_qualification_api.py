@@ -93,7 +93,7 @@ def screening_http(company_http):
     )
     assert profile_response.status_code == 201, profile_response.text
     profile = profile_response.json()
-    notice = persist(app.state.screening.sources.notices, BODY + "\nUNIT-1")
+    notice = persist(app.state.screening.sources.notices, BODY + "\nUNIT-1", at=datetime.now(UTC))
     candidate = client.post(
         "/api/screening/candidates",
         json={"profile_revision": profile},
