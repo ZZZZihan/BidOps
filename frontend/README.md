@@ -22,7 +22,7 @@ BIDOPS_API_PROXY_TARGET=http://127.0.0.1:8765 npm run dev
 
 所有业务请求继续使用相对 `/api`、原 Cookie、CSRF 与幂等协议。生产构建写入 `dist/`；构建最后会将组件和 React 的 MIT 全文汇总到 `dist/THIRD-PARTY-LICENSES.txt`。发布静态文件时须保留该文件。
 
-本机完整流程需按 [LOCAL-WORKFLOW-DEMO.md](../docs/LOCAL-WORKFLOW-DEMO.md) 启动已有服务。前端构建本身不导入资料、不准备示例企业、不启用模型，也不迁移数据。MyGo 桌面接入作为后续独立 PR 提供，具体依赖与验收见 [TECH-WORKBENCH-PLAN.md](../docs/TECH-WORKBENCH-PLAN.md)。
+本机完整流程需按 [LOCAL-WORKFLOW-DEMO.md](../docs/LOCAL-WORKFLOW-DEMO.md) 启动已有服务。前端构建本身不导入资料、不准备示例企业、不启用模型，也不迁移数据。MyGo 桌面入口位于 [desktop/](../desktop/README.md)，直接加载已启动的同源 BidOps 服务，使用同一份前端构建。具体依赖与验收见 [TECH-WORKBENCH-PLAN.md](../docs/TECH-WORKBENCH-PLAN.md)。
 
 ## 回归与视觉检查
 
