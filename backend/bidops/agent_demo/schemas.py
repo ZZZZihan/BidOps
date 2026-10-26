@@ -121,6 +121,13 @@ class ChatRequest(StrictModel):
         return value
 
 
+class PromptIdentity(StrictModel):
+    name: str
+    version: str
+    owner: str
+    sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+
+
 class ChatResponse(StrictModel):
     run_id: str
     session_id: str
@@ -131,6 +138,8 @@ class ChatResponse(StrictModel):
     blocks: list[Block]
     trace: list[dict]
     model: str
+    # Old persisted responses have unknown provenance, never today's prompt identity.
+    prompt: PromptIdentity | None = None
     provider_executed: bool
     usage: dict[str, int | float]
     elapsed_ms: int

@@ -17,6 +17,7 @@ from bidops.agent_demo.evaluation import (
     check_turn,
     load_source_texts,
 )
+from bidops.agent_demo.prompts import prompt_identity
 from bidops.agent_demo.runtime import INSTRUCTIONS, AgentService, DemoFailure, DemoSettings
 from bidops.agent_demo.schemas import ChatRequest
 from bidops.config import Settings
@@ -175,6 +176,7 @@ async def main(args):
             "oracle_sha256": sha(oracle_path),
             "corpus_manifest_sha256": corpus["manifest_sha256"],
             "prompt_sha256": hashlib.sha256(INSTRUCTIONS.encode()).hexdigest(),
+            "prompt": prompt_identity(),
             "implementation_sha256": {
                 str(p): sha(p) for p in sorted(Path("backend/bidops/agent_demo").glob("*.py"))
             },
