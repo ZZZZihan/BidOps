@@ -198,6 +198,11 @@ separately. A successful preflight does not pass B02-06 or certify the latest co
 
 ## Verification
 
+本项目先在公告问答试用 [LLM 工程原则](docs/LLM-ENGINEERING-PILOT.md)：版本化 prompt、
+脱敏运行追踪、冻结配置与离线回归。运行 `uv run --frozen --no-sync python
+scripts/llm_pilot_check.py --output data/artifacts/llm-pilot/local-001.json` 可生成新报告。
+这是不调用模型的工程检查，不更新历史模型成绩。
+
 ```bash
 uv run ruff check .
 uv run ruff format --check .

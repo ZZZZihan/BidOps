@@ -19,9 +19,19 @@ jobs:
         run: uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock -r requirements/attachments.lock
       - run: uv run --frozen --no-sync ruff check .
       - run: uv run --frozen --no-sync ruff format --check .
-      - run: uv run --frozen --no-sync pytest
+      - name: Run backend regressions with the frozen LLM pilot contract
+        run: |
+          uv run --frozen --no-sync python scripts/llm_pilot_check.py \
+            --full-suite --output "$RUNNER_TEMP/bidops-llm-pilot.json"
         env:
           BIDOPS_NETWORK_ENABLED: 'false'
+      - name: Preserve non-scoring LLM pilot receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bidops-llm-pilot-offline-contract
+          path: ${{ runner.temp }}/bidops-llm-pilot.json
+          if-no-files-found: error
       - name: Verify frozen B01 scorer fixture (no model calls)
         run: |
           uv run --frozen --no-sync python scripts/screening_eval.py \
