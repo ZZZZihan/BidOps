@@ -50,3 +50,7 @@ frontend/test-results/
 .DS_Store
 .idea/
 .vscode/
+
+# Local visual review artifacts and temporary capture configuration
+frontend/output/playwright/
+frontend/visual.local.config.ts
