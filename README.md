@@ -19,6 +19,10 @@ are still required before an enterprise trial. The local Demo below remains avai
 
 ## Run the Agent Demo
 
+要体验 **项目筛选 → 企业资格核对 → 人工复核**，使用新的
+[本机完整业务流程指南](docs/LOCAL-WORKFLOW-DEMO.md)。该入口保留 AI 问答，使用明确虚构的示例企业资料，
+并与原 Demo 共用数据及累计费用记录；不需要部署服务。
+
 已有独立 Demo 数据目录时，优先使用 [本机真实 AI Demo 指南](docs/LOCAL-LIVE-DEMO.md)：
 
 ```bash

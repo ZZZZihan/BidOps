@@ -73,6 +73,45 @@ class ExpressionDraft(SpanDraft):
         return self
 
 
+class DraftValidityRequirement(QualificationModel):
+    """Model-proposed time requirements before the server binds evidence spans.
+
+    Temporary IDs are accepted for compatibility but are never trusted: the
+    binder replaces them with its own references and validates ValidityRequirement.
+    """
+
+    kind: Literal["not_required", "at", "throughout", "unknown"]
+    basis: Literal["as_of", "bid_deadline", "document_deadline", "explicit"] | None = None
+    required_at: AwareDatetime | None = None
+    required_until: AwareDatetime | None = None
+    evidence_ids: list[Name] = Field(default_factory=list)
+    reason: Name | None = None
+
+    @model_validator(mode="before")
+    @classmethod
+    def accept_bound_requirement(cls, value):
+        if isinstance(value, ValidityRequirement):
+            return value.model_dump()
+        return value
+
+    @model_validator(mode="after")
+    def requirement_shape(self):
+        if self.kind in {"at", "throughout"}:
+            if self.required_at is None or self.basis is None:
+                raise ValueError("temporal_draft_requires_time_and_basis")
+            if (self.kind == "throughout") != (self.required_until is not None):
+                raise ValueError("throughout_requires_end_only")
+            if self.required_until is not None and self.required_until < self.required_at:
+                raise ValueError("inverted_requirement_period")
+        elif any(
+            value is not None for value in (self.basis, self.required_at, self.required_until)
+        ):
+            raise ValueError("unresolved_requirement_cannot_claim_time")
+        if self.kind == "unknown" and self.reason is None:
+            raise ValueError("unknown_validity_requires_reason")
+        return self
+
+
 class ConditionDraft(SpanDraft):
     hard_requirement: bool = Field(strict=True)
     expression: ExpressionDraft
@@ -80,7 +119,7 @@ class ConditionDraft(SpanDraft):
     package_ids: list[Name] = Field(default_factory=list)
     scope_spans: list[SpanDraft] = Field(default_factory=list)
     scope_reason: Name | None = None
-    validity: ValidityRequirement
+    validity: DraftValidityRequirement
     validity_spans: list[SpanDraft] = Field(default_factory=list)
 
     @model_validator(mode="after")
