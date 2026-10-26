@@ -353,6 +353,7 @@ def test_collected_usage_cannot_override_original_saved_result(service):
         candidate_code_sha=provenance["code_sha"],
         candidate_implementation_sha256=provenance["implementation_sha256"],
         lock_sha256=provenance["lock_sha256"],
+        prompt_version=provenance["prompt_version"],
         prompt_sha256=provenance["prompt_sha256"],
         parameters_sha256=canonical_sha256(provenance["parameters"]),
         registration_sha256=gathered["metadata"]["registration_sha256"],
