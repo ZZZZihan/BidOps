@@ -222,7 +222,9 @@ def main(argv=None) -> int:
                     process = subprocess.run(
                         command,
                         cwd=ROOT,
-                        timeout=1200 if args.full_suite else 120,
+                        # Existing hosted full runs take about 22 minutes. Leave three
+                        # minutes of the 30-minute CI job for setup and receipt upload.
+                        timeout=27 * 60 if args.full_suite else 120,
                         check=False,
                         env={**os.environ, "PYTEST_ADDOPTS": "", "BIDOPS_NETWORK_ENABLED": "false"},
                     )
