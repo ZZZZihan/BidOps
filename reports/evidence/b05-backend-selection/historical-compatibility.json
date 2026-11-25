@@ -1,0 +1,172 @@
+{
+  "python": "3.12.12",
+  "project_lock_sha256": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+  "project_lock_pydantic_ai": "2.59.0",
+  "new_distributions": {
+    "types-protobuf": "7.35.1.20260906",
+    "greenlet": "3.5.6",
+    "protobuf": "7.36.2",
+    "psycopg-binary": "3.3.6",
+    "croniter": "6.2.4",
+    "psycopg": "3.3.6",
+    "nexus-rpc": "1.4.0",
+    "tzdata": "2026.5",
+    "temporalio": "1.34.0",
+    "python-dateutil": "3.0.0",
+    "six": "1.17.0",
+    "dbos": "3.3.0"
+  },
+  "shared_distributions": {
+    "click": {
+      "project_lock": "8.5.0",
+      "experiment": "8.5.0",
+      "equal": true
+    },
+    "logfire-api": {
+      "project_lock": "5.2.0",
+      "experiment": "5.2.0",
+      "equal": true
+    },
+    "opentelemetry-api": {
+      "project_lock": "1.45.1",
+      "experiment": "1.45.1",
+      "equal": true
+    },
+    "genai-prices": {
+      "project_lock": "0.1.13",
+      "experiment": "0.1.13",
+      "equal": true
+    },
+    "h11": {
+      "project_lock": "0.16.0",
+      "experiment": "0.16.0",
+      "equal": true
+    },
+    "pydantic-core": {
+      "project_lock": "2.50.1",
+      "experiment": "2.50.1",
+      "equal": true
+    },
+    "pyyaml": {
+      "project_lock": "6.0.3",
+      "experiment": "6.0.3",
+      "equal": true
+    },
+    "griffelib": {
+      "project_lock": "2.4.1",
+      "experiment": "2.4.1",
+      "equal": true
+    },
+    "httpcore2": {
+      "project_lock": "2.16.0",
+      "experiment": "2.16.0",
+      "equal": true
+    },
+    "truststore": {
+      "project_lock": "0.10.5",
+      "experiment": "0.10.5",
+      "equal": true
+    },
+    "pydantic-ai-slim": {
+      "project_lock": "2.59.0",
+      "experiment": "2.59.0",
+      "equal": true
+    },
+    "httpx2": {
+      "project_lock": "2.16.0",
+      "experiment": "2.16.0",
+      "equal": true
+    },
+    "annotated-types": {
+      "project_lock": "0.8.0",
+      "experiment": "0.8.0",
+      "equal": true
+    },
+    "pydantic-graph": {
+      "project_lock": "2.59.0",
+      "experiment": "2.59.0",
+      "equal": true
+    },
+    "typing-inspection": {
+      "project_lock": "0.4.4",
+      "experiment": "0.4.4",
+      "equal": true
+    },
+    "sqlalchemy": {
+      "project_lock": "2.1.6",
+      "experiment": "2.1.6",
+      "equal": true
+    },
+    "typing-extensions": {
+      "project_lock": "4.16.0",
+      "experiment": "4.16.0",
+      "equal": true
+    },
+    "pydantic": {
+      "project_lock": "2.14.1",
+      "experiment": "2.14.1",
+      "equal": true
+    },
+    "anyio": {
+      "project_lock": "4.15.1",
+      "experiment": "4.15.1",
+      "equal": true
+    },
+    "idna": {
+      "project_lock": "3.20",
+      "experiment": "3.20",
+      "equal": true
+    }
+  },
+  "all_shared_versions_match": true,
+  "framework_requires": {
+    "dbos": [
+      "pyyaml>=6.0.2",
+      "python-dateutil>=2.9.0.post0",
+      "croniter>=6.2.4",
+      "psycopg[binary]>=3.1",
+      "click>=8.1",
+      "sqlalchemy[asyncio]>=2.0.43",
+      "opentelemetry-api>=1.42.0; extra == \"otel\"",
+      "opentelemetry-sdk>=1.42.0; extra == \"otel\"",
+      "opentelemetry-exporter-otlp-proto-http>=1.42.0; extra == \"otel\"",
+      "opentelemetry-instrumentation-logging>=0.63b0; extra == \"otel\"",
+      "pydantic>=2.0; extra == \"validation\"",
+      "aiosqlite>=0.20.0; extra == \"aiosqlite\"",
+      "dbos-enterprise==3.3.0; extra == \"enterprise\""
+    ],
+    "temporalio": [
+      "nexus-rpc==1.4.0",
+      "protobuf>=3.20,<8.0.0",
+      "python-dateutil>=2.8.2,<3 ; python_full_version < '3.11'",
+      "types-protobuf>=3.20,<8.0.0",
+      "typing-extensions>=4.2.0,<5",
+      "aioboto3>=10.4.0 ; extra == 'aioboto3'",
+      "types-aioboto3[s3]>=10.4.0 ; extra == 'aioboto3'",
+      "opentelemetry-api>=1.26,<2 ; extra == 'cloud-run-worker-otel'",
+      "opentelemetry-sdk>=1.26,<2 ; extra == 'cloud-run-worker-otel'",
+      "opentelemetry-exporter-otlp-proto-grpc>=1.11.1,<2 ; extra == 'cloud-run-worker-otel'",
+      "protobuf<7 ; extra == 'cloud-run-worker-otel'",
+      "deepagents>=0.7,<0.8 ; python_full_version >= '3.11' and extra == 'deepagents'",
+      "langchain>=1.3.14,<2 ; python_full_version >= '3.11' and extra == 'deepagents'",
+      "langchain-core>=1.5.0,<2 ; python_full_version >= '3.11' and extra == 'deepagents'",
+      "google-adk>=2.8.0,<3 ; extra == 'google-adk'",
+      "mcp>=1.24,<2 ; extra == 'google-adk'",
+      "google-genai>=2.21.0,<3.0.0 ; extra == 'google-genai'",
+      "grpcio>=1.48.2,<2 ; extra == 'grpc'",
+      "opentelemetry-api>=1.26,<2 ; extra == 'lambda-worker-otel'",
+      "opentelemetry-sdk>=1.26,<2 ; extra == 'lambda-worker-otel'",
+      "opentelemetry-exporter-otlp-proto-grpc>=1.11.1,<2 ; extra == 'lambda-worker-otel'",
+      "opentelemetry-semantic-conventions>=0.40b0,<1 ; extra == 'lambda-worker-otel'",
+      "opentelemetry-sdk-extension-aws>=2.0.0,<3 ; extra == 'lambda-worker-otel'",
+      "langgraph>=1.1.0 ; extra == 'langgraph'",
+      "langsmith>=0.7.34,<0.13 ; extra == 'langsmith'",
+      "openai-agents>=0.19.2,<0.20 ; extra == 'openai-agents'",
+      "mcp>=1.9.4,<2 ; extra == 'openai-agents'",
+      "opentelemetry-api>=1.26,<2 ; extra == 'opentelemetry'",
+      "opentelemetry-sdk>=1.26,<2 ; extra == 'opentelemetry'",
+      "pydantic>=2.0.0,<3 ; extra == 'pydantic'",
+      "strands-agents>=1.51.0 ; extra == 'strands-agents'"
+    ]
+  }
+}

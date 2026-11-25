@@ -1,0 +1,25 @@
+{
+  "dbos_schema_version": 123,
+  "journal_mode": "delete",
+  "tables": [
+    "application_versions",
+    "dbos_migrations",
+    "notifications",
+    "operation_outputs",
+    "queues",
+    "streams",
+    "workflow_events",
+    "workflow_events_history",
+    "workflow_input",
+    "workflow_output",
+    "workflow_schedules",
+    "workflow_status"
+  ],
+  "workflow_statuses": [
+    [
+      "SUCCESS",
+      1
+    ]
+  ],
+  "operation_count": 4
+}

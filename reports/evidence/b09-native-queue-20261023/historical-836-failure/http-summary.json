@@ -1,0 +1,41 @@
+{
+  "scope": "Separate logical operations, returned HTTP statuses and no-response errors; no raw endpoint identifiers",
+  "logical_operations": 4200,
+  "warmup_operations": 600,
+  "steady_operations": 3600,
+  "operation_responses_all": 4196,
+  "operation_no_response_errors_all": 4,
+  "no_response_error_code": "ReadError",
+  "no_response_operation": "read_search",
+  "steady_error_denominator": 3600,
+  "steady_errors": 4,
+  "steady_error_rate": 0.0011111111111111111,
+  "steady_error_percent": 0.1111111111111111,
+  "operation_status_counts_all": {
+    "200": 4112,
+    "202": 84,
+    "no_response": 4
+  },
+  "timed_returned_http_responses_including_auth_and_dependents": 4700,
+  "timed_extra_control_or_dependent_http_responses": 504,
+  "timed_http_attempts_including_four_no_responses": 4704,
+  "all_returned_http_responses_including_setup": 4893,
+  "setup_returned_http_responses": 193,
+  "returned_http_failure_status_count": 0,
+  "no_response_errors_excluded_from_returned_http_failure_status_count_but_included_in_business_error_denominator": true,
+  "timed_path_template_counts": {
+    "/api/auth/callback": 140,
+    "/api/auth/login": 140,
+    "/api/auth/me": 140,
+    "/api/jobs/runs": 84,
+    "/api/jobs/runs/{object}": 756,
+    "/api/notices": 3272,
+    "/api/reviews/cases/{object}": 84,
+    "/api/reviews/cases/{object}/decisions": 84
+  },
+  "source": {
+    "bytes": 750,
+    "sha256": "3fa72467337e3e020ad0b1d0982f75db87c416d0266e814215dcf4b995286cba"
+  },
+  "two_per_second_meaning": "2 logical operations/sec; extra authentication/dependent HTTP is additional actual server load. It is not an exact2 totalHTTP/sec claim."
+}

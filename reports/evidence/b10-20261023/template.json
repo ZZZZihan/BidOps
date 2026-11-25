@@ -1,0 +1,58 @@
+{
+  "schema_version": "bidops-uat-v1",
+  "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+  "lock_hashes": {
+    "base": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+    "durable": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+    "attachments": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"
+  },
+  "plan_sha256": "1551f386c0ccc5930a0eed03611750fb5589b32c3241d88f4c75c842cbaed7ba",
+  "inventory": {
+    "deployment_id": "not-configured"
+  },
+  "artifacts": [],
+  "records": [
+    {
+      "ac_id": "B10-01",
+      "environment_kind": "engineering_fixture",
+      "deployment_id": "not-configured",
+      "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+      "claimed_outcome": "NOT_RUN"
+    },
+    {
+      "ac_id": "B10-02",
+      "environment_kind": "engineering_fixture",
+      "deployment_id": "not-configured",
+      "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+      "claimed_outcome": "NOT_RUN"
+    },
+    {
+      "ac_id": "B10-03",
+      "environment_kind": "engineering_fixture",
+      "deployment_id": "not-configured",
+      "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+      "claimed_outcome": "NOT_RUN"
+    },
+    {
+      "ac_id": "B10-04",
+      "environment_kind": "engineering_fixture",
+      "deployment_id": "not-configured",
+      "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+      "claimed_outcome": "NOT_RUN"
+    },
+    {
+      "ac_id": "B10-05",
+      "environment_kind": "engineering_fixture",
+      "deployment_id": "not-configured",
+      "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+      "claimed_outcome": "NOT_RUN"
+    },
+    {
+      "ac_id": "B10-06",
+      "environment_kind": "engineering_fixture",
+      "deployment_id": "not-configured",
+      "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+      "claimed_outcome": "NOT_RUN"
+    }
+  ]
+}

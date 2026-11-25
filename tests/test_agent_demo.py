@@ -161,6 +161,31 @@ def test_multiple_versions_not_overwritten(catalog, ingest, store):
         updated.compare(["UNIT-A", "UNIT-B"], "budget")
 
 
+@pytest.mark.parametrize("mode", ["results", "review_required"])
+def test_read_last_page_cannot_hide_multiple_versions(store, ingest, mode):
+    for index in range(101):
+        ingest(UNIT.replace("UNIT-A", "UNIT-MULTI").replace("1.01万元", f"{index + 1}元"))
+    service = AgentService(
+        store,
+        demo_settings(),
+        scripted(
+            [
+                ("read_notice", {"project_code": "UNIT-MULTI", "focus": "budget", "offset": 100}),
+                {"response_mode": mode, "result_ids": ["r1"], "focus": "budget"},
+            ]
+        ),
+    )
+    if mode == "results":
+        with pytest.raises(DemoFailure, match="agent_output_invalid"):
+            run(service, "UNIT-MULTI 历史版本末页预算")
+    else:
+        response = run(service, "UNIT-MULTI 历史版本末页预算")
+        block = response.blocks[0]
+        assert block.total == 101 and block.offset == 100 and len(block.items) == 1
+        assert block.truncated and not block.has_more
+        assert any("未展示全部" in warning for warning in response.warnings)
+
+
 def test_framework_tool_output_and_usage(catalog, store):
     model = scripted(
         [

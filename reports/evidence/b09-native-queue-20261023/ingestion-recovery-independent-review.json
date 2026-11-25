@@ -1,0 +1,220 @@
+{
+  "schema_version": "ingestion-recovery-independent-review-v1",
+  "status": "PASS",
+  "evidence_level": "local_synthetic_engineering_technical_review",
+  "reviewed_at_utc": "2026-10-22T23:18:34.462078+00:00",
+  "business_acceptance": "BLOCKED",
+  "scope": {
+    "reviewer": "independent agent; did not implement runtime patch or new replay tests",
+    "production_file": "backend/bidops/ingestion/runtime.py",
+    "no_blocking_findings": true,
+    "repository_modified_by_reviewer": false,
+    "frozen_capacity_worktree_touched": false,
+    "tests_rerun_during_evidence_packaging": false,
+    "live_model_requests": 0,
+    "live_source_requests": 0
+  },
+  "configuration": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "ultra",
+    "actual_runtime_configuration_independently_verified": false
+  },
+  "production_findings": [
+    "The original queued snapshot may become terminal while startup recovery executes its independently enqueued fixed-native-ID run.",
+    "The patch catches only ingestion_run_not_active and re-reads an allowed completed/partial/failed terminal state; no enqueue or business-state rewrite follows.",
+    "Cancellation, current authorization, quarantine, application version, schedule generation and source-policy guard failures continue to raise.",
+    "Successful require_execution returns the fresh record; dispatch occurs only while that fresh status is queued.",
+    "No timeout, all-native-SUCCESS assertion, queue limit, permission or capacity limit was relaxed."
+  ],
+  "independent_existing_regression": {
+    "executor": "this independent reviewer",
+    "command": [
+      ".venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "tests/test_ingestion_process_recovery.py",
+      "tests/test_ingestion_runtime.py",
+      "tests/test_ingestion_repository.py::test_schedule_generation_required_and_manual_cannot_claim_one",
+      "tests/test_ingestion_repository.py::test_schedule_admission_exact_owner_selection_and_generation",
+      "tests/test_ingestion_repository.py::test_schedule_metadata_is_immutable_and_manual_generation_check_is_sql_enforced",
+      "--basetemp=$RECOVERY_OUTPUT/ingestion-recovery-existing-green-tmp"
+    ],
+    "started_at_utc": "2026-10-22T23:14:45.761797+00:00",
+    "ended_at_utc": "2026-10-22T23:15:52.324460+00:00",
+    "pytest_elapsed_seconds": 65.52,
+    "wrapper_elapsed_seconds": 66.552,
+    "exit_code": 0,
+    "passed": 25,
+    "failed": 0,
+    "test_groups": [
+      {
+        "kind": "actual SIGKILL process recovery",
+        "count": 3,
+        "windows": [
+          "before_page_commit",
+          "after_page_commit",
+          "after_schedule_run_commit"
+        ],
+        "original_all_native_success_assertion_retained": true,
+        "original_wait_deadline_retained": true
+      },
+      {
+        "kind": "existing ingestion runtime suite",
+        "count": 17
+      },
+      {
+        "kind": "existing schedule binding and metadata invariants",
+        "count": 5
+      }
+    ],
+    "log": {
+      "path": "$RECOVERY_OUTPUT/ingestion-recovery-existing-green.txt",
+      "bytes": 2769,
+      "sha256": "1946b1c8bd550161f17ca1eb01051d9024d6e8a8b6787d9597c6e07f0f5e63ce",
+      "original_log_requires_controlled_access": true
+    }
+  },
+  "separately_executed_new_replay_regression": {
+    "executor": "another agent (b01_eval_audit)",
+    "reviewer_actions": [
+      "read and reviewed final test source",
+      "read original failing log and final passing log",
+      "checked final JUnit counts",
+      "did not execute these eight tests"
+    ],
+    "baseline_result": {
+      "passed": 0,
+      "failed": 1,
+      "pytest_elapsed_seconds": 8.1,
+      "expected_failure": "native schedule ERROR caused by ingestion_run_not_active after actual recovery completes",
+      "log": {
+        "path": "$RECOVERY_OUTPUT/ingestion-schedule-replay-red.txt",
+        "bytes": 6639,
+        "sha256": "5d1b8876ab0c2a2f241284e376967e63dd58b6f8334dfcffec7618fec96991f3",
+        "original_log_requires_controlled_access": true
+      }
+    },
+    "fixed_result": {
+      "passed": 8,
+      "failed": 0,
+      "pytest_elapsed_seconds": 18.5,
+      "exit_code_reported_by_executor": 0,
+      "log": {
+        "path": "$RECOVERY_OUTPUT/ingestion-schedule-replay-final.txt",
+        "bytes": 99,
+        "sha256": "8687cd3a5fa504b24b4247d08a927309b6d5752bc93431a7167929d6c6b76c92",
+        "original_log_requires_controlled_access": true
+      },
+      "junit": {
+        "path": "$RECOVERY_OUTPUT/ingestion-schedule-replay-final.xml",
+        "bytes": 5758,
+        "sha256": "f8fc63e036ade84dbcfaf0606eb1d3f24a54327bbdce5d4fb3f54ab04183583c",
+        "original_log_requires_controlled_access": true
+      }
+    },
+    "positive_cases": [
+      "completed by real recovery between snapshot and guard: native SUCCESS, one HTTP/run/page, cursor version one and unchanged replay business snapshot",
+      "running by real recovery: fresh-record guard prevents a second enqueue; eventual native and business success"
+    ],
+    "negative_cases": [
+      "current admin role downgraded",
+      "source policy revoked",
+      "schedule generation paused",
+      "cancel requested",
+      "already cancelled",
+      "application version changed"
+    ],
+    "negative_case_invariants": [
+      "native ERROR with exact original CompanyError code",
+      "zero HTTP requests",
+      "zero pages, snapshots, versions and observations",
+      "cursor version remains zero",
+      "no model runs"
+    ],
+    "source": {
+      "path": "tests/test_ingestion_schedule_replay.py",
+      "sha256_at_independent_source_review": "d564744fc2de22573a0db264568d1460ecdfedbdfcb553a4f2f242a245b8aaab",
+      "commit_sha256": "d564744fc2de22573a0db264568d1460ecdfedbdfcb553a4f2f242a245b8aaab",
+      "byte_identical": true
+    },
+    "attribution_note": "The 25 existing tests and eight new tests were executed in separate runs by different agents; this is not a single 33-test execution."
+  },
+  "version_attribution": {
+    "test_time_head": "69560429745417e34113d0877d75a62d7eb8f37b",
+    "test_time_state": "precommit WIP: runtime patch present on the stated base; not a clean-commit test execution",
+    "subsequent_commit": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+    "comparison_method": "read-only git show COMMIT:relative_path; SHA-256 of exact committed bytes compared with recorded pre-test and post-test bytes",
+    "all_seven_recorded_sources_byte_identical_to_subsequent_commit": true,
+    "source_checks": {
+      "backend/bidops/ingestion/runtime.py": {
+        "pre_test_sha256": "3d12c59f3dacb6a8ccc765d5439553cc8ff27068c4d6b82b60e477554da1cad0",
+        "post_test_sha256": "3d12c59f3dacb6a8ccc765d5439553cc8ff27068c4d6b82b60e477554da1cad0",
+        "commit_sha256": "3d12c59f3dacb6a8ccc765d5439553cc8ff27068c4d6b82b60e477554da1cad0",
+        "byte_identical": true
+      },
+      "backend/bidops/ingestion/repository.py": {
+        "pre_test_sha256": "5b78046dec151b45a7680a1ad0dfe36d5da6ca8e0b1c5fb712e203cdb1297cc2",
+        "post_test_sha256": "5b78046dec151b45a7680a1ad0dfe36d5da6ca8e0b1c5fb712e203cdb1297cc2",
+        "commit_sha256": "5b78046dec151b45a7680a1ad0dfe36d5da6ca8e0b1c5fb712e203cdb1297cc2",
+        "byte_identical": true
+      },
+      "backend/bidops/ingestion/schedules.py": {
+        "pre_test_sha256": "b7d2c3b32757b98f6044d1e110a1beabe68123418c9c83ddf57cf85fd62da3c5",
+        "post_test_sha256": "b7d2c3b32757b98f6044d1e110a1beabe68123418c9c83ddf57cf85fd62da3c5",
+        "commit_sha256": "b7d2c3b32757b98f6044d1e110a1beabe68123418c9c83ddf57cf85fd62da3c5",
+        "byte_identical": true
+      },
+      "tests/test_ingestion_process_recovery.py": {
+        "pre_test_sha256": "a717b7d3ea219ab280dc4cf35144db2fb79e1311acb7fc053037e4fb8493cdde",
+        "post_test_sha256": "a717b7d3ea219ab280dc4cf35144db2fb79e1311acb7fc053037e4fb8493cdde",
+        "commit_sha256": "a717b7d3ea219ab280dc4cf35144db2fb79e1311acb7fc053037e4fb8493cdde",
+        "byte_identical": true
+      },
+      "tests/fixtures/ingestion_process_worker.py": {
+        "pre_test_sha256": "b51a372ce90582fbf436510a45259645a11013bf7d346c782c86de0211c0a0cf",
+        "post_test_sha256": "b51a372ce90582fbf436510a45259645a11013bf7d346c782c86de0211c0a0cf",
+        "commit_sha256": "b51a372ce90582fbf436510a45259645a11013bf7d346c782c86de0211c0a0cf",
+        "byte_identical": true
+      },
+      "tests/test_ingestion_runtime.py": {
+        "pre_test_sha256": "5e9e1cc72385c88829a0f9b3d031ffb909acf521c9df2d9d1ecd1cb50e81eb3d",
+        "post_test_sha256": "5e9e1cc72385c88829a0f9b3d031ffb909acf521c9df2d9d1ecd1cb50e81eb3d",
+        "commit_sha256": "5e9e1cc72385c88829a0f9b3d031ffb909acf521c9df2d9d1ecd1cb50e81eb3d",
+        "byte_identical": true
+      },
+      "tests/test_ingestion_repository.py": {
+        "pre_test_sha256": "d1795eb410ec23ab7e4c3cc0a1d97c8afaa3a56a3b98a30f50f4245f7c518821",
+        "post_test_sha256": "d1795eb410ec23ab7e4c3cc0a1d97c8afaa3a56a3b98a30f50f4245f7c518821",
+        "commit_sha256": "d1795eb410ec23ab7e4c3cc0a1d97c8afaa3a56a3b98a30f50f4245f7c518821",
+        "byte_identical": true
+      }
+    },
+    "limitation": "Byte identity links the tested source files to the subsequent commit. Tests were not rerun on that clean commit by this reviewer, and this evidence does not replace final integrated CI."
+  },
+  "acceptance_criteria": {
+    "B07-06 C": {
+      "status": "PASS",
+      "scope": "targeted engineering evidence for native schedule interruption recovery, no reentry and preserved live guards"
+    },
+    "B07-02 C": {
+      "status": "PASS",
+      "scope": "targeted evidence for one committed page/cursor advance and unchanged replay; no duplicate facts"
+    },
+    "B07-04 C": {
+      "status": "PASS",
+      "scope": "targeted evidence that current denials remain typed native failures without extra fetch or persistence"
+    },
+    "B07-07 B": {
+      "status": "BLOCKED",
+      "scope": "real authorized multi-cycle operation and business acceptance are not established by synthetic local tests"
+    }
+  },
+  "publication": {
+    "contains_absolute_user_paths": false,
+    "contains_tokens_or_business_identifiers": false,
+    "raw_logs_are_not_embedded": true,
+    "controlled_path_placeholder": "$RECOVERY_OUTPUT",
+    "status_is_technical_review_only": true
+  }
+}

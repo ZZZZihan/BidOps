@@ -1,0 +1,177 @@
+{
+  "purpose": "Original synthetic experiment preserved with explicit path redaction; hashes are an evidence index, not a trust signature.",
+  "source_directory": "<WORKTREE_PARENT>/work/b05-durable-probe-20261023",
+  "excluded": [
+    "venv directories",
+    "runtime SQLite and WAL files",
+    "intermediate preparation runs",
+    "404 official-dbos-commands.md (not a source)",
+    "large resolver output; exact resolved hashes remain in durable.lock"
+  ],
+  "redactions": {
+    "/Users/<local-user>": "<HOME>"
+  },
+  "files": [
+    {
+      "original_relative_path": "README.md",
+      "saved_relative_path": "historical-experiment.txt",
+      "original_sha256": "12d3712698f219e3747a8a8eda1cb2943b106997038fbffdf5c86c161cad99eb",
+      "saved_sha256": "e717b87f61307f923be972a789d38b3c08302392148cbb479ade4bb55101d9f5",
+      "redacted_home_prefix": true
+    },
+    {
+      "original_relative_path": "evidence-manifest.json",
+      "saved_relative_path": "historical-manifest.json",
+      "original_sha256": "ac1d494e5e45d4f9a5659b6c41b363f4b89f7ebd123c4ce63df087d726e2ff1d",
+      "saved_sha256": "ac1d494e5e45d4f9a5659b6c41b363f4b89f7ebd123c4ce63df087d726e2ff1d",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "compatibility.json",
+      "saved_relative_path": "historical-compatibility.json",
+      "original_sha256": "b2d6ec722a7f1ffb0cf814143c4f61f4d38be323c5ec7cb78eb4965c103d1d65",
+      "saved_sha256": "b2d6ec722a7f1ffb0cf814143c4f61f4d38be323c5ec7cb78eb4965c103d1d65",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "baseline-constraints.txt",
+      "saved_relative_path": "baseline-constraints.txt",
+      "original_sha256": "9fb00245b22c033bc47d6523b5290637f4ed95966396f65f4d123fc386233f78",
+      "saved_sha256": "9fb00245b22c033bc47d6523b5290637f4ed95966396f65f4d123fc386233f78",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "sync-dbos-hashed.log",
+      "saved_relative_path": "historical-install.txt",
+      "original_sha256": "1c5899519c6332c07eed1d4dd7210fe3833ae03dd7a4f7b881c1e0f5d51cba78",
+      "saved_sha256": "1c5899519c6332c07eed1d4dd7210fe3833ae03dd7a4f7b881c1e0f5d51cba78",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "probe-dbos-only-console.log",
+      "saved_relative_path": "historical-console.txt",
+      "original_sha256": "33847a6ed6e06d8d2120aa8b34877295c9bf70e20d1faaf319d38d8065729cb9",
+      "saved_sha256": "67b2cd60390b749c47477898c018f11f371d1c0423d8bede3e21eafed2bc7dc5",
+      "redacted_home_prefix": true
+    },
+    {
+      "original_relative_path": "official-pydantic-dbos.md",
+      "saved_relative_path": "official/official-pydantic-dbos.md",
+      "original_sha256": "ae2bb024a08c6f7efb1347aaad7ff82f7f7159aa05f5413e88c89622e5909090",
+      "saved_sha256": "ae2bb024a08c6f7efb1347aaad7ff82f7f7159aa05f5413e88c89622e5909090",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "official-pydantic-temporal.md",
+      "saved_relative_path": "official/official-pydantic-temporal.md",
+      "original_sha256": "a4f3f0007e328fb1e037d3a62ee54a5a4faafe9d3e65ecd739ebf71e40de8d33",
+      "saved_sha256": "a4f3f0007e328fb1e037d3a62ee54a5a4faafe9d3e65ecd739ebf71e40de8d33",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "official-dbos-configuration.md",
+      "saved_relative_path": "official/official-dbos-configuration.md",
+      "original_sha256": "e43a9b1a29904f618fd557a1e0ed8c52b821bcdaec9d38b9320b48d61f40d500",
+      "saved_sha256": "e43a9b1a29904f618fd557a1e0ed8c52b821bcdaec9d38b9320b48d61f40d500",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "official-dbos-recovery.md",
+      "saved_relative_path": "official/official-dbos-recovery.md",
+      "original_sha256": "a27aa00f3030a6dfb0c4ea26cbcaa2fdaa063f70119b7ac38519e6fb4d20d56e",
+      "saved_sha256": "a27aa00f3030a6dfb0c4ea26cbcaa2fdaa063f70119b7ac38519e6fb4d20d56e",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "official-dbos-guarantees.md",
+      "saved_relative_path": "official/official-dbos-guarantees.md",
+      "original_sha256": "a931c4f601af14d0d81777dab70bdd51c71142f68c6c2a85b2378c2ae56d0dbd",
+      "saved_sha256": "a931c4f601af14d0d81777dab70bdd51c71142f68c6c2a85b2378c2ae56d0dbd",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "official-temporal-self-hosted.md",
+      "saved_relative_path": "official/official-temporal-self-hosted.md",
+      "original_sha256": "d22320d50f027123b8e418f57edcfc78d01a3569474b8bf4639cea6dda3af13c",
+      "saved_sha256": "d22320d50f027123b8e418f57edcfc78d01a3569474b8bf4639cea6dda3af13c",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/result-read-completed.json",
+      "saved_relative_path": "historical-run/result-read-completed.json",
+      "original_sha256": "f291f8edb43a8f1e77e044019bf9e466f2e8713d7866d902bed1b1da31a52983",
+      "saved_sha256": "f291f8edb43a8f1e77e044019bf9e466f2e8713d7866d902bed1b1da31a52983",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/read-completed.log",
+      "saved_relative_path": "historical-run/read-completed.txt",
+      "original_sha256": "994d4c05adcba406fa00232080713543d901cae5aa5332688e5c94ec125b9a65",
+      "saved_sha256": "04a6991930fa47aa59d384f2e61ea9badfb16d916805f50a04ed970f892785ed",
+      "redacted_home_prefix": true
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/report.json",
+      "saved_relative_path": "historical-run/report.json",
+      "original_sha256": "4c0bf3a00cc18ccf9a4cdeaba691b933e220a1981d26942c6b7a74dd2b331fe8",
+      "saved_sha256": "819de057fa58dbb836cf9d1b59970dccc40f6bed2a4c6bef341e4b3a8ecccead",
+      "redacted_home_prefix": true
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/submit.log",
+      "saved_relative_path": "historical-run/submit.txt",
+      "original_sha256": "74295c487d764d42f735241ff6c4c830a2e39316e0f560ab28d02a374b1ab858",
+      "saved_sha256": "126a87bebfa7a48aa6ba0924b56f8d8be5f619c3b88f4c09fca80f0f7a5bc880",
+      "redacted_home_prefix": true
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/steps-read-completed.json",
+      "saved_relative_path": "historical-run/steps-read-completed.json",
+      "original_sha256": "297ece802b2f84bbecf3bece3ad95c2ce1a8ddf1daffafad2468b6ae9c2a66ef",
+      "saved_sha256": "297ece802b2f84bbecf3bece3ad95c2ce1a8ddf1daffafad2468b6ae9c2a66ef",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/database-summary.json",
+      "saved_relative_path": "historical-run/database-summary.json",
+      "original_sha256": "fa65bc9e4637886205b0edf9e65281d20947e651eb9f7227f085631231834c0c",
+      "saved_sha256": "fa65bc9e4637886205b0edf9e65281d20947e651eb9f7227f085631231834c0c",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/steps-recover.json",
+      "saved_relative_path": "historical-run/steps-recover.json",
+      "original_sha256": "297ece802b2f84bbecf3bece3ad95c2ce1a8ddf1daffafad2468b6ae9c2a66ef",
+      "saved_sha256": "297ece802b2f84bbecf3bece3ad95c2ce1a8ddf1daffafad2468b6ae9c2a66ef",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/events.jsonl",
+      "saved_relative_path": "historical-run/events.txt",
+      "original_sha256": "8506a6c123ced33b3305bf78f16120871d9715b04bbf634570559fe26a04a661",
+      "saved_sha256": "8506a6c123ced33b3305bf78f16120871d9715b04bbf634570559fe26a04a661",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/checkpoints-before-kill.json",
+      "saved_relative_path": "historical-run/checkpoints-before-kill.json",
+      "original_sha256": "cddf87671badda458e323b5b5f3dfd33c05a7cb946c8de2bbd72b6e78f5a4394",
+      "saved_sha256": "cddf87671badda458e323b5b5f3dfd33c05a7cb946c8de2bbd72b6e78f5a4394",
+      "redacted_home_prefix": false
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/recover.log",
+      "saved_relative_path": "historical-run/recover.txt",
+      "original_sha256": "0555337cc407f6fd77d1f5ef305dc20f22543a2ea045d229a68537ec5f98ea52",
+      "saved_sha256": "7b24add7e24396ee057fdb574fd7c43b06edfe3c6bfe106e7734ef7b7015f7cf",
+      "redacted_home_prefix": true
+    },
+    {
+      "original_relative_path": "runs/restart-irgp_hne/result-recover.json",
+      "saved_relative_path": "historical-run/result-recover.json",
+      "original_sha256": "f291f8edb43a8f1e77e044019bf9e466f2e8713d7866d902bed1b1da31a52983",
+      "saved_sha256": "f291f8edb43a8f1e77e044019bf9e466f2e8713d7866d902bed1b1da31a52983",
+      "redacted_home_prefix": false
+    }
+  ]
+}

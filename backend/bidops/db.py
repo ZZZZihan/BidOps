@@ -18,8 +18,11 @@ class Database:
 
         @event.listens_for(self.engine, "connect")
         def sqlite_setup(connection, _):
+            from bidops.catalog_query import register_query_functions
+
             connection.execute("PRAGMA foreign_keys=ON")
             connection.execute("PRAGMA busy_timeout=15000")
+            register_query_functions(connection)
 
     def migrate(self):
         with self.engine.begin() as conn:

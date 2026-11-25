@@ -1,0 +1,28 @@
+02:14:16 [    INFO] (dbos:_dbos.py:549) Initializing DBOS (v3.3.0)
+{"application_version": "1c00cd0a46907fedac684a20083f3983b216d911896282d644a3fa520fbd110d", "at": 1792692856.9754, "event": "worker_starting", "mode": "recover", "pid": 90041}
+02:14:16 [    INFO] (dbos:_dbos.py:632) Executor ID: single-local-probe-worker
+02:14:16 [    INFO] (dbos:_dbos.py:633) Application version: 1c00cd0a46907fedac684a20083f3983b216d911896282d644a3fa520fbd110d
+02:14:16 [    INFO] (dbos:_dbos.py:634) Application name: bidops-b05-probe
+02:14:16 [    INFO] (dbos:_sys_db.py:694) Initializing DBOS system database with URL: sqlite:////private<PROBE_OUTPUT>/dbos.sqlite (schema: dbos)
+02:14:16 [    INFO] (dbos:_sys_db.py:698) Using SQLite as a system database. The SQLite system database is for development and testing. PostgreSQL is recommended for production use.
+02:14:16 [    INFO] (dbos:_dbos.py:716) Recovering 1 workflows from application version 1c00cd0a46907fedac684a20083f3983b216d911896282d644a3fa520fbd110d
+02:14:16 [    INFO] (dbos:_dbos.py:831) DBOS launched!
+02:14:16 [    INFO] (dbos:_dbos.py:839) To view and manage workflows, connect to DBOS Conductor at: https://console.dbos.dev/self-host?appname=bidops-b05-probe
+{"at": 1792692856.98628, "event": "dbos_launched", "mode": "recover", "pid": 90041}
+02:14:16 [    INFO] (dbos:_queue.py:969) Listening to 0 queues:
+                 pydantic-ai v2.59.0 • Python 3.12.12
+      / \
+     /   \       agent: bidops_probe_agent • model: test:test • tools: 0 • capabilities: 1
+   /___.___\
+  /    |    \    observability: off — see every model and tool call live, with cost
+/      |      \    set it up free with Logfire and a GitHub login: https://pydantic.dev/ai-setup.md
+`---.._|_..---'    or use any OpenTelemetry backend: https://pydantic.dev/docs/ai/logfire/#otel
+
+                 goes away once observability is on — or PYDANTIC_AI_NO_BANNER=1
+{"at": 1792692858.04615, "event": "checkpoint_gate_entered", "pid": 90041}
+{"at": 1792692858.046554, "event": "checkpoint_gate_released", "pid": 90041}
+{"at": 1792692858.051871, "event": "synthetic_model_request", "pid": 90041, "prompt": "SYNTHETIC_SECOND_MODEL_STEP"}
+{"at": 1792692858.05505, "event": "final_step_called", "pid": 90041}
+{"at": 1792692859.016206, "event": "workflow_result", "mode": "recover", "pid": 90041, "result": {"first": "SYNTHETIC_NOT_A_REAL_SCREENING_RESULT", "fixture": true, "second": "SYNTHETIC_NOT_A_REAL_SCREENING_RESULT"}}
+02:14:19 [    INFO] (dbos:_queue.py:907) Stopping queue manager, joining all worker threads...
+02:14:20 [    INFO] (dbos:_dbos.py:451) DBOS successfully shut down

@@ -1,0 +1,59 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "executor": "root",
+  "real_model_calls": 0,
+  "network_probes": 0,
+  "actual_cost_cny": "0",
+  "commands": [
+    {
+      "name": "template",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--template"
+      ],
+      "start": "2026-10-22T21:49:21.819992+00:00",
+      "end": "2026-10-22T21:49:22.350107+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "ff1286f0f72bff99df13bd2183c1e5f495d31fc302ff44ae43ce06a5957ac322",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "environment",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py"
+      ],
+      "start": "2026-10-22T21:49:22.350677+00:00",
+      "end": "2026-10-22T21:49:22.807107+00:00",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stdout_sha256": "30ca78b48dbd04ae00228f410cf683b3792457e370253e7f63ef4c58d2912afd",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "bundle",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--bundle",
+        "<CURRENT88_TEMPLATE>",
+        "--evidence-root",
+        "<PRIVATE_EMPTY_EVIDENCE_ROOT>"
+      ],
+      "start": "2026-10-22T21:49:22.807527+00:00",
+      "end": "2026-10-22T21:49:23.232398+00:00",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stdout_sha256": "d8b5d6452fefc911f3b7d718e0b58e26a2d78f7904582456981418b45136aba8",
+      "stderr_bytes": 0
+    }
+  ],
+  "working_tree_clean_after": true,
+  "status": "PASS",
+  "scope": "Actual current88dee CLI0/2/2; missing-real-evidence behavior; not human acceptance or current complete full/CI",
+  "environment_filter": "run_final_b10_cli.py removes all BIDOPS_/DEEPSEEK_/OPENAI_ inherited settings; explicitly BIDOPS_NETWORK_ENABLED=false; no environment values archived",
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO"
+}

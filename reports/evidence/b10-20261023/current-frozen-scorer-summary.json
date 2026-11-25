@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "purpose": "engineering_fixture",
+  "started_at": "2026-10-22T21:58:46.252725+00:00",
+  "finished_at": "2026-10-22T21:58:46.299523+00:00",
+  "versions": {
+    "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+    "data_sha256": "eda43a451ae978251de4be003f1c062d1a4d3e93db9249c9c5458966628f44fb",
+    "profile_sha256": "ff951fa725c2ec5b1b981c1cc46c85493a4354903b4d0a69d92d54d6c0312202",
+    "prompt_version": "not_invoked:scorer_fixture",
+    "scorer_version": "enterprise-scorer-v1",
+    "actual_model_id": null,
+    "execution_kind": "scorer_fixture",
+    "model_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_cny": "0",
+    "parameters": {}
+  },
+  "source_tree_dirty": false,
+  "dependencies": {
+    "pydantic": "2.14.1",
+    "pydantic-evals": "2.59.0",
+    "pydantic-ai-slim": "2.59.0"
+  },
+  "freeze": {
+    "status": "PASS",
+    "issues": [],
+    "failure_ids": [],
+    "protocol_id": "bidops-enterprise-evaluation",
+    "protocol_version": "1",
+    "frozen_at": "2026-10-22T16:40:25.351888+00:00",
+    "manifest_sha256": "22a2adf96f07b9a3e9c1493dae2cebbe2499b6e05db21f2b52855686c2afffea",
+    "counts": {
+      "expected_files": 18,
+      "verified_files": 18
+    }
+  },
+  "agent_score": null,
+  "business_acceptance": "BLOCKED",
+  "limits": [
+    "Synthetic oracle agreement calibrates the scorer, not an Agent.",
+    "B08 real data/gold/model/human evidence and B10 acceptance remain required."
+  ],
+  "original_output_sha256": "41be1b7e359f8753d0d54cb024b85bb2d04c28fe47eda96fe1ba11d03ad762c8",
+  "scope": "Frozen scorer engineering calibration only; not Agent quality or real gold/human/model evidence"
+}

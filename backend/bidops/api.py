@@ -1,7 +1,9 @@
 import asyncio
 import logging
 from contextlib import asynccontextmanager, suppress
+from datetime import UTC, datetime
 from pathlib import Path
+from typing import Literal
 from urllib.parse import urlsplit
 
 from fastapi import APIRouter, FastAPI, HTTPException, Query, Request
@@ -13,12 +15,31 @@ from starlette.middleware.trustedhost import TrustedHostMiddleware
 
 from bidops.agent_demo.runtime import AgentService, DemoFailure, DemoSettings
 from bidops.agent_demo.schemas import ChatRequest, ChatResponse
+from bidops.agent_demo.schemas import Query as NoticeQuery
+from bidops.catalog_query import query_notices
+from bidops.company import CompanyService
+from bidops.company.api import company_router
+from bidops.company.retention import prune_company_materials
 from bidops.config import Settings
 from bidops.enterprise.auth import IdentityService, auth_router
 from bidops.enterprise.config import EnterpriseSettings
+from bidops.enterprise.health import DependencyHealth, HealthSettings
 from bidops.enterprise.operations import Operations, OperationsMiddleware, SingleWorker
 from bidops.enterprise.sessions import PersistentConversations, prune_private_history
+from bidops.ingestion.api import ingestion_router
+from bidops.ingestion.config import IngestionSettings
+from bidops.ingestion.service import IngestionService
+from bidops.jobs.api import jobs_router
+from bidops.jobs.config import JobsSettings
 from bidops.models import Notice
+from bidops.notice_api import notice_router
+from bidops.notice_data import NoticeRepository
+from bidops.qualification.api import screening_router
+from bidops.qualification.config import ScreeningSettings
+from bidops.qualification.service import ScreeningService
+from bidops.review.api import review_router
+from bidops.review.config import ReviewSettings
+from bidops.review.service import ReviewService
 from bidops.storage import Store
 
 
@@ -26,10 +47,16 @@ def create_app(
     settings: Settings | None = None,
     demo_settings: DemoSettings | None = None,
     enterprise_settings: EnterpriseSettings | None = None,
+    screening_settings: ScreeningSettings | None = None,
+    jobs_settings: JobsSettings | None = None,
+    review_settings: ReviewSettings | None = None,
+    ingestion_settings: IngestionSettings | None = None,
+    health_settings: HealthSettings | None = None,
 ) -> FastAPI:
     settings = settings or Settings()
     enterprise = enterprise_settings or EnterpriseSettings()
     operations = Operations()
+    health_config = health_settings or HealthSettings()
 
     @asynccontextmanager
     async def lifespan(app: FastAPI):
@@ -38,30 +65,118 @@ def create_app(
             app.state.store = Store(settings)
             app.state.agent_service = AgentService(app.state.store, demo_settings)
             app.state.identity = IdentityService(app.state.store.db, enterprise)
+            app.state.company = CompanyService(
+                app.state.store.db, settings.data_dir, max_bytes=settings.max_bytes
+            )
             app.state.conversations = PersistentConversations(app.state.agent_service, enterprise)
+            app.state.screening = ScreeningService(
+                app.state.company,
+                NoticeRepository(app.state.store.db, settings.data_dir / "raw"),
+                screening_settings,
+            )
+            app.state.maintenance_failed = False
+            app.state.jobs = None
             if enterprise.enabled:
                 prune_private_history(app.state.store.db, enterprise.history_days)
-            app.state.maintenance_failed = False
+                company_prune = prune_company_materials(app.state.company)
+                app.state.maintenance_failed = company_prune["status"] != "PASS"
+                if (jobs_settings or JobsSettings()).enabled or (
+                    ingestion_settings or IngestionSettings()
+                ).enabled:
+                    from bidops.jobs.runtime import JobsService
+
+                    app.state.jobs = JobsService(
+                        app.state.screening, settings.data_dir, jobs_settings
+                    )
+            app.state.review = ReviewService(app.state.screening, app.state.jobs, review_settings)
+            app.state.ingestion = IngestionService(
+                app.state.store, app.state.company, ingestion_settings, app.state.jobs
+            )
+            if app.state.jobs:
+                await asyncio.to_thread(app.state.jobs.start)
+
+            app.state.dependency_health = DependencyHealth(
+                health_config, operations.registry, app.state, settings
+            )
+
+            async def dependency_observation():
+                while True:
+                    task = asyncio.create_task(
+                        asyncio.to_thread(app.state.dependency_health.sample)
+                    )
+                    try:
+                        await asyncio.shield(task)
+                    except asyncio.CancelledError:
+                        with suppress(Exception):
+                            await task
+                        raise
+                    except Exception:
+                        logging.getLogger("bidops.operations").error(
+                            '{"event":"dependency_observation_failed"}'
+                        )
+                    await asyncio.sleep(health_config.interval_seconds)
+
+            monitor = (
+                asyncio.create_task(dependency_observation()) if health_config.enabled else None
+            )
+
+            async def review_delivery():
+                while True:
+                    await asyncio.sleep(30)
+                    try:
+                        delivery = asyncio.create_task(
+                            asyncio.to_thread(app.state.review.deliver_pending)
+                        )
+                        try:
+                            await asyncio.shield(delivery)
+                        except asyncio.CancelledError:
+                            # Cancelling the waiter does not stop its native thread.
+                            # Join it before closing DBOS, the database or worker lock.
+                            with suppress(Exception):
+                                await delivery
+                            raise
+                    except Exception:
+                        logging.getLogger("bidops.operations").error(
+                            '{"event":"review_delivery_failed"}'
+                        )
 
             async def retention():
                 while True:
                     await asyncio.sleep(3600)
                     try:
                         prune_private_history(app.state.store.db, enterprise.history_days)
+                        if prune_company_materials(app.state.company)["status"] != "PASS":
+                            raise RuntimeError("company_retention_cleanup_failed")
                         app.state.maintenance_failed = False
                     except Exception:
                         app.state.maintenance_failed = True
                         logging.getLogger("bidops.operations").error('{"event":"retention_failed"}')
 
             maintenance = asyncio.create_task(retention()) if enterprise.enabled else None
+            relay = (
+                asyncio.create_task(review_delivery())
+                if enterprise.enabled and app.state.review.settings.enabled
+                else None
+            )
             try:
                 yield
             finally:
+                if monitor:
+                    monitor.cancel()
+                    with suppress(asyncio.CancelledError):
+                        await monitor
                 if maintenance:
                     maintenance.cancel()
                     with suppress(asyncio.CancelledError):
                         await maintenance
+                if relay:
+                    relay.cancel()
+                    with suppress(asyncio.CancelledError):
+                        await relay
+                if app.state.jobs:
+                    await asyncio.to_thread(app.state.jobs.close)
                 await app.state.agent_service.close()
+                await app.state.screening.close()
                 app.state.store.db.engine.dispose()
         finally:
             if worker:
@@ -101,20 +216,20 @@ def create_app(
 
     @router.get("/notices")
     def notices(
-        request: Request, limit: int = Query(50, ge=1, le=100), offset: int = Query(0, ge=0)
+        request: Request,
+        limit: int = Query(50, ge=1, le=100),
+        offset: int = Query(0, ge=0, le=2_147_483_647),
+        q: str = Query("", max_length=120),
+        sort_by: Literal["project_code", "budget", "deadline", "publication"] = "project_code",
+        descending: bool = False,
     ):
         app.state.identity.require(request, "catalog:read")
-        store = app.state.store
-        rows = store.db.rows(
-            "SELECT payload_json FROM notices ORDER BY notice_id LIMIT :l OFFSET :o",
-            {"l": limit, "o": offset},
+        return query_notices(
+            app.state.store.db,
+            NoticeQuery(keyword=q, offset=offset, sort_by=sort_by, descending=descending),
+            datetime.now(UTC),
+            limit=limit,
         )
-        return {
-            "items": [Notice.model_validate_json(row["payload_json"]) for row in rows],
-            "total": store.db.rows("SELECT COUNT(*) AS n FROM notices")[0]["n"],
-            "limit": limit,
-            "offset": offset,
-        }
 
     @router.get("/notices/{notice_id}", response_model=Notice)
     def notice_detail(notice_id: str, request: Request):
@@ -200,9 +315,27 @@ def create_app(
             )
         except Exception:
             ok = False
-        return JSONResponse({"ready": ok}, status_code=200 if ok else 503)
+        result = {"ready": ok}
+        if health_config.enabled:
+            health = app.state.dependency_health.snapshot()
+            ok = ok and health["ready"]
+            result = {"ready": ok, "checks": health["checks"]}
+        return JSONResponse(result, status_code=200 if ok else 503)
+
+    @app.get("/api/operations/health")
+    def dependency_health(request: Request):
+        if not enterprise.enabled or not health_config.enabled:
+            raise HTTPException(404)
+        app.state.identity.require(request, "audit:read")
+        return app.state.dependency_health.snapshot()
 
     app.include_router(auth_router())
+    app.include_router(company_router())
+    app.include_router(screening_router())
+    app.include_router(jobs_router())
+    app.include_router(review_router())
+    app.include_router(ingestion_router())
+    router.include_router(notice_router())
     app.include_router(router)
     app.include_router(router, prefix="/api", include_in_schema=False)
     frontend = Path("frontend/dist")

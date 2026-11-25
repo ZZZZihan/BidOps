@@ -1,0 +1,216 @@
+{
+  "scope": "Independent scoped technical review; no tracked source edits, full regression or remote CI rerun",
+  "base_head": "36efed31ae496f42474cd8389236668b05767499",
+  "reviewed_uncommitted_test_diff_sha256": "21351b4946920f6bdc244dead18058ae1e9e504f63297e70e50ec2f04371d677",
+  "changed_file": "tests/test_identity_revocation.py",
+  "status": "PASS_NO_BLOCKER",
+  "runs": [
+    {
+      "name": "file",
+      "command": [
+        ".venv/bin/pytest",
+        "-q",
+        "tests/test_identity_revocation.py",
+        "--basetemp",
+        "<isolated-test-output>",
+        "-o",
+        "cache_dir=<isolated-cache>"
+      ],
+      "passed": 43,
+      "pytest_reported_seconds": 8.77,
+      "controller_seconds": 10.779915166087449,
+      "started_at": "2026-10-22T21:43:40.239621+00:00",
+      "ended_at": "2026-10-22T21:43:51.019670+00:00",
+      "exit_code": 0
+    },
+    {
+      "name": "delay",
+      "command": [
+        ".venv/bin/python",
+        "<private-review>/delay_probe.py",
+        "-q",
+        "-s",
+        "tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change",
+        "--basetemp",
+        "<isolated-test-output>",
+        "-o",
+        "cache_dir=<isolated-cache>"
+      ],
+      "passed": 19,
+      "pytest_reported_seconds": 4.48,
+      "controller_seconds": 5.922094042063691,
+      "started_at": "2026-10-22T21:43:40.239906+00:00",
+      "ended_at": "2026-10-22T21:43:46.161986+00:00",
+      "exit_code": 0
+    }
+  ],
+  "count_boundary": "The 19-case delayed run overlaps the 43-case file. Do not sum these counts. The seven verifier cases are script cases, not HTTP/pytest cases.",
+  "independent_rs256_verifier_probe": {
+    "scope": "Independent real RS256 production verifier probe; local in-memory JWKS, no HTTP or real IdP",
+    "simulated_collection_to_execution_delay_seconds": 180,
+    "sleep_calls": 0,
+    "production_code_modified": false,
+    "real_model_calls": 0,
+    "real_network_calls": 0,
+    "production_max_logout_age_seconds": 300,
+    "production_future_skew_seconds": 30,
+    "cases": [
+      {
+        "case": "old_collection_plus120_after180_seconds",
+        "iat_minus_execution_seconds": -60,
+        "expected_accepted": true,
+        "actual_accepted": true
+      },
+      {
+        "case": "execution_relative_future_plus120",
+        "iat_minus_execution_seconds": 120,
+        "expected_accepted": false,
+        "actual_accepted": false
+      },
+      {
+        "case": "execution_relative_expired_minus301",
+        "iat_minus_execution_seconds": -301,
+        "expected_accepted": false,
+        "actual_accepted": false
+      },
+      {
+        "case": "exact_age300_boundary",
+        "iat_minus_execution_seconds": -300,
+        "expected_accepted": true,
+        "actual_accepted": true
+      },
+      {
+        "case": "exact_future30_boundary",
+        "iat_minus_execution_seconds": 30,
+        "expected_accepted": true,
+        "actual_accepted": true
+      },
+      {
+        "case": "future31_rejected",
+        "iat_minus_execution_seconds": 31,
+        "expected_accepted": false,
+        "actual_accepted": false
+      },
+      {
+        "case": "exp_at_current_time_rejected",
+        "iat_minus_execution_seconds": 0,
+        "expected_accepted": false,
+        "actual_accepted": false
+      }
+    ],
+    "status": "PASS_EXPECTED_BEHAVIOR"
+  },
+  "assertion_integrity": {
+    "original_test_functions_preserved": 18,
+    "new_test_functions": [
+      "test_logout_iat_exact_time_boundaries"
+    ],
+    "original_assertion_ast_changes": [],
+    "old_red_probe": {
+      "red-delay-180.txt": {
+        "bytes": 1194,
+        "sha256": "7080fc91944896235a4a76e433f2923cf9b965105061d25c5cc5557118373b99"
+      },
+      "red-delay-180.json": {
+        "bytes": 739,
+        "sha256": "146b4f9711bd0da5faf46c5a3c5fba8514b658642bb9a2acfecb532359154f29"
+      },
+      "delay_probe.py": {
+        "bytes": 1010,
+        "sha256": "a8b8bcee8d9e8137bb8e2e60d3836401f24cc157048a9aa29dc0b44b7bac9e4f"
+      }
+    }
+  },
+  "production_files_hashes_before_and_after": {
+    "backend/bidops/enterprise/identity_events.py": {
+      "bytes": 6409,
+      "sha256": "9562f277e8c139e0052aa488f68ad9719559aceb42cf55083c71cc802cd78624"
+    },
+    "backend/bidops/enterprise/auth.py": {
+      "bytes": 17277,
+      "sha256": "c303f4903b6483b704335c847c4d2a8190d3754811d80080872672776a857ec4"
+    }
+  },
+  "production_hashes_unchanged": true,
+  "same_diff_after_checks": true,
+  "test_fix": "Evaluate invalid iat relative to invocation time; freeze only identity_events module clock after signed login. Keep production logout age300s/future skew30s and all original assertions.",
+  "added_boundary_cases": [
+    {
+      "iat_minus_now_seconds": -301,
+      "http_status": 400
+    },
+    {
+      "iat_minus_now_seconds": -300,
+      "http_status": 200
+    },
+    {
+      "iat_minus_now_seconds": 30,
+      "http_status": 200
+    },
+    {
+      "iat_minus_now_seconds": 31,
+      "http_status": 400
+    }
+  ],
+  "historical_red": {
+    "passed": 18,
+    "failed": 1,
+    "pytest_reported_seconds": 9.19,
+    "source": "Implementation-agent original no-sleep180s probe; raw hashes preserved in assertion_integrity, not rerun as old code during independent review"
+  },
+  "sources": [
+    {
+      "source_alias": "independent-identity-clock-review/checks.json",
+      "bytes": 2051,
+      "sha256": "fbd9daea1ae79c517e41884aa101abe4c90e469e00a092b78343d81b62788e74"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/file.txt",
+      "bytes": 99,
+      "sha256": "b3b240c1eb14330f976693d7e30f54e6ea332e75d3ada0dd7057b46f85b33a3c"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/delay.txt",
+      "bytes": 126,
+      "sha256": "585b85c9e0b518c8285f231a4c456f628f34d0a997bd790182597c44c91899e5"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/probe.py",
+      "bytes": 3372,
+      "sha256": "f9bd0d90386e68d12bfa7d7c04920347dbb811dde4ff6ea819f9f551ab12d1a4"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/probe-result.json",
+      "bytes": 1569,
+      "sha256": "7177c8a1e90fee97173713d44732a830a63403fdf41151cbebc788e3a2e29d68"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/assertion-integrity.json",
+      "bytes": 597,
+      "sha256": "492aa1e55404425b128e8b4059d6600ad4a3dd7a22b7c58aa66e27517c18f8b9"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/reviewed.diff",
+      "bytes": 3764,
+      "sha256": "21351b4946920f6bdc244dead18058ae1e9e504f63297e70e50ec2f04371d677"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/review.md",
+      "bytes": 4063,
+      "sha256": "1959378502bd7a7e39f827c11fa9a96c1d235d037f27b8a65b2aeadb0b2b697a"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/baseline-provenance.json",
+      "bytes": 644,
+      "sha256": "ac4e92d2b8526f970479a60d0196260397a2d9beb853b94dce3815e72f3b08d9"
+    },
+    {
+      "source_alias": "independent-identity-clock-review/evidence-index.json",
+      "bytes": 1829,
+      "sha256": "a007e9e37c8c513195ace1f3f67392bb3bc4dc2377691a44bf2d2131ea766256"
+    }
+  ],
+  "real_model_calls": 0,
+  "real_network_calls": 0,
+  "business_acceptance": "NOT_PERFORMED"
+}

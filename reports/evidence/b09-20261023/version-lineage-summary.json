@@ -1,0 +1,77 @@
+{
+  "snapshot_at": "2026-10-22T22:09:25.941751+00:00",
+  "final_integration_candidate_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+  "capacity_and_fullscale_review_code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "capacity_tree_sha": "3a0b67e03f1e8a250bf5ad8272451c772be9c867",
+  "corrected_complete_regression_sha": "36efed31ae496f42474cd8389236668b05767499",
+  "corrected_complete_regression_passed": 2006,
+  "identity_fix_commit_coordinator_reported": "7853641",
+  "identity_fix_original_b03_commit_coordinator_reported": "0d8ec7a",
+  "identity_upstream_merges": "Coordinator reports merged and pushed B03 through B08; no production changes",
+  "production_equivalence": {
+    "status": "COORDINATOR_VERIFIED_DIFF_EXIT0",
+    "from_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+    "to_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+    "groups": [
+      "backend",
+      "frontend",
+      "scripts",
+      "config",
+      "evals",
+      "requirements",
+      "pyproject",
+      "uv",
+      "Docker",
+      "compose"
+    ],
+    "meaning": "Production groups unchanged; only tests and upstream reports/docs changed. Does not transfer a test run to a new commit.",
+    "independently_rerun_by_draft_editor": false
+  },
+  "version_information_source": "Explicit coordinator handoff; this draft task did not read or alter a worktree or request GitHub",
+  "final_candidate_ci": "PASS_ALL_THREE_JOBS_RUN39859780307",
+  "final_candidate_complete_backend": {
+    "environment": "Linux remote CI",
+    "status": "PASS",
+    "passed": 2010,
+    "failed": 0,
+    "pytest_reported_seconds": 675.52,
+    "evidence": "final-db4-code-ci.json"
+  },
+  "formal_capacity_measurement": "COMPLETED_FIXED836_LOCAL_ENGINEERING_FAIL_EXIT1",
+  "full_count_boundary": "36ef local2006 predates four identity boundary cases; db4 Linux2010 is a separate actual completed CI run, not an arithmetic projection. Both36ef local2006PASS and Linux2005PASS1FAIL remain historical records.",
+  "original_local_full": {
+    "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+    "passed": 2005,
+    "failed": 1,
+    "pytest_reported_seconds": 605.6
+  },
+  "original_linux_ci_full": {
+    "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+    "passed": 2004,
+    "failed": 2,
+    "pytest_reported_seconds": 1042.66
+  },
+  "actual_provider_model_calls": 0,
+  "actual_cost_cny": "0",
+  "business_acceptance": "BLOCKED",
+  "final_candidate_frontend": {
+    "status": "PASS_NATURAL_REMOTE_EXIT",
+    "passed": 152,
+    "reported_minutes": 2.7
+  },
+  "final_candidate_other_checks": {
+    "lint": "PASS",
+    "format_files": 247,
+    "container": "PASS",
+    "freeze": "COORDINATOR_VERIFIED_PASS"
+  },
+  "historical_linux_36ef": {
+    "passed": 2005,
+    "failed": 1,
+    "pytest_reported_seconds": 1015.29,
+    "failure": "identity collection-time iat test updates6",
+    "run_id": 39858363545,
+    "evidence": "historical-linux-36ef-backend-failure.json"
+  },
+  "formal_capacity_evidence": "formal-load/safe-report.json"
+}

@@ -1,0 +1,38 @@
+{
+  "observed_at": "2026-10-22T21:29:00Z",
+  "code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64",
+  "run_id": 39855370107,
+  "run_url": "https://github.com/ZZZZihan/BidOps/actions/runs/39855370107",
+  "jobs": [
+    {
+      "name": "backend",
+      "job_id": 120092083277,
+      "conclusion": "success",
+      "tests_passed": 1852,
+      "selected_log_lines": [
+        "2026-10-22T21:12:51.5566472Z All checks passed!",
+        "2026-10-22T21:12:51.6278814Z 233 files already formatted",
+        "2026-10-22T21:27:38.1333262Z ======================= 1852 passed in 882.26s (0:14:42) =======================",
+        "2026-10-22T21:27:42.1415439Z {\"status\": \"PASS\", \"agent_score\": null, \"business_acceptance\": \"BLOCKED\"}"
+      ]
+    },
+    {
+      "name": "frontend",
+      "job_id": 120092083005,
+      "conclusion": "success",
+      "browser_tests_passed": 148,
+      "selected_log_lines": [
+        "2026-10-22T21:16:09.3635749Z   148 passed (3.0m)"
+      ]
+    },
+    {
+      "name": "container",
+      "job_id": 120092083331,
+      "conclusion": "success"
+    }
+  ],
+  "evidence_scope": "actual_GitHub_Actions_engineering_checks_not_real_business_acceptance",
+  "real_model_calls": 0,
+  "business_acceptance": "BLOCKED",
+  "old_failed_run_preserved": true
+}

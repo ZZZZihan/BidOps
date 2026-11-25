@@ -1,0 +1,16 @@
+{
+  "schema_version": "ci-checkout-tree-proof-v1",
+  "code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "code_tree": "dc6e75fbce673ed9a573d138fbcce8bb9967ca9c",
+  "github_actions_run": 39868275001,
+  "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+  "actual_checkout_tree": "dc6e75fbce673ed9a573d138fbcce8bb9967ca9c",
+  "content_equal": true,
+  "evidence": "frontend/container decoded job logs git log -1 plus fetched local git objects",
+  "commands": [
+    "git fetch origin 8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+    "git rev-parse 69560429745417e34113d0877d75a62d7eb8f37b^{tree}",
+    "git rev-parse 8b23cc70726030fcf08e0c6e3aecfcc7eb51f502^{tree}"
+  ],
+  "worktree_clean_after": true
+}

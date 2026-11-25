@@ -1,0 +1,147 @@
+{
+  "code_sha": "b136ed58c689b30c98bf43a4eee2a1a134181899",
+  "tree_sha": "0266dc76e4923185bc0cabf0d393e6a929b33036",
+  "commit_time": "2026-10-23T05:24:40+08:00",
+  "clean_observed_at": "2026-10-22T21:29:44.056645+00:00",
+  "clean_observed": true,
+  "b10_diff_base": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "b10_changed_files": {
+    "backend/bidops/uat/__init__.py": {
+      "bytes": 287,
+      "sha256": "6e6e1707fa33ea14dec702a93f9ec5eb61bb823c63dda1d904a752f21073919c"
+    },
+    "backend/bidops/uat/environment.py": {
+      "bytes": 10684,
+      "sha256": "68cd62b02e2551199bc2592ead6e50252314c2c7de0caa6354739666e44363c8"
+    },
+    "backend/bidops/uat/evidence.py": {
+      "bytes": 22721,
+      "sha256": "93b6ba1afaa8549b3befe559f64b94a82da239b99ee4433c7a656c36bb1ed5e1"
+    },
+    "backend/bidops/uat/schemas.py": {
+      "bytes": 9190,
+      "sha256": "f3a27420ff6ff7ea504e55679ee42609236aa49d9549cc94ed3e31e1bf594f39"
+    },
+    "config/uat.example.json": {
+      "bytes": 1904,
+      "sha256": "9af48b52d6a83597228a97b795126adeb62001edf8209a5df1d6ce78cbb11d26"
+    },
+    "docs/ENTERPRISE-UAT.md": {
+      "bytes": 15311,
+      "sha256": "6f0dd21450c7e99e1598dfea82950ae66ac4fedc5ec76412d74349ba9c9e5004"
+    },
+    "scripts/enterprise_readiness.py": {
+      "bytes": 3760,
+      "sha256": "c236e4082671d9a175196a5ff600cd52e908b161d6e00674761faee837750948"
+    },
+    "tests/test_uat_cli.py": {
+      "bytes": 3794,
+      "sha256": "9b21d8b3eae93377d95429565fba88536cac44ed4ed7a24764c3dd0cd016c162"
+    },
+    "tests/test_uat_environment.py": {
+      "bytes": 7248,
+      "sha256": "98cb62e86f33a621336ee98f0628dc82eec390d83b7256531cb7f0aba1bffecd"
+    },
+    "tests/test_uat_evidence.py": {
+      "bytes": 28857,
+      "sha256": "e1cfa04c6eca5dd52cfc68851a157a1e7ec1aa8cd799b5ff5bb377a1a25351e7"
+    }
+  },
+  "plan_sha256": "1bcfc395039fb2e61d794efcd6e5be57343efb03799358f60d98e274f961d399",
+  "current_plan_specialist_ac_count": 71,
+  "current_upstream_ac_count": 65,
+  "current_upstream_ids": [
+    "B01-01",
+    "B01-02",
+    "B01-03",
+    "B01-04",
+    "B01-05",
+    "B01-06",
+    "B01-07",
+    "B02-01",
+    "B02-02",
+    "B02-03",
+    "B02-04",
+    "B02-05",
+    "B02-06",
+    "B03-01",
+    "B03-02",
+    "B03-03",
+    "B03-04",
+    "B03-05",
+    "B03-06",
+    "B03-07",
+    "B03-08",
+    "B04-01",
+    "B04-02",
+    "B04-03",
+    "B04-04",
+    "B04-05",
+    "B04-06",
+    "B04-07",
+    "B04-08",
+    "B05-01",
+    "B05-02",
+    "B05-03",
+    "B05-04",
+    "B05-05",
+    "B05-06",
+    "B05-07",
+    "B06-01",
+    "B06-02",
+    "B06-03",
+    "B06-04",
+    "B06-05",
+    "B06-06",
+    "B06-07",
+    "B07-01",
+    "B07-02",
+    "B07-03",
+    "B07-04",
+    "B07-05",
+    "B07-06",
+    "B07-07",
+    "B08-01",
+    "B08-02",
+    "B08-03",
+    "B08-04",
+    "B08-05",
+    "B08-06",
+    "B08-07",
+    "B09-01",
+    "B09-02",
+    "B09-03",
+    "B09-04",
+    "B09-05",
+    "B09-06",
+    "B09-07",
+    "B09-08"
+  ],
+  "minimum_registered_ids_count": 71,
+  "extension_policy": "Current71 are a required minimum; legitimate future B01-B09 IDs become required; new B10 ID requires explicit evidence-contract upgrade and is rejected now.",
+  "locks": {
+    "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+    "requirements/durable.lock": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+    "requirements/attachments.lock": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"
+  },
+  "schema_migrations_changed_by_b10": false,
+  "runtime_or_identity_changed_by_b10": false,
+  "frontend_changed_by_b10": false,
+  "lock_dependencies_changed_by_b10": false,
+  "real_environment_or_business_input_supplied": false,
+  "model_calls": 0,
+  "source_calls": 0,
+  "actual_cost_cny": "0",
+  "historical_427": {
+    "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+    "upstream_count_returned_by_old_cli": 63,
+    "count_is_incomplete": true,
+    "missing_current_ids": [
+      "B04-08",
+      "B09-08"
+    ],
+    "original_public_index_sha256": "6eb424f87158f71e60d8d167882ae8e1973adbc3d4a35d5bc5af93df578a4b38",
+    "original_report_sha256": "bec95ac8df7ad51142c0b3f0ae56d69e6357a1355e77482cc59f08f98f309c89",
+    "scope": "Old2039/89 checks remain historical; old63 is a documented parser defect, not a sufficient prerequisite contract."
+  }
+}

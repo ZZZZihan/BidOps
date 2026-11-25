@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "directory": "<HOME>/Projects/BidOps-worktrees/work/b05-durable-probe-20261023/runs/restart-irgp_hne",
+  "application_version": "bc42b06b6dbdd085c2f61509bbd0541d6fddb695e42e9e367eb616d7b0519b36",
+  "versions": {
+    "pydantic-ai-slim": "2.59.0",
+    "pydantic-graph": "2.59.0",
+    "dbos": "3.3.0",
+    "temporalio": null,
+    "sqlalchemy": "2.1.6",
+    "pydantic": "2.14.1"
+  },
+  "python": "3.12.12 (main, Feb  4 2026, 01:57:59) [Clang 21.1.4 ]",
+  "model_kind": "in_process_TestModel_only",
+  "real_model_calls": 0,
+  "network_calls_permitted": false,
+  "model_step_calls": {
+    "SYNTHETIC_FIRST_MODEL_STEP": 1,
+    "SYNTHETIC_SECOND_MODEL_STEP": 1
+  },
+  "unfinished_gate_calls": 2,
+  "final_step_calls": 1,
+  "first_worker_exit": -9,
+  "recovery": "automatic_by_DBOS.launch; retrieve_only_after_restart",
+  "completed_run_retrieval_reexecutes_steps": false
+}

@@ -1,0 +1,255 @@
+{
+  "schema": "bidops-b02-06-followup-v1",
+  "recorded_at_utc": "2026-10-23T02:19:14.375543+00:00",
+  "tested_code_commit": "3c42b493d0be401cde5adbea5a59ff740fb49257",
+  "base_commit": "0ff9413cff5e3cb13b85697e5a0c9181e4b86658",
+  "scope": "Tool regression and bounded local asset search only; not historical acceptance",
+  "versions": {
+    "python": "3.12.12",
+    "sqlite": "3.50.4",
+    "uv": "uv 0.10.0 (Homebrew 2026-02-05)",
+    "ruff": "ruff 0.17.1"
+  },
+  "files_sha256": {
+    "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+    "scripts/legacy_preflight.py": "475ebf102e6406b1dd1b67c3665f8d60b430cda0bed8ffd25f5291072a6234f7",
+    "tests/test_legacy_preflight.py": "8a0d2b366f3e2d9d9ffb4df2979f6a04bc8ed4adb43d016ac6d1aa3ad66303d6",
+    "data/seeds/p0-capture-20261022.expected.json": "f722bf3269ce2c6b98a56a2f04a4ad87a2b7c1b07ff15f2f348c2ef75064d5ad"
+  },
+  "local_checks": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_legacy_preflight.py",
+        "-v"
+      ],
+      "started_at_utc": "2026-10-23T02:14:47.916512+00:00",
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": "test_capture_and_full_modes_record_exact_expected_file_hash (test_legacy_preflight.TestLegacyPreflight.test_capture_and_full_modes_record_exact_expected_file_hash) ... ok\ntest_expected_capture_is_public_fingerprint_metadata_only (test_legacy_preflight.TestLegacyPreflight.test_expected_capture_is_public_fingerprint_metadata_only) ... ok\ntest_expected_metadata_rejects_invalid_shapes_and_sample_identities (test_legacy_preflight.TestLegacyPreflight.test_expected_metadata_rejects_invalid_shapes_and_sample_identities) ... ok\ntest_ledger_only_counts_costs_without_raw_or_history_and_preserves_bytes (test_legacy_preflight.TestLegacyPreflight.test_ledger_only_counts_costs_without_raw_or_history_and_preserves_bytes) ... ok\ntest_ledger_only_does_not_expose_private_table_names_or_unknown_states (test_legacy_preflight.TestLegacyPreflight.test_ledger_only_does_not_expose_private_table_names_or_unknown_states) ... ok\ntest_ledger_only_is_independent_of_unrelated_schema_migration_columns (test_legacy_preflight.TestLegacyPreflight.test_ledger_only_is_independent_of_unrelated_schema_migration_columns) ... ok\ntest_malformed_ledger_is_fail_without_changing_source (test_legacy_preflight.TestLegacyPreflight.test_malformed_ledger_is_fail_without_changing_source) ... ok\ntest_missing_inputs_are_blocked (test_legacy_preflight.TestLegacyPreflight.test_missing_inputs_are_blocked) ... ok\ntest_nonempty_wal_and_journal_are_refused_without_deleting_them (test_legacy_preflight.TestLegacyPreflight.test_nonempty_wal_and_journal_are_refused_without_deleting_them) ... ok\ntest_null_citation_snapshot_is_not_counted_as_verified (test_legacy_preflight.TestLegacyPreflight.test_null_citation_snapshot_is_not_counted_as_verified) ... ok\ntest_snapshot_metadata_shape_and_nonfinite_json_return_structured_failure (test_legacy_preflight.TestLegacyPreflight.test_snapshot_metadata_shape_and_nonfinite_json_return_structured_failure) ... ok\ntest_sqlite_connection_rejects_writes_and_enables_read_barriers (test_legacy_preflight.TestLegacyPreflight.test_sqlite_connection_rejects_writes_and_enables_read_barriers) ... ok\ntest_unconfirmed_snapshot_is_blocked (test_legacy_preflight.TestLegacyPreflight.test_unconfirmed_snapshot_is_blocked) ... ok\ntest_wal_created_during_inspection_is_refused (test_legacy_preflight.TestLegacyPreflight.test_wal_created_during_inspection_is_refused) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.054s\n\nOK\n"
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--no-sync",
+        "ruff",
+        "check",
+        "scripts/legacy_preflight.py",
+        "tests/test_legacy_preflight.py"
+      ],
+      "started_at_utc": "2026-10-23T02:14:48.095857+00:00",
+      "exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "uv",
+        "run",
+        "--frozen",
+        "--no-sync",
+        "ruff",
+        "format",
+        "--check",
+        "scripts/legacy_preflight.py",
+        "tests/test_legacy_preflight.py"
+      ],
+      "started_at_utc": "2026-10-23T02:14:49.698362+00:00",
+      "exit_code": 0,
+      "stdout": "2 files already formatted\n",
+      "stderr": ""
+    }
+  ],
+  "missing_input_checks": [
+    {
+      "name": "absent_capture",
+      "observed_at_utc": "2026-10-23T02:16:07.748449+00:00",
+      "exit_code": 2,
+      "snapshot_confirmed": false,
+      "output": {
+        "scope": "read-only structural preflight, not historical migration acceptance",
+        "b02_06_status": "NOT_EVALUATED",
+        "e06_status": "NOT_EVALUATED",
+        "new_model_calls": 0,
+        "database_writes": 0,
+        "expected_reference_sha256": "f722bf3269ce2c6b98a56a2f04a4ad87a2b7c1b07ff15f2f348c2ef75064d5ad",
+        "expected_reference_limit": "Compare this digest with the pinned public metadata; custom expectations do not authenticate the original six notices.",
+        "capture": {
+          "status": "BLOCKED",
+          "reason": "capture manifest.json is missing"
+        },
+        "preflight_status": "BLOCKED"
+      },
+      "stderr_empty": true,
+      "scope": "Absent path rejection only; no database opened"
+    },
+    {
+      "name": "absent_history",
+      "observed_at_utc": "2026-10-23T02:16:07.781174+00:00",
+      "exit_code": 2,
+      "snapshot_confirmed": false,
+      "output": {
+        "scope": "read-only structural preflight, not historical migration acceptance",
+        "b02_06_status": "NOT_EVALUATED",
+        "e06_status": "NOT_EVALUATED",
+        "new_model_calls": 0,
+        "database_writes": 0,
+        "expected_reference_sha256": "f722bf3269ce2c6b98a56a2f04a4ad87a2b7c1b07ff15f2f348c2ef75064d5ad",
+        "expected_reference_limit": "Compare this digest with the pinned public metadata; custom expectations do not authenticate the original six notices.",
+        "database": {
+          "status": "BLOCKED",
+          "reason": "business database file is missing"
+        },
+        "preflight_status": "BLOCKED"
+      },
+      "stderr_empty": true,
+      "scope": "Absent path rejection only; no database opened"
+    },
+    {
+      "name": "absent_default_ledger",
+      "observed_at_utc": "2026-10-23T02:16:07.813009+00:00",
+      "exit_code": 2,
+      "snapshot_confirmed": false,
+      "output": {
+        "scope": "read-only structural preflight, not historical migration acceptance",
+        "b02_06_status": "NOT_EVALUATED",
+        "e06_status": "NOT_EVALUATED",
+        "new_model_calls": 0,
+        "database_writes": 0,
+        "database": {
+          "status": "BLOCKED",
+          "reason": "business database file is missing"
+        },
+        "preflight_status": "BLOCKED"
+      },
+      "stderr_empty": true,
+      "scope": "Absent path rejection only; no database opened"
+    }
+  ],
+  "asset_search": {
+    "observed_at_utc": "2026-10-23T02:15:42.349800+00:00",
+    "root_aliases": [
+      "ORIGINAL",
+      "WORKTREES",
+      "DELIVERIES",
+      "DOWNLOADS",
+      "DESKTOP",
+      "SHARED",
+      "BACKUPS",
+      "ROUTER_BACKUP"
+    ],
+    "file_paths_enumerated": 356526,
+    "enumeration_exit_code": 0,
+    "stderr_empty": true,
+    "exact_named_capture_or_live_matches": 0,
+    "default_path_checks": 105,
+    "bidops_sqlite3_paths": 1619,
+    "bidops_sqlite3_test_paths": 1609,
+    "non_test_bidops_sqlite3_provenance": "10 paths: explicitly synthetic/offline upgrade and recovery fixtures; no database opened",
+    "sqlite_family_paths": 1719,
+    "sqlite_family_test_paths": 1688,
+    "non_test_candidate_metadata_only_count": 31,
+    "real_assets_obtained": 0,
+    "limitations": [
+      "No whole-disk search",
+      "No remote/cloud/external-volume/account/attachment-history search",
+      "No directory symlink traversal",
+      "No arbitrary archive content scan",
+      "No database content inspection"
+    ],
+    "raw_sha256_filename_probe": {
+      "observed_at_utc": "2026-10-23T02:17:45.180909+00:00",
+      "returncode": 0,
+      "enumerated_file_count": 356531,
+      "comparison_rule": "lowercase basename equals raw SHA256, or starts with raw SHA256 + dot",
+      "raw_sha256_count": 6,
+      "checks": [
+        {
+          "sha256": "48adb3f1e4a7495a0d7edb9689716589ea1d963009cedbaca8ad052674f75c7b",
+          "match_count": 0,
+          "filename_matches": []
+        },
+        {
+          "sha256": "0d050a9ffe5e6ee634dccb80ac87b8da443bd931cf41b9eb9f746a09c54a43a9",
+          "match_count": 0,
+          "filename_matches": []
+        },
+        {
+          "sha256": "cdd130977fb2a9e27eaafaf3b68dfb99a4f8f897d9b75c2822c2ad03c5231fcf",
+          "match_count": 0,
+          "filename_matches": []
+        },
+        {
+          "sha256": "27b3d5a8a6c28411af9f9ca3fa8a2811f50dd5c6c836cf81ad3ec1765d86477c",
+          "match_count": 0,
+          "filename_matches": []
+        },
+        {
+          "sha256": "792f9037ffaf37ba0b52585ccd2e067a51c43c483c66afa0377b2d91a5d500ca",
+          "match_count": 0,
+          "filename_matches": []
+        },
+        {
+          "sha256": "583b8ccd74f955d114704ec2b6bf497d69776f7d71f1e24822b1ba39ff9aec0d",
+          "match_count": 0,
+          "filename_matches": []
+        }
+      ],
+      "total_filename_matches": 0,
+      "content_scan_performed": false
+    }
+  },
+  "independent_review": {
+    "scope": "static code, public fingerprint identity, historical Git provenance and final report review",
+    "additional_test_count": 0,
+    "historical_7_probe_tests_rerun": false,
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "ultra",
+    "actual_provider_configuration_independently_verified": false
+  },
+  "acceptance": {
+    "B02-06": "BLOCKED",
+    "E06": "BLOCKED",
+    "G-01": "BLOCKED",
+    "G-03": "BLOCKED",
+    "G-08": "BLOCKED",
+    "code_merge": "BLOCKED",
+    "business_acceptance": "BLOCKED"
+  },
+  "actions": {
+    "real_database_opened": false,
+    "real_migration_executed": false,
+    "real_rollback_executed": false,
+    "source_recollection": 0,
+    "real_model_calls": 0,
+    "ledger_reset": false,
+    "unknown_reservations_released": false,
+    "remaining_budget_cny": null
+  },
+  "publication_policy": "Explicit allowlist projection; local absolute paths and candidate metadata retained in controlled local deliverable",
+  "remote_asset_search": [
+    {
+      "endpoint": "repos/ZZZZihan/BidOps/releases",
+      "observed_at_utc": "2026-10-23T02:19:41.967095+00:00",
+      "exit_code": 0,
+      "stderr": "",
+      "release_count": 0
+    },
+    {
+      "endpoint": "repos/ZZZZihan/BidOps/actions/artifacts",
+      "observed_at_utc": "2026-10-23T02:19:42.961413+00:00",
+      "exit_code": 0,
+      "stderr": "",
+      "total_count": 0,
+      "artifact_count": 0
+    }
+  ]
+}

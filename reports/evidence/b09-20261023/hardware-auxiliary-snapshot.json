@@ -1,0 +1,19 @@
+{
+  "recorded_at": "2026-10-22T21:21:40.373489+00:00",
+  "scope": "Auxiliary local development-host snapshot during parent load; not target-equivalent and not pre-run hardware pin",
+  "cpu": "Apple M2 Ultra",
+  "logical_cpus": 24,
+  "memory_bytes": 68719476736,
+  "disk_total_bytes": 994662584320,
+  "disk_free_bytes": 151906439168,
+  "platform": "Darwin",
+  "architecture": "arm64",
+  "target_hardware_equivalence": false,
+  "exclusive_host": false,
+  "concurrent_workloads_declared_by_coordinator": [
+    "B09 full backend suite in isolated temp",
+    "B09 frontend build/browser checks",
+    "formal B09 local capacity harness"
+  ],
+  "no_host_or_user_identifiers_recorded": true
+}

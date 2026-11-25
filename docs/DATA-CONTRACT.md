@@ -40,3 +40,9 @@ Every field not supported by captured evidence must be `null` plus a reason. **N
 ### Storage separation
 
 `data/seeds/` can be public URLs. `data/raw/`, `data/processed/`, `data/manual/` stay local and gitignored. A report or curated metadata can be published only after licensing/privacy review. All automated decisions must point back to evidence snapshot+span.
+
+## 企业初筛契约补充（2026-10-23）
+
+`bidops.screening.schemas` 新增五态资格结论、双方版本证据、条件逻辑／适用范围／有效期、
+独立人审事件及任务执行状态。原 P0 数据形状不变；详细边界见
+[企业评测协议 v1](ENTERPRISE-EVALUATION.md)。真实版本存储与权限入口分别由 B02/B03 实现。

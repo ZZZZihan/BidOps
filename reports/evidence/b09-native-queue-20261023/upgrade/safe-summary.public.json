@@ -1,0 +1,241 @@
+{
+  "kind": "offline_process_upgrade_rollback_probe",
+  "status": "PASS_ENGINEERING_ONLY",
+  "produced_at": "2026-10-22T22:56:08.404311+00:00",
+  "old_code_sha": "215fca737e0e466a9781cd020b6b9d3b89e4b43f",
+  "new_code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "old_application_version": "8bd8c06b2b1d080abcc02cac9f11fc5de5567ea1b76cd5e1501d8ebaeec8a397",
+  "new_application_version": "744c15f446d6f4218bd8063a6ac8963472174c7416077f81c65636aa597ab6aa",
+  "original_old_code_clean": true,
+  "new_code_clean": true,
+  "dependency_versions": {
+    "dbos": "3.3.0",
+    "pydantic-ai-slim": "2.59.0",
+    "sqlalchemy": "2.1.6"
+  },
+  "old": {
+    "business_state": "waiting_review",
+    "native_parent_status": "PENDING",
+    "native_child_status": "SUCCESS",
+    "persisted_model_calls": 9,
+    "local_function_model_calls": 9,
+    "human_review_state": "unreviewed"
+  },
+  "backup": {
+    "format_version": 4,
+    "paired_business_and_dbos": true,
+    "file_count": 6,
+    "stopped_worker": true,
+    "manifest_sha256": "74e29ffc5720a91f95d663d41395d96a0de5adafd718104151400861c7db2647"
+  },
+  "upgrade": {
+    "business_state": "interrupted",
+    "error_code": "job_application_version_changed",
+    "native_parent_status": "CANCELLED",
+    "native_child_status": "SUCCESS",
+    "historical_result_readable": true,
+    "same_result_revision": true,
+    "new_model_calls": 0,
+    "persisted_model_calls": 9,
+    "actual_compute_configured": 2,
+    "capacity_two_compute_demonstrated_by_this_probe": false,
+    "resume_denial": {
+      "evidence_scope": "in_process_domain_service_exception",
+      "exception_type": "CompanyError",
+      "code": "job_application_version_changed",
+      "status_code": 409
+    },
+    "other_owner_denial": {
+      "evidence_scope": "in_process_domain_service_exception",
+      "exception_type": "CompanyError",
+      "code": "job_not_found",
+      "status_code": 404
+    }
+  },
+  "rollback": {
+    "uses_original_old_code_and_original_paired_backup": true,
+    "quarantined_private_objects": 2,
+    "quarantined_results": 1,
+    "quarantined_jobs": 1,
+    "restored_identity_snapshots_stale": true,
+    "explicit_source_and_job_reauthorization_state": "interrupted",
+    "explicit_old_code_resume_business_state": "waiting_review",
+    "explicit_old_code_resume_native_parent_status": "PENDING",
+    "native_parent_queue": "_dbos_internal_queue",
+    "native_queue_observation_scope": "old 215fca7 rollback runtime, not new native calculation queue",
+    "native_child_status": "SUCCESS",
+    "new_model_calls": 0,
+    "persisted_model_calls": 9,
+    "human_review_state": "unreviewed",
+    "manufactured_review_approval": false,
+    "paid_budget_without_ack_denied_before_and_after_offline_resume": true,
+    "matching_ack_only_checks_token_not_external_ledger": true,
+    "token_configured_for_live": false,
+    "restored_identity_denial": {
+      "evidence_scope": "in_process_domain_service_exception",
+      "exception_type": "CompanyError",
+      "code": "current_identity_required",
+      "status_code": 401
+    },
+    "fresh_identity_still_quarantined_denial": {
+      "evidence_scope": "in_process_domain_service_exception",
+      "exception_type": "CompanyError",
+      "code": "job_not_found",
+      "status_code": 404
+    },
+    "job_reauthorization_without_source_acl_denial": {
+      "evidence_scope": "in_process_domain_service_exception",
+      "exception_type": "CompanyError",
+      "code": "company_object_not_found",
+      "status_code": 404
+    },
+    "first_restore_native_parent_at_stop": "ENQUEUED",
+    "native_pending_confirmation_phase": "rollback-native",
+    "observations_not_collapsed": [
+      {
+        "phase": "rollback",
+        "business_state": "waiting_review",
+        "native_parent_at_stop": "ENQUEUED",
+        "new_model_calls": 0
+      },
+      {
+        "phase": "rollback-native",
+        "business_state": "waiting_review",
+        "native_parent_confirmed_before_stop": "PENDING",
+        "native_child_status": "SUCCESS",
+        "new_model_calls": 0
+      }
+    ]
+  },
+  "integrity": {
+    "original_data_unchanged": true,
+    "original_paired_backup_unchanged": true,
+    "result_body_metadata_unchanged": true,
+    "all_nine_request_response_usage_receipts_unchanged": true,
+    "dbos_operation_count_all_snapshots": 24,
+    "all_sqlite_integrity_checks": "ok"
+  },
+  "safety": {
+    "attempted_network_connections": 0,
+    "external_model_calls": 0,
+    "live_model_requests_enabled": false,
+    "external_idp_verified": false,
+    "real_human_review_performed": false,
+    "actual_enterprise_budget_ledger_verified": false,
+    "actual_enterprise_rto_verified": false,
+    "production_deployment_performed": false,
+    "new_repository_changes_during_probe": false,
+    "git_operations_mutating_state": false
+  },
+  "phase_commands": [
+    {
+      "phase": "old",
+      "command": [
+        "$OLD_WORKTREE/.venv/bin/python",
+        "$PROBE_DIR/probe.py",
+        "old"
+      ],
+      "sensitive_environment_removed_by_prefix": true,
+      "started_at": "2026-10-22T22:53:34.037345+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-10-22T22:53:39.610476+00:00",
+      "stdout_sha256": "c1d8a7117a5445c69597b016d023b0dc0b258ba9bcf0301ae522cb174d558cb1",
+      "stderr_sha256": "9341a3bb8599b2e186993902a39b0278d7c4ef9bbfaf9bd2cfa9c48312ff164c",
+      "executed_script_source": {
+        "original_evidence_name": "probe-initial.py",
+        "sha256": "d0186ebba101e611e938cf8433aa3138733088ae56f4236a8880ae0df37e3ae6",
+        "publication": "source hash only; private original script is not part of public whitelist"
+      },
+      "command_projection": "Actual recorded invocation with only local path prefixes replaced by defined placeholders; scripts and data are not shipped in this public projection."
+    },
+    {
+      "phase": "upgrade",
+      "command": [
+        "$NEW_WORKTREE/.venv/bin/python",
+        "$PROBE_DIR/probe.py",
+        "upgrade"
+      ],
+      "sensitive_environment_removed_by_prefix": true,
+      "started_at": "2026-10-22T22:53:39.611146+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-10-22T22:53:42.098232+00:00",
+      "stdout_sha256": "065ede96ca3e70c31ff25037f04b13890b1f61f74ae5a236755b8863377d78f4",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executed_script_source": {
+        "original_evidence_name": "probe-initial.py",
+        "sha256": "d0186ebba101e611e938cf8433aa3138733088ae56f4236a8880ae0df37e3ae6",
+        "publication": "source hash only; private original script is not part of public whitelist"
+      },
+      "command_projection": "Actual recorded invocation with only local path prefixes replaced by defined placeholders; scripts and data are not shipped in this public projection."
+    },
+    {
+      "phase": "rollback",
+      "command": [
+        "$OLD_WORKTREE/.venv/bin/python",
+        "$PROBE_DIR/probe.py",
+        "rollback"
+      ],
+      "sensitive_environment_removed_by_prefix": true,
+      "started_at": "2026-10-22T22:53:42.098751+00:00",
+      "exit_code": 0,
+      "finished_at": "2026-10-22T22:53:44.552756+00:00",
+      "stdout_sha256": "ef7d731362c6be0fad3925a9720fae3d6a43fdcbfb369292e462008d70282a9c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executed_script_source": {
+        "original_evidence_name": "probe-initial.py",
+        "sha256": "d0186ebba101e611e938cf8433aa3138733088ae56f4236a8880ae0df37e3ae6",
+        "publication": "source hash only; private original script is not part of public whitelist"
+      },
+      "command_projection": "Actual recorded invocation with only local path prefixes replaced by defined placeholders; scripts and data are not shipped in this public projection."
+    },
+    {
+      "phase": "rollback-native",
+      "command": [
+        "$OLD_WORKTREE/.venv/bin/python",
+        "$PROBE_DIR/probe.py",
+        "rollback-native"
+      ],
+      "started_at": "2026-10-22T22:54:29.632178+00:00",
+      "script_sha256": "4eedfca17be0675859cad0d5bd4c0f3d079df9ead72128d5c3ef0def1f2861f9",
+      "exit_code": 0,
+      "finished_at": "2026-10-22T22:54:35.157705+00:00",
+      "stdout_sha256": "44b241320b73b8d82089f7df31099f91dd3d2152b62beb4349ae5beb019aee4d",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "executed_script_source": {
+        "original_evidence_name": "probe-native-executed.py",
+        "sha256": "4eedfca17be0675859cad0d5bd4c0f3d079df9ead72128d5c3ef0def1f2861f9",
+        "publication": "source hash only; private original script is not part of public whitelist"
+      },
+      "command_projection": "Actual recorded invocation with only local path prefixes replaced by defined placeholders; scripts and data are not shipped in this public projection."
+    }
+  ],
+  "limitations": [
+    "One synthetic waiting-review job; no real enterprise materials, OIDC, reviewer, paid model or business acceptance.",
+    "Fresh identity is an explicitly labelled existing SQL domain fixture, not proof of real SSO.",
+    "Budget acknowledgement match validates the local barrier contract only and does not recover missing cost.",
+    "Rollback final state remains waiting_review/unreviewed; no review_fixture approval was sent.",
+    "No enterprise RPO/RTO or new two-compute capacity claim; these short process durations are not business recovery time.",
+    "First rollback stopped while native parent was ENQUEUED; independent second restore confirms actual native PENDING.",
+    "An initial import typo failed before any data was created and is retained in attempt-01-import-error.",
+    "All exception status codes are direct in-process CompanyError.status_code observations, not actual HTTP route or network acceptance."
+  ],
+  "publication_kind": "redacted_public_projection_of_retained_originals",
+  "projected_at": "2026-10-22T22:59:56.557350+00:00",
+  "path_placeholders": {
+    "$OLD_WORKTREE": "An isolated checkout of old_code_sha with its existing project .venv; the same checkout executes rollback.",
+    "$NEW_WORKTREE": "An isolated checkout of new_code_sha with its existing project .venv.",
+    "$PROBE_DIR": "A fresh session-local probe directory; contains the private original script and generated synthetic data. Actual machine path is withheld."
+  },
+  "entrypoint_evidence_scope": {
+    "entrypoint": "Direct Python JobsService, JobsRepository, company authorization and budget-check functions in separate processes.",
+    "actual_http_requests_executed": false,
+    "http_asgi_route_acceptance_demonstrated": false,
+    "denial_status_code_meaning": "The status_code attribute of a caught in-process CompanyError exception; no HTTP response was sent or received.",
+    "network_guard": "Socket connect and HTTP transport were denied; model provider requests were disabled. FunctionModel is a local synthetic fixture."
+  },
+  "publication_exclusions": [
+    "Local absolute paths and account names.",
+    "Runtime task/object IDs, identity/session data, restoration acknowledgement values, raw model output.",
+    "SQLite databases, raw/private data directories, original detailed logs, original input payloads and scripts."
+  ]
+}

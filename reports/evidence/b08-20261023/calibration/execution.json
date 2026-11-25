@@ -1,0 +1,19 @@
+{
+  "command": [
+    ".venv/bin/python",
+    "scripts/enterprise_eval.py",
+    "--manifest",
+    "/Users/xuzihan/Documents/Codex/2026-10-22/goal-bidops-pr-pr-bidops-pr/work/acceptance-b08-calibration/manifest.json",
+    "--expected-manifest-sha256",
+    "7adee39c1ffa5f39f523293fb45379c3059e57e512b22d4ecc7606d0143008e9",
+    "--input",
+    "/Users/xuzihan/Documents/Codex/2026-10-22/goal-bidops-pr-pr-bidops-pr/work/acceptance-b08-calibration/input.json",
+    "--output",
+    "/Users/xuzihan/Documents/Codex/2026-10-22/goal-bidops-pr-pr-bidops-pr/work/acceptance-b08-calibration/report.json"
+  ],
+  "code_sha": "b42f05269e13be278d220a1307d79ee4b17aad6b",
+  "exit_code": 0,
+  "stdout": "{\"status\": \"PASS\", \"business_acceptance\": \"BLOCKED\", \"agent_score\": null}\n",
+  "stderr": "",
+  "purpose": "synthetic_scorer_calibration_no_real_model_or_humans"
+}

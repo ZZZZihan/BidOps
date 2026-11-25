@@ -1,0 +1,71 @@
+{
+  "current_code_sha": "24e3e573c65ef0b5e597aa1c6a95250794d7fcec",
+  "history": [
+    {
+      "phase": "initial-69",
+      "source_sha256": "6648406c61f5e09a6ad1bf412fe778d51e502c69e13528219649319a30ad6569",
+      "result_lines": [
+        "69 passed in 1.48s"
+      ],
+      "timestamp": "not_recorded_in_source_log",
+      "scope": "implementer historical engineering run; not added to distinct final test count"
+    },
+    {
+      "phase": "recovery-fix-77",
+      "source_sha256": "a3bb144b5a39d2e772f5e7caa63ea1f1fb417f1665b61bb180adce9329e3dd0c",
+      "result_lines": [
+        "77 passed in 1.68s"
+      ],
+      "timestamp": "not_recorded_in_source_log",
+      "scope": "implementer historical engineering run; not added to distinct final test count"
+    },
+    {
+      "phase": "url-fix-89",
+      "source_sha256": "3c60c37a0f8d2ba587d17b53f8677ed6cf3b204c514c9bd74e39a3b4f8785624",
+      "result_lines": [
+        "89 passed in 5.98s"
+      ],
+      "timestamp": "not_recorded_in_source_log",
+      "scope": "implementer historical engineering run; not added to distinct final test count"
+    },
+    {
+      "phase": "recovery-negative-probes-before-fix",
+      "source_sha256": "beab03bd8497b4a285357eb0456630d77f41d80175180a8cdcb2f9f682b12783",
+      "result_lines": [
+        "FAILED tests/test_uat_evidence.py::test_preregistered_recovery_targets_cannot_relax_the_plan[rpo_target_seconds-86401]",
+        "FAILED tests/test_uat_evidence.py::test_preregistered_recovery_targets_cannot_relax_the_plan[rto_target_seconds-1801]",
+        "FAILED tests/test_uat_evidence.py::test_reported_rpo_and_rto_cannot_pass_by_raising_targets",
+        "FAILED tests/test_uat_evidence.py::test_alert_must_follow_this_interruption_and_precede_receipt[2026-10-23T10:01:00+00:00-2026-10-23T10:02:00+00:00]",
+        "FAILED tests/test_uat_evidence.py::test_alert_must_follow_this_interruption_and_precede_receipt[2026-10-23T10:39:00+00:00-2026-10-23T10:41:00+00:00]",
+        "FAILED tests/test_uat_evidence.py::test_alert_generation_is_bounded_by_five_minutes_at_microsecond_precision",
+        "6 failed, 2 passed, 42 deselected in 0.51s"
+      ],
+      "timestamp": "not_recorded_in_source_log",
+      "scope": "real failing engineering probes against previous implementation; retained, not counted as current failures",
+      "transform": "failure names and terminal test summary only; no traceback values"
+    },
+    {
+      "phase": "raw-url-negative-probes-before-fix",
+      "source_sha256": "509b9f9f9a716f38d8728d193a3d81ea4b950b7b6e5ae4f962c60213c61bfefa",
+      "result_lines": [
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\r\\n-BIDOPS_ENTERPRISE_PUBLIC_URL-real_https_origin]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\r\\n-BIDOPS_ENTERPRISE_OIDC_ISSUER-real_https_issuer]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\n-BIDOPS_ENTERPRISE_PUBLIC_URL-real_https_origin]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\n-BIDOPS_ENTERPRISE_OIDC_ISSUER-real_https_issuer]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\r-BIDOPS_ENTERPRISE_PUBLIC_URL-real_https_origin]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\r-BIDOPS_ENTERPRISE_OIDC_ISSUER-real_https_issuer]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\t-BIDOPS_ENTERPRISE_PUBLIC_URL-real_https_origin]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\t-BIDOPS_ENTERPRISE_OIDC_ISSUER-real_https_issuer]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\x7f-BIDOPS_ENTERPRISE_PUBLIC_URL-real_https_origin]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[\\x7f-BIDOPS_ENTERPRISE_OIDC_ISSUER-real_https_issuer]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[ -BIDOPS_ENTERPRISE_PUBLIC_URL-real_https_origin]",
+        "FAILED tests/test_uat_environment.py::test_raw_url_controls_and_whitespace_cannot_be_normalized_into_readiness[ -BIDOPS_ENTERPRISE_OIDC_ISSUER-real_https_issuer]",
+        "12 failed, 18 deselected in 3.30s"
+      ],
+      "timestamp": "not_recorded_in_source_log",
+      "scope": "real failing engineering probes against previous implementation; retained, not counted as current failures",
+      "transform": "failure names and terminal test summary only; no traceback values"
+    }
+  ],
+  "note": "Prior in-progress code identities were not captured by these logs; these are historical red/green evidence, not tests of an independently pinned previous commit."
+}

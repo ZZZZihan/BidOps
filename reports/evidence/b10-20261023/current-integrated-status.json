@@ -1,0 +1,29 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "tree_sha": "a45142d6b4878853f297a8ea717e6fad70879d6d",
+  "snapshot_at": "2026-10-22T22:01:02.015192+00:00",
+  "local_final_status": "PASS",
+  "local_backend_passed": 2133,
+  "local_backend_failed": 0,
+  "local_pytest_seconds": "602.81",
+  "commands_exit_codes": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "format_files": 256,
+  "working_tree_clean_after": true,
+  "local_started_at": "2026-10-22T21:48:39.756853+00:00",
+  "local_ended_at": "2026-10-22T21:58:46.375013+00:00",
+  "local_g02": "PASS_LOCAL_FINAL_CHECKS",
+  "remote_g02": "CURRENT_BACKEND_PENDING",
+  "current_ci_evidence": "current-ci-status.json",
+  "current_cli": "ACTUALLY_EXECUTED_0_2_2_65UPSTREAM_SIXBLOCKED_NO_GO",
+  "current_cli_evidence": "clock-cli-verification.json",
+  "B10_01_engineering_C": "PASS_CLOSED_LOCAL_SCOPE",
+  "B10_02_through_06_real_business": "BLOCKED",
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "no_report_agent_tests_or_network": true
+}

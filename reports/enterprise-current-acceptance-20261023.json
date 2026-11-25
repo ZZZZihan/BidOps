@@ -1,0 +1,4690 @@
+{
+  "schema_version": "enterprise-acceptance-matrix-native-queue-v1",
+  "date": "2026-10-23",
+  "purpose": "Current 73-AC engineering handoff, retaining historical evidence and real-business blockers.",
+  "canonical_plan": {
+    "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+    "url": "https://github.com/ZZZZihan/BidOps/blob/76ce23720c14e9e66e583e4cc15ad95356f5e519/docs/ENTERPRISE-PR-PLAN.md",
+    "sha256": "360872e647db3f182c299f19c756618f55851d488ee4664c97765327ff458ccc"
+  },
+  "contract_counts": {
+    "original": 69,
+    "added": [
+      "B04-08",
+      "B09-08",
+      "B09-09",
+      "B09-10"
+    ],
+    "specialized_total": 73,
+    "C": 58,
+    "B": 15,
+    "upstream_B01_to_B09": 67,
+    "common_gates_separate": 8
+  },
+  "status_counts": {
+    "PASS": 57,
+    "BLOCKED": 16
+  },
+  "type_status_counts": {
+    "C": {
+      "PASS": 57,
+      "BLOCKED": 1
+    },
+    "B": {
+      "BLOCKED": 15
+    }
+  },
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "status_scope_warning": "Engineering PASS does not complete real business acceptance. Historical single-compute FAIL is preserved; new local run and target-machine BLOCKED are separate.",
+  "fixed_code_ci": {
+    "observed_at": "2026-10-22T22:07:32.936695+00:00",
+    "prs": [
+      {
+        "plan": "B01",
+        "pr": 16,
+        "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/16",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39816800842",
+        "workflow_id": 39816800842,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 119957295290,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 119957295663,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 119957295907,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 571,
+        "backend_seconds": 9.92,
+        "browser_passed": 12,
+        "browser_duration": "13.8s",
+        "log_evidence": {
+          "backend": {
+            "sha256": "4abad2c1cbed6ddcb5b3477daab04b2fa8038bd957c87bffc0f5b3d851957ee3",
+            "bytes": 28876,
+            "selected_lines": [
+              "2026-10-22T16:46:45.4273008Z All checks passed!",
+              "2026-10-22T16:46:45.4613238Z 90 files already formatted",
+              "2026-10-22T16:46:57.2080027Z ============================= 571 passed in 9.92s =============================="
+            ]
+          },
+          "frontend": {
+            "sha256": "7e2927add40c553c6bd3cf36c5e92baf6e5514165c83713a03d0405e1cf255c8",
+            "bytes": 17819,
+            "selected_lines": [
+              "2026-10-22T16:47:04.9353649Z   12 passed (13.8s)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B02",
+        "pr": 17,
+        "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/17",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39823377065",
+        "workflow_id": 39823377065,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 119980160551,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 119980160932,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 119980161220,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 685,
+        "backend_seconds": 20.25,
+        "browser_passed": 14,
+        "browser_duration": "19.8s",
+        "log_evidence": {
+          "backend": {
+            "sha256": "f55de6c1a212455645039ecd751126a799a44af435cd40d6d43f9f78466ed73a",
+            "bytes": 29542,
+            "selected_lines": [
+              "2026-10-22T17:31:04.1484005Z All checks passed!",
+              "2026-10-22T17:31:04.2027735Z 103 files already formatted",
+              "2026-10-22T17:31:27.8980232Z ============================= 685 passed in 20.25s ============================="
+            ]
+          },
+          "frontend": {
+            "sha256": "7ae90c265ad095d1c5f8064eaf2f3d6f761fd05822255c8e112681c88f191be3",
+            "bytes": 18099,
+            "selected_lines": [
+              "2026-10-22T17:31:38.3985472Z   14 passed (19.8s)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B03",
+        "pr": 18,
+        "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/18",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827",
+        "workflow_id": 39859735827,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 120107030797,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107031116,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107031401,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 795,
+        "backend_seconds": 39.14,
+        "browser_passed": 20,
+        "browser_duration": "22.5s",
+        "log_evidence": {
+          "backend": {
+            "sha256": "847f5c4972531b8e1d49a035efc150c681e54e3422b18b2e7647318b17690ffb",
+            "bytes": 30083,
+            "selected_lines": [
+              "2026-10-22T21:45:07.2271302Z All checks passed!",
+              "2026-10-22T21:45:07.2836078Z 118 files already formatted",
+              "2026-10-22T21:45:50.4760010Z ============================= 795 passed in 39.14s ============================="
+            ]
+          },
+          "frontend": {
+            "sha256": "6ab87a8e1f4d7190525c5e63f7a5251c6a6593c40b052af2eaeedf6e73964542",
+            "bytes": 29237,
+            "selected_lines": [
+              "2026-10-22T21:45:41.0034686Z   20 passed (22.5s)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B04",
+        "pr": 19,
+        "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/19",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649",
+        "workflow_id": 39859741649,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 120107050059,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107050414,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107050483,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 1105,
+        "backend_seconds": 75.84,
+        "browser_passed": 39,
+        "browser_duration": "36.2s",
+        "log_evidence": {
+          "backend": {
+            "sha256": "15c10acddb231c1cc1cf69e47899ad5c1392befd91f535377fd730dc80b16d56",
+            "bytes": 31617,
+            "selected_lines": [
+              "2026-10-22T21:45:09.6356455Z All checks passed!",
+              "2026-10-22T21:45:09.6878674Z 145 files already formatted",
+              "2026-10-22T21:46:30.3037243Z ======================= 1105 passed in 75.84s (0:01:15) ========================"
+            ]
+          },
+          "frontend": {
+            "sha256": "e4f0db21ec60963b0c3ef6744e95942a0abbfd6f392e9d4e373bc43f20b39530",
+            "bytes": 32637,
+            "selected_lines": [
+              "2026-10-22T21:45:53.9443691Z   39 passed (36.2s)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B05",
+        "pr": 20,
+        "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/20",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859749226",
+        "workflow_id": 39859749226,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 120107074537,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107074907,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107075060,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 1320,
+        "backend_seconds": 430.43,
+        "browser_passed": 75,
+        "browser_duration": "1.3m",
+        "log_evidence": {
+          "backend": {
+            "sha256": "f732e933435045442a5931a92c4bb865037158399cc8268ccc3a1cab5168a77f",
+            "bytes": 33950,
+            "selected_lines": [
+              "2026-10-22T21:46:05.3810101Z All checks passed!",
+              "2026-10-22T21:46:05.4366246Z 176 files already formatted",
+              "2026-10-22T21:53:19.8214121Z ======================= 1320 passed in 430.43s (0:07:10) ======================="
+            ]
+          },
+          "frontend": {
+            "sha256": "cb873290ca4a91796f6406b45283e771ec8ff9a1afaf3853b1f9011e9a063c00",
+            "bytes": 40018,
+            "selected_lines": [
+              "2026-10-22T21:48:07.6717990Z   75 passed (1.3m)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B06",
+        "pr": 21,
+        "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/21",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859754197",
+        "workflow_id": 39859754197,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 120107091226,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107091496,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107091530,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 1434,
+        "backend_seconds": 821.72,
+        "browser_passed": 105,
+        "browser_duration": "2.2m",
+        "log_evidence": {
+          "backend": {
+            "sha256": "bf7e5730e87e0b4ac1f5cddb1d3d026d75b28fcd03c3629d5f1c6259abe6d95c",
+            "bytes": 34932,
+            "selected_lines": [
+              "2026-10-22T21:46:45.5582090Z All checks passed!",
+              "2026-10-22T21:46:45.6250220Z 198 files already formatted",
+              "2026-10-22T22:00:31.5901802Z ======================= 1434 passed in 821.72s (0:13:41) ======================="
+            ]
+          },
+          "frontend": {
+            "sha256": "b6ced66d540dbd3c9d0d8ebe6b0ec96e84f571648cc49349df6c5cda85f4e042",
+            "bytes": 45231,
+            "selected_lines": [
+              "2026-10-22T21:49:13.6277346Z   105 passed (2.2m)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B07",
+        "pr": 22,
+        "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/22",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859757990",
+        "workflow_id": 39859757990,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 120107103231,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107103491,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107103807,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 1735,
+        "backend_seconds": 848.37,
+        "browser_passed": 148,
+        "browser_duration": "2.8m",
+        "log_evidence": {
+          "backend": {
+            "sha256": "bfce1704a8ebfc6833d219462a4b71fe04c6fce2469871fa3f61eccf01b3dac5",
+            "bytes": 36471,
+            "selected_lines": [
+              "2026-10-22T21:46:22.2597441Z All checks passed!",
+              "2026-10-22T21:46:22.3250556Z 222 files already formatted",
+              "2026-10-22T22:00:34.7043984Z ======================= 1735 passed in 848.37s (0:14:08) ======================="
+            ]
+          },
+          "frontend": {
+            "sha256": "47a5a47b2acd80bc0fc35b7d05f040f6a1b1d497ba5a9a94a434e9d969d3d267",
+            "bytes": 52496,
+            "selected_lines": [
+              "2026-10-22T21:50:38.4082497Z   148 passed (2.8m)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B08",
+        "pr": 23,
+        "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/23",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859761355",
+        "workflow_id": 39859761355,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 120107115939,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107116241,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107116287,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 1856,
+        "backend_seconds": 634.12,
+        "browser_passed": 148,
+        "browser_duration": "2.1m",
+        "log_evidence": {
+          "backend": {
+            "sha256": "49f57777af43cb7512e11fb777de747f4346085a8eac30d6bdb8ccfc84cbd044",
+            "bytes": 36909,
+            "selected_lines": [
+              "2026-10-22T21:47:34.5551827Z All checks passed!",
+              "2026-10-22T21:47:34.6080754Z 233 files already formatted",
+              "2026-10-22T21:58:12.3346307Z ======================= 1856 passed in 634.12s (0:10:34) ======================="
+            ]
+          },
+          "frontend": {
+            "sha256": "5e1f0bc692f2c611f18cfb6bbd9ca2ac3ac0825b76b8be1477253262619ae730",
+            "bytes": 52456,
+            "selected_lines": [
+              "2026-10-22T21:48:42.2574584Z   148 passed (2.1m)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B09",
+        "pr": 24,
+        "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/24",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307",
+        "workflow_id": 39859780307,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 120107179563,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107179567,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120107179614,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 2010,
+        "backend_seconds": 675.52,
+        "browser_passed": 152,
+        "browser_duration": "2.7m",
+        "log_evidence": {
+          "backend": {
+            "sha256": "af773354f7300dde00f4b1460be0a37f7918e687b425fcf996287917537926b8",
+            "bytes": 37679,
+            "selected_lines": [
+              "2026-10-22T21:47:39.1204810Z All checks passed!",
+              "2026-10-22T21:47:39.1774636Z 247 files already formatted",
+              "2026-10-22T21:58:58.0207582Z ======================= 2010 passed in 675.52s (0:11:15) ======================="
+            ]
+          },
+          "frontend": {
+            "sha256": "280c6644466d0127ee1e3de5d16d65d02c09bd916b17971dd7199960d560f720",
+            "bytes": 53243,
+            "selected_lines": [
+              "2026-10-22T21:51:00.2409518Z   152 passed (2.7m)"
+            ]
+          }
+        }
+      },
+      {
+        "plan": "B10",
+        "pr": 25,
+        "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+        "pr_url": "https://github.com/ZZZZihan/BidOps/pull/25",
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39860218830",
+        "workflow_id": 39860218830,
+        "status": "PASS",
+        "jobs": [
+          {
+            "id": 120108696870,
+            "name": "frontend",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120108697381,
+            "name": "container",
+            "status": "completed",
+            "conclusion": "success"
+          },
+          {
+            "id": 120108697689,
+            "name": "backend",
+            "status": "completed",
+            "conclusion": "success"
+          }
+        ],
+        "backend_passed": 2133,
+        "backend_seconds": 1042.83,
+        "browser_passed": 152,
+        "browser_duration": "2.1m",
+        "log_evidence": {
+          "backend": {
+            "sha256": "391f203926cb4535de8e56d63954774581d4cc4d08290cead79cac63bf7f994b",
+            "bytes": 38106,
+            "selected_lines": [
+              "2026-10-22T21:49:23.0281783Z All checks passed!",
+              "2026-10-22T21:49:23.1082335Z 256 files already formatted",
+              "2026-10-22T22:06:49.9379538Z ====================== 2133 passed in 1042.83s (0:17:22) ======================="
+            ]
+          },
+          "frontend": {
+            "sha256": "3d864b38d906ebf8e12cd7c83b95a0ccf55f9d8fe2bdd83db61289d7bce9e3e5",
+            "bytes": 52981,
+            "selected_lines": [
+              "2026-10-22T21:51:06.7758879Z   152 passed (2.1m)"
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "B01-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S01：五态、逻辑、版本/双方证据及伪人审非法对象正负 schema 检查；不是资质业务判断通过。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "4d22667acc4001b57d3dfca248a7cb78d5636587",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L109"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/069e4b495828caca4c64447062c030a0f313aada/reports/b01-contracts-eval-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39816800842"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/16"
+        }
+      ]
+    },
+    {
+      "id": "B01-02",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S01：旧六公告限开发/回归，项目族/版本/包/附件及内容闭包不得跨集合。",
+      "next_input": "真正盲测另需 E03。",
+      "external_input_codes": [
+        "E03"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "4d22667acc4001b57d3dfca248a7cb78d5636587",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L110"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/069e4b495828caca4c64447062c030a0f313aada/reports/b01-contracts-eval-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39816800842"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/16"
+        }
+      ]
+    },
+    {
+      "id": "B01-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S01：真实数量/类别/版式/风险层不足会 BLOCKED 的协议已验证；真实数量当时为 0。",
+      "next_input": "实际满足门槛需 E02/E03。",
+      "external_input_codes": [
+        "E02",
+        "E03"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "4d22667acc4001b57d3dfca248a7cb78d5636587",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L111"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/069e4b495828caca4c64447062c030a0f313aada/reports/b01-contracts-eval-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39816800842"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/16"
+        }
+      ]
+    },
+    {
+      "id": "B01-04",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S01：漏项、错判、引用无关/非法/过期、全弃答、失败/缺层进入分母；零分母不能 PASS。",
+      "next_input": "真实成绩需 E03/E04/E06。",
+      "external_input_codes": [
+        "E03",
+        "E04",
+        "E06"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "4d22667acc4001b57d3dfca248a7cb78d5636587",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L112"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/069e4b495828caca4c64447062c030a0f313aada/reports/b01-contracts-eval-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39816800842"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/16"
+        }
+      ]
+    },
+    {
+      "id": "B01-05",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S01：P1 溯源 100%、关键截止日/预算单位精确率 95%/覆盖 85%门槛；Decimal/时区与未知值边界。",
+      "next_input": "真实 P1 数据与逐字段金标需 E03/E04。",
+      "external_input_codes": [
+        "E03",
+        "E04"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "4d22667acc4001b57d3dfca248a7cb78d5636587",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L113"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/069e4b495828caca4c64447062c030a0f313aada/reports/b01-contracts-eval-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39816800842"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/16"
+        }
+      ]
+    },
+    {
+      "id": "B01-06",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S01：独立标注/复核/仲裁和配对盲态协议检查通过；没有真实人员计时。",
+      "next_input": "E04/E05。",
+      "external_input_codes": [
+        "E04",
+        "E05"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "4d22667acc4001b57d3dfca248a7cb78d5636587",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L114"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/069e4b495828caca4c64447062c030a0f313aada/reports/b01-contracts-eval-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39816800842"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/16"
+        }
+      ]
+    },
+    {
+      "id": "B01-07",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S01：冻结版本/哈希篡改拒绝；固定评分器校准不计 Agent 成绩。",
+      "next_input": "真实首测需 E03/E04，保留冻结和首测历史。",
+      "external_input_codes": [
+        "E03",
+        "E04"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "4d22667acc4001b57d3dfca248a7cb78d5636587",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L115"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/069e4b495828caca4c64447062c030a0f313aada/reports/b01-contracts-eval-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "069e4b495828caca4c64447062c030a0f313aada",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39816800842"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/16"
+        }
+      ]
+    },
+    {
+      "id": "B02-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S02：原公告/两更正/终止/多包，稳定 append-only 版本，重复不新增逻辑记录，歧义待复核。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "72c9525784ae18df743b49fec5049fc7a224615f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L129"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/c3435402247d0cd66986a0bbd8854304c017f864/reports/b02-notice-versions-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39823377065"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/17"
+        }
+      ]
+    },
+    {
+      "id": "B02-02",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S02：raw/text/hash/版本/偏移绑定，篡改越界拒绝，旧引用仍可定位旧解释。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "72c9525784ae18df743b49fec5049fc7a224615f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L130"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/c3435402247d0cd66986a0bbd8854304c017f864/reports/b02-notice-versions-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39823377065"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/17"
+        }
+      ]
+    },
+    {
+      "id": "B02-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S02：as_of、晚到更正/终止/缺关联/过期观察，未来截止不直接视为可投。",
+      "next_input": "真实新鲜度需 E11。",
+      "external_input_codes": [
+        "E11"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "72c9525784ae18df743b49fec5049fc7a224615f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L131"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/c3435402247d0cd66986a0bbd8854304c017f864/reports/b02-notice-versions-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39823377065"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/17"
+        }
+      ]
+    },
+    {
+      "id": "B02-04",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S02：逐附件可读/失败/加密/扫描未知/不支持/丢失状态；不静默忽略。PDF 能力由后续 B07 补充，不回写旧版支持范围。",
+      "next_input": "真实附件覆盖需 E02/E03/E11。",
+      "external_input_codes": [
+        "E02",
+        "E03",
+        "E11"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "72c9525784ae18df743b49fec5049fc7a224615f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L132"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/c3435402247d0cd66986a0bbd8854304c017f864/reports/b02-notice-versions-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39823377065"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/17"
+        }
+      ]
+    },
+    {
+      "id": "B02-05",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S02：507 条、501 之后目标、Decimal/时间排序、全量计数/稳定页/可见截断；不是 1 万/5 万容量证明。",
+      "next_input": "容量另验 B09-02/08。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "72c9525784ae18df743b49fec5049fc7a224615f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L133"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/c3435402247d0cd66986a0bbd8854304c017f864/reports/b02-notice-versions-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39823377065"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/17"
+        }
+      ]
+    },
+    {
+      "id": "B02-06",
+      "type": "C",
+      "status": "BLOCKED",
+      "summary": "S02：仅合成六行/历史会话迁移、重复与恢复通过；指定真实旧六库/raw/历史会话未收到，真实旧服务回退未执行。**这是 C 门槛与堆叠合并阻塞。**",
+      "next_input": "E01；不能用新建工程六行替代。",
+      "external_input_codes": [
+        "E01"
+      ],
+      "blocker": "S02：仅合成六行/历史会话迁移、重复与恢复通过；指定真实旧六库/raw/历史会话未收到，真实旧服务回退未执行。**这是 C 门槛与堆叠合并阻塞。** E01；不能用新建工程六行替代。",
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "72c9525784ae18df743b49fec5049fc7a224615f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L134"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/c3435402247d0cd66986a0bbd8854304c017f864/reports/b02-notice-versions-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c3435402247d0cd66986a0bbd8854304c017f864",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39823377065"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/17"
+        }
+      ]
+    },
+    {
+      "id": "B03-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S03：画像/材料不可变版本，自报/有证明区分、固定引用，竞争 409；跨页历史留存取服务端真实值。",
+      "next_input": "真实使用 E09。",
+      "external_input_codes": [
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L147"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/b2a26830c0274734cc4db5d72e461657da923da8/reports/b03-company-access-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/18"
+        }
+      ]
+    },
+    {
+      "id": "B03-02",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S03：角色×对象×动作 HTTP 负测；admin 无隐含正文读权；拒绝/撤权清私有页面缓存。",
+      "next_input": "真实账号/ACL 验收 E07/E09。",
+      "external_input_codes": [
+        "E07",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L148"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/b2a26830c0274734cc4db5d72e461657da923da8/reports/b03-company-access-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/18"
+        }
+      ]
+    },
+    {
+      "id": "B03-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S03：来源闭包、工具前 ACL、缓存/派生索引继承；后续运行/审核真实接线另有 B05/B06 证据。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L149"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/b2a26830c0274734cc4db5d72e461657da923da8/reports/b03-company-access-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/18"
+        }
+      ]
+    },
+    {
+      "id": "B03-04",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S03：本地停用/撤权下一请求生效，旧 context 重查，新 SSO 不启用 locally disabled 主体。",
+      "next_input": "IdP 真实传播另验 B10-03/E07。",
+      "external_input_codes": [
+        "E07"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L150"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/b2a26830c0274734cc4db5d72e461657da923da8/reports/b03-company-access-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/18"
+        }
+      ]
+    },
+    {
+      "id": "B03-05",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S03：按所需资格时点判断有效期，缺证明/冲突/不符分开；留存期限不当作证书有效期。",
+      "next_input": "实际证书与授权 E09。",
+      "external_input_codes": [
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L151"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/b2a26830c0274734cc4db5d72e461657da923da8/reports/b03-company-access-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/18"
+        }
+      ]
+    },
+    {
+      "id": "B03-06",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S03：备份后撤权/停用/删除/到期，再恢复清登录/快照/ACL、私有对象隔离；旧私有无期限快照拒绝。",
+      "next_input": "真实目标丢失/权限对账另需 E08/E09/E06，见 B09-06。",
+      "external_input_codes": [
+        "E06",
+        "E08",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L152"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/b2a26830c0274734cc4db5d72e461657da923da8/reports/b03-company-access-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/18"
+        }
+      ]
+    },
+    {
+      "id": "B03-07",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S03：大小/字符/节点/深度、格式/中文名/穿越/归档拒绝，限定 upload 路由有界读取。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L153"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/b2a26830c0274734cc4db5d72e461657da923da8/reports/b03-company-access-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/18"
+        }
+      ]
+    },
+    {
+      "id": "B03-08",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S03：Keycloak RS256 back-channel 签名/issuer/aud/jti/iat 单调水位、同秒冲突撤销、240 秒快照 failclosed。仅协议模拟；角色变化不保证有 logout 事件。",
+      "next_input": "真实 IdP ≤300 秒目标需 E07/E08/E09，不能用模拟身份替代。",
+      "external_input_codes": [
+        "E07",
+        "E08",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L154"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/b2a26830c0274734cc4db5d72e461657da923da8/reports/b03-company-access-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "0d8ec7afd54485110ed83728145ae86696a5dc47",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859735827"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/18"
+        }
+      ]
+    },
+    {
+      "id": "B04-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S04：固定全量包级批次，候选/排除/待核实均保留，完整分页、计数与筛选输入版本；候选不等于资格通过。",
+      "next_input": "正式大容量另验 B09-02/08。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L169"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e/reports/b04-qualification-screening-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/19"
+        }
+      ]
+    },
+    {
+      "id": "B04-02",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S04：PAI 抽取 AND/OR/NOT/例外/包范围、超过三条和附件，段界/未解析/资源上限明确。",
+      "next_input": "真实语义召回需 E03/E04。",
+      "external_input_codes": [
+        "E03",
+        "E04"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L170"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e/reports/b04-qualification-screening-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/19"
+        }
+      ]
+    },
+    {
+      "id": "B04-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S04：五态与公告/企业双边固定证据；缺证明不能判满足。FunctionModel 五态夹具不是真实准确率。",
+      "next_input": "E03/E04/E09。",
+      "external_input_codes": [
+        "E03",
+        "E04",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L171"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e/reports/b04-qualification-screening-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/19"
+        }
+      ]
+    },
+    {
+      "id": "B04-04",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S04：假引用/页/版本/权限/时效拒绝；可解析不等于语义支持；原 Agent 人审状态始终 unreviewed。",
+      "next_input": "真实支持率需 E04。",
+      "external_input_codes": [
+        "E04"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L172"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e/reports/b04-qualification-screening-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/19"
+        }
+      ]
+    },
+    {
+      "id": "B04-05",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S04：硬不符/未知/冲突/终止不能自动资格通过，仅建议后续审核；无 approve 能力。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L173"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e/reports/b04-qualification-screening-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/19"
+        }
+      ]
+    },
+    {
+      "id": "B04-06",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S04：固定 manifest/provenance/raw 私有保存，GET 不重跑，旧输入/提示/模型保留，stale 单独披露。",
+      "next_input": "实际返回模型/完整账本需 E06。",
+      "external_input_codes": [
+        "E06"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L174"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e/reports/b04-qualification-screening-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/19"
+        }
+      ]
+    },
+    {
+      "id": "B04-07",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S04：实际 PAI 工具链授权、提示注入、格式错/超时/预算失败、partial 与未完成条件显式保存。",
+      "next_input": "真实模型调用不因工程通过而获授权；需 E02/E06。",
+      "external_input_codes": [
+        "E02",
+        "E06"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L175"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e/reports/b04-qualification-screening-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/19"
+        }
+      ]
+    },
+    {
+      "id": "B04-08",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S04 第 67 行：有/无 ledger 旧备份，两次恢复及新旧模型入口；缺/错/旧 token 请求前拒绝，正确 token 不释放已用/unknown，累计 ¥10 不重置。合法新增独立门槛。",
+      "next_input": "最新真实账本仍缺 E06；恢复 token 不会重建丢失费用。",
+      "external_input_codes": [
+        "E06"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "3f04b045f0d029dadb4b882a293f31776400cc30",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L176"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/a3aabb3f0a2e25635408f8def44f67e8e0cb5f0e/reports/b04-qualification-screening-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "cfdc2bc72c255c3dc7637868c39c56574cd66cdf",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859741649"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/19"
+        }
+      ]
+    },
+    {
+      "id": "B05-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S05：DBOS 3.3.0/PAI 2.59.0 ADR、hashed overlay、真实进程 SIGKILL 后原生恢复已落盘步骤；单机受控范围。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "509e8007218c306d0e0639d96317537676570a0b",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L194"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/4fd057ef9141d31d53540532683418e09963e324/reports/b05-durable-runs-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859749226"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/20"
+        }
+      ]
+    },
+    {
+      "id": "B05-02",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S05：稳定 202/run_id、九态、进度/重载/历史，缺模型可只读；不把 completed 视为资格/人工通过。",
+      "next_input": "目标部署体验另需 E08/E09。",
+      "external_input_codes": [
+        "E08",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "509e8007218c306d0e0639d96317537676570a0b",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L195"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/4fd057ef9141d31d53540532683418e09963e324/reports/b05-durable-runs-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859749226"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/20"
+        }
+      ]
+    },
+    {
+      "id": "B05-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S05：六故障窗口加等待共 7 组/21 进程，unknown 预留保留；模型回执前崩溃组 10 次，其余 9 次合成调用。无外部绝不重复计费承诺。",
+      "next_input": "真实账单及目标演练需 E06/E08。",
+      "external_input_codes": [
+        "E06",
+        "E08"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "509e8007218c306d0e0639d96317537676570a0b",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L196"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/4fd057ef9141d31d53540532683418e09963e324/reports/b05-durable-runs-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859749226"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/20"
+        }
+      ]
+    },
+    {
+      "id": "B05-04",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S05：同主体同 key 同输入同任务、异输入 409、主体隔离、并发唯一/CAS、容量同事务。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "509e8007218c306d0e0639d96317537676570a0b",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L197"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/4fd057ef9141d31d53540532683418e09963e324/reports/b05-durable-runs-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859749226"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/20"
+        }
+      ]
+    },
+    {
+      "id": "B05-05",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S05：cancel_requested 先持久化，取消终态不可复活，在途费用保留；SDK 失败可显式重试取消。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "509e8007218c306d0e0639d96317537676570a0b",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L198"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/4fd057ef9141d31d53540532683418e09963e324/reports/b05-durable-runs-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859749226"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/20"
+        }
+      ]
+    },
+    {
+      "id": "B05-06",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S05：排队/运行/等待、工具前/恢复/最终释放 ACL；正确/错/重放/过期事件及 native cancel/resume；B05 fixture 不冒充人审。",
+      "next_input": "正式人工审核见 B06；真实撤权 E07/E09。",
+      "external_input_codes": [
+        "E07",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "509e8007218c306d0e0639d96317537676570a0b",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L199"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/4fd057ef9141d31d53540532683418e09963e324/reports/b05-durable-runs-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859749226"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/20"
+        }
+      ]
+    },
+    {
+      "id": "B05-07",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S05：停 worker 的 v4 业务库+DBOS 一致备份、错配拒绝、私有历史清理、隔离/显式再授权、unknown/费用屏障不释放。",
+      "next_input": "实际实例丢失/RPO/RTO及最新账本需 E06/E08/E09。",
+      "external_input_codes": [
+        "E06",
+        "E08",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "509e8007218c306d0e0639d96317537676570a0b",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L200"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/4fd057ef9141d31d53540532683418e09963e324/reports/b05-durable-runs-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "3764dbe0a8c4ff3d20f38677167a87ed29f60c71",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859749226"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/20"
+        }
+      ]
+    },
+    {
+      "id": "B06-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S06：逐项 confirm/reject/request_materials、原五态/双方版本证据/缺失冲突，独立理由，无默认全选批准。",
+      "next_input": "真正独立企业复核人 E09。",
+      "external_input_codes": [
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "487649aec8260ce494d7a4cf1f41bae2c4ec1f26",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L213"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/e468a4a863f49f2e94c39c1e90bd66fd3ce84206/reports/b06-human-review-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859754197"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/21"
+        }
+      ]
+    },
+    {
+      "id": "B06-02",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S06：身份/时间/理由/版本事件追加，更正须 supersedes latest，幂等不重复；不覆盖旧决定。",
+      "next_input": "真实身份/签署真实性 E07/E09。",
+      "external_input_codes": [
+        "E07",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "487649aec8260ce494d7a4cf1f41bae2c4ec1f26",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L214"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/e468a4a863f49f2e94c39c1e90bd66fd3ce84206/reports/b06-human-review-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859754197"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/21"
+        }
+      ]
+    },
+    {
+      "id": "B06-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S06：两个 reviewer 旧版 CAS 只有一方生效，另一 409 留草稿并提示刷新。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "487649aec8260ce494d7a4cf1f41bae2c4ec1f26",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L215"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/e468a4a863f49f2e94c39c1e90bd66fd3ce84206/reports/b06-human-review-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859754197"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/21"
+        }
+      ]
+    },
+    {
+      "id": "B06-04",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S06：补料关联 successor 新 job、跨重启、显式接入新 revision 后全部重审，历史保留；不改旧 manifest。",
+      "next_input": "实际材料与操作人 E09。",
+      "external_input_codes": [
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "487649aec8260ce494d7a4cf1f41bae2c4ec1f26",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L216"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/e468a4a863f49f2e94c39c1e90bd66fd3ce84206/reports/b06-human-review-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859754197"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/21"
+        }
+      ]
+    },
+    {
+      "id": "B06-05",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S06：更正/终止使旧人工投影失效，source_state/effective 单独显示，Agent 原判断与历史不改写。",
+      "next_input": "真实来源版本覆盖 E03/E11。",
+      "external_input_codes": [
+        "E03",
+        "E11"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "487649aec8260ce494d7a4cf1f41bae2c4ec1f26",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L217"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/e468a4a863f49f2e94c39c1e90bd66fd3ce84206/reports/b06-human-review-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859754197"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/21"
+        }
+      ]
+    },
+    {
+      "id": "B06-06",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S06：当前 reviewer 角色 + owner 显式 assignment + 全部来源可读，CSRF/CAS/重放校验；admin 无隐含批准，Agent 不能自授。",
+      "next_input": "实际角色/assignment/ACL 矩阵 E07/E09。",
+      "external_input_codes": [
+        "E07",
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "487649aec8260ce494d7a4cf1f41bae2c4ec1f26",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L218"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/e468a4a863f49f2e94c39c1e90bd66fd3ce84206/reports/b06-human-review-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859754197"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/21"
+        }
+      ]
+    },
+    {
+      "id": "B06-07",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S06：固定合成链筛选→核对→补料→复核→close→全链受控导出；delivery pending 与 native complete 分开，无自动投标。",
+      "next_input": "真实完整链与独立用户记录 E09，见 B10-04。",
+      "external_input_codes": [
+        "E09"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "487649aec8260ce494d7a4cf1f41bae2c4ec1f26",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L219"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/e468a4a863f49f2e94c39c1e90bd66fd3ce84206/reports/b06-human-review-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "4d2c6e89301026f95b2f0923262bfb73dbfb2bc4",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859754197"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/21"
+        }
+      ]
+    },
+    {
+      "id": "B07-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S07：allowed/denied/unknown、许可范围/方式/有效期/速率，未知不自动 HTTP；手工责任声明不扩大网络许可。",
+      "next_input": "真实许可 E02。",
+      "external_input_codes": [
+        "E02"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L232"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/eb0505fa1aaaa45ab67cea34bee682845d43163a/reports/b07-authorized-updates-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859757990"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/22"
+        }
+      ]
+    },
+    {
+      "id": "B07-02",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S07：原子页、成功才前移 cursor、append-only 版本、重复/更正/终止和中断重试。",
+      "next_input": "真实周期覆盖 E11。",
+      "external_input_codes": [
+        "E11"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L233"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/eb0505fa1aaaa45ab67cea34bee682845d43163a/reports/b07-authorized-updates-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859757990"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/22"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+      "current_recovery_repair": {
+        "status": "PASS",
+        "primary_ac": "B07-06",
+        "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+        "evidence": "reports/evidence/b09-native-queue-20261023/ingestion-schedule-replay/summary.json",
+        "failed_original_ci": "reports/evidence/b09-native-queue-20261023/initial-code-ci-failure.json"
+      }
+    },
+    {
+      "id": "B07-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S07：有界 pypdf 子进程、receipt/hash/服务端页定位；扫描/加密/缺页/下载失败显式。无 OCR/Office/通用 crawler/DNS 隔离承诺。",
+      "next_input": "真实附件许可与覆盖 E02/E03/E11。",
+      "external_input_codes": [
+        "E02",
+        "E03",
+        "E11"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L234"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/eb0505fa1aaaa45ab67cea34bee682845d43163a/reports/b07-authorized-updates-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859757990"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/22"
+        }
+      ]
+    },
+    {
+      "id": "B07-04",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S07：429/403/超时/重定向/大小/速率/重试上限；失败有记录，不绕过访问限制。",
+      "next_input": "真实环境告警另需 E10。",
+      "external_input_codes": [
+        "E10"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L235"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/eb0505fa1aaaa45ab67cea34bee682845d43163a/reports/b07-authorized-updates-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859757990"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/22"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+      "current_recovery_repair": {
+        "status": "PASS",
+        "primary_ac": "B07-06",
+        "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+        "evidence": "reports/evidence/b09-native-queue-20261023/ingestion-schedule-replay/summary.json",
+        "failed_original_ci": "reports/evidence/b09-native-queue-20261023/initial-code-ci-failure.json"
+      }
+    },
+    {
+      "id": "B07-05",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S07：last_attempt 与 last_success 分开，失败不续“已核实”；last_success 是成功页观察，不保证整批全部成功。",
+      "next_input": "跨真实新鲜度窗口 E11。",
+      "external_input_codes": [
+        "E11"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L236"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/eb0505fa1aaaa45ab67cea34bee682845d43163a/reports/b07-authorized-updates-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859757990"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/22"
+        }
+      ]
+    },
+    {
+      "id": "B07-06",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S07：同 DBOS native cron/队列/来源互斥、排队/取消/重启和 source-only 关闭资格模型；owner/当前 admin 读停任务。；原生schedule恢复竞态已确定性复现并修复，业务已完成时no-op，撤权/取消/暂停等仍拒绝；原CI FAIL单列保留。",
+      "next_input": "无新增外部输入。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L237"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/eb0505fa1aaaa45ab67cea34bee682845d43163a/reports/b07-authorized-updates-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859757990"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/22"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+      "current_recovery_repair": {
+        "status": "PASS",
+        "primary_ac": "B07-06",
+        "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+        "evidence": "reports/evidence/b09-native-queue-20261023/ingestion-schedule-replay/summary.json",
+        "failed_original_ci": "reports/evidence/b09-native-queue-20261023/initial-code-ci-failure.json"
+      }
+    },
+    {
+      "id": "B07-07",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "没有真实许可下至少 3 次、覆盖至少 24 小时的周期和一次真实中断恢复。无更新/未遇真实更正须如实保留，不能合成补足覆盖。",
+      "next_input": "E02/E08/E11。",
+      "external_input_codes": [
+        "E02",
+        "E08",
+        "E11"
+      ],
+      "blocker": "没有真实许可下至少 3 次、覆盖至少 24 小时的周期和一次真实中断恢复。无更新/未遇真实更正须如实保留，不能合成补足覆盖。 E02/E08/E11。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "c035c01c4710606bc2113133bc231bba2ea41d9f",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L238"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/eb0505fa1aaaa45ab67cea34bee682845d43163a/reports/b07-authorized-updates-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "c840046632663c350ae2d06cfbb0be43e21f1e0f",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859757990"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/22"
+        }
+      ]
+    },
+    {
+      "id": "B08-01",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "S08：真实独立新族/金标数 0；没有合法新候选池、冻结随机抽样和真实六风险分层证据。",
+      "next_input": "E02/E03。",
+      "external_input_codes": [
+        "E02",
+        "E03"
+      ],
+      "blocker": "S08：真实独立新族/金标数 0；没有合法新候选池、冻结随机抽样和真实六风险分层证据。 E02/E03。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L252"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/43709a0f2833424dd573991550676efb13468c2b/reports/b08-independent-evaluation-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859761355"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/23"
+        }
+      ]
+    },
+    {
+      "id": "B08-02",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "S08：独立实际标注者/关键复核/仲裁记录未提供；开发者、模型预标注或合成 true 声明均不算。",
+      "next_input": "E04。",
+      "external_input_codes": [
+        "E04"
+      ],
+      "blocker": "S08：独立实际标注者/关键复核/仲裁记录未提供；开发者、模型预标注或合成 true 声明均不算。 E04。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L253"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/43709a0f2833424dd573991550676efb13468c2b/reports/b08-independent-evaluation-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859761355"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/23"
+        }
+      ]
+    },
+    {
+      "id": "B08-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S08：helper68/collector27/runner26，所有登记任务含失败/超时/缺失/排除入账，P1 独立字段、原 Agent 与人审投影分开、ACL 最后复查。",
+      "next_input": "无新增外部输入；排除/未提交不伪造 completed 来提分。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L254"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/43709a0f2833424dd573991550676efb13468c2b/reports/b08-independent-evaluation-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859761355"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/23"
+        }
+      ]
+    },
+    {
+      "id": "B08-04",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "S08：真实冻结盲测未执行，无召回/错放/支持率成绩；缺当前账本。完整任务、保存结果/实际模型及 raw hash 收集能力不等于真实效果。",
+      "next_input": "E02/E03/E04/E06。",
+      "external_input_codes": [
+        "E02",
+        "E03",
+        "E04",
+        "E06"
+      ],
+      "blocker": "S08：真实冻结盲测未执行，无召回/错放/支持率成绩；缺当前账本。完整任务、保存结果/实际模型及 raw hash 收集能力不等于真实效果。 E02/E03/E04/E06。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L255"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/43709a0f2833424dd573991550676efb13468c2b/reports/b08-independent-evaluation-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859761355"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/23"
+        }
+      ]
+    },
+    {
+      "id": "B08-05",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "S08：缺至少 2 名独立操作者、10 个项目族配对实测；不能报节时 ≥20%。失败/超时保留质量分母并令节时 FAIL。",
+      "next_input": "E05，数据/金标需 E03/E04。",
+      "external_input_codes": [
+        "E03",
+        "E04",
+        "E05"
+      ],
+      "blocker": "S08：缺至少 2 名独立操作者、10 个项目族配对实测；不能报节时 ≥20%。失败/超时保留质量分母并令节时 FAIL。 E05，数据/金标需 E03/E04。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L256"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/43709a0f2833424dd573991550676efb13468c2b/reports/b08-independent-evaluation-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859761355"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/23"
+        }
+      ]
+    },
+    {
+      "id": "B08-06",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "S08：没有真实首次盲测/答案接触与调试历史；若按答案修复，旧集只能回归，需新独立盲集。",
+      "next_input": "E03/E04/E05 的冻结和首测记录。",
+      "external_input_codes": [
+        "E03",
+        "E04",
+        "E05"
+      ],
+      "blocker": "S08：没有真实首次盲测/答案接触与调试历史；若按答案修复，旧集只能回归，需新独立盲集。 E03/E04/E05 的冻结和首测记录。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L257"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/43709a0f2833424dd573991550676efb13468c2b/reports/b08-independent-evaluation-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859761355"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/23"
+        }
+      ]
+    },
+    {
+      "id": "B08-07",
+      "type": "C",
+      "status": "PASS",
+      "summary": "S08：机器报告分开 PASS/FAIL/BLOCKED，无总分抵消硬门槛，工程 Agent score=null，business BLOCKED。",
+      "next_input": "最终各分支当前报告仍须汇总，不得漏新 AC。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "d682262d820caf5c1e1a2d5e35c4522677c64e64",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L258"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/43709a0f2833424dd573991550676efb13468c2b/reports/b08-independent-evaluation-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "d0a50b61d94953114d9edcc07db9bcbfc8948b0d",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859761355"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/23"
+        }
+      ]
+    },
+    {
+      "id": "B09-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "冻结manifest/完整输入、预登记到达、完整规模及最终db4f三jobCI已验；正式836负载4200总/3600稳态，输入完整性PASS。target2/actual1容量FAIL另列B09-02，manifest齐备不等于容量达标。",
+      "next_input": "真实目标机/环境结论仍需E08；不需为合成工程检查提供真实模型key。",
+      "external_input_codes": [
+        "E08"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L281"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/24"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+    },
+    {
+      "id": "B09-02",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "新完整本机负载：84份任务在结束快照均为待审、4200操作/3600稳态，计算峰2、目标2、重叠409609ms；本机工程门槛PASS。目标4CPU/8GiB与真实DeepSeek仍未验。",
+      "next_input": "E08目标环境及明确执行范围，按既有冻结模拟延迟复验；如另执行真实模型测试，须先有E06完整费用账本、合法固定输入及本次调用授权。",
+      "external_input_codes": [
+        "E08"
+      ],
+      "blocker": "冻结目标4CPU/8GiB机器尚未实测。本项按计划允许模拟模型延迟；真实供应商吞吐另记未验证，不新增为本项必需门槛。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+      "code_sha_role": "exact_completed_local_full_load_commit",
+      "original_feature_evidence_code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L282"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/24"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "latest_verified_code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+      "observed_engineering_status": "PASS",
+      "real_target_environment_status": "BLOCKED",
+      "historical_capacity_observation": {
+        "target_active_computations": 2,
+        "actual_active_computations": 1,
+        "queued_job_is_active_computation": false,
+        "failed_original_profile_retained": true,
+        "passing_other_latency_metrics_does_not_override_failure": true,
+        "source": "official immutable 836 report plus independent read-only recomputation",
+        "total_business_operations": 4200,
+        "steady_business_operations": 3600,
+        "steady_errors": 4,
+        "steady_error_denominator": 3600,
+        "steady_error_rate": 0.0011111111111111111,
+        "error_kind": "ReadError",
+        "non_model_api_p95_ms": 263,
+        "admission_p95_ms": 108,
+        "queue_wait_p95_ms": 480734,
+        "queue_peak": 17,
+        "compute_p95_ms": 31774,
+        "target_concurrency_overlap_ms": 0,
+        "model_evidence": "offline_simulation_only",
+        "measurement": "BLOCKED"
+      },
+      "observed_capacity": {
+        "gates": {
+          "api_performance": "PASS",
+          "data_integrity": "PASS",
+          "declared_compute_target": "PASS",
+          "input_integrity": "PASS",
+          "manifest_complete": "PASS",
+          "measurement": "BLOCKED",
+          "model_simulation": "PASS",
+          "observed_compute_target": "PASS"
+        },
+        "metrics": {
+          "accepted_jobs": 84,
+          "actual_requests_per_second": 2.0,
+          "admission_p95_ms": 109,
+          "clients_invalid_count": 0,
+          "clients_raw_count": 10,
+          "compute_p95_ms": 30868,
+          "cpu_peak_percent": 99.2,
+          "disk_free_min_bytes": 144337653760,
+          "ended_offset_ms": 2115000,
+          "error_rate": 0.0002777777777777778,
+          "expected_steady_requests": 3600,
+          "jobs_invalid_count": 0,
+          "jobs_raw_count": 84,
+          "model_wait_p95_ms": 30016,
+          "non_model_api_p95_ms": 259,
+          "observed_compute_peak": 2,
+          "observed_jobs": 84,
+          "observed_steady_requests": 3600,
+          "operation_counts": {
+            "read_search": 2808,
+            "review": 72,
+            "submit_task": 72,
+            "task_status": 648
+          },
+          "queue_peak": 0,
+          "queue_wait_p95_ms": 306,
+          "rate_bucket_counts": [
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120,
+            120
+          ],
+          "requests_invalid_count": 0,
+          "requests_raw_count": 4200,
+          "resource_compute_peak": 2,
+          "resources_invalid_count": 0,
+          "resources_raw_count": 2116,
+          "rss_peak_bytes": 863813632,
+          "steady_error_denominator": 3600,
+          "steady_errors": 1,
+          "steady_start_ms": 300000,
+          "steady_stop_ms": 2100000,
+          "target_concurrency_overlap_ms": 409609,
+          "steady_client_operation_count_distribution": [
+            {
+              "operations_each": 360,
+              "clients": 10
+            }
+          ]
+        },
+        "real_target_environment_status": "BLOCKED"
+      }
+    },
+    {
+      "id": "B09-03",
+      "type": "C",
+      "status": "PASS",
+      "summary": "队列/限流/预算/重试/过载负向与最终db4f 2010后端CI通过；正式负载如实保留队列峰17及长排队。工程防护通过不把容量目标改为单计算，也不授权模型付费。",
+      "next_input": "无新增外部输入；真实费用/目标负载另按其所涉E06/E08核验。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L283"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/24"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+    },
+    {
+      "id": "B09-04",
+      "type": "C",
+      "status": "PASS",
+      "summary": "最终db4f三jobCI及health/watchdog故障工程检查通过，两队列age排除隔离/清理；worker started标志不冒充native线程独立心跳。",
+      "next_input": "真实目标故障需E08及演练范围；实际企业收件另需E10。",
+      "external_input_codes": [
+        "E08"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L284"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/24"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+    },
+    {
+      "id": "B09-05",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "没有企业指定真实接收端及故障/恢复收件，且尚无对应真实对外发送授权。",
+      "next_input": "E10；本地 webhook 替身不能替代实际企业收件。",
+      "external_input_codes": [
+        "E10"
+      ],
+      "blocker": "没有企业指定真实接收端及故障/恢复收件，且尚无对应真实对外发送授权。 E10；本地 webhook 替身不能替代实际企业收件。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L285"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/24"
+        }
+      ]
+    },
+    {
+      "id": "B09-06",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "Local complete restore observed RPO0.031178s; latest authorization unconfirmed and private business not reopened, business RTO null/BLOCKED. Real target complete-loss recovery remains BLOCKED.",
+      "next_input": "E06/E08/E09；目标告警另需 E10。",
+      "external_input_codes": [
+        "E06",
+        "E08",
+        "E09",
+        "E10"
+      ],
+      "blocker": "Local complete restore observed RPO0.031178s; latest authorization unconfirmed and private business not reopened, business RTO null/BLOCKED. Real target complete-loss recovery remains BLOCKED.",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "original_feature_evidence_code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L286"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/24"
+        }
+      ]
+    },
+    {
+      "id": "B09-07",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "ADR-0008采用原生有界计算队列；版本切换/回退及完整本机负载均归因6956042，后续76ce237含采集修复/测试同步/CI。生产架构与真实目标容量裁决仍BLOCKED。",
+      "next_input": "E08目标环境与负载范围；保留当前未降低的规模、阈值及版本/回退约束。",
+      "external_input_codes": [
+        "E08"
+      ],
+      "blocker": "本机可行性不代表目标机或生产容量；多实例/HA仍需另行实测与迁移方案。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+      "code_sha_role": "exact_completed_local_full_load_and_architecture_evidence_commit",
+      "original_feature_evidence_code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L287"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/24"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "historical_blocker": "当前工程容量target2/actual1已FAIL，不能宣称SQLite档位足够，也不能把1计算+1排队解释为2并发。架构/扩容裁决和真实目标复验尚未完成。 需记录明确架构裁决；若改基础设施，另开迁移/回退范围并按未降低的原档位重验，保留已知FAIL。",
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+    },
+    {
+      "id": "B09-08",
+      "type": "C",
+      "status": "PASS",
+      "summary": "专用50MB完整候选/普通raw10MB、012索引、review20/100分页与60MB导出通过定向及最终db4f CI。836完整50k负载与停止副本补证读全量/末100/offset50000空页，导出37,703,148bytes，11,403源文件闭包及DB前后hash一致；不称5万个合格项目或目标机SLO。",
+      "next_input": "无新增外部输入；原真实旧库兼容仍由B02-06独立阻塞，不能以合成迁移关闭。",
+      "external_input_codes": [],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L288"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39859780307"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/24"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+    },
+    {
+      "id": "B09-09",
+      "type": "C",
+      "status": "PASS",
+      "summary": "原生计算子队列1/2、待审不占计算、取消在途仍占实际名额；Jobs启用时同步HTTP409和浏览器引导。真实DBOS/SQLite、HTTP正负与159项浏览器CI通过。",
+      "expected": "默认1且仅1/2；实际双计算重叠、第三排队；取消请求未退出不释放实际计算名额；Jobs关闭保留同步入口。",
+      "execution_commands": [
+        ".venv/bin/python -m pytest -q",
+        "npm run build",
+        "npm run test:e2e"
+      ],
+      "targeted_files": [
+        "tests/test_jobs_compute_queue.py",
+        "tests/test_jobs_sync_admission.py",
+        "frontend/tests/screening.spec.ts"
+      ],
+      "actual_observations": {
+        "independent_targeted_precommit_passed": 16,
+        "independent_targeted_precommit_seconds": 38.9,
+        "framework_cases_passed": 6,
+        "fixed_code_ci_backend_passed": 2175,
+        "fixed_code_ci_browser_passed": 159
+      },
+      "evidence_files": [
+        "fixed-code-ci.json",
+        "framework/EVIDENCE.md",
+        "native-compute-independent-review.md"
+      ],
+      "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+      "code_sha_role": "fixed_code_full_ci_plus_separately_attributed_targeted_and_process_evidence",
+      "evidence_scope": "offline_engineering",
+      "next_input": "无新增外部输入；完整真实目标机/供应商容量另按B09-02/07。",
+      "external_input_codes": [],
+      "blocker": null,
+      "input_version": "Synthetic fixtures frozen in code SHA6956042; DBOS3.3.0/Python3.12 and unchanged hashed overlays. Upgrade uses old clean215fca7 and new clean6956042.",
+      "prior_permissions": "Task-authorized isolated offline development/test data only; synthetic identities are not human reviewers.",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/76ce23720c14e9e66e583e4cc15ad95356f5e519/docs/ENTERPRISE-PR-PLAN.md"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "executor": "root and assigned implementation agents",
+      "independent_reviewer": "b01_eval_audit plus b01_contract_audit for production code they did not implement",
+      "execution_time_evidence": "CI timestamped logs, framework UTC interval, recovery file-time limitations and four upgrade stage UTC clocks are linked separately; no invented uniform execution time."
+    },
+    {
+      "id": "B09-10",
+      "type": "C",
+      "status": "PASS",
+      "summary": "双计算恢复/预算/v4及215→695升级回退工程证据分别留存；升级与完整负载属6956042，后续76ce237含采集修复、测试同步调整及当前全套CI。",
+      "evidence_code_shas": {
+        "precommit_source_matched": "69560429745417e34113d0877d75a62d7eb8f37b",
+        "four_stage_upgrade_new_code": "69560429745417e34113d0877d75a62d7eb8f37b",
+        "fixed_integration_ci": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+      },
+      "expected": "首次和显式恢复均守原生计算队列；2 unknown不释放，恢复待审不多调用；旧任务版本变化中断，配套恢复保持权限/预算屏障。",
+      "execution_commands": [
+        ".venv/bin/python -m pytest -q tests/test_jobs_compute_recovery.py --basetemp=$RECOVERY_OUTPUT",
+        "See upgrade/safe-summary.public.json phase_commands for exact command projections"
+      ],
+      "targeted_files": [
+        "tests/test_jobs_compute_recovery.py",
+        "tests/fixtures/jobs_compute_worker.py"
+      ],
+      "actual_observations": {
+        "recovery_precommit_passed": 3,
+        "recovery_precommit_seconds": 39.83,
+        "recovery_function_model_calls": 59,
+        "upgrade_stages_exit_codes": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "upgrade_new_model_calls": 0,
+        "real_provider_calls": 0,
+        "original_unknown_attempts_preserved": 2,
+        "confirmed_restart_receipts": 27,
+        "old_waiting_review_job_receipts_preserved": 9
+      },
+      "evidence_files": [
+        "native-compute-recovery-evidence.json",
+        "native-compute-contract-review.md",
+        "native-compute-independent-review.md",
+        "upgrade/REPORT.public.md",
+        "upgrade/safe-summary.public.json"
+      ],
+      "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+      "code_sha_role": "fixed_code_full_ci_plus_separately_attributed_targeted_and_process_evidence",
+      "evidence_scope": "offline_engineering",
+      "next_input": "无新增外部输入；完整真实目标机/供应商容量另按B09-02/07。",
+      "external_input_codes": [],
+      "blocker": null,
+      "input_version": "Synthetic fixtures frozen in code SHA6956042; DBOS3.3.0/Python3.12 and unchanged hashed overlays. Upgrade uses old clean215fca7 and new clean6956042.",
+      "prior_permissions": "Task-authorized isolated offline development/test data only; synthetic identities are not human reviewers.",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/76ce23720c14e9e66e583e4cc15ad95356f5e519/docs/ENTERPRISE-PR-PLAN.md"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/26"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+          "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+        },
+        {
+          "kind": "current_report",
+          "repository_path": "reports/b09-native-compute-queue-20261023.md"
+        }
+      ],
+      "executor": "root and assigned implementation agents",
+      "independent_reviewer": "b01_eval_audit plus b01_contract_audit for production code they did not implement",
+      "execution_time_evidence": "CI timestamped logs, framework UTC interval, recovery file-time limitations and four upgrade stage UTC clocks are linked separately; no invented uniform execution time."
+    },
+    {
+      "id": "B10-01",
+      "type": "C",
+      "status": "PASS",
+      "summary": "离线envcheck/六AC核验、实现者123项及独立83项/末1项分别留证；最终88dee本机2133/602.81秒、远端2133/1042.83秒及152浏览器通过，当前CLI退出0/2/2为预期拒绝。工具不认证真实环境、人、许可或账本。",
+      "next_input": "无新增外部输入可继续离线核验；实际inventory按E02/E07/E08/E09/E10，真实模型/恢复费用场景另加E06。",
+      "external_input_codes": [
+        "E02",
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E10"
+      ],
+      "blocker": null,
+      "evidence_scope": "offline_engineering",
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L303"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/88dee00a36adf64ec20bb2918ead48f5a388c520/docs/ENTERPRISE-UAT.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39860218830"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/25"
+        }
+      ]
+    },
+    {
+      "id": "B10-02",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "无 ≥2 独立真实账号在目标 HTTPS 环境登录/重新 SSO/退出/旧会话重放/双向跨材料会话任务隔离证据。",
+      "next_input": "E07/E08/E09。",
+      "external_input_codes": [
+        "E07",
+        "E08",
+        "E09"
+      ],
+      "blocker": "无 ≥2 独立真实账号在目标 HTTPS 环境登录/重新 SSO/退出/旧会话重放/双向跨材料会话任务隔离证据。 E07/E08/E09。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L304"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/88dee00a36adf64ec20bb2918ead48f5a388c520/docs/ENTERPRISE-UAT.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39860218830"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/25"
+        }
+      ]
+    },
+    {
+      "id": "B10-03",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "无真实 IdP disable 和 role_change 事件至旧会话、排队/待审任务/工具/新任务/结果释放拒绝 ≤300 秒实测，亦缺真实 IdP 失联到期拒绝。",
+      "next_input": "E07/E08/E09；同时记录事件/拒绝 UTC 时间，协议夹具不能代替。",
+      "external_input_codes": [
+        "E07",
+        "E08",
+        "E09"
+      ],
+      "blocker": "无真实 IdP disable 和 role_change 事件至旧会话、排队/待审任务/工具/新任务/结果释放拒绝 ≤300 秒实测，亦缺真实 IdP 失联到期拒绝。 E07/E08/E09；同时记录事件/拒绝 UTC 时间，协议夹具不能代替。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L305"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/88dee00a36adf64ec20bb2918ead48f5a388c520/docs/ENTERPRISE-UAT.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39860218830"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/25"
+        }
+      ]
+    },
+    {
+      "id": "B10-04",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "无授权真实画像/材料/新公告→候选→逐条核对→补料新 run→人审→导出，及另一独立实际使用者复核。",
+      "next_input": "E02/E03/E06/E07/E08/E09。",
+      "external_input_codes": [
+        "E02",
+        "E03",
+        "E06",
+        "E07",
+        "E08",
+        "E09"
+      ],
+      "blocker": "无授权真实画像/材料/新公告→候选→逐条核对→补料新 run→人审→导出，及另一独立实际使用者复核。 E02/E03/E06/E07/E08/E09。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L306"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/88dee00a36adf64ec20bb2918ead48f5a388c520/docs/ENTERPRISE-UAT.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39860218830"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/25"
+        }
+      ]
+    },
+    {
+      "id": "B10-05",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "无目标部署的任务中断/幂等/完整 v4 恢复/真实告警联合演练；旧授权/旧审批不得复活、unknown 不释放，RPO/RTO 不能放宽。",
+      "next_input": "E06/E07/E08/E09/E10；告警必须本次故障之后发出再实际收件，不能用故障前消息。",
+      "external_input_codes": [
+        "E06",
+        "E07",
+        "E08",
+        "E09",
+        "E10"
+      ],
+      "blocker": "无目标部署的任务中断/幂等/完整 v4 恢复/真实告警联合演练；旧授权/旧审批不得复活、unknown 不释放，RPO/RTO 不能放宽。 E06/E07/E08/E09/E10；告警必须本次故障之后发出再实际收件，不能用故障前消息。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L307"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/88dee00a36adf64ec20bb2918ead48f5a388c520/docs/ENTERPRISE-UAT.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39860218830"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/25"
+        }
+      ]
+    },
+    {
+      "id": "B10-06",
+      "type": "B",
+      "status": "BLOCKED",
+      "summary": "全部 B01–B09 当前 67 项未齐，真实 B 门槛未通过，且缺具名发布复核。工具 READY 仅表示证据声明/完整性可供独立复核，不赋予 GO。E2、生产 E3 分开。",
+      "next_input": "E12；需每项真实状态/版本/证据及明确人工决定，不能由开发者/Agent 代签。",
+      "external_input_codes": [
+        "E12"
+      ],
+      "blocker": "全部 B01–B09 当前 67 项未齐，真实 B 门槛未通过，且缺具名发布复核。工具 READY 仅表示证据声明/完整性可供独立复核，不赋予 GO。E2、生产 E3 分开。 E12；需每项真实状态/版本/证据及明确人工决定，不能由开发者/Agent 代签。",
+      "evidence_scope": "real_business_acceptance_not_completed",
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "code_sha_role": "verified_fixed_code_ci_not_business_acceptance",
+      "source_reference": [
+        {
+          "kind": "canonical_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/docs/ENTERPRISE-PR-PLAN.md#L308"
+        },
+        {
+          "kind": "feature_report_or_contract",
+          "url": "https://github.com/ZZZZihan/BidOps/blob/88dee00a36adf64ec20bb2918ead48f5a388c520/docs/ENTERPRISE-UAT.md"
+        },
+        {
+          "kind": "fixed_code_ci",
+          "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+          "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39860218830"
+        },
+        {
+          "kind": "pull_request",
+          "url": "https://github.com/ZZZZihan/BidOps/pull/25"
+        },
+        {
+          "kind": "current_empty_evidence_rejection",
+          "repository_path": "reports/evidence/b09-native-queue-20261023/clean-code-uat-cli.json"
+        }
+      ],
+      "current_integration_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519"
+    }
+  ],
+  "common_gates": [
+    {
+      "id": "G-01",
+      "status": "BLOCKED",
+      "evidence_scope": "final_offline_engineering_handoff_not_real_business_acceptance",
+      "summary": "73专项完整：57C工程PASS、B02-06一项C BLOCKED、15B BLOCKED；原旧库缺口仍阻塞共同C合并门槛，不能登记齐便称通过。"
+    },
+    {
+      "id": "G-02",
+      "status": "PASS",
+      "evidence_scope": "final_offline_engineering_handoff_not_real_business_acceptance",
+      "summary": "固定整合76ce237的三个CI job均PASS：后端2175、浏览器159；原十个提交CI保留。当前代码内容与Actions合并检出tree完全相同。"
+    },
+    {
+      "id": "G-03",
+      "status": "BLOCKED",
+      "evidence_scope": "final_offline_engineering_handoff_not_real_business_acceptance",
+      "summary": "004～012工程迁移/重复/备份恢复及最终整合已验；E01真实旧六库/会话/引用迁移回退仍未验，不能称所有旧数据兼容。"
+    },
+    {
+      "id": "G-04",
+      "status": "PASS",
+      "evidence_scope": "final_offline_engineering_handoff_not_real_business_acceptance",
+      "summary": "最终工程权限/CSRF/全来源闭包、分页/导出最后释放CAS、恢复隔离、公开脱敏与负向检查通过；不替代真实IdP或许可验收。"
+    },
+    {
+      "id": "G-05",
+      "status": "PASS",
+      "evidence_scope": "final_offline_engineering_handoff_not_real_business_acceptance",
+      "summary": "PAI2.59.0/Authlib1.9.1/DBOS3.3.0/pypdf6.21.2及ADR/hashed overlay、三锁和最终构建依据已按代码记录；主锁及18文件pin保留。"
+    },
+    {
+      "id": "G-06",
+      "status": "PASS",
+      "evidence_scope": "final_offline_engineering_handoff_not_real_business_acceptance",
+      "summary": "本轮无真实采购/模型/外部消息，新增实际费用0；不重置累计¥10或释放unknown，账本仍缺，未来请求另需合法范围/费用核对及明确授权。"
+    },
+    {
+      "id": "G-07",
+      "status": "PASS",
+      "evidence_scope": "final_offline_engineering_handoff_not_real_business_acceptance",
+      "summary": "旧836单计算失败、73项标准、新原生队列完整本机负载、独立复核及提交前/后验证分别保留；不覆盖旧报告，不把BLOCKED改为业务通过。"
+    },
+    {
+      "id": "G-08",
+      "status": "BLOCKED",
+      "evidence_scope": "final_offline_engineering_handoff_not_real_business_acceptance",
+      "summary": "默认关闭、独立目录/双库/审核/费用保留、恢复隔离与最新授权未知拒绝已有工程证据；真实旧服务回退仍缺E01，不删表/覆盖历史换取回退成功。"
+    }
+  ],
+  "common_gate_status_counts": {
+    "PASS": 5,
+    "BLOCKED": 3
+  },
+  "historical_results": {
+    "B09": {
+      "original_full": {
+        "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+        "passed": 2005,
+        "failed": 1,
+        "seconds": 605.6,
+        "failure_node": "tests/test_storage_api_cli.py::test_migrations_idempotent",
+        "cause": "Expected full migration filename list omitted existing 012_package_versions_index.sql"
+      },
+      "original_linux_ci_failure": {
+        "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+        "run_id": 39856326761,
+        "job_id": 120095369153,
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39856326761",
+        "passed": 2004,
+        "failed": 2,
+        "seconds": 1042.66,
+        "failure_nodes": [
+          "tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change[updates6]",
+          "tests/test_storage_api_cli.py::test_migrations_idempotent"
+        ],
+        "scope": "Separate Linux actual result, not interchangeable with same-SHA local full."
+      },
+      "historical_corrected_full": {
+        "code_sha": "36efed31ae496f42474cd8389236668b05767499",
+        "passed": 2006,
+        "failed": 0,
+        "seconds": 622.67,
+        "lint_format_freeze_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "scope": "actual historical exact-SHA local full, before latest identity-clock test-only propagation"
+      }
+    },
+    "B10": {
+      "original_full": {
+        "code_sha": "b136ed58c689b30c98bf43a4eee2a1a134181899",
+        "passed": 2128,
+        "failed": 1,
+        "seconds": 619.67,
+        "failure_node": "tests/test_storage_api_cli.py::test_migrations_idempotent",
+        "cause": "Same missing 012 migration expectation"
+      },
+      "original_linux_ci_failure": {
+        "code_sha": "b136ed58c689b30c98bf43a4eee2a1a134181899",
+        "run_id": 39857041113,
+        "job_id": 120097812664,
+        "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39857041113",
+        "passed": 2127,
+        "failed": 2,
+        "seconds": 990.74,
+        "failure_nodes": [
+          "tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change[updates6]",
+          "tests/test_storage_api_cli.py::test_migrations_idempotent"
+        ],
+        "scope": "Separate Linux actual result, not interchangeable with same-SHA local full."
+      },
+      "historical_corrected_full": {
+        "code_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+        "passed": 2129,
+        "failed": 0,
+        "seconds": 621.28,
+        "lint_format_freeze_exit_codes": [
+          0,
+          0,
+          0
+        ],
+        "scope": "actual historical exact-SHA local full, before latest identity-clock test-only propagation"
+      }
+    }
+  },
+  "documentation_evidence_commits": [
+    {
+      "plan": "B09",
+      "commit_sha": "efd4becb8e0f39a22d3933ddd542f6acc6e695b1",
+      "code_and_tests_unchanged_from": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+      "report_url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/b09-capacity-recovery-20261023.md",
+      "report_sha256": "a8a9e65e85005102eb5ddd0954d58e25218cc972bb4063afd862be1d8d66e3af",
+      "index_url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/evidence-index.json",
+      "index_sha256": "aad7f28df07ccdc0357d66727cc4a729275c889aacab7f5af02dfbb2931d1395",
+      "docs_ci_url": "https://github.com/ZZZZihan/BidOps/actions/runs/39863080054",
+      "separate_from_verified_code_ci": true
+    }
+  ],
+  "b10_validation": {
+    "implementer_targeted": {
+      "passed": 123,
+      "seconds": 2.51
+    },
+    "independent_separate_checks": [
+      {
+        "passed": 83,
+        "seconds": 1.7,
+        "scope": "evidence file before final additional case"
+      },
+      {
+        "passed": 1,
+        "seconds": 0.29,
+        "scope": "final B10-07 contract upgrade rejection case"
+      },
+      {
+        "passed": 122,
+        "seconds": 3.91,
+        "scope": "three UAT files at prior minimum-contract stage"
+      }
+    ],
+    "latest_local_full": {
+      "status": "PASS",
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "tree_sha": "a45142d6b4878853f297a8ea717e6fad70879d6d",
+      "passed": 2133,
+      "failed": 0,
+      "seconds": 602.81,
+      "format_files": 256,
+      "frozen_pin_files": 18,
+      "all_four_command_exit_codes": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "started_at": "2026-10-22T21:48:39.756853+00:00",
+      "finished_at": "2026-10-22T21:58:46.375013+00:00",
+      "clean_after": true,
+      "scope": "root actual local synthetic engineering suite; not independent rerun or remote CI"
+    },
+    "latest_candidate_cli": {
+      "status": "EXPECTED_REJECTION_PASS",
+      "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+      "exits": [
+        0,
+        2,
+        2
+      ],
+      "upstream_count": 65,
+      "six_ac_status": "BLOCKED",
+      "release": "NO_GO",
+      "model_calls": 0,
+      "network_calls": 0,
+      "scope": "not business acceptance"
+    },
+    "minimum_contract_ids": 73,
+    "upstream_ids": 67,
+    "uat_ids": 6,
+    "tool_maximum_verdict": "EVIDENCE_COMPLETE / READY_FOR_INDEPENDENT_REVIEW",
+    "real_business": "NOT_VERIFIED_BY_TOOL",
+    "historical_minimum_contract_ids": 71,
+    "current_fixed_code_cli": "evidence/b09-native-queue-20261023/clean-code-uat-cli.json"
+  },
+  "external_input_dependency_rule": "Inputs are operation-specific. E01 offline migration and E06 offline ledger reconciliation may proceed separately without IdP, alerts or all evaluation material. E06 reconciliation never authorizes model calls. E11/E12 are downstream execution/review outputs, not universal prerequisites.",
+  "external_input_groups": [
+    {
+      "group": 1,
+      "name": "original_assets_and_total_cost",
+      "inputs": [
+        "E01",
+        "E06"
+      ],
+      "initial_request": "Two controlled local paths, responsibility, UTC cutoffs and read-only/isolated-copy scope.",
+      "can_proceed": "Separate offline legacy closure/migration/rollback and ledger reconciliation.",
+      "not_required_for_this_step": [
+        "E07",
+        "E10",
+        "E04"
+      ],
+      "does_not_authorize": [
+        "model_call",
+        "source_fetch",
+        "unknown_reserve_release",
+        "merge",
+        "deploy"
+      ]
+    },
+    {
+      "group": 2,
+      "name": "rights_new_samples_independent_people",
+      "inputs": [
+        "E02",
+        "E03",
+        "E04",
+        "E05"
+      ],
+      "initial_request": "Rights evidence, legal candidate pool, annotation/review/timing people and availability.",
+      "can_proceed": "Offline rights/split/independence audit and freezing; controlled source execution only within separately authorized modes/scope.",
+      "outputs_later": [
+        "E11"
+      ],
+      "model_call_additional_requirements": [
+        "E06",
+        "fixed_versions",
+        "bounded_run_limits",
+        "explicit_call_authorization"
+      ]
+    },
+    {
+      "group": 3,
+      "name": "real_trial_site_users_materials",
+      "inputs": [
+        "E07",
+        "E08",
+        "E09"
+      ],
+      "initial_request": "Target HTTPS/host and IdP responsible parties, two independent user roles, authorized fixed company materials.",
+      "can_proceed": "Read-only config/rights review; real identity tests only within authorized operation scope.",
+      "does_not_implicitly_require": [
+        "E01",
+        "E04",
+        "E11",
+        "E12"
+      ],
+      "model_call_authorization_is_separate": true
+    },
+    {
+      "group": 4,
+      "name": "operations_window_actual_alert_recipient",
+      "inputs": [
+        "E08",
+        "E10"
+      ],
+      "initial_request": "Backup/recovery locations, maintenance window, latest identity/ACL/deletion responsibility, actual recipient and specific fault/recovery send authorization.",
+      "can_proceed": "Offline backup closure review before fault injection or sending.",
+      "full_loss_or_sending_requirements": [
+        "explicit_drill_scope",
+        "latest_permissions",
+        "cost_reconciliation_where_applicable",
+        "explicit_send_authorization"
+      ],
+      "outputs_later": [
+        "E12"
+      ]
+    }
+  ],
+  "operation_dependencies": [
+    {
+      "operation": "offline_legacy_migration_and_rollback",
+      "required": [
+        "E01",
+        "consistent_snapshot_and_raw_attachment_history_closure",
+        "read_only_or_isolated_execution_scope"
+      ],
+      "does_not_require": [
+        "E07",
+        "E10",
+        "E04"
+      ],
+      "not_authorized_by_receipt": [
+        "overwrite_original_assets",
+        "reopen_private_service"
+      ]
+    },
+    {
+      "operation": "offline_ledger_reconciliation",
+      "required": [
+        "E06",
+        "read_scope"
+      ],
+      "does_not_require": [
+        "E07",
+        "E10"
+      ],
+      "does_not_authorize": [
+        "paid_model_call",
+        "reset_budget",
+        "release_unknown"
+      ]
+    },
+    {
+      "operation": "controlled_source_update",
+      "required": [
+        "E02",
+        "exact_allowed_mode_url_expiry_rate",
+        "controlled_execution_environment",
+        "explicit_execution_scope"
+      ],
+      "does_not_require": [
+        "E05",
+        "E12"
+      ],
+      "produces": [
+        "E11"
+      ]
+    },
+    {
+      "operation": "real_blind_evaluation",
+      "required": [
+        "E02",
+        "E03",
+        "E04",
+        "frozen_versions_and_first_run_registration"
+      ],
+      "additional_for_human_pairing": [
+        "E05"
+      ],
+      "additional_for_real_model": [
+        "E06",
+        "bounded_call_limits",
+        "explicit_call_authorization"
+      ]
+    },
+    {
+      "operation": "real_identity_isolation_and_revocation",
+      "required": [
+        "E07",
+        "E08",
+        "E09",
+        "authorized_probe_scope"
+      ],
+      "does_not_require_for_model_free_actions": [
+        "E04",
+        "E11",
+        "E12"
+      ]
+    },
+    {
+      "operation": "actual_fault_restore_and_alert",
+      "required": [
+        "E08",
+        "E10",
+        "latest_source_identity_acl_deletion_state",
+        "explicit_fault_recovery_scope",
+        "explicit_send_authorization"
+      ],
+      "conditional_requirements": [
+        "E06_for_cost_restore_reconciliation",
+        "E09_for_private_subject_material_authorization"
+      ],
+      "produces": [
+        "actual_rpo_rto",
+        "actual_sent_received_causality",
+        "E12_after_all_required_gates"
+      ]
+    }
+  ],
+  "input_roles": {
+    "E01": "initial_offline_asset_input",
+    "E06": "initial_offline_cost_input_not_call_authorization",
+    "E11": "downstream_authorized_update_execution_evidence",
+    "E12": "downstream_named_review_and_release_decision"
+  },
+  "minimum_external_inputs": [
+    {
+      "id": "E01",
+      "name": "E01 真实旧库",
+      "minimum_input": "原旧六实例的一致SQLite快照（含必要WAL处理）、匹配raw/附件、BidOps业务历史会话/引用、旧代码与运行条件；受控本机路径、责任者、允许只读核查/隔离复制范围。不是Agent登录缓存或凭据，不用合成六行代替。",
+      "dependencies": "**B02-06 C**及G-01/03/08；可先独立离线清点、迁移/引用/重复迁移及隔离旧服务回退，不需等IdP、告警或金标；收到路径不等于PASS。"
+    },
+    {
+      "id": "E02",
+      "name": "E02 来源许可",
+      "minimum_input": "可核验许可依据/权利人、精确域名和 URL scope、手工/HTTP/计划方式、正文/附件使用范围、有效期/复核人/时间、频率/并发/重试；与实际 registry 配置交集一致。",
+      "dependencies": "B07-07，B08-01/04，B10-01/04，G-06。unknown/denied 不自动网络；manual 责任声明不自动授予持续网络许可。"
+    },
+    {
+      "id": "E03",
+      "name": "E03 新真实数据",
+      "minimum_input": "≥30真实公告、≥3类别、≥2版式；预冻结候选池/seed/抽样、≥20新独立项目族及金标，旧六公告排除，族/包/附件/版本闭包不跨集合；历史与采集当时未来截止各10遵守原可得性约束；六风险层每层≥3不同真实族。保留全部 raw/hash/获取时间/版本关联/附件状态。",
+      "dependencies": "B08-01/04/06；支撑 B01-03/05 真实门槛与 B10-04。合成/旧题改写/换 split 不补真实数量。"
+    },
+    {
+      "id": "E04",
+      "name": "E04 独立金标",
+      "minimum_input": "每条 P1 字段、条件逻辑、适用包/时点、双方证据/支持关系、质量单位及输入/金标哈希；实际独立标注者/时间、关键复核与分歧仲裁。开发调试者/LLM 预标注不能冒充独立金标。",
+      "dependencies": "B08-02/04/06；实际质量门槛。未仲裁不能进入正式计分。"
+    },
+    {
+      "id": "E05",
+      "name": "E05 人工对照",
+      "minimum_input": "≥2名合格独立使用者、≥10不同项目族成对任务；同题两方式不同人、未看金标/未做同题；事前冻结时限、盲态/平衡顺序/质量单位，实际起止与正时长，全部预登记失败/超时原样保留。",
+      "dependencies": "B08-05/06；不能由开发者代演。median(1−A/H)≥20%且质量不降；任一失败/超时令节时门槛 FAIL。"
+    },
+    {
+      "id": "E06",
+      "name": "E06 最新完整费用账本",
+      "minimum_input": "最新完整累计¥10账本/供应商用量导出的受控路径、责任者/截止UTC，覆盖P0/demo/dev/eval/失败/重试/unknown/orphan/预留和核对依据；先离线核对余额是否可证明。历史差额、单次0费用和恢复token不能补丢失费用或清unknown。",
+      "dependencies": "B08-04/B09-06/B10-04/05及真实调用G-06；核对可独立先行，无需IdP/告警。**账本核对不授权模型**；调用另需合法固定输入、上限和明确本次授权。"
+    },
+    {
+      "id": "E07",
+      "name": "E07 真实 IdP",
+      "minimum_input": "受支持 Keycloak 实际版本、issuer/client、精确 callback/back-channel/JWKS、bidops_roles 映射；IdP管理员可执行停用/角色变更；秘密由部署责任者受控配置。保留真实事件和系统拒绝时钟证据。",
+      "dependencies": "B10-01/02/03/04/05；不能用签名本机 OIDC 传输替代。240秒快照上界与真实≤300秒目标分别验证。"
+    },
+    {
+      "id": "E08",
+      "name": "E08 HTTPS/目标机",
+      "minimum_input": "明确实际部署目标及探测/演练范围、DNS/TLS/origin、CPU/RAM/磁盘/数据及附件总量、UTC时钟、单机单worker、运维责任者、备份介质/独立恢复目录、维护窗口。不得默认当前开发机即企业目标。",
+      "dependencies": "B09-01/02/04/05/06/07，B10-01/02/03/05。恢复目标 RPO≤86400秒、RTO≤1800秒，RTO含授权核验至业务可用。"
+    },
+    {
+      "id": "E09",
+      "name": "E09 真实用户/材料",
+      "minimum_input": "≥2不同实际独立操作者、受控账号与稳定主体摘要/角色矩阵；已授权企业画像/资质/材料的固定 VersionRef、许可/留存与来源事实；明确 owner/reviewer assignment + 全sources ACL，独立用户问题/复核记录。",
+      "dependencies": "B10-01/02/03/04/05；真实材料、身份、权限不能由合成声明 true 证明。"
+    },
+    {
+      "id": "E10",
+      "name": "E10 企业告警",
+      "minimum_input": "实际指定接收端和运维收件责任者、受控凭据配置、明确本次故障/恢复对外发送授权；故障→生成→发送→真实收件→恢复收件的关联记录与 UTC 时间。",
+      "dependencies": "B09-05，B10-01/05。生成≤300秒；中断≤告警发送≤收件，故障前的消息不算本次告警。"
+    },
+    {
+      "id": "E11",
+      "name": "E11 后续更新周期产物",
+      "minimum_input": "对应来源许可、受控执行环境及明确运行授权具备后，由执行者实际产出≥3轮/跨≥24小时、含一次中断恢复的版本/cursor/数量/错误/附件记录；不是要求资料者预先交“未来已经运行”的证明。",
+      "dependencies": "B07-07；没有出现真实更正/附件的维度仍未验，成功页last_success不能证明整批完整。其余无关输入未齐不自动阻止已许可范围内的受控更新。"
+    },
+    {
+      "id": "E12",
+      "name": "E12 后续具名复核产物",
+      "minimum_input": "可先明确复核/运维/发布责任者；待执行完成后形成精确代码/锁/计划/数据/提示/画像及73专项/8G最终证据和具名GO/NO-GO，不能预先索要“已通过”签字。E2与生产E3范围分别冻结。",
+      "dependencies": "B10-06；硬项NOT_RUN/BLOCKED/FAIL不允许声称通过。工具READY/Agent技术复核不代签，不给合并/部署授权。"
+    }
+  ],
+  "collection_activity": {
+    "new_product_tests": 0,
+    "network_probes": 0,
+    "provider_calls": 0,
+    "new_actual_model_cost_cny": 0,
+    "historical_cost_ledger_verified": false
+  },
+  "privacy": "Aggregate safe projections and hashes only; no raw source text, account/run identifiers, cookies, private trace, database or request body.",
+  "model_configuration_scope": {
+    "main": "GPT-6 Astra / max explicitly allowed by user",
+    "children_requested": "3 existing agents requested GPT-6.1 Sol / ultra",
+    "actual_provider_runtime_independently_verified": false
+  },
+  "assembled_at_utc": "2026-10-23T00:05:37.613055+00:00",
+  "previous_matrix": {
+    "relative_name": "enterprise-acceptance-matrix-20261023.json",
+    "sha256": "ba521a14b37d9d0bfdd70f480015a06103a762710a1a9a98116c862ef8d9062f",
+    "code_scope": "B01-B10 before PR26, retained unchanged in prior handoff and Git history"
+  },
+  "integration_fixed_code_ci": {
+    "schema_version": "completed-native-queue-ci-v1",
+    "observed_at_utc": "2026-10-23T00:03:03.714419+00:00",
+    "status": "PASS",
+    "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+    "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39874101082",
+    "run_id": 39874101082,
+    "jobs": [
+      {
+        "id": 120155358647,
+        "name": "container",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120155358925,
+        "name": "backend",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120155358986,
+        "name": "frontend",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "actual_checkout_sha": "0189e8154aa1f910018af7c9c383802670b19a51",
+    "code_tree": "f9094f9faae21c7a65d3baa2623d7837b5e42982",
+    "actual_checkout_tree": "f9094f9faae21c7a65d3baa2623d7837b5e42982",
+    "tree_content_equal": true,
+    "logs": {
+      "backend": {
+        "sha256": "e6b1d149a52f60bf473b59605da4501eb939d020801780b673b217565d40accc",
+        "bytes": 39490,
+        "selected_lines": [
+          "2026-10-22T23:47:48.7972753Z 0189e8154aa1f910018af7c9c383802670b19a51",
+          "2026-10-22T23:47:52.4004017Z All checks passed!",
+          "2026-10-22T23:47:52.4593371Z 269 files already formatted",
+          "2026-10-23T00:01:17.7977904Z ================= 2175 passed, 1 warning in 802.13s (0:13:22) =================="
+        ],
+        "actual_checkout_sha": "0189e8154aa1f910018af7c9c383802670b19a51",
+        "first_log_utc": "2026-10-22T23:47:47.2113214Z",
+        "last_log_utc": ""
+      },
+      "frontend": {
+        "sha256": "1a94f61b51f936ca4e1c62d40e772978e472b44f5fada68b3c6d144b129dfdf2",
+        "bytes": 54142,
+        "selected_lines": [
+          "2026-10-22T23:47:50.2619285Z 0189e8154aa1f910018af7c9c383802670b19a51",
+          "2026-10-22T23:50:00.2359782Z   159 passed (1.9m)"
+        ],
+        "actual_checkout_sha": "0189e8154aa1f910018af7c9c383802670b19a51",
+        "first_log_utc": "2026-10-22T23:47:46.8300196Z",
+        "last_log_utc": ""
+      },
+      "container": {
+        "sha256": "d8f90dfea9de9f750b0b44f7f85d3caead6b9fb3d6034ceaa1599ffdf956d8f6",
+        "bytes": 33595,
+        "selected_lines": [
+          "2026-10-22T23:47:48.8832203Z 0189e8154aa1f910018af7c9c383802670b19a51",
+          "2026-10-22T23:48:06.6220202Z \u001b[36;1mdocker exec bidops-smoke python -c 'import os; from bidops.qualification.service import implementation_version; p=implementation_version(); assert p[\"code_sha\"] == os.environ[\"BIDOPS_CODE_SHA\"] and len(p[\"code_sha\"]) == 40; assert p[\"lock_sha256\"] and p[\"implementation_sha256\"]; print(\"Installed qualification provenance passed\")'\u001b[0m",
+          "2026-10-22T23:48:06.6222987Z \u001b[36;1mdocker exec bidops-smoke python -c 'from importlib.metadata import version; from bidops.jobs.runtime import application_version; from bidops.jobs.config import JobsSettings; p=application_version(); assert version(\"dbos\") == \"3.3.0\"; assert p[\"durable_lock_sha256\"] and p[\"application_version\"]; assert not JobsSettings().enabled; print(\"Installed durable overlay provenance and default-off gate passed\")'\u001b[0m",
+          "2026-10-22T23:48:06.6226098Z \u001b[36;1mdocker exec bidops-smoke python -c 'from importlib.metadata import version; from bidops.jobs.runtime import application_version; from bidops.ingestion.config import IngestionSettings; p=application_version(); assert version(\"pypdf\") == \"6.21.2\"; assert p[\"attachment_lock_sha256\"] == \"59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba\"; assert not IngestionSettings().enabled; print(\"Installed attachment overlay provenance and ingestion default-off gate passed\")'\u001b[0m",
+          "2026-10-22T23:48:12.8137670Z Container smoke passed: non-anonymous API, built UI, truthful not-ready state",
+          "2026-10-22T23:48:16.6340269Z Installed qualification provenance passed",
+          "2026-10-22T23:48:21.7743667Z Installed durable overlay provenance and default-off gate passed",
+          "2026-10-22T23:48:26.9673321Z Installed attachment overlay provenance and ingestion default-off gate passed"
+        ],
+        "actual_checkout_sha": "0189e8154aa1f910018af7c9c383802670b19a51",
+        "first_log_utc": "2026-10-22T23:47:47.1690409Z",
+        "last_log_utc": ""
+      }
+    },
+    "backend_passed": 2175,
+    "backend_warnings": 1,
+    "backend_seconds": 802.13,
+    "backend_warning_summary": [
+      "2026-10-23T00:01:17.7975219Z =============================== warnings summary ===============================",
+      "2026-10-23T00:01:17.7975718Z tests/test_jobs_runtime.py::test_revoked_review_wait_replays_native_checkpoints_after_authorized_resume[request_materials-waiting_review]",
+      "2026-10-23T00:01:17.7976334Z   site-packages/dbos/_queue.py:690: RuntimeWarning: coroutine 'execute_dequeued_workflow.<locals>.start_workflow_task' was never awaited",
+      "2026-10-23T00:01:17.7976780Z     dbos.logger.error(f\"Error executing workflow {id}: {e}\")",
+      "2026-10-23T00:01:17.7977010Z   Enable tracemalloc to get traceback where the object was allocated.",
+      "2026-10-23T00:01:17.7977328Z   See https://docs.pytest.org/en/stable/how-to/capture-warnings.html#resource-warnings for more info.",
+      "2026-10-23T00:01:17.7977536Z "
+    ],
+    "formatted_python_files": 269,
+    "browser_passed": 159,
+    "browser_duration": "1.9m",
+    "scope": "Actual GitHub Actions completed jobs and decoded logs. Exact checkout tree equality attributes behavior to this code commit; not real enterprise acceptance."
+  },
+  "initial_integration_ci_failure": {
+    "schema_version": "ci-recovery-race-failure-v1",
+    "observed_at_utc": "2026-10-22T23:14:57.197626+00:00",
+    "status": "FAIL",
+    "code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+    "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39868275001",
+    "run_id": 39868275001,
+    "jobs": [
+      {
+        "id": 120135902459,
+        "name": "frontend",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 120135902669,
+        "name": "backend",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 120135902700,
+        "name": "container",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ],
+    "backend": {
+      "passed": 2166,
+      "failed": 1,
+      "seconds": 840.0,
+      "failed_test": "tests/test_ingestion_process_recovery.py::test_sigkill_source_commit_windows_recover_one_run_and_fixed_receipts[after_schedule_run_commit]",
+      "cause": "Completed independent source workflow wins the race between scheduled get_system(queued) and require_execution; ingestion_run_not_active is persisted as native schedule ERROR."
+    },
+    "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+    "tree": "dc6e75fbce673ed9a573d138fbcce8bb9967ca9c",
+    "tree_content_equal": true,
+    "logs": {
+      "backend": {
+        "source_filename": "native-ci-695604-backend-failed.log",
+        "sha256": "ecbeb8962c32832a6931964b41fffdc6a78a1d03e2db353b951f61015efd0404",
+        "bytes": 42508,
+        "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+        "first_log_utc": "2026-10-22T22:54:43.7234801Z",
+        "last_log_utc": "",
+        "selected_lines": [
+          "2026-10-22T23:08:53.6260918Z FAILED tests/test_ingestion_process_recovery.py::test_sigkill_source_commit_windows_recover_one_run_and_fixed_receipts[after_schedule_run_commit] - AssertionError: 22:57:22 [   ERROR] (dbos:_core.py:1133) Exception encountered in background workflow:",
+          "2026-10-22T23:08:53.6280862Z ================== 1 failed, 2166 passed in 840.00s (0:14:00) =================="
+        ]
+      },
+      "frontend": {
+        "source_filename": "native-ci-695604-frontend.log",
+        "sha256": "b116f57a67c9e532519d9cf279a90c8221765d99b4a33c5b59dc65ce6866ab0d",
+        "bytes": 54188,
+        "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+        "first_log_utc": "2026-10-22T22:54:44.0900920Z",
+        "last_log_utc": "",
+        "selected_lines": [
+          "2026-10-22T22:57:40.4676293Z   159 passed (2.7m)"
+        ]
+      },
+      "container": {
+        "source_filename": "native-ci-695604-container.log",
+        "sha256": "f21ed7bfa646706718c794946e0f395cdc3572935f5075ff7dc0a33e8fd08c32",
+        "bytes": 33353,
+        "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+        "first_log_utc": "2026-10-22T22:54:44.0924302Z",
+        "last_log_utc": "",
+        "selected_lines": []
+      }
+    },
+    "scope": "A real production race, preserved as FAIL. No unchanged retry or weakened native SUCCESS assertion; deterministic regression and scoped production fix follow in a separate commit. The full capacity run remains pinned to this code and runs with ingestion disabled."
+  },
+  "queue_lifecycle_wait_ci_failure": {
+    "schema_version": "ci-failure-observation-v1",
+    "observed_at_utc": "2026-10-22T23:42:17.571201+00:00",
+    "status": "FAIL",
+    "code_sha": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+    "run_id": 39870767184,
+    "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39870767184",
+    "actual_checkout_sha": "ac74a38be3755d0d1ee03018791a3c5167aac61b",
+    "backend": {
+      "job_id": 120144325628,
+      "failed": 3,
+      "passed": 2172,
+      "seconds": 1274.81,
+      "failed_test_ids": [
+        "tests/test_jobs_compute_queue.py::test_native_calculation_queue_bounds_two_and_review_wait_frees_computation",
+        "tests/test_jobs_compute_queue.py::test_cancelled_inflight_call_holds_physical_slot_until_it_returns",
+        "tests/test_jobs_compute_queue.py::test_authorized_resume_returns_child_to_bounded_queue"
+      ],
+      "failure_observation": "Two predicates waiting for the third calculation after releasing first tasks and one full qualification completion wait exceeded 12 seconds. Causal investigation is recorded separately; this report does not infer a product defect or a flaky test."
+    },
+    "other_jobs": [
+      {
+        "name": "frontend",
+        "status": "PASS",
+        "browser_passed": 159,
+        "job_id": 120144326092
+      },
+      {
+        "name": "container",
+        "status": "PASS",
+        "job_id": 120144325845
+      }
+    ],
+    "log": {
+      "controlled_name": "native-ci-2425fc2-backend-failed.log",
+      "bytes": 63119,
+      "sha256": "b6165b8bd13e9e19921cdd0a6f3dcb211070a72aedd79cd01422e8f529c59cab"
+    },
+    "scope": "Real failed GitHub Actions run, preserved. Never reclassified as PASS after a later run."
+  },
+  "recovery_race_repair": {
+    "schema_version": 1,
+    "scope": "engineering_only_native_dbos_sqlite_schedule_recovery_regression",
+    "requested_agent_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "ultra",
+    "actual_agent_configuration_independently_verified": false,
+    "dbos_version": "3.3.0",
+    "base_code_commit": "69560429745417e34113d0877d75a62d7eb8f37b",
+    "execution_version_attribution": "precommit WIP with minimal runtime fix and new test file; not a clean-commit product verification",
+    "later_commit_with_identical_tested_file_bytes": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+    "later_commit_was_independently_retested_here": false,
+    "old_runtime_sha256": "dd546113805939423aa48ade38cfad063382f651cbd6faf12c93b48afaf4fdfc",
+    "final_source_files": [
+      {
+        "repository_path": "backend/bidops/ingestion/runtime.py",
+        "sha256": "3d12c59f3dacb6a8ccc765d5439553cc8ff27068c4d6b82b60e477554da1cad0",
+        "bytes": 7485
+      },
+      {
+        "repository_path": "tests/test_ingestion_schedule_replay.py",
+        "sha256": "d564744fc2de22573a0db264568d1460ecdfedbdfcb553a4f2f242a245b8aaab",
+        "bytes": 13166
+      }
+    ],
+    "commands": {
+      "old_code_red": ".venv/bin/pytest -q tests/test_ingestion_schedule_replay.py",
+      "final": ".venv/bin/pytest -q -o junit_family=legacy --junitxml=<private-result.xml> tests/test_ingestion_schedule_replay.py",
+      "lint": ".venv/bin/ruff check tests/test_ingestion_schedule_replay.py",
+      "format": ".venv/bin/ruff format --check tests/test_ingestion_schedule_replay.py",
+      "diff": "git diff --check"
+    },
+    "runs": [
+      {
+        "stage": "old_code_regression_red",
+        "tests": 1,
+        "passed": 0,
+        "failed": 1,
+        "pytest_reported_seconds": "8.10",
+        "exit_code": 1,
+        "schedule_native_status": "ERROR",
+        "error_code": "ingestion_run_not_active",
+        "source_native_status": "SUCCESS",
+        "business_status": "completed",
+        "mock_http_requests": 1,
+        "red_test_source_sha256": null,
+        "limitation": "The first intermediate test source was not separately archived; immutable raw failure log and original runtime bytes are retained."
+      },
+      {
+        "stage": "first_harness_adjustment",
+        "tests": 7,
+        "passed": 0,
+        "failed": 7,
+        "pytest_reported_seconds": "16.40",
+        "exit_code": 1,
+        "cause": "Test expected SQL NULL instead of stored JSON null, and treated native.error exception object as a string. Native success/rejection behavior already matched expectations."
+      },
+      {
+        "stage": "second_harness_adjustment",
+        "tests": 8,
+        "passed": 2,
+        "failed": 6,
+        "pytest_reported_seconds": "20.21",
+        "exit_code": 1,
+        "cause": "Negative tests indexed pages inside the untouched empty internal counts map. Corrected to assert the exact empty map and independently assert zero persisted pages/facts."
+      },
+      {
+        "stage": "final",
+        "tests": 8,
+        "passed": 8,
+        "failed": 0,
+        "skipped": 0,
+        "pytest_reported_seconds": "18.50",
+        "junit_suite_seconds": "18.493",
+        "exit_code": 0,
+        "junit_started_utc": "2026-10-22T23:16:22.675477+00:00",
+        "junit_finished_utc_derived_from_duration": "2026-10-22T23:16:41.168477+00:00",
+        "observed_cases": [
+          {
+            "guard": "completed_by_recovery",
+            "schedule_status": "SUCCESS",
+            "business_status": "completed",
+            "http_requests": 1,
+            "runs": 1,
+            "pages": 1,
+            "cursor_version": 1,
+            "replay_business_unchanged": true,
+            "model_calls": 0,
+            "test_status": "PASS",
+            "junit_case_seconds": "2.214"
+          },
+          {
+            "guard": "running_by_recovery",
+            "schedule_status": "SUCCESS",
+            "business_status": "completed",
+            "http_requests": 1,
+            "enqueue_calls": 1,
+            "runs": 1,
+            "pages": 1,
+            "cursor_version": 1,
+            "model_calls": 0,
+            "test_status": "PASS",
+            "junit_case_seconds": "2.244"
+          },
+          {
+            "guard": "downgrade",
+            "error_code": "ingestion_admin_required",
+            "schedule_status": "ERROR",
+            "business_status": "queued",
+            "http_requests": 0,
+            "runs": 1,
+            "pages": 0,
+            "cursor_version": 0,
+            "model_calls": 0,
+            "test_status": "PASS",
+            "junit_case_seconds": "2.222"
+          },
+          {
+            "guard": "revoke_policy",
+            "error_code": "source_policy_unconfirmed",
+            "schedule_status": "ERROR",
+            "business_status": "queued",
+            "http_requests": 0,
+            "runs": 1,
+            "pages": 0,
+            "cursor_version": 0,
+            "model_calls": 0,
+            "test_status": "PASS",
+            "junit_case_seconds": "2.170"
+          },
+          {
+            "guard": "pause_generation",
+            "error_code": "ingestion_schedule_not_current",
+            "schedule_status": "ERROR",
+            "business_status": "queued",
+            "http_requests": 0,
+            "runs": 1,
+            "pages": 0,
+            "cursor_version": 0,
+            "model_calls": 0,
+            "test_status": "PASS",
+            "junit_case_seconds": "2.172"
+          },
+          {
+            "guard": "cancel_requested",
+            "error_code": "ingestion_cancelled",
+            "schedule_status": "ERROR",
+            "business_status": "cancel_requested",
+            "http_requests": 0,
+            "runs": 1,
+            "pages": 0,
+            "cursor_version": 0,
+            "model_calls": 0,
+            "test_status": "PASS",
+            "junit_case_seconds": "2.244"
+          },
+          {
+            "guard": "cancelled",
+            "error_code": "ingestion_cancelled",
+            "schedule_status": "ERROR",
+            "business_status": "cancelled",
+            "http_requests": 0,
+            "runs": 1,
+            "pages": 0,
+            "cursor_version": 0,
+            "model_calls": 0,
+            "test_status": "PASS",
+            "junit_case_seconds": "2.174"
+          },
+          {
+            "guard": "application_version",
+            "error_code": "ingestion_application_version_changed",
+            "schedule_status": "ERROR",
+            "business_status": "queued",
+            "http_requests": 0,
+            "runs": 1,
+            "pages": 0,
+            "cursor_version": 0,
+            "model_calls": 0,
+            "test_status": "PASS",
+            "junit_case_seconds": "2.170"
+          }
+        ]
+      }
+    ],
+    "static_checks": {
+      "owned_file_ruff": "PASS",
+      "owned_file_format": "PASS",
+      "git_diff_check": "PASS"
+    },
+    "real_network_requests": 0,
+    "real_model_requests": 0,
+    "estimated_cost_cny": "0",
+    "privacy": "Only enumerated status/count/hash/version/timing metadata is published. Original logs/XML remain private because they contain hostnames, absolute paths, and fixture context.",
+    "retained_private_log_index": [
+      {
+        "name": "ingestion-schedule-replay-red.txt",
+        "bytes": 6639,
+        "sha256": "5d1b8876ab0c2a2f241284e376967e63dd58b6f8334dfcffec7618fec96991f3",
+        "stdout_file_opened_utc": "2026-10-22T23:13:33.467102+00:00",
+        "stdout_file_last_written_utc": "2026-10-22T23:13:46.960364+00:00"
+      },
+      {
+        "name": "ingestion-schedule-replay-green-initial.txt",
+        "bytes": 52417,
+        "sha256": "2a878645ea912d4f2a4fb5565147e85c4a352d4cfda5feab76c01ccac78d1a42",
+        "stdout_file_opened_utc": "2026-10-22T23:14:40.264796+00:00",
+        "stdout_file_last_written_utc": "2026-10-22T23:14:57.431247+00:00"
+      },
+      {
+        "name": "ingestion-schedule-replay-green.txt",
+        "bytes": 52536,
+        "sha256": "b61f0a3cfa8bde2aadfe8dd9597c30fd929ef6e1fc4a0d0a2f43d905aeae47cc",
+        "stdout_file_opened_utc": "2026-10-22T23:15:41.550625+00:00",
+        "stdout_file_last_written_utc": "2026-10-22T23:16:02.535507+00:00"
+      },
+      {
+        "name": "ingestion-schedule-replay-green.xml",
+        "bytes": 28352,
+        "sha256": "c6514a7997a5e3d91f0a79dc837399af7e1eeef5283249ab6f85f819d86f8bd6",
+        "stdout_file_opened_utc": "2026-10-22T23:16:00.399042+00:00",
+        "stdout_file_last_written_utc": "2026-10-22T23:16:00.399452+00:00"
+      },
+      {
+        "name": "ingestion-schedule-replay-final.txt",
+        "bytes": 99,
+        "sha256": "8687cd3a5fa504b24b4247d08a927309b6d5752bc93431a7167929d6c6b76c92",
+        "stdout_file_opened_utc": "2026-10-22T23:16:21.882531+00:00",
+        "stdout_file_last_written_utc": "2026-10-22T23:16:41.285551+00:00"
+      },
+      {
+        "name": "ingestion-schedule-replay-final.xml",
+        "bytes": 5758,
+        "sha256": "f8fc63e036ade84dbcfaf0606eb1d3f24a54327bbdce5d4fb3f54ab04183583c",
+        "stdout_file_opened_utc": "2026-10-22T23:16:41.168640+00:00",
+        "stdout_file_last_written_utc": "2026-10-22T23:16:41.169061+00:00"
+      },
+      {
+        "name": "ingestion-schedule-replay-ruff.txt",
+        "bytes": 19,
+        "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+        "stdout_file_opened_utc": "2026-10-22T23:17:01.820576+00:00",
+        "stdout_file_last_written_utc": "2026-10-22T23:17:01.864363+00:00"
+      },
+      {
+        "name": "ingestion-schedule-replay-format.txt",
+        "bytes": 25,
+        "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50",
+        "stdout_file_opened_utc": "2026-10-22T23:17:01.928836+00:00",
+        "stdout_file_last_written_utc": "2026-10-22T23:17:01.945278+00:00"
+      }
+    ],
+    "limitations": [
+      "This preserves the original 695604 CI failure; it does not reclassify that CI as passing.",
+      "These eight tests are deterministic same-process integration with actual native queues and SQLite, not a new SIGKILL or 35-minute capacity run.",
+      "The original three process-recovery cases are independently exercised by another agent and are outside this test result denominator.",
+      "No real supplier authorization, target-host readiness, real identities, receipt delivery, business RTO, or enterprise acceptance is certified."
+    ]
+  },
+  "load_to_fixed_code_scope": {
+    "schema_version": "frozen-load-code-scope-v1",
+    "observed_at_utc": "2026-10-22T23:49:17.694689+00:00",
+    "load_code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+    "fixed_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+    "changed_paths": [
+      "backend/bidops/ingestion/runtime.py",
+      "tests/test_ingestion_schedule_replay.py",
+      "tests/test_jobs_compute_queue.py"
+    ],
+    "capacity_path_changed": false,
+    "unchanged_paths": [
+      {
+        "repository_path": "backend/bidops/jobs/runtime.py",
+        "sha256": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54",
+        "unchanged": true
+      },
+      {
+        "repository_path": "backend/bidops/jobs/config.py",
+        "sha256": "75a2deab2b102ef9c0e21b35c476846c14366d6796e7fda5a85f7e7951173b4a",
+        "unchanged": true
+      },
+      {
+        "repository_path": "backend/bidops/operations_acceptance/load.py",
+        "sha256": "ce7200e7bfdc858e6e9d3d602191510e6bbbe4cd4bd5e93deb55ce87a445cce8",
+        "unchanged": true
+      },
+      {
+        "repository_path": "backend/bidops/operations_acceptance/capacity.py",
+        "sha256": "7319a6ca90adf0c88520b301555eda17b534c80aa8400568d84637f8c92e86f0",
+        "unchanged": true
+      },
+      {
+        "repository_path": "scripts/capacity_probe.py",
+        "sha256": "6f5f5c0c788b746ae9e00693f69a893240790e78aca5a6c9d44d17e9c2028462",
+        "unchanged": true
+      },
+      {
+        "repository_path": "evals/capacity-native-queue-v2/manifest.json",
+        "sha256": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c",
+        "unchanged": true
+      },
+      {
+        "repository_path": "docs/ENTERPRISE-PR-PLAN.md",
+        "sha256": "360872e647db3f182c299f19c756618f55851d488ee4664c97765327ff458ccc",
+        "unchanged": true
+      },
+      {
+        "repository_path": "uv.lock",
+        "sha256": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+        "unchanged": true
+      },
+      {
+        "repository_path": "requirements/durable.lock",
+        "sha256": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+        "unchanged": true
+      },
+      {
+        "repository_path": "requirements/attachments.lock",
+        "sha256": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba",
+        "unchanged": true
+      }
+    ],
+    "ingestion_disabled_in_load": "Explicit IngestionSettings(_env_file=None, enabled=False) in create_load_app; the tested capacity path does not admit source schedules.",
+    "new_application_version_differs": true,
+    "scope": "Full capacity run is attributed only to load_code_sha. Subsequent production repair touches disabled ingestion scheduling; the latest commit only separates queue-test lifecycle waits. Capacity, production qualification and manifest bytes remain equal to the full-load commit. This is bounded scope evidence, not a second full load or combined ingestion/qualification capacity.",
+    "ingestion_production_fix_sha": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+    "latest_commit_test_only": [
+      "tests/test_jobs_compute_queue.py"
+    ],
+    "production_unchanged_from_ingestion_fix": true
+  },
+  "historical_formal_capacity": {
+    "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+    "report_sha256": "abc43ea0161693b0d4c11c1b2e1bbbf8e8e238aef1db0279a65b000a5bb2385b",
+    "private_trace_sha256": "8091cb48901efe3e8528df512cc7b09369f9d215cf8b8c8597fa07b7ffb61257",
+    "capacity_status": "FAIL",
+    "measurement_status": "BLOCKED",
+    "model_evidence": "offline_simulation_only",
+    "independent_checks": [
+      "all 4200 receipts retained; 3600 steady and 4 ReadError counted",
+      "official nearest-rank P95 independently recomputed:263/108/480734/31774ms",
+      "compute intervals peak1/target2/overlap0 and steady resources peak1 agree",
+      "all 2619 projected resource rows match private trace common fields",
+      "35 scheduled-minute bucket counts/P95/errors independently match, sum4200/errors4",
+      "visual PNG inspected: labels, FAIL, local synthetic scope, compute vs queue; terminal0/0/active94 waiting_review"
+    ],
+    "chart_sha256": "688e5ce6079ee82f9cc48d0ddbc087cf566b32530af44d625fcc1ad3bd0329e1",
+    "chart_data_sha256": "22ad908de56731a7507337df7efab2fe64512f3e12df5f01aa4ed309a60b1f44",
+    "statistics_scope": "steady requests for API/error; all 84 accepted job receipts including warmup/drain for queue/compute P95",
+    "privacy": "No private IDs, source text, cookies or raw receipts copied into matrix. Hashes/projection only.",
+    "source_to_latest_mapping": "836->db4f diff only tests/test_identity_revocation.py, tests/test_storage_api_cli.py and GOAL/TASKS/reports/evidence; production capacity/runtime unchanged. Formal load remains recorded at836, not claimed rerun atdb4f.",
+    "new_product_tests_run": 0,
+    "network_calls": 0,
+    "safe_artifacts": [
+      {
+        "repository_path": "reports/evidence/b09-20261023/formal-load/safe-report.json",
+        "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/formal-load/safe-report.json"
+      },
+      {
+        "repository_path": "reports/evidence/b09-20261023/formal-load/safe-trace-summary.json",
+        "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/formal-load/safe-trace-summary.json"
+      },
+      {
+        "repository_path": "reports/evidence/b09-20261023/formal-load/http-summary.json",
+        "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/formal-load/http-summary.json"
+      },
+      {
+        "repository_path": "reports/evidence/b09-20261023/formal-load/completion.json",
+        "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/formal-load/completion.json"
+      },
+      {
+        "repository_path": "reports/evidence/b09-20261023/formal-load/source-provenance.json",
+        "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/formal-load/source-provenance.json"
+      },
+      {
+        "repository_path": "reports/evidence/b09-20261023/formal-load/capacity-curves.png",
+        "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/formal-load/capacity-curves.png"
+      },
+      {
+        "repository_path": "reports/evidence/b09-20261023/formal-load/capacity-curves.svg",
+        "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/formal-load/capacity-curves.svg"
+      },
+      {
+        "repository_path": "reports/evidence/b09-20261023/formal-load/capacity-curves-data.json",
+        "url": "https://github.com/ZZZZihan/BidOps/blob/efd4becb8e0f39a22d3933ddd542f6acc6e695b1/reports/evidence/b09-20261023/formal-load/capacity-curves-data.json"
+      }
+    ],
+    "observed_capacity": {
+      "target_active_computations": 2,
+      "actual_active_computations": 1,
+      "queued_job_is_active_computation": false,
+      "failed_original_profile_retained": true,
+      "passing_other_latency_metrics_does_not_override_failure": true,
+      "source": "official immutable 836 report plus independent read-only recomputation",
+      "total_business_operations": 4200,
+      "steady_business_operations": 3600,
+      "steady_errors": 4,
+      "steady_error_denominator": 3600,
+      "steady_error_rate": 0.0011111111111111111,
+      "error_kind": "ReadError",
+      "non_model_api_p95_ms": 263,
+      "admission_p95_ms": 108,
+      "queue_wait_p95_ms": 480734,
+      "queue_peak": 17,
+      "compute_p95_ms": 31774,
+      "target_concurrency_overlap_ms": 0,
+      "model_evidence": "offline_simulation_only",
+      "measurement": "BLOCKED"
+    },
+    "model_wait_p95_ms": 30008,
+    "accepted_jobs": 84,
+    "terminal_compute": 0,
+    "terminal_queue": 0,
+    "terminal_active_business": 94,
+    "terminal_active_business_is_not_compute": true,
+    "returned_http_failure_statuses": 0,
+    "worker_rss_peak_bytes": 856440832,
+    "worker_process_cpu_peak_percent": 105.7,
+    "target_cpu": 4,
+    "target_memory_gib": 8,
+    "actual_cpu": 24,
+    "actual_memory_gib": 64,
+    "rpo_seconds": 0.031178,
+    "business_rto_seconds": null,
+    "latest_acl_confirmed": false,
+    "private_business_reopened": false
+  },
+  "formal_capacity": {
+    "code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+    "status": "BLOCKED",
+    "local_engineering_gates_status": "PASS",
+    "target_measurement_status": "BLOCKED",
+    "model_evidence": "offline_simulation_only",
+    "gates": {
+      "api_performance": "PASS",
+      "data_integrity": "PASS",
+      "declared_compute_target": "PASS",
+      "input_integrity": "PASS",
+      "manifest_complete": "PASS",
+      "measurement": "BLOCKED",
+      "model_simulation": "PASS",
+      "observed_compute_target": "PASS"
+    },
+    "metrics": {
+      "accepted_jobs": 84,
+      "actual_requests_per_second": 2.0,
+      "admission_p95_ms": 109,
+      "clients_invalid_count": 0,
+      "clients_raw_count": 10,
+      "compute_p95_ms": 30868,
+      "cpu_peak_percent": 99.2,
+      "disk_free_min_bytes": 144337653760,
+      "ended_offset_ms": 2115000,
+      "error_rate": 0.0002777777777777778,
+      "expected_steady_requests": 3600,
+      "jobs_invalid_count": 0,
+      "jobs_raw_count": 84,
+      "model_wait_p95_ms": 30016,
+      "non_model_api_p95_ms": 259,
+      "observed_compute_peak": 2,
+      "observed_jobs": 84,
+      "observed_steady_requests": 3600,
+      "operation_counts": {
+        "read_search": 2808,
+        "review": 72,
+        "submit_task": 72,
+        "task_status": 648
+      },
+      "queue_peak": 0,
+      "queue_wait_p95_ms": 306,
+      "rate_bucket_counts": [
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120,
+        120
+      ],
+      "requests_invalid_count": 0,
+      "requests_raw_count": 4200,
+      "resource_compute_peak": 2,
+      "resources_invalid_count": 0,
+      "resources_raw_count": 2116,
+      "rss_peak_bytes": 863813632,
+      "steady_error_denominator": 3600,
+      "steady_errors": 1,
+      "steady_start_ms": 300000,
+      "steady_stop_ms": 2100000,
+      "target_concurrency_overlap_ms": 409609,
+      "steady_client_operation_count_distribution": [
+        {
+          "operations_each": 360,
+          "clients": 10
+        }
+      ]
+    },
+    "recomputation": {
+      "scope": "Root independent arithmetic from all completed raw receipts; this is not an independent real-data evaluation.",
+      "source_trace_sha256": "547160ca72dba383349249812068de60773e5ef3a334d66b7e2cd07a40c74a59",
+      "all_compared_metrics_match": true,
+      "metrics": {
+        "steady_errors": 1,
+        "steady_error_denominator": 3600,
+        "observed_compute_peak": 2,
+        "target_concurrency_overlap_ms": 409609,
+        "queue_wait_p95_ms": 306,
+        "compute_p95_ms": 30868,
+        "non_model_api_p95_ms": 259,
+        "admission_p95_ms": 109,
+        "resource_compute_peak": 2
+      },
+      "job_status_counts": {
+        "waiting_review": 84
+      },
+      "terminal_resource": {
+        "offset_ms": 2115002,
+        "compute_active": 0,
+        "queued_jobs": 0,
+        "active_jobs": 94,
+        "worker_alive": true
+      },
+      "real_model_calls": 0,
+      "real_source_calls": 0
+    },
+    "operation_breakdown": {
+      "load_code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+      "source_trace_sha256": "547160ca72dba383349249812068de60773e5ef3a334d66b7e2cd07a40c74a59",
+      "scope": "Root supplementary arithmetic over all frozen steady operations by operation; includes failed attempts with a finished offset. This descriptive split adds no threshold and does not overwrite the frozen combined-API verdict.",
+      "p95_rule": "Nearest-rank ceil(n*0.95); no filtering by outcome, HTTP status or content_verified.",
+      "steady_start_ms": 300000,
+      "steady_stop_ms": 2100000,
+      "steady_operations": 3600,
+      "operations": [
+        {
+          "operation": "read_search",
+          "scheduled_operations": 2808,
+          "outcomes": {
+            "response": 2807,
+            "exception": 1
+          },
+          "latency_observation_count": 2808,
+          "p95_ms": 250
+        },
+        {
+          "operation": "task_status",
+          "scheduled_operations": 648,
+          "outcomes": {
+            "response": 648
+          },
+          "latency_observation_count": 648,
+          "p95_ms": 100
+        },
+        {
+          "operation": "submit_task",
+          "scheduled_operations": 72,
+          "outcomes": {
+            "response": 72
+          },
+          "latency_observation_count": 72,
+          "p95_ms": 109
+        },
+        {
+          "operation": "review",
+          "scheduled_operations": 72,
+          "outcomes": {
+            "response": 72
+          },
+          "latency_observation_count": 72,
+          "p95_ms": 1362
+        }
+      ],
+      "combined_non_model_api_p95_ms": 259,
+      "review_single_operation_p95_exceeds_1000ms": true,
+      "terminal_resource": {
+        "offset_ms": 2115002,
+        "compute_active": 0,
+        "queued_jobs": 0,
+        "active_jobs": 94,
+        "worker_alive": true
+      }
+    },
+    "independent_review": {
+      "status": "PASS",
+      "checks": 52,
+      "path": "evidence/b09-native-queue-20261023/native-final-load-independent-review.json"
+    },
+    "evidence_relative_to_reports": "evidence/b09-native-queue-20261023/full-load/",
+    "source_manifest_sha256": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c",
+    "old_manifest_and_failure_retained": true
+  }
+}

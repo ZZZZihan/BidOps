@@ -1,0 +1,28 @@
+{
+  "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39851394452/job/120078241548",
+  "head_sha": "5ac68753c22f46a3e3214e2f0c61a1ea8008808c",
+  "merge_sha": "815c5c29493259994d0edfeae8fc9e0261b99e71",
+  "status": "FAIL",
+  "passed": 1729,
+  "failed": 1,
+  "seconds": 922.88,
+  "failure": "test_huge_compressed_pdf_is_bounded_during_actual_pypdf_extraction",
+  "observed_error": "pdf_memory_limit",
+  "old_expected_error": "pdf_partial_pages",
+  "original_log_sha256": "5dd6d734a0ae297d7d61ae5f64090cca6642578eaa947f738c07a93fe7940393",
+  "fix": "test-only cross-platform resource/decode isolation; no production/lock change",
+  "fixed_commit": "de96024711bbd0eaf40b580859bf871004ef2a66",
+  "fixed_ci_status": "PENDING",
+  "fixed_full_backend_status": "NOT_RUN",
+  "fixed_parser_local": {
+    "tests": 48,
+    "seconds": 4.37,
+    "executor": "implementer"
+  },
+  "fixed_parser_independent": {
+    "tests": 48,
+    "seconds": 4.57,
+    "exit_code": 0,
+    "executor": "independent_agent"
+  }
+}

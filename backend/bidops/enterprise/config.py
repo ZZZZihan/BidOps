@@ -17,6 +17,8 @@ class EnterpriseSettings(BaseSettings):
     cookie_secret: SecretStr | None = Field(default=None, repr=False)
     allow_insecure_loopback: bool = False
     session_seconds: int = Field(default=3600, ge=60, le=28800)
+    identity_snapshot_seconds: int = Field(default=240, ge=30, le=240)
+    identity_provider: Literal["keycloak"] = "keycloak"
     history_days: int = Field(default=30, ge=1, le=365)
     requests_per_minute: int = Field(default=20, ge=1, le=120)
     organization: str = Field(default="BidOps", min_length=1, max_length=80)

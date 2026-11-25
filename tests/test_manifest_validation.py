@@ -4,6 +4,7 @@ import httpx
 import pytest
 from bidops.fetcher import Fetcher
 from bidops.storage import Store
+from test_fetcher import permit
 
 
 def test_manifest_tamper_all_or_nothing(store, ingest, settings, tmp_path):
@@ -29,11 +30,7 @@ def test_manifest_tamper_all_or_nothing(store, ingest, settings, tmp_path):
 
 
 def test_200_keyword_page_with_no_notice_fields_is_not_success(store, url):
-    store.settings.network_enabled = True
-    source = store.sources[0]
-    source.robots_status = source.terms_status = "allowed"
-    source.permission_evidence = "test only"
-    source.reviewed_at = "2026-10-22T00:00:00Z"
+    permit(store)
     client = httpx.Client(
         transport=httpx.MockTransport(
             lambda _: httpx.Response(

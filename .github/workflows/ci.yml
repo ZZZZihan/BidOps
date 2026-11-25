@@ -7,7 +7,7 @@ permissions:
 jobs:
   backend:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -15,13 +15,31 @@ jobs:
           version: '0.12.23'
           enable-cache: true
       - run: uv sync --frozen --python 3.12
-      - run: uv run ruff check .
-      - run: uv run ruff format --check .
-      - run: uv run pytest
+      - name: Install hashed durable overlay without changing frozen B01 lock
+        run: uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock -r requirements/attachments.lock
+      - run: uv run --frozen --no-sync ruff check .
+      - run: uv run --frozen --no-sync ruff format --check .
+      - name: Run backend regressions with the frozen LLM pilot contract
+        run: |
+          uv run --frozen --no-sync python scripts/llm_pilot_check.py \
+            --full-suite --output "$RUNNER_TEMP/bidops-llm-pilot.json"
         env:
           BIDOPS_NETWORK_ENABLED: 'false'
-      - run: uv run bidops migrate
-      - run: uv run python scripts/p0_pilot.py
+      - name: Preserve non-scoring LLM pilot receipt
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: bidops-llm-pilot-offline-contract
+          path: ${{ runner.temp }}/bidops-llm-pilot.json
+          if-no-files-found: error
+      - name: Verify frozen B01 scorer fixture (no model calls)
+        run: |
+          uv run --frozen --no-sync python scripts/screening_eval.py \
+            --expected-freeze-sha256 22a2adf96f07b9a3e9c1493dae2cebbe2499b6e05db21f2b52855686c2afffea \
+            --expected-input-sha256 eda43a451ae978251de4be003f1c062d1a4d3e93db9249c9c5458966628f44fb \
+            --output "$RUNNER_TEMP/bidops-b01-calibration.json"
+      - run: uv run --frozen --no-sync bidops migrate
+      - run: uv run --frozen --no-sync python scripts/p0_pilot.py
   frontend:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -30,6 +48,16 @@ jobs:
         working-directory: frontend
     steps:
       - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          version: '0.12.23'
+          enable-cache: true
+      - name: Install real company API browser fixture backend
+        run: uv sync --frozen --python 3.12
+        working-directory: .
+      - name: Install hashed durable browser backend
+        run: uv pip install --python .venv/bin/python --require-hashes -r requirements/durable.lock -r requirements/attachments.lock
+        working-directory: .
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -47,7 +75,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
-      - run: docker build -t bidops:ci .
+      - run: docker build --build-arg BIDOPS_CODE_SHA="$GITHUB_SHA" -t bidops:ci .
       - name: Start enterprise container with ephemeral protocol-only configuration
         run: |
           docker run -d --name bidops-smoke -p 127.0.0.1:8765:8765 \
@@ -60,5 +88,8 @@ jobs:
         run: |
           python scripts/container_smoke.py
           test "$(docker exec bidops-smoke id -u)" = 10001
+          docker exec bidops-smoke python -c 'import os; from bidops.qualification.service import implementation_version; p=implementation_version(); assert p["code_sha"] == os.environ["BIDOPS_CODE_SHA"] and len(p["code_sha"]) == 40; assert p["lock_sha256"] and p["implementation_sha256"]; print("Installed qualification provenance passed")'
+          docker exec bidops-smoke python -c 'from importlib.metadata import version; from bidops.jobs.runtime import application_version; from bidops.jobs.config import JobsSettings; p=application_version(); assert version("dbos") == "3.3.0"; assert p["durable_lock_sha256"] and p["application_version"]; assert not JobsSettings().enabled; print("Installed durable overlay provenance and default-off gate passed")'
+          docker exec bidops-smoke python -c 'from importlib.metadata import version; from bidops.jobs.runtime import application_version; from bidops.ingestion.config import IngestionSettings; p=application_version(); assert version("pypdf") == "6.21.2"; assert p["attachment_lock_sha256"] == "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"; assert not IngestionSettings().enabled; print("Installed attachment overlay provenance and ingestion default-off gate passed")'
       - if: always()
         run: docker rm -f bidops-smoke

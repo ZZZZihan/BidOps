@@ -1,0 +1,86 @@
+{
+  "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "tree_sha": "3a0b67e03f1e8a250bf5ad8272451c772be9c867",
+  "local_build": {
+    "command": [
+      "npm",
+      "run",
+      "build"
+    ],
+    "start": "2026-10-22T21:31:32.141137+00:00",
+    "end": "2026-10-22T21:31:34.607413+00:00",
+    "exit_code": 0
+  },
+  "local_browser": {
+    "command": [
+      "npm",
+      "run",
+      "test:e2e",
+      "--",
+      "--workers=2"
+    ],
+    "start": "2026-10-22T21:31:34.607882+00:00",
+    "end": "2026-10-22T21:37:33.986444+00:00",
+    "exit_code": 0,
+    "passed": 152,
+    "playwright_reported_duration": "6.0m",
+    "natural_exit": false,
+    "result_scope": "All browser assertions passed; final process exit0 followed explicit targeted teardown intervention"
+  },
+  "teardown_intervention": {
+    "timestamp": "2026-10-22T21:37:33.507718+00:00",
+    "action": "SIGTERM scoped pipe-holding crash handlers only",
+    "target_count": 2,
+    "target_kind": "GoogleUpdater crash-handler",
+    "evidence_scope": "Both targeted handlers shared the test worker stderr socket; unrelated updaters left running",
+    "natural_exit": false,
+    "no_test_assertions_changed": true,
+    "other_updater_processes_left_running": true,
+    "pid_and_full_lsof_paths_omitted": true
+  },
+  "remote_ci_observation": {
+    "source": "Coordinator provided verified GitHub CI results; this report supplement made no external request and did not independently fetch logs",
+    "run_id": "39856326761",
+    "code_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+    "frontend_job_id": "120095369500",
+    "frontend_passed": 152,
+    "frontend_reported_duration": "2.7m",
+    "frontend_natural_success": true,
+    "container_status": "PASS",
+    "backend_status_at_observation": "PENDING",
+    "overall_ci_pass_claimed": false
+  },
+  "sources": [
+    {
+      "alias": "completed-frontend-836/verification.json",
+      "bytes": 1127,
+      "sha256": "f60fbbe2a2c16b9e4e57a266c0a0a1a389c272e9ef1db6c9cb8678898faf7c14"
+    },
+    {
+      "alias": "completed-frontend-836/frontend-build.txt",
+      "bytes": 399,
+      "sha256": "fcba024c498599c85d747fbfb050550c1ea4d77f6f2dffd075b74932d954584c"
+    },
+    {
+      "alias": "completed-frontend-836/frontend-browser.txt",
+      "bytes": 22245,
+      "sha256": "ad35563bd793421b81f570aaf4e1f70432f5d964d4c6b2187aebdf4a91edfc48"
+    },
+    {
+      "alias": "completed-frontend-836/teardown-intervention.json",
+      "bytes": 677,
+      "sha256": "f1fa2bc2e15258baddf24e949f1e1bf539d901f047cb07100096952638da9e6d"
+    },
+    {
+      "alias": "completed-frontend-836/teardown-process-evidence.txt",
+      "bytes": 18152,
+      "sha256": "14ef6b639a33d9cf64987d4fdfdf069c0ba9072583afe9bf2c7e6dcc29ee1ea5"
+    }
+  ],
+  "transformation": "Explicit safe result, timing and intervention fields only. Original process evidence is hashed without publishing lsof contents, local paths or PIDs.",
+  "working_tree_clean_after": true,
+  "real_model_calls": 0,
+  "actual_cost_cny": "0",
+  "business_acceptance": "BLOCKED",
+  "formal_capacity_result": "PENDING_NOT_READ"
+}

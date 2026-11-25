@@ -1,0 +1,133 @@
+{
+  "recorded_at": "2026-10-22T21:43:44.455291+00:00",
+  "worktree": "<CLOCK_FIX_WORKTREE>",
+  "branch": "codex/identity-clock-ci-fix",
+  "base_head": "36efed31ae496f42474cd8389236668b05767499",
+  "changed_tracked_files": [
+    "tests/test_identity_revocation.py"
+  ],
+  "test_source_sha256": "307c51b9022f463d5b0984f9e367125cfa0c4ca0bee8abd1bdf453dec9971b10",
+  "original_test_source_sha256": "fbcd2fc1cb5b3dd07dbfb99f02ad6c79884074bf85bc7b90d32e5eb735937ac4",
+  "fix_diff_sha256": "21351b4946920f6bdc244dead18058ae1e9e504f63297e70e50ec2f04371d677",
+  "production_and_main_locks_byte_identical_to_head": {
+    "backend/bidops/enterprise/identity_events.py": "9562f277e8c139e0052aa488f68ad9719559aceb42cf55083c71cc802cd78624",
+    "backend/bidops/enterprise/auth.py": "c303f4903b6483b704335c847c4d2a8190d3754811d80080872672776a857ec4",
+    "pyproject.toml": "7a851a0b74e5f1c8385859aaa05f8c42faceda3ea06af52f3289296eda0ed1bb",
+    "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27"
+  },
+  "original_invalid_cases_retained": 19,
+  "original_invalid_assertions_ast_identical": 4,
+  "added_boundary_cases": [
+    -301,
+    -300,
+    30,
+    31
+  ],
+  "production_bounds_unchanged_seconds": {
+    "maximum_age": 300,
+    "future_skew": 30
+  },
+  "no_collection_time_time_calls": true,
+  "remaining_time_calls_function_scoped_only": [
+    {
+      "function": "logout_claims",
+      "line": 36
+    },
+    {
+      "function": "test_snapshot_bound_and_fresh_reauthentication_fail_closed",
+      "line": 66
+    },
+    {
+      "function": "test_replayed_event_is_durable_idempotent_and_out_of_order_never_grants",
+      "line": 200
+    },
+    {
+      "function": "test_invalid_signed_logout_claims_rejected_without_state_change",
+      "line": 251
+    },
+    {
+      "function": "test_logout_iat_exact_time_boundaries",
+      "line": 274
+    }
+  ],
+  "red": {
+    "command": [
+      ".venv/bin/python",
+      "<CLOCK_FIX_EVIDENCE>/delay_probe.py",
+      "-q",
+      "-s",
+      "tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change"
+    ],
+    "exit_code": 1,
+    "elapsed_seconds": 14.489,
+    "head": "36efed31ae496f42474cd8389236668b05767499",
+    "original_test_sha256": "fbcd2fc1cb5b3dd07dbfb99f02ad6c79884074bf85bc7b90d32e5eb735937ac4",
+    "probe_sha256": "a8b8bcee8d9e8137bb8e2e60d3836401f24cc157048a9aa29dc0b44b7bac9e4f",
+    "scope": "Module-local +180-second simulated collection-to-execution delay; no sleeps; no production edits; existing signed API test and all assertions unchanged."
+  },
+  "checks": [
+    {
+      "name": "ruff-format",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "tests/test_identity_revocation.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T21:42:41.087369+00:00",
+      "finished_at": "2026-10-22T21:42:41.130864+00:00",
+      "elapsed_seconds": 0.044,
+      "stdout_sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50",
+      "output": "1 file already formatted\n"
+    },
+    {
+      "name": "ruff-check",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "tests/test_identity_revocation.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T21:42:41.081455+00:00",
+      "finished_at": "2026-10-22T21:42:41.140179+00:00",
+      "elapsed_seconds": 0.059,
+      "stdout_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "output": "All checks passed!\n"
+    },
+    {
+      "name": "green-delay-180",
+      "command": [
+        ".venv/bin/python",
+        "<CLOCK_FIX_EVIDENCE>/delay_probe.py",
+        "-q",
+        "-s",
+        "tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T21:42:41.081357+00:00",
+      "finished_at": "2026-10-22T21:42:46.754626+00:00",
+      "elapsed_seconds": 5.673,
+      "stdout_sha256": "97f2f6cbbf0f0d8f942766ca03315b3026c159ffe58990a7a917f0923ce3385d",
+      "output": "simulated collection_at=1792705362 execution_at=1792705542 delta_seconds=180; no sleep\n...................\n19 passed in 4.35s\n"
+    },
+    {
+      "name": "file-pytest",
+      "command": [
+        ".venv/bin/pytest",
+        "-q",
+        "tests/test_identity_revocation.py"
+      ],
+      "exit_code": 0,
+      "started_at": "2026-10-22T21:42:41.081121+00:00",
+      "finished_at": "2026-10-22T21:42:52.305091+00:00",
+      "elapsed_seconds": 11.224,
+      "stdout_sha256": "b1c605bdc7f30383c9eb5eb19fe5dd029e4d329b21ba8b888c71d34d5461a742",
+      "output": "...........................................                              [100%]\n43 passed in 8.92s\n"
+    }
+  ],
+  "no_sleep_probe_scope": "Only test-module and identity_events module bindings replaced with a private shared SimpleNamespace during each test call. Login fixture, stdlib time, OIDC and cookie clocks remain real. Production test fix replaces only identity_events.time after identity_app login.",
+  "no_new_live_model_or_source_requests": true,
+  "no_commit_or_push": true,
+  "full_repository_suite_not_run": true
+}

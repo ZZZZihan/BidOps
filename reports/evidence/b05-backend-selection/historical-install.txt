@@ -1,0 +1,40 @@
+Using Python 3.12.12 environment at: .venv-dbos
+Resolved 28 packages in 37ms
+Downloading sqlalchemy (2.4MiB)
+Downloading pydantic-core (1.9MiB)
+Downloading psycopg-binary (4.5MiB)
+Downloading pydantic-ai-slim (2.3MiB)
+ Downloaded pydantic-core
+ Downloaded sqlalchemy
+ Downloaded pydantic-ai-slim
+ Downloaded psycopg-binary
+Prepared 21 packages in 680ms
+Installed 28 packages in 89ms
+ + annotated-types==0.8.0
+ + anyio==4.15.1
+ + click==8.5.0
+ + croniter==6.2.4
+ + dbos==3.3.0
+ + genai-prices==0.1.13
+ + greenlet==3.5.6
+ + griffelib==2.4.1
+ + h11==0.16.0
+ + httpcore2==2.16.0
+ + httpx2==2.16.0
+ + idna==3.20
+ + logfire-api==5.2.0
+ + opentelemetry-api==1.45.1
+ + psycopg==3.3.6
+ + psycopg-binary==3.3.6
+ + pydantic==2.14.1
+ + pydantic-ai-slim==2.59.0
+ + pydantic-core==2.50.1
+ + pydantic-graph==2.59.0
+ + python-dateutil==3.0.0
+ + pyyaml==6.0.3
+ + six==1.17.0
+ + sqlalchemy==2.1.6
+ + truststore==0.10.5
+ + typing-extensions==4.16.0
+ + typing-inspection==0.4.4
+ + tzdata==2026.5

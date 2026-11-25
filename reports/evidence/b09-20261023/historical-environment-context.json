@@ -1,0 +1,12 @@
+{
+  "measurement_kind": "local_engineering",
+  "exclusive_host": false,
+  "concurrent_workloads_reported_by_coordinator": [
+    "B07 browser suite still running at launch",
+    "B09 full backend suite, isolated tmp, expected approximately ten minutes"
+  ],
+  "target_environment_claim": false,
+  "configured_compute_concurrency": 1,
+  "target_compute_concurrency": 2,
+  "recorded_at": "2026-10-22T20:53:50.553802+00:00"
+}

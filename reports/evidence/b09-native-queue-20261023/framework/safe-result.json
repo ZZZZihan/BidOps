@@ -1,0 +1,913 @@
+{
+  "schema_version": "dbos-native-queue-probe-v1",
+  "recorded_at": "2026-10-22T22:50:35.581482+00:00",
+  "dbos_version": "3.3.0",
+  "python_version": "3.12.12",
+  "sqlite_version": "3.50.4",
+  "actual_started_at": "2026-10-22T22:47:29.375318+00:00",
+  "actual_finished_at": "2026-10-22T22:48:27.170562+00:00",
+  "single_worker_process_at_a_time": true,
+  "sqlite_system_database": true,
+  "application_version_source": "SHA256 of unchanged worker.py; identical between process generations",
+  "queue_policy": {
+    "parent_worker_and_global": 16,
+    "calculation_worker_and_global": 2,
+    "poll_interval_seconds": 0.025
+  },
+  "network": "socket connections denied in every worker; minimal child environment; no provider/model imports",
+  "model_calls": 0,
+  "actual_cost_cny": "0",
+  "status": "PASS",
+  "scenarios": [
+    {
+      "scenario": "baseline",
+      "status": "PASS",
+      "checks": {
+        "exactly_two_started_third_native_enqueued": true,
+        "three_parents_native_pending_while_waiting": true,
+        "fourth_calc_starts_while_three_wait_for_review": true,
+        "physical_and_native_compute_peak_exactly_two": true,
+        "positive_measured_overlap": true,
+        "no_unclosed_compute_interval": true
+      },
+      "physical_compute_peak": 2,
+      "sampled_native_calculation_pending_peak": 2,
+      "two_or_more_compute_overlap_seconds": 1.4000515,
+      "compute_starts_by_task": {
+        "a": 1,
+        "c": 1,
+        "b": 1,
+        "d": 1
+      },
+      "completed_prepare_calls_by_task": {
+        "a": 1,
+        "c": 1,
+        "b": 1,
+        "d": 1
+      },
+      "process_generations": 1,
+      "worker_exit_codes": [
+        0
+      ],
+      "native_child_relationship_rows": 8,
+      "native_unique_child_relations_verified": 4,
+      "native_child_relationships": [
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-c-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-c-calculation"
+        },
+        {
+          "workflow_uuid": "parent-d",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-d-calculation"
+        },
+        {
+          "workflow_uuid": "parent-d",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-d-calculation"
+        }
+      ],
+      "native_workflows_final": [
+        {
+          "workflow_uuid": "parent-a",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-a-calculation",
+          "parent_workflow_id": "parent-a",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-b-calculation",
+          "parent_workflow_id": "parent-b",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-c-calculation",
+          "parent_workflow_id": "parent-c",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-d",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-d-calculation",
+          "parent_workflow_id": "parent-d",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        }
+      ],
+      "queues": [
+        {
+          "name": "probe_calculation_v1",
+          "concurrency": 2,
+          "worker_concurrency": 2,
+          "polling_interval_sec": 0.025
+        },
+        {
+          "name": "probe_parent_v1",
+          "concurrency": 16,
+          "worker_concurrency": 16,
+          "polling_interval_sec": 0.025
+        }
+      ],
+      "cancellation_details": [],
+      "sqlite_journal_mode": "delete",
+      "sqlite_version": "3.50.4",
+      "event_rows": 22,
+      "status_samples": 155,
+      "event_log_sha256": "dc23299136e17b529eb0bee0ad28f2bf368550ec6eaded76c486ecfddacb92a4",
+      "native_database_sha256": "27846250f6e47c2d7cb4e202ec8070eec5f093b7a0deb640a4a7a9790927a47c"
+    },
+    {
+      "scenario": "cancel_default",
+      "status": "PASS",
+      "checks": {
+        "exactly_two_started_third_native_enqueued": true,
+        "native_cascade_parent_and_child_cancelled": true,
+        "cancelled_parent_and_child_never_revived": true,
+        "physical_and_native_compute_peak_exactly_two": true,
+        "positive_measured_overlap": true,
+        "no_unclosed_compute_interval": true
+      },
+      "physical_compute_peak": 2,
+      "sampled_native_calculation_pending_peak": 2,
+      "two_or_more_compute_overlap_seconds": 3.998443834,
+      "compute_starts_by_task": {
+        "a": 1,
+        "c": 1,
+        "b": 1
+      },
+      "completed_prepare_calls_by_task": {
+        "a": 1,
+        "c": 1,
+        "b": 1
+      },
+      "process_generations": 1,
+      "worker_exit_codes": [
+        0
+      ],
+      "native_child_relationship_rows": 5,
+      "native_unique_child_relations_verified": 3,
+      "native_child_relationships": [
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-c-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-c-calculation"
+        }
+      ],
+      "native_workflows_final": [
+        {
+          "workflow_uuid": "parent-a",
+          "parent_workflow_id": null,
+          "queue_name": null,
+          "status": "CANCELLED",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-a-calculation",
+          "parent_workflow_id": "parent-a",
+          "queue_name": null,
+          "status": "CANCELLED",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-b-calculation",
+          "parent_workflow_id": "parent-b",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-c-calculation",
+          "parent_workflow_id": "parent-c",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        }
+      ],
+      "queues": [
+        {
+          "name": "probe_calculation_v1",
+          "concurrency": 2,
+          "worker_concurrency": 2,
+          "polling_interval_sec": 0.025
+        },
+        {
+          "name": "probe_parent_v1",
+          "concurrency": 16,
+          "worker_concurrency": 16,
+          "polling_interval_sec": 0.025
+        }
+      ],
+      "cancellation_details": [
+        {
+          "task": "a",
+          "step_exit_after_cancel_ack_seconds": 3.980592834,
+          "step_end_outcome": "returned"
+        }
+      ],
+      "sqlite_journal_mode": "delete",
+      "sqlite_version": "3.50.4",
+      "event_rows": 16,
+      "status_samples": 234,
+      "event_log_sha256": "b807e958d757a96429370e10c559d5f5757f86051b9315257f327ae1a59cd12c",
+      "native_database_sha256": "9ee4d7c5fc354c97cc060b4bce20066228cea04a0f3a7193750ca9b1fbb514fb"
+    },
+    {
+      "scenario": "cancel_preemptible",
+      "status": "PASS",
+      "checks": {
+        "exactly_two_started_third_native_enqueued": true,
+        "native_cascade_parent_and_child_cancelled": true,
+        "cancelled_parent_and_child_never_revived": true,
+        "physical_and_native_compute_peak_exactly_two": true,
+        "positive_measured_overlap": true,
+        "no_unclosed_compute_interval": true
+      },
+      "physical_compute_peak": 2,
+      "sampled_native_calculation_pending_peak": 2,
+      "two_or_more_compute_overlap_seconds": 3.971509792,
+      "compute_starts_by_task": {
+        "a": 1,
+        "b": 1,
+        "c": 1
+      },
+      "completed_prepare_calls_by_task": {
+        "a": 1,
+        "b": 1,
+        "c": 1
+      },
+      "process_generations": 1,
+      "worker_exit_codes": [
+        0
+      ],
+      "native_child_relationship_rows": 5,
+      "native_unique_child_relations_verified": 3,
+      "native_child_relationships": [
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-c-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-c-calculation"
+        }
+      ],
+      "native_workflows_final": [
+        {
+          "workflow_uuid": "parent-a",
+          "parent_workflow_id": null,
+          "queue_name": null,
+          "status": "CANCELLED",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-a-calculation",
+          "parent_workflow_id": "parent-a",
+          "queue_name": null,
+          "status": "CANCELLED",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-b-calculation",
+          "parent_workflow_id": "parent-b",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-c-calculation",
+          "parent_workflow_id": "parent-c",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        }
+      ],
+      "queues": [
+        {
+          "name": "probe_calculation_v1",
+          "concurrency": 2,
+          "worker_concurrency": 2,
+          "polling_interval_sec": 0.025
+        },
+        {
+          "name": "probe_parent_v1",
+          "concurrency": 16,
+          "worker_concurrency": 16,
+          "polling_interval_sec": 0.025
+        }
+      ],
+      "cancellation_details": [
+        {
+          "task": "a",
+          "step_exit_after_cancel_ack_seconds": 0.973171625,
+          "step_end_outcome": "cancelled"
+        }
+      ],
+      "sqlite_journal_mode": "delete",
+      "sqlite_version": "3.50.4",
+      "event_rows": 16,
+      "status_samples": 179,
+      "event_log_sha256": "a48b46b26e45bb3b9946741a0782d1a0d2571a69de7c26ea841945242bc7422c",
+      "native_database_sha256": "626617469c2b0bdc6a35dd9a1fa1a1016bb0dbdb7e2d2d6dee3cd20d60a7ff48"
+    },
+    {
+      "scenario": "restart_active",
+      "status": "PASS",
+      "checks": {
+        "exactly_two_started_third_native_enqueued": true,
+        "physical_and_native_compute_peak_exactly_two": true,
+        "positive_measured_overlap": true,
+        "no_unclosed_compute_interval": true,
+        "completed_prepare_steps_not_reexecuted": true
+      },
+      "physical_compute_peak": 2,
+      "sampled_native_calculation_pending_peak": 2,
+      "two_or_more_compute_overlap_seconds": 4.01697825,
+      "compute_starts_by_task": {
+        "a": 2,
+        "c": 2,
+        "b": 1
+      },
+      "completed_prepare_calls_by_task": {
+        "a": 1,
+        "c": 1,
+        "b": 1
+      },
+      "process_generations": 2,
+      "worker_exit_codes": [
+        -9,
+        0
+      ],
+      "native_child_relationship_rows": 6,
+      "native_unique_child_relations_verified": 3,
+      "native_child_relationships": [
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-c-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-c-calculation"
+        }
+      ],
+      "native_workflows_final": [
+        {
+          "workflow_uuid": "parent-a",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-a-calculation",
+          "parent_workflow_id": "parent-a",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-b-calculation",
+          "parent_workflow_id": "parent-b",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-c-calculation",
+          "parent_workflow_id": "parent-c",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        }
+      ],
+      "queues": [
+        {
+          "name": "probe_calculation_v1",
+          "concurrency": 2,
+          "worker_concurrency": 2,
+          "polling_interval_sec": 0.025
+        },
+        {
+          "name": "probe_parent_v1",
+          "concurrency": 16,
+          "worker_concurrency": 16,
+          "polling_interval_sec": 0.025
+        }
+      ],
+      "cancellation_details": [],
+      "sqlite_journal_mode": "delete",
+      "sqlite_version": "3.50.4",
+      "event_rows": 20,
+      "status_samples": 241,
+      "event_log_sha256": "c9705ac04908a057b9ebc373256e50129832084142ab8761af26abcff70b1d9c",
+      "native_database_sha256": "0076fda94f650445f14ea928d5dc9494dcd8e3e5b0169887eacca8ee794a992a"
+    },
+    {
+      "scenario": "restart_cancelled",
+      "status": "PASS",
+      "checks": {
+        "exactly_two_started_third_native_enqueued": true,
+        "native_cascade_parent_and_child_cancelled": true,
+        "cancelled_parent_and_child_never_revived": true,
+        "cancelled_task_not_restarted": true,
+        "physical_and_native_compute_peak_exactly_two": true,
+        "positive_measured_overlap": true,
+        "no_unclosed_compute_interval": true,
+        "completed_prepare_steps_not_reexecuted": true
+      },
+      "physical_compute_peak": 2,
+      "sampled_native_calculation_pending_peak": 2,
+      "two_or_more_compute_overlap_seconds": 4.022827292,
+      "compute_starts_by_task": {
+        "a": 1,
+        "b": 2,
+        "c": 1
+      },
+      "completed_prepare_calls_by_task": {
+        "a": 1,
+        "b": 1,
+        "c": 1
+      },
+      "process_generations": 2,
+      "worker_exit_codes": [
+        -9,
+        0
+      ],
+      "native_child_relationship_rows": 5,
+      "native_unique_child_relations_verified": 3,
+      "native_child_relationships": [
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-c-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-c-calculation"
+        }
+      ],
+      "native_workflows_final": [
+        {
+          "workflow_uuid": "parent-a",
+          "parent_workflow_id": null,
+          "queue_name": null,
+          "status": "CANCELLED",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-a-calculation",
+          "parent_workflow_id": "parent-a",
+          "queue_name": null,
+          "status": "CANCELLED",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-b-calculation",
+          "parent_workflow_id": "parent-b",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-c-calculation",
+          "parent_workflow_id": "parent-c",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        }
+      ],
+      "queues": [
+        {
+          "name": "probe_calculation_v1",
+          "concurrency": 2,
+          "worker_concurrency": 2,
+          "polling_interval_sec": 0.025
+        },
+        {
+          "name": "probe_parent_v1",
+          "concurrency": 16,
+          "worker_concurrency": 16,
+          "polling_interval_sec": 0.025
+        }
+      ],
+      "cancellation_details": [
+        {
+          "task": "a",
+          "step_exit_after_cancel_ack_seconds": null,
+          "step_end_outcome": "SIGKILL_before_step_return"
+        }
+      ],
+      "sqlite_journal_mode": "delete",
+      "sqlite_version": "3.50.4",
+      "event_rows": 17,
+      "status_samples": 135,
+      "event_log_sha256": "7b65dc667e46c30457a3e0e6e5b9c36c8d818c46296f64ee4f80a5eef36eb844",
+      "native_database_sha256": "e6d1abe1e11294451d909acbfb92f496adec0189a0d03d3b8873dc045436acb5"
+    },
+    {
+      "scenario": "restart_waiting",
+      "status": "PASS",
+      "checks": {
+        "exactly_two_started_third_native_enqueued": true,
+        "waiting_restart_no_extra_compute_calls": true,
+        "physical_and_native_compute_peak_exactly_two": true,
+        "positive_measured_overlap": true,
+        "no_unclosed_compute_interval": true,
+        "completed_prepare_steps_not_reexecuted": true
+      },
+      "physical_compute_peak": 2,
+      "sampled_native_calculation_pending_peak": 2,
+      "two_or_more_compute_overlap_seconds": 1.400454,
+      "compute_starts_by_task": {
+        "a": 1,
+        "b": 1,
+        "c": 1
+      },
+      "completed_prepare_calls_by_task": {
+        "a": 1,
+        "b": 1,
+        "c": 1
+      },
+      "process_generations": 2,
+      "worker_exit_codes": [
+        -9,
+        0
+      ],
+      "native_child_relationship_rows": 6,
+      "native_unique_child_relations_verified": 3,
+      "native_child_relationships": [
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-a",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-a-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-b-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 1,
+          "function_name": "probe_calculation_workflow_v1",
+          "child_workflow_id": "parent-c-calculation"
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "function_id": 2,
+          "function_name": "DBOS.getResult",
+          "child_workflow_id": "parent-c-calculation"
+        }
+      ],
+      "native_workflows_final": [
+        {
+          "workflow_uuid": "parent-a",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-a-calculation",
+          "parent_workflow_id": "parent-a",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-b",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-b-calculation",
+          "parent_workflow_id": "parent-b",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        },
+        {
+          "workflow_uuid": "parent-c",
+          "parent_workflow_id": null,
+          "queue_name": "probe_parent_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 2
+        },
+        {
+          "workflow_uuid": "parent-c-calculation",
+          "parent_workflow_id": "parent-c",
+          "queue_name": "probe_calculation_v1",
+          "status": "SUCCESS",
+          "application_version": "native-probe-58286f5a462c61dcb33ecb83",
+          "recovery_attempts": 1
+        }
+      ],
+      "queues": [
+        {
+          "name": "probe_calculation_v1",
+          "concurrency": 2,
+          "worker_concurrency": 2,
+          "polling_interval_sec": 0.025
+        },
+        {
+          "name": "probe_parent_v1",
+          "concurrency": 16,
+          "worker_concurrency": 16,
+          "polling_interval_sec": 0.025
+        }
+      ],
+      "cancellation_details": [],
+      "sqlite_journal_mode": "delete",
+      "sqlite_version": "3.50.4",
+      "event_rows": 18,
+      "status_samples": 100,
+      "event_log_sha256": "7166087979f583619bb12955da87f4e1ed61f90e362a895e8bf86ccc07c60fbd",
+      "native_database_sha256": "01b6708e3cab5f9d51d7bee25263b042a3e3d8bedc72d62ba725a09e43a88337"
+    }
+  ],
+  "limitations": [
+    "Framework feasibility only; no BidOps business state, ACL, budget ledger, PAI agent or real provider in these functions.",
+    "Async sleep models cooperative waiting; not a CPU-bound throughput or SQLite contention benchmark.",
+    "Parent waits still count against the separate finite parent queue cap16. They do not consume calculation queue slots; no claim that infinite waiting parents can be admitted.",
+    "Both per-worker and global limits are configured2 in one process; cross-worker global enforcement was not tested.",
+    "SIGKILL kills the old process before starting the next. Split-brain/overlapping workers and process lease takeover were not tested.",
+    "Pre-crash unfinished computation is replayed, not exactly-once external execution. Production unknown reservations and shared attempt limits remain necessary.",
+    "Cancellation is cooperative: default step may return after cancel; native terminal state and worker accounting must be distinguished from physical execution.",
+    "No business acceptance, B09 capacity failure remediation, new load result or mandate to migrate to PostgreSQL follows from this probe."
+  ],
+  "sources": {
+    "worker.py": "58286f5a462c61dcb33ecb83946b4d3866514f8c185faf295b74281e38105151",
+    "run_probe.py": "0cb0d6fb2b53b0ce3b9c775bf81e9a01c820388c6c7bda97f9d27146e6de9d7a",
+    "sdk-interfaces.json": "bab9c5c05fa427226577d2e7bc918a4dcc72fdf6ba5ca6b18cd0c13411555f57",
+    "run-01_baseline_result_sha256": "a006ea04f0c79b72b30599354d4b289c5831e66bcada787225bd56acf572753e"
+  }
+}

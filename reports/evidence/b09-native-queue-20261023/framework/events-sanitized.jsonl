@@ -1,0 +1,121 @@
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756210935022291, "pid": 82878, "scenario": "baseline", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709249734173000}
+{"event": "process_started", "monotonic_ns": 756210935319166, "pid": 82878, "scenario": "baseline", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709249734470000}
+{"event": "prepare", "monotonic_ns": 756212021949500, "pid": 82878, "scenario": "baseline", "task": "a", "wall_ns": 1792709250821100000}
+{"event": "prepare", "monotonic_ns": 756212022869541, "pid": 82878, "scenario": "baseline", "task": "c", "wall_ns": 1792709250822021000}
+{"duration_seconds": 1.4, "event": "compute_start", "monotonic_ns": 756212024056666, "pid": 82878, "scenario": "baseline", "task": "a", "wall_ns": 1792709250823208000}
+{"duration_seconds": 1.4, "event": "compute_start", "monotonic_ns": 756212026149208, "pid": 82878, "scenario": "baseline", "task": "c", "wall_ns": 1792709250825300000}
+{"event": "compute_end", "monotonic_ns": 756213426200708, "outcome": "returned", "pid": 82878, "scenario": "baseline", "task": "a", "wall_ns": 1792709252225351000}
+{"event": "compute_end", "monotonic_ns": 756213427205125, "outcome": "returned", "pid": 82878, "scenario": "baseline", "task": "c", "wall_ns": 1792709252226356000}
+{"event": "prepare", "monotonic_ns": 756213438996125, "pid": 82878, "scenario": "baseline", "task": "b", "wall_ns": 1792709252238147000}
+{"duration_seconds": 1.4, "event": "compute_start", "monotonic_ns": 756213440534666, "pid": 82878, "scenario": "baseline", "task": "b", "wall_ns": 1792709252239685000}
+{"event": "waiting_review", "monotonic_ns": 756213993776583, "pid": 82878, "scenario": "baseline", "task": "a", "wall_ns": 1792709252792927000}
+{"event": "waiting_review", "monotonic_ns": 756213994789125, "pid": 82878, "scenario": "baseline", "task": "c", "wall_ns": 1792709252793940000}
+{"event": "compute_end", "monotonic_ns": 756214842723166, "outcome": "returned", "pid": 82878, "scenario": "baseline", "task": "b", "wall_ns": 1792709253641873000}
+{"event": "waiting_review", "monotonic_ns": 756214997921541, "pid": 82878, "scenario": "baseline", "task": "b", "wall_ns": 1792709253797072000}
+{"event": "prepare", "monotonic_ns": 756215084048416, "pid": 82878, "scenario": "baseline", "task": "d", "wall_ns": 1792709253883199000}
+{"duration_seconds": 1.0, "event": "compute_start", "monotonic_ns": 756215085720625, "pid": 82878, "scenario": "baseline", "task": "d", "wall_ns": 1792709253884871000}
+{"event": "compute_end", "monotonic_ns": 756216087870250, "outcome": "returned", "pid": 82878, "scenario": "baseline", "task": "d", "wall_ns": 1792709254887020000}
+{"event": "waiting_review", "monotonic_ns": 756217059123208, "pid": 82878, "scenario": "baseline", "task": "d", "wall_ns": 1792709255858273000}
+{"event": "review_completed", "monotonic_ns": 756218009526916, "pid": 82878, "scenario": "baseline", "task": "c", "wall_ns": 1792709256808677000}
+{"event": "review_completed", "monotonic_ns": 756218012520500, "pid": 82878, "scenario": "baseline", "task": "b", "wall_ns": 1792709256811670000}
+{"event": "review_completed", "monotonic_ns": 756218017307375, "pid": 82878, "scenario": "baseline", "task": "d", "wall_ns": 1792709256816457000}
+{"event": "review_completed", "monotonic_ns": 756218052074000, "pid": 82878, "scenario": "baseline", "task": "a", "wall_ns": 1792709256851224000}
+{"event": "worker_stopped", "monotonic_ns": 756219003472458, "pid": 82878, "scenario": "baseline", "task": null, "wall_ns": 1792709257802622000}
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756219340173625, "pid": 82898, "scenario": "cancel_default", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709258139323000}
+{"event": "process_started", "monotonic_ns": 756219340453416, "pid": 82898, "scenario": "cancel_default", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709258139603000}
+{"event": "prepare", "monotonic_ns": 756220430158958, "pid": 82898, "scenario": "cancel_default", "task": "a", "wall_ns": 1792709259229308000}
+{"event": "prepare", "monotonic_ns": 756220431187625, "pid": 82898, "scenario": "cancel_default", "task": "c", "wall_ns": 1792709259230337000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756220432326000, "pid": 82898, "scenario": "cancel_default", "task": "a", "wall_ns": 1792709259231475000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756220435359541, "pid": 82898, "scenario": "cancel_default", "task": "c", "wall_ns": 1792709259234509000}
+{"event": "cancel_ack", "monotonic_ns": 756220453210541, "pid": 82898, "scenario": "cancel_default", "task": "a", "wall_ns": 1792709259252360000}
+{"event": "compute_end", "monotonic_ns": 756224433803375, "outcome": "returned", "pid": 82898, "scenario": "cancel_default", "task": "a", "wall_ns": 1792709263232951000}
+{"event": "compute_end", "monotonic_ns": 756224436022958, "outcome": "returned", "pid": 82898, "scenario": "cancel_default", "task": "c", "wall_ns": 1792709263235171000}
+{"event": "prepare", "monotonic_ns": 756224462326000, "pid": 82898, "scenario": "cancel_default", "task": "b", "wall_ns": 1792709263261474000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756224464910000, "pid": 82898, "scenario": "cancel_default", "task": "b", "wall_ns": 1792709263264058000}
+{"event": "waiting_review", "monotonic_ns": 756225431740250, "pid": 82898, "scenario": "cancel_default", "task": "c", "wall_ns": 1792709264230888000}
+{"event": "compute_end", "monotonic_ns": 756228467104583, "outcome": "returned", "pid": 82898, "scenario": "cancel_default", "task": "b", "wall_ns": 1792709267266252000}
+{"event": "waiting_review", "monotonic_ns": 756229447476750, "pid": 82898, "scenario": "cancel_default", "task": "b", "wall_ns": 1792709268246624000}
+{"event": "review_completed", "monotonic_ns": 756230408325500, "pid": 82898, "scenario": "cancel_default", "task": "c", "wall_ns": 1792709269207472000}
+{"event": "review_completed", "monotonic_ns": 756230409657750, "pid": 82898, "scenario": "cancel_default", "task": "b", "wall_ns": 1792709269208805000}
+{"event": "worker_stopped", "monotonic_ns": 756231412132125, "pid": 82898, "scenario": "cancel_default", "task": null, "wall_ns": 1792709270211279000}
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756231748695250, "pid": 82930, "scenario": "cancel_preemptible", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709270547841000}
+{"event": "process_started", "monotonic_ns": 756231748972791, "pid": 82930, "scenario": "cancel_preemptible", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709270548119000}
+{"event": "prepare", "monotonic_ns": 756232821610166, "pid": 82930, "scenario": "cancel_preemptible", "task": "a", "wall_ns": 1792709271620756000}
+{"event": "prepare", "monotonic_ns": 756232822519458, "pid": 82930, "scenario": "cancel_preemptible", "task": "b", "wall_ns": 1792709271621666000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756232823465208, "pid": 82930, "scenario": "cancel_preemptible", "task": "a", "wall_ns": 1792709271622611000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756232825244166, "pid": 82930, "scenario": "cancel_preemptible", "task": "b", "wall_ns": 1792709271624390000}
+{"event": "cancel_ack", "monotonic_ns": 756232854274416, "pid": 82930, "scenario": "cancel_preemptible", "task": "a", "wall_ns": 1792709271653421000}
+{"event": "compute_end", "monotonic_ns": 756233827446041, "outcome": "cancelled", "pid": 82930, "scenario": "cancel_preemptible", "task": "a", "wall_ns": 1792709272626592000}
+{"event": "prepare", "monotonic_ns": 756233854820583, "pid": 82930, "scenario": "cancel_preemptible", "task": "c", "wall_ns": 1792709272653967000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756233856173291, "pid": 82930, "scenario": "cancel_preemptible", "task": "c", "wall_ns": 1792709272655319000}
+{"event": "compute_end", "monotonic_ns": 756236825481208, "outcome": "returned", "pid": 82930, "scenario": "cancel_preemptible", "task": "b", "wall_ns": 1792709275624626000}
+{"event": "waiting_review", "monotonic_ns": 756237802817083, "pid": 82930, "scenario": "cancel_preemptible", "task": "b", "wall_ns": 1792709276601962000}
+{"event": "compute_end", "monotonic_ns": 756237858694500, "outcome": "returned", "pid": 82930, "scenario": "cancel_preemptible", "task": "c", "wall_ns": 1792709276657839000}
+{"event": "waiting_review", "monotonic_ns": 756238806726333, "pid": 82930, "scenario": "cancel_preemptible", "task": "c", "wall_ns": 1792709277605871000}
+{"event": "review_completed", "monotonic_ns": 756239796758666, "pid": 82930, "scenario": "cancel_preemptible", "task": "b", "wall_ns": 1792709278595903000}
+{"event": "review_completed", "monotonic_ns": 756239797693791, "pid": 82930, "scenario": "cancel_preemptible", "task": "c", "wall_ns": 1792709278596838000}
+{"event": "worker_stopped", "monotonic_ns": 756240804549125, "pid": 82930, "scenario": "cancel_preemptible", "task": null, "wall_ns": 1792709279603693000}
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756241270270916, "pid": 83038, "scenario": "restart_active", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709280069415000}
+{"event": "process_started", "monotonic_ns": 756241270541791, "pid": 83038, "scenario": "restart_active", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709280069686000}
+{"event": "prepare", "monotonic_ns": 756242348300125, "pid": 83038, "scenario": "restart_active", "task": "a", "wall_ns": 1792709281147444000}
+{"event": "prepare", "monotonic_ns": 756242348588583, "pid": 83038, "scenario": "restart_active", "task": "c", "wall_ns": 1792709281147733000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756242351827208, "pid": 83038, "scenario": "restart_active", "task": "a", "wall_ns": 1792709281150971000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756242364505791, "pid": 83038, "scenario": "restart_active", "task": "c", "wall_ns": 1792709281163650000}
+{"event": "process_killed", "exit_code": -9, "monotonic_ns": 756242379437625, "pid": 83038, "scenario": "restart_active", "wall_ns": 1792709281178582000}
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756242661789916, "pid": 83054, "scenario": "restart_active", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709281460933000}
+{"event": "process_started", "monotonic_ns": 756242662101833, "pid": 83054, "scenario": "restart_active", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709281461245000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756242702228125, "pid": 83054, "scenario": "restart_active", "task": "a", "wall_ns": 1792709281501372000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756242702866625, "pid": 83054, "scenario": "restart_active", "task": "c", "wall_ns": 1792709281502011000}
+{"event": "compute_end", "monotonic_ns": 756246704913041, "outcome": "returned", "pid": 83054, "scenario": "restart_active", "task": "a", "wall_ns": 1792709285504056000}
+{"event": "compute_end", "monotonic_ns": 756246705124625, "outcome": "returned", "pid": 83054, "scenario": "restart_active", "task": "c", "wall_ns": 1792709285504268000}
+{"event": "prepare", "monotonic_ns": 756246716643416, "pid": 83054, "scenario": "restart_active", "task": "b", "wall_ns": 1792709285515786000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756246717880375, "pid": 83054, "scenario": "restart_active", "task": "b", "wall_ns": 1792709285517023000}
+{"event": "waiting_review", "monotonic_ns": 756247715005333, "pid": 83054, "scenario": "restart_active", "task": "a", "wall_ns": 1792709286514148000}
+{"event": "waiting_review", "monotonic_ns": 756247715989958, "pid": 83054, "scenario": "restart_active", "task": "c", "wall_ns": 1792709286515133000}
+{"event": "compute_end", "monotonic_ns": 756250718385333, "outcome": "returned", "pid": 83054, "scenario": "restart_active", "task": "b", "wall_ns": 1792709289517527000}
+{"event": "waiting_review", "monotonic_ns": 756251724251791, "pid": 83054, "scenario": "restart_active", "task": "b", "wall_ns": 1792709290523394000}
+{"event": "review_completed", "monotonic_ns": 756252723637416, "pid": 83054, "scenario": "restart_active", "task": "a", "wall_ns": 1792709291522779000}
+{"event": "review_completed", "monotonic_ns": 756252728286458, "pid": 83054, "scenario": "restart_active", "task": "c", "wall_ns": 1792709291527428000}
+{"event": "review_completed", "monotonic_ns": 756252739864916, "pid": 83054, "scenario": "restart_active", "task": "b", "wall_ns": 1792709291539006000}
+{"event": "worker_stopped", "monotonic_ns": 756253722186750, "pid": 83054, "scenario": "restart_active", "task": null, "wall_ns": 1792709292521328000}
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756254153003875, "pid": 83141, "scenario": "restart_cancelled", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709292952145000}
+{"event": "process_started", "monotonic_ns": 756254153300291, "pid": 83141, "scenario": "restart_cancelled", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709292952441000}
+{"event": "prepare", "monotonic_ns": 756255228471750, "pid": 83141, "scenario": "restart_cancelled", "task": "a", "wall_ns": 1792709294027613000}
+{"event": "prepare", "monotonic_ns": 756255228767333, "pid": 83141, "scenario": "restart_cancelled", "task": "b", "wall_ns": 1792709294027908000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756255230085708, "pid": 83141, "scenario": "restart_cancelled", "task": "a", "wall_ns": 1792709294029227000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756255231897833, "pid": 83141, "scenario": "restart_cancelled", "task": "b", "wall_ns": 1792709294031039000}
+{"event": "cancel_ack", "monotonic_ns": 756255250713666, "pid": 83141, "scenario": "restart_cancelled", "task": "a", "wall_ns": 1792709294049855000}
+{"event": "process_killed", "exit_code": -9, "monotonic_ns": 756255255830041, "pid": 83141, "scenario": "restart_cancelled", "wall_ns": 1792709294054971000}
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756255501677000, "pid": 83148, "scenario": "restart_cancelled", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709294300818000}
+{"event": "process_started", "monotonic_ns": 756255501885875, "pid": 83148, "scenario": "restart_cancelled", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709294301026000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756255539486000, "pid": 83148, "scenario": "restart_cancelled", "task": "b", "wall_ns": 1792709294338627000}
+{"event": "prepare", "monotonic_ns": 756255540038250, "pid": 83148, "scenario": "restart_cancelled", "task": "c", "wall_ns": 1792709294339179000}
+{"duration_seconds": 4, "event": "compute_start", "monotonic_ns": 756255541700041, "pid": 83148, "scenario": "restart_cancelled", "task": "c", "wall_ns": 1792709294340841000}
+{"event": "compute_end", "monotonic_ns": 756259540595125, "outcome": "returned", "pid": 83148, "scenario": "restart_cancelled", "task": "b", "wall_ns": 1792709298339735000}
+{"event": "compute_end", "monotonic_ns": 756259542035375, "outcome": "returned", "pid": 83148, "scenario": "restart_cancelled", "task": "c", "wall_ns": 1792709298341175000}
+{"event": "waiting_review", "monotonic_ns": 756259555673958, "pid": 83148, "scenario": "restart_cancelled", "task": "b", "wall_ns": 1792709298354814000}
+{"event": "waiting_review", "monotonic_ns": 756259558128833, "pid": 83148, "scenario": "restart_cancelled", "task": "c", "wall_ns": 1792709298357269000}
+{"event": "review_completed", "monotonic_ns": 756260545339416, "pid": 83148, "scenario": "restart_cancelled", "task": "c", "wall_ns": 1792709299344479000}
+{"event": "review_completed", "monotonic_ns": 756260547534208, "pid": 83148, "scenario": "restart_cancelled", "task": "b", "wall_ns": 1792709299346674000}
+{"event": "worker_stopped", "monotonic_ns": 756261552025833, "pid": 83148, "scenario": "restart_cancelled", "task": null, "wall_ns": 1792709300351165000}
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756261938540625, "pid": 83176, "scenario": "restart_waiting", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709300737680000}
+{"event": "process_started", "monotonic_ns": 756261938811125, "pid": 83176, "scenario": "restart_waiting", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709300737950000}
+{"event": "prepare", "monotonic_ns": 756263019740250, "pid": 83176, "scenario": "restart_waiting", "task": "a", "wall_ns": 1792709301818879000}
+{"event": "prepare", "monotonic_ns": 756263019978875, "pid": 83176, "scenario": "restart_waiting", "task": "b", "wall_ns": 1792709301819118000}
+{"duration_seconds": 1.4, "event": "compute_start", "monotonic_ns": 756263021428416, "pid": 83176, "scenario": "restart_waiting", "task": "a", "wall_ns": 1792709301820567000}
+{"duration_seconds": 1.4, "event": "compute_start", "monotonic_ns": 756263023098666, "pid": 83176, "scenario": "restart_waiting", "task": "b", "wall_ns": 1792709301822238000}
+{"event": "compute_end", "monotonic_ns": 756264423552666, "outcome": "returned", "pid": 83176, "scenario": "restart_waiting", "task": "a", "wall_ns": 1792709303222691000}
+{"event": "compute_end", "monotonic_ns": 756264423737708, "outcome": "returned", "pid": 83176, "scenario": "restart_waiting", "task": "b", "wall_ns": 1792709303222876000}
+{"event": "prepare", "monotonic_ns": 756264448835875, "pid": 83176, "scenario": "restart_waiting", "task": "c", "wall_ns": 1792709303247975000}
+{"duration_seconds": 1.4, "event": "compute_start", "monotonic_ns": 756264450071791, "pid": 83176, "scenario": "restart_waiting", "task": "c", "wall_ns": 1792709303249211000}
+{"event": "waiting_review", "monotonic_ns": 756264996933666, "pid": 83176, "scenario": "restart_waiting", "task": "a", "wall_ns": 1792709303796072000}
+{"event": "waiting_review", "monotonic_ns": 756264997736958, "pid": 83176, "scenario": "restart_waiting", "task": "b", "wall_ns": 1792709303796876000}
+{"event": "compute_end", "monotonic_ns": 756265852198333, "outcome": "returned", "pid": 83176, "scenario": "restart_waiting", "task": "c", "wall_ns": 1792709304651337000}
+{"event": "waiting_review", "monotonic_ns": 756266000133958, "pid": 83176, "scenario": "restart_waiting", "task": "c", "wall_ns": 1792709304799272000}
+{"event": "process_killed", "exit_code": -9, "monotonic_ns": 756266021628625, "pid": 83176, "scenario": "restart_waiting", "wall_ns": 1792709304820767000}
+{"dbos_version": "3.3.0", "event": "worker_ready", "monotonic_ns": 756266282721583, "pid": 83202, "scenario": "restart_waiting", "task": null, "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709305081859000}
+{"event": "process_started", "monotonic_ns": 756266282938750, "pid": 83202, "scenario": "restart_waiting", "version": "native-probe-58286f5a462c61dcb33ecb83", "wall_ns": 1792709305082077000}
+{"event": "review_completed", "monotonic_ns": 756267285808458, "pid": 83202, "scenario": "restart_waiting", "task": "a", "wall_ns": 1792709306084946000}
+{"event": "review_completed", "monotonic_ns": 756267286709500, "pid": 83202, "scenario": "restart_waiting", "task": "b", "wall_ns": 1792709306085848000}
+{"event": "review_completed", "monotonic_ns": 756267289410708, "pid": 83202, "scenario": "restart_waiting", "task": "c", "wall_ns": 1792709306088549000}
+{"event": "worker_stopped", "monotonic_ns": 756268293514500, "pid": 83202, "scenario": "restart_waiting", "task": null, "wall_ns": 1792709307092652000}

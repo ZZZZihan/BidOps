@@ -29,6 +29,7 @@ class Query(StrictModel):
     future_deadline_only: bool = False
     sort_by: Literal["project_code", "budget", "deadline", "publication"] = "project_code"
     descending: bool = False
+    offset: int = Field(default=0, ge=0, le=2_147_483_647)
     limit: int = Field(
         default=20,
         ge=1,
@@ -85,6 +86,10 @@ class Block(StrictModel):
     items: list[Card]
     metrics: dict[str, str] = Field(default_factory=dict)
     missing_project_codes: list[str] = Field(default_factory=list)
+    offset: int = 0
+    limit: int | None = None
+    has_more: bool = False
+    truncated: bool = False
 
 
 class AnswerPlan(StrictModel):
@@ -116,6 +121,13 @@ class ChatRequest(StrictModel):
         return value
 
 
+class PromptIdentity(StrictModel):
+    name: str
+    version: str
+    owner: str
+    sha256: str = Field(pattern=r"^[a-f0-9]{64}$")
+
+
 class ChatResponse(StrictModel):
     run_id: str
     session_id: str
@@ -126,6 +138,8 @@ class ChatResponse(StrictModel):
     blocks: list[Block]
     trace: list[dict]
     model: str
+    # Old persisted responses have unknown provenance, never today's prompt identity.
+    prompt: PromptIdentity | None = None
     provider_executed: bool
     usage: dict[str, int | float]
     elapsed_ms: int

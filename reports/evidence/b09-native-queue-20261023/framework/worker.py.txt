@@ -1,0 +1,123 @@
+"""Isolated DBOS 3.3.0 native queue probe; synthetic IDs, no provider or network."""
+import asyncio
+import hashlib
+import importlib.metadata
+import json
+import os
+from pathlib import Path
+import socket
+import sqlite3
+import sys
+import time
+
+ROOT=Path(sys.argv[1]).resolve()
+ROOT.mkdir(parents=True,exist_ok=True)
+os.umask(0o077)
+
+def deny(*args,**kwargs):
+    raise RuntimeError('probe_network_forbidden')
+socket.create_connection=deny
+socket.socket.connect=deny
+socket.socket.connect_ex=deny
+from dbos import DBOS,SetWorkflowID
+
+assert importlib.metadata.version('dbos')=='3.3.0'
+PARENT='probe_parent_v1'
+CALC='probe_calculation_v1'
+VERSION='native-probe-'+hashlib.sha256(Path(__file__).read_bytes()).hexdigest()[:24]
+EVENT=ROOT/'events.jsonl'
+
+def emit(event,task=None,**extra):
+    row={'event':event,'task':task,'pid':os.getpid(),'wall_ns':time.time_ns(),'monotonic_ns':time.monotonic_ns(),**extra}
+    fd=os.open(EVENT,os.O_WRONLY|os.O_CREAT|os.O_APPEND,0o600)
+    try:
+        os.write(fd,(json.dumps(row,sort_keys=True)+'\n').encode())
+        os.fsync(fd)
+    finally:os.close(fd)
+
+@DBOS.step(name='probe_prepare_v1')
+async def prepare(task):
+    emit('prepare',task)
+    return {'prepared':task}
+
+async def compute_body(task,seconds):
+    emit('compute_start',task,duration_seconds=seconds)
+    outcome='returned'
+    try:
+        await asyncio.sleep(seconds)
+        return {'computed':task}
+    except BaseException:
+        outcome='cancelled'
+        raise
+    finally:emit('compute_end',task,outcome=outcome)
+
+@DBOS.step(name='probe_compute_default_v1',preemptible=False)
+async def compute_default(task,seconds):
+    return await compute_body(task,seconds)
+
+@DBOS.step(name='probe_compute_preemptible_v1',preemptible=True)
+async def compute_preemptible(task,seconds):
+    return await compute_body(task,seconds)
+
+@DBOS.workflow(name='probe_calculation_workflow_v1')
+async def calculation(task,seconds,preemptible):
+    await prepare(task)
+    result=await (compute_preemptible(task,seconds) if preemptible else compute_default(task,seconds))
+    return result
+
+@DBOS.step(name='probe_waiting_marker_v1')
+async def waiting(task):
+    emit('waiting_review',task)
+    return {'waiting':task}
+
+@DBOS.step(name='probe_closed_marker_v1')
+async def closed(task):
+    emit('review_completed',task)
+    return {'completed':task}
+
+@DBOS.workflow(name='probe_parent_workflow_v1')
+async def parent(task,seconds,preemptible):
+    with SetWorkflowID('parent-'+task+'-calculation'):
+        child=await DBOS.enqueue_workflow_async(CALC,calculation,task,seconds,preemptible)
+    result=await child.get_result()
+    await waiting(task)
+    event=await DBOS.recv_async(topic='review',timeout_seconds=300)
+    if event!='reviewed':raise RuntimeError('unexpected_synthetic_review')
+    await closed(task)
+    return result
+
+DBOS(config={'name':'native-queue-probe','application_version':VERSION,'executor_id':'native-probe-single','system_database_url':'sqlite:///'+str(ROOT/'dbos.sqlite3'),'enable_otlp':False,'run_admin_server':False,'log_level':'ERROR'})
+DBOS.launch()
+DBOS.register_queue(PARENT,worker_concurrency=16,global_concurrency=16,polling_interval_sec=0.025)
+DBOS.register_queue(CALC,worker_concurrency=2,global_concurrency=2,polling_interval_sec=0.025)
+emit('worker_ready',version=VERSION,dbos_version=importlib.metadata.version('dbos'))
+print(json.dumps({'ready':True,'pid':os.getpid(),'version':VERSION}),flush=True)
+
+async def commands():
+    while True:
+        line=await asyncio.to_thread(sys.stdin.readline)
+        if not line:return
+        cmd=json.loads(line)
+        try:
+            op=cmd['op']
+            if op=='submit':
+                with SetWorkflowID('parent-'+cmd['task']):
+                    handle=await DBOS.enqueue_workflow_async(PARENT,parent,cmd['task'],cmd['seconds'],cmd.get('preemptible',False))
+                result={'workflow_id':handle.workflow_id}
+            elif op=='cancel':
+                await DBOS.cancel_workflow_async('parent-'+cmd['task'],cancel_children=True)
+                emit('cancel_ack',cmd['task'])
+                result={'cancelled':cmd['task']}
+            elif op=='review':
+                await DBOS.send_async('parent-'+cmd['task'],'reviewed',topic='review',idempotency_key='review-'+cmd['task'])
+                result={'sent':cmd['task']}
+            elif op=='stop':return
+            else:raise ValueError('invalid_command')
+            print(json.dumps({'request_id':cmd['request_id'],'ok':True,'result':result}),flush=True)
+        except Exception as exc:
+            print(json.dumps({'request_id':cmd.get('request_id'),'ok':False,'error_class':type(exc).__name__,'error':str(exc)}),flush=True)
+
+try:asyncio.run(commands())
+finally:
+    DBOS.destroy(workflow_completion_timeout_sec=0)
+    emit('worker_stopped')

@@ -1,0 +1,15 @@
+{
+  "specialized": 73,
+  "C": {
+    "PASS": 57,
+    "BLOCKED": 1
+  },
+  "B": {
+    "BLOCKED": 15
+  },
+  "common": {
+    "PASS": 5,
+    "BLOCKED": 3
+  },
+  "release": "NO_GO"
+}

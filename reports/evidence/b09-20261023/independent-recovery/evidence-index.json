@@ -1,0 +1,34 @@
+{
+  "scope": "LOCAL_SYNTHETIC_ENGINEERING_ONLY",
+  "code_sha": "46ef2f7b012d82314d6f324d9c6c03cd24cf947c",
+  "business_acceptance": "BLOCKED",
+  "files": [
+    {
+      "path": "PUBLIC_ENGINEERING_SUMMARY.md",
+      "sha256": "a43bb7c3b4f60a03c77913e2c8732c1b97102e8ca6f29329d1fe3c93b0548a96",
+      "bytes": 6555
+    },
+    {
+      "path": "safe-summary.json",
+      "sha256": "fc35100555d7cadaaaf8fee0196636603c79648ab54648833a828211fccbaa7c",
+      "bytes": 10600
+    }
+  ],
+  "public_field_allowlist": [
+    "code/lock hashes",
+    "test names and counts",
+    "bounded failure codes/statuses",
+    "UTC timestamps and measured durations",
+    "synthetic table/file hashes and counts",
+    "explicit synthetic budget amounts",
+    "scope limitations"
+  ],
+  "excluded": [
+    "all SQLite/DBOS databases, WAL, SHM, raw material and backup bundles",
+    "bootstrap/reproduction scripts and original logs/XML/command files",
+    "session cookies, CSRF, auth tokens, review epochs and restore acknowledgment token",
+    "IdP keys, credentials, environment values, actor/subject IDs and private result/event payloads"
+  ],
+  "source_evidence": "raw artifact SHA256 only in safe-summary; no raw files authorized for publication",
+  "reproduction": "REPRODUCE.md is internal only, not an archive member"
+}

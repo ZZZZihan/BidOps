@@ -1,0 +1,5 @@
+# DBOS-only overlay; leave the frozen project OpenAI dependencies unchanged.
+# Shared versions are constrained to the baseline uv.lock snapshot.
+-c ../reports/evidence/b05-backend-selection/baseline-constraints.txt
+pydantic-ai-slim[dbos]==2.59.0
+dbos==3.3.0

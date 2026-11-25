@@ -58,3 +58,20 @@ test('mobile layout has no horizontal overflow and usable input', async ({ page 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   await expect(page.getByRole('button', {name: '新对话'})).toBeVisible();
 });
+
+test('read pages expose full count and truncation including the last page', async ({ page }) => {
+  await status(page, true, 101);
+  const card = {project_code: 'UNIT-MULTI', title: '工程界面夹具', buyer_name: null, budget_yuan: '43', bid_deadline_at: null, published_at: null, document_deadline_at: null, package_count: 0, packages: [], eligibility: [], source_url: 'https://example.invalid/unit', source_observed_at: '2026-10-22T00:00:00Z', citations: []};
+  await page.route('**/api/agent/chat', route => route.fulfill({json: {
+    run_id: 'unit-pagination', session_id: 'unit-session', response_mode: 'review_required', focus: 'budget', message: '历史版本需要人工核对。',
+    blocks: [{id: 'r1', operation: 'read', total: 101, offset: 100, limit: 100, has_more: false, truncated: true, items: [card], metrics: {}, missing_project_codes: []}],
+    trace: [], usage: {input_tokens: 0, output_tokens: 0, estimated_cost_cny_peak: 0}, elapsed_ms: 0, model: 'offline-ui-protocol', warnings: [],
+  }}));
+  await page.goto('/');
+  await page.getByRole('textbox').fill('查看历史版本末页');
+  await page.getByRole('button', {name: '发送问题'}).click();
+  await expect(page.locator('.result-count')).toContainText('匹配 101 条');
+  await expect(page.locator('.result-count')).toContainText('展示第 101–101 条（1 条）');
+  await expect(page.locator('.result-count')).toContainText('结果已截断');
+  await expect(page.locator('.result-count')).toContainText('读取其他页');
+});

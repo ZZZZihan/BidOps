@@ -1,0 +1,195 @@
+{
+  "run_id": "1f5a8f34600c4d0e93b9f5510b706de6",
+  "status": "waiting_review",
+  "result_id": "c9e5075a9d1245d2bda761fe5410c8de",
+  "result_revision": "0b06573554f445a083707fce20da3f4f",
+  "result_body_sha256": "da42c66cd820faf63bfe919f80eaf560612952ee5c32afb79d8faaafd9210ef7",
+  "inputs_manifest_sha256": "94e494f13c46a05604edddf52de0ed6c7ca5aca3a859f24f4983eb32411d10af",
+  "usage": {
+    "requested_model": "deepseek-flash",
+    "actual_models": [
+      "deepseek-flash"
+    ],
+    "model_calls": 9,
+    "confirmed_calls": 9,
+    "unknown_calls": 0,
+    "orphan_reservations": 0,
+    "input_tokens": 900,
+    "output_tokens": 90,
+    "estimated_cost_cny": "0.00252",
+    "reserved_cost_cny": "0",
+    "usage_complete": true,
+    "model_identity_complete": true,
+    "offline": false
+  },
+  "checkpoints": [
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6",
+      1,
+      "bidops_qualification_calculation_v1",
+      0,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6",
+      2,
+      "DBOS.getResult",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6",
+      3,
+      "bidops_job_waiting_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6",
+      5,
+      "DBOS.sleep",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      1,
+      "bidops_job_started_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      2,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      3,
+      "bidops_job_extraction_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      4,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      5,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      6,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      7,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      8,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      9,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      10,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      11,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      12,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      13,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      14,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      15,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      16,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      17,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      18,
+      "bidops_job_progress_v1",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      19,
+      "bidops_job_assessment_v1__model.request",
+      1,
+      0
+    ],
+    [
+      "1f5a8f34600c4d0e93b9f5510b706de6-calculation",
+      20,
+      "bidops_job_result_v1",
+      1,
+      0
+    ]
+  ]
+}

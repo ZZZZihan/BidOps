@@ -1,0 +1,277 @@
+{
+  "code_sha": "509e8007218c306d0e0639d96317537676570a0b",
+  "tree_sha": "95f7df25bb516d9f337c4475428190e6b4bcebae",
+  "status": "PASS",
+  "source_kind": "synthetic_engineering_only",
+  "real_model_calls": 0,
+  "actual_cost_cny": "0",
+  "warning": "The deepseek-flash model name, usage, offline=false and fee values in six recovery receipts are explicitly synthetic accounting fixtures, not actual provider calls or charges. The worker blocks all socket connect/sendto and Pydantic AI external requests.",
+  "cases": [
+    {
+      "window": "before_model",
+      "source": "synthetic_offline_FunctionModel_with_network_denied",
+      "process_ids": [
+        6823,
+        6828,
+        6836
+      ],
+      "application_versions": [
+        "37745e749ec40e0899dd910be665eae7801b9932464bb89937b28acfe94784ac"
+      ],
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "local_model_calls": 9,
+      "run_id": "0685602f6a4843278748f4a893e3f4bc",
+      "result_id": "0eacd6827c4349ae92dc15442b2fa595",
+      "result_revision": "93279bb537d441468a386b0220dae9a6",
+      "result_body_sha256": "909c1aeb067500f40349fa66244854223867f4f8508d95b59d619b347c8288ec",
+      "inputs_manifest_sha256": "32399994fa0f79237fee5834597f00d7f177cfc753ed9c1ff9b38d3ebcde77fb",
+      "synthetic_usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 10,
+        "confirmed_calls": 9,
+        "unknown_calls": 1,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0.593536",
+        "usage_complete": false,
+        "model_identity_complete": false,
+        "offline": false
+      },
+      "third_read_same_result": true
+    },
+    {
+      "window": "response_before_receipt",
+      "source": "synthetic_offline_FunctionModel_with_network_denied",
+      "process_ids": [
+        6841,
+        6845,
+        6911
+      ],
+      "application_versions": [
+        "37745e749ec40e0899dd910be665eae7801b9932464bb89937b28acfe94784ac"
+      ],
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "local_model_calls": 10,
+      "run_id": "d39f1abbf6a64b238acaa3c43797ad58",
+      "result_id": "f8ff7f8a82b34202a3cc4886adc4d7b1",
+      "result_revision": "9008931af16642c291b98d8b36ea36b3",
+      "result_body_sha256": "942bc68396bea0f0124ccb78d6f9ab12abe7c1f9ee0882067646fd217e875f27",
+      "inputs_manifest_sha256": "4fc7461e580663f5bc190fa19f6d19dc1e29bf985ca852b231fa0ec3f067f9e3",
+      "synthetic_usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 10,
+        "confirmed_calls": 9,
+        "unknown_calls": 1,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0.593536",
+        "usage_complete": false,
+        "model_identity_complete": false,
+        "offline": false
+      },
+      "third_read_same_result": true
+    },
+    {
+      "window": "receipt_before_accounting",
+      "source": "synthetic_offline_FunctionModel_with_network_denied",
+      "process_ids": [
+        6952,
+        6963,
+        6970
+      ],
+      "application_versions": [
+        "37745e749ec40e0899dd910be665eae7801b9932464bb89937b28acfe94784ac"
+      ],
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "local_model_calls": 9,
+      "run_id": "5e3d7e7747ce4082b589051a5a5ce677",
+      "result_id": "1d846b985edf40c8a48a9595d101f906",
+      "result_revision": "9d78b4b6e32243ac9778c457ddaac6d1",
+      "result_body_sha256": "e652f8af931a9f2a8ed5e8388c80e009d4ee5d6bb606c735bb66a36eaa8c6524",
+      "inputs_manifest_sha256": "4d95ef10618d81acc34150a34d2b8cef4ec4231c4cc99d33293f38add2222b7a",
+      "synthetic_usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      },
+      "third_read_same_result": true
+    },
+    {
+      "window": "accounting_before_checkpoint",
+      "source": "synthetic_offline_FunctionModel_with_network_denied",
+      "process_ids": [
+        6973,
+        6982,
+        7045
+      ],
+      "application_versions": [
+        "37745e749ec40e0899dd910be665eae7801b9932464bb89937b28acfe94784ac"
+      ],
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "local_model_calls": 9,
+      "run_id": "a29ec89d51e64e74a419ec704993fe83",
+      "result_id": "fdc1646190a74dd799b0c0b1417c1191",
+      "result_revision": "3f3a46ee17254be183d562b74991b2ff",
+      "result_body_sha256": "260c5d125eb2f7c84e880c5a8bc00aaf5a1139de3bcfc7c1bc033a5d917d2d3a",
+      "inputs_manifest_sha256": "d582f19a1ad6141e875e673c247806a2ddb2d4c635624b4a414b89838217065d",
+      "synthetic_usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      },
+      "third_read_same_result": true
+    },
+    {
+      "window": "before_result_commit",
+      "source": "synthetic_offline_FunctionModel_with_network_denied",
+      "process_ids": [
+        7049,
+        7080,
+        7095
+      ],
+      "application_versions": [
+        "37745e749ec40e0899dd910be665eae7801b9932464bb89937b28acfe94784ac"
+      ],
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "local_model_calls": 9,
+      "run_id": "213d8264abc848b086bdf94929e66b1e",
+      "result_id": "4eb551714d5a4a77aebbd9f06051d6c5",
+      "result_revision": "213922bd263b4691abb76edef034c140",
+      "result_body_sha256": "e01fd214be00ffc64a67019cf980def85067d33d7737e158a6edd8ef1b365de5",
+      "inputs_manifest_sha256": "5c9953ed5c7552e4227d6fc1494cd199dc6fb2b2c9594ca0410bb33410894820",
+      "synthetic_usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      },
+      "third_read_same_result": true
+    },
+    {
+      "window": "after_result_commit",
+      "source": "synthetic_offline_FunctionModel_with_network_denied",
+      "process_ids": [
+        7112,
+        7152,
+        7207
+      ],
+      "application_versions": [
+        "37745e749ec40e0899dd910be665eae7801b9932464bb89937b28acfe94784ac"
+      ],
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "local_model_calls": 9,
+      "run_id": "1f5a8f34600c4d0e93b9f5510b706de6",
+      "result_id": "c9e5075a9d1245d2bda761fe5410c8de",
+      "result_revision": "0b06573554f445a083707fce20da3f4f",
+      "result_body_sha256": "da42c66cd820faf63bfe919f80eaf560612952ee5c32afb79d8faaafd9210ef7",
+      "inputs_manifest_sha256": "94e494f13c46a05604edddf52de0ed6c7ca5aca3a859f24f4983eb32411d10af",
+      "synthetic_usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0.00252",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": false
+      },
+      "third_read_same_result": true
+    },
+    {
+      "window": "waiting_review",
+      "source": "synthetic_offline_FunctionModel_with_network_denied",
+      "process_ids": [
+        7213,
+        7274,
+        7290
+      ],
+      "application_versions": [
+        "37745e749ec40e0899dd910be665eae7801b9932464bb89937b28acfe94784ac"
+      ],
+      "real_model_calls": 0,
+      "actual_cost_cny": "0",
+      "local_model_calls": 9,
+      "run_id": "9fa12e5dbca942e781203e4a9cccaa9b",
+      "result_id": "a9d01868676646fa98a28f7b12b47b91",
+      "result_revision": "b3555e49b82949cdbcebde390bac4c9a",
+      "result_body_sha256": "634a804f44e9299d6a4873d82253749dc34188b284dbd075f1332299058beabd",
+      "inputs_manifest_sha256": "be5f81ba3ce4d2a7174285d3ba39e6ffc3ba178b797e32cd9c9a899f93f357e8",
+      "synthetic_usage": {
+        "requested_model": "deepseek-flash",
+        "actual_models": [
+          "deepseek-flash"
+        ],
+        "model_calls": 9,
+        "confirmed_calls": 9,
+        "unknown_calls": 0,
+        "orphan_reservations": 0,
+        "input_tokens": 900,
+        "output_tokens": 90,
+        "estimated_cost_cny": "0",
+        "reserved_cost_cny": "0",
+        "usage_complete": true,
+        "model_identity_complete": true,
+        "offline": true
+      },
+      "third_read_same_result": true
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "baseline_commit": "0ff9413cff5e3cb13b85697e5a0c9181e4b86658",
+  "runtime_observed_utc": "2026-10-23T01:59:38.444883+00:00",
+  "scope": "Engineering checks of a standalone read-only checker; no original historical asset acceptance.",
+  "input_class": "Explicit TOOL-ONLY temporary fixtures and absent original input paths.",
+  "python_version": "3.12.14",
+  "sqlite_version": "3.53.1",
+  "ruff_version": "ruff 0.17.1",
+  "file_sha256": {
+    "scripts/legacy_preflight.py": "475ebf102e6406b1dd1b67c3665f8d60b430cda0bed8ffd25f5291072a6234f7",
+    "tests/test_legacy_preflight.py": "8a0d2b366f3e2d9d9ffb4df2979f6a04bc8ed4adb43d016ac6d1aa3ad66303d6",
+    "data/seeds/p0-capture-20261022.expected.json": "f722bf3269ce2c6b98a56a2f04a4ad87a2b7c1b07ff15f2f348c2ef75064d5ad"
+  },
+  "checks": [
+    {
+      "name": "unit_tests",
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_legacy_preflight.py",
+        "-v"
+      ],
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "stdout": "",
+      "stderr": "test_capture_and_full_modes_record_exact_expected_file_hash (test_legacy_preflight.TestLegacyPreflight.test_capture_and_full_modes_record_exact_expected_file_hash) ... ok\ntest_expected_capture_is_public_fingerprint_metadata_only (test_legacy_preflight.TestLegacyPreflight.test_expected_capture_is_public_fingerprint_metadata_only) ... ok\ntest_expected_metadata_rejects_invalid_shapes_and_sample_identities (test_legacy_preflight.TestLegacyPreflight.test_expected_metadata_rejects_invalid_shapes_and_sample_identities) ... ok\ntest_ledger_only_counts_costs_without_raw_or_history_and_preserves_bytes (test_legacy_preflight.TestLegacyPreflight.test_ledger_only_counts_costs_without_raw_or_history_and_preserves_bytes) ... ok\ntest_ledger_only_does_not_expose_private_table_names_or_unknown_states (test_legacy_preflight.TestLegacyPreflight.test_ledger_only_does_not_expose_private_table_names_or_unknown_states) ... ok\ntest_ledger_only_is_independent_of_unrelated_schema_migration_columns (test_legacy_preflight.TestLegacyPreflight.test_ledger_only_is_independent_of_unrelated_schema_migration_columns) ... ok\ntest_malformed_ledger_is_fail_without_changing_source (test_legacy_preflight.TestLegacyPreflight.test_malformed_ledger_is_fail_without_changing_source) ... ok\ntest_missing_inputs_are_blocked (test_legacy_preflight.TestLegacyPreflight.test_missing_inputs_are_blocked) ... ok\ntest_nonempty_wal_and_journal_are_refused_without_deleting_them (test_legacy_preflight.TestLegacyPreflight.test_nonempty_wal_and_journal_are_refused_without_deleting_them) ... ok\ntest_null_citation_snapshot_is_not_counted_as_verified (test_legacy_preflight.TestLegacyPreflight.test_null_citation_snapshot_is_not_counted_as_verified) ... ok\ntest_snapshot_metadata_shape_and_nonfinite_json_return_structured_failure (test_legacy_preflight.TestLegacyPreflight.test_snapshot_metadata_shape_and_nonfinite_json_return_structured_failure) ... ok\ntest_sqlite_connection_rejects_writes_and_enables_read_barriers (test_legacy_preflight.TestLegacyPreflight.test_sqlite_connection_rejects_writes_and_enables_read_barriers) ... ok\ntest_unconfirmed_snapshot_is_blocked (test_legacy_preflight.TestLegacyPreflight.test_unconfirmed_snapshot_is_blocked) ... ok\ntest_wal_created_during_inspection_is_refused (test_legacy_preflight.TestLegacyPreflight.test_wal_created_during_inspection_is_refused) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.082s\n\nOK\n",
+      "tool_check_status": "PASS",
+      "test_count": 14
+    },
+    {
+      "name": "ruff_check",
+      "command": [
+        "ruff",
+        "check",
+        "scripts/legacy_preflight.py",
+        "tests/test_legacy_preflight.py"
+      ],
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "stdout": "All checks passed!\n",
+      "stderr": "",
+      "tool_check_status": "PASS"
+    },
+    {
+      "name": "ruff_format",
+      "command": [
+        "ruff",
+        "format",
+        "--check",
+        "scripts/legacy_preflight.py",
+        "tests/test_legacy_preflight.py"
+      ],
+      "expected_exit_code": 0,
+      "actual_exit_code": 0,
+      "stdout": "2 files already formatted\n",
+      "stderr": "",
+      "tool_check_status": "PASS"
+    },
+    {
+      "name": "missing_original_capture",
+      "command": [
+        "python3",
+        "scripts/legacy_preflight.py",
+        "--capture",
+        "data/artifacts/p0-capture-20261022"
+      ],
+      "expected_exit_code": 2,
+      "actual_exit_code": 2,
+      "stdout": "{\n  \"scope\": \"read-only structural preflight, not historical migration acceptance\",\n  \"b02_06_status\": \"NOT_EVALUATED\",\n  \"e06_status\": \"NOT_EVALUATED\",\n  \"new_model_calls\": 0,\n  \"database_writes\": 0,\n  \"expected_reference_sha256\": \"f722bf3269ce2c6b98a56a2f04a4ad87a2b7c1b07ff15f2f348c2ef75064d5ad\",\n  \"expected_reference_limit\": \"Compare this digest with the pinned public metadata; custom expectations do not authenticate the original six notices.\",\n  \"capture\": {\n    \"status\": \"BLOCKED\",\n    \"reason\": \"capture manifest.json is missing\"\n  },\n  \"preflight_status\": \"BLOCKED\"\n}\n",
+      "stderr": "",
+      "tool_check_status": "PASS"
+    },
+    {
+      "name": "missing_real_ledger",
+      "command": [
+        "python3",
+        "scripts/legacy_preflight.py",
+        "--database",
+        "data/processed/bidops.sqlite3",
+        "--snapshot-confirmed",
+        "--ledger-only"
+      ],
+      "expected_exit_code": 2,
+      "actual_exit_code": 2,
+      "stdout": "{\n  \"scope\": \"read-only structural preflight, not historical migration acceptance\",\n  \"b02_06_status\": \"NOT_EVALUATED\",\n  \"e06_status\": \"NOT_EVALUATED\",\n  \"new_model_calls\": 0,\n  \"database_writes\": 0,\n  \"database\": {\n    \"status\": \"BLOCKED\",\n    \"reason\": \"business database file is missing\"\n  },\n  \"preflight_status\": \"BLOCKED\"\n}\n",
+      "stderr": "",
+      "tool_check_status": "PASS"
+    }
+  ],
+  "complete_application_regression": "NOT_RUN locally; new PR CI is separate",
+  "b02_06_status": "BLOCKED",
+  "e06_status": "BLOCKED",
+  "actual_model_calls": 0,
+  "actual_source_fetches": 0,
+  "real_database_access": false,
+  "real_migration_executed": false,
+  "real_rollback_executed": false,
+  "ledger_reset": false,
+  "limitations": [
+    "Fixtures test checker behavior only; they are not historical six-notice data.",
+    "Existing 2175 backend / 159 browser results belong to the baseline, not this run.",
+    "A missing-input check passes when it correctly returns BLOCKED; the underlying acceptance remains BLOCKED.",
+    "Full typed history, original locator/quote ranges, old service rollback and provider reconciliation need real inputs."
+  ]
+}

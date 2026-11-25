@@ -1,0 +1,38 @@
+[
+  {
+    "function_id": 1,
+    "function_name": "bidops_probe_agent__model.request",
+    "output": null,
+    "error": null,
+    "child_workflow_id": null,
+    "started_at_epoch_ms": 1792692856433,
+    "completed_at_epoch_ms": 1792692856435
+  },
+  {
+    "function_id": 2,
+    "function_name": "checkpoint_gate",
+    "output": null,
+    "error": null,
+    "child_workflow_id": null,
+    "started_at_epoch_ms": 1792692858045,
+    "completed_at_epoch_ms": 1792692858046
+  },
+  {
+    "function_id": 3,
+    "function_name": "bidops_probe_agent__model.request",
+    "output": null,
+    "error": null,
+    "child_workflow_id": null,
+    "started_at_epoch_ms": 1792692858050,
+    "completed_at_epoch_ms": 1792692858052
+  },
+  {
+    "function_id": 4,
+    "function_name": "final_step",
+    "output": null,
+    "error": null,
+    "child_workflow_id": null,
+    "started_at_epoch_ms": 1792692858054,
+    "completed_at_epoch_ms": 1792692858055
+  }
+]

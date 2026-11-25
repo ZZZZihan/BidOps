@@ -1,0 +1,41 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "tree_sha": "a45142d6b4878853f297a8ea717e6fad70879d6d",
+  "snapshot_at": "2026-10-22T22:09:30.096316+00:00",
+  "local_final_status": "PASS",
+  "local_backend_passed": 2133,
+  "local_backend_failed": 0,
+  "local_pytest_seconds": "602.81",
+  "commands_exit_codes": [
+    0,
+    0,
+    0,
+    0
+  ],
+  "format_files": 256,
+  "working_tree_clean_after": true,
+  "local_started_at": "2026-10-22T21:48:39.756853+00:00",
+  "local_ended_at": "2026-10-22T21:58:46.375013+00:00",
+  "local_g02": "PASS_LOCAL_FINAL_CHECKS",
+  "remote_g02": "PASS_CURRENT_CODE_THREE_JOBS",
+  "current_ci_evidence": "final-code-ci.json",
+  "current_cli": "ACTUALLY_EXECUTED_0_2_2_65UPSTREAM_SIXBLOCKED_NO_GO",
+  "current_cli_evidence": "clock-cli-verification.json",
+  "B10_01_engineering_C": "PASS_CLOSED_LOCAL_AND_CI",
+  "B10_02_through_06_real_business": "BLOCKED",
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "no_report_agent_tests_or_network": true,
+  "engineering_g02": "PASS",
+  "current_ci": {
+    "workflow": 39860218830,
+    "status": "completed",
+    "conclusion": "success",
+    "backend_passed": 2133,
+    "backend_pytest_seconds": "1042.83",
+    "frontend_passed": 152,
+    "frontend_reported_minutes": "2.1",
+    "container": "success"
+  },
+  "local_and_ci_duration_scope": "Local pytest602.81s versus LinuxCI pytest1042.83s; distinct environments. CI frontend2.1m is the reported browser-suite duration."
+}

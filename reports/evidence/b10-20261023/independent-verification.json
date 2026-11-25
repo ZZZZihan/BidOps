@@ -1,0 +1,140 @@
+{
+  "kind": "independent_offline_engineering_verification",
+  "executor": "b01_eval_audit",
+  "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+  "tree_sha": "08a848f3cca184b63ddd775dee169448062f60a7",
+  "clean_before": true,
+  "clean_after": true,
+  "environment": "explicit allowlist; no inherited BIDOPS/provider variables or env files",
+  "actual_model_id": null,
+  "model_calls": 0,
+  "source_calls": 0,
+  "estimated_cost_cny": "0",
+  "commands": [
+    {
+      "name": "schema",
+      "command": [
+        "<B10_WORKTREE>/.venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--schema"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:13:44.362487+00:00",
+      "end": "2026-10-22T21:13:44.958301+00:00",
+      "elapsed_seconds": 0.595707,
+      "exit_code": 0,
+      "stderr_empty": true,
+      "log": "schema.json"
+    },
+    {
+      "name": "template",
+      "command": [
+        "<B10_WORKTREE>/.venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--template"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:13:44.959164+00:00",
+      "end": "2026-10-22T21:13:45.366973+00:00",
+      "elapsed_seconds": 0.4078,
+      "exit_code": 0,
+      "stderr_empty": true,
+      "log": "template.json"
+    },
+    {
+      "name": "empty-environment",
+      "command": [
+        "<B10_WORKTREE>/.venv/bin/python",
+        "scripts/enterprise_readiness.py"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:13:45.367523+00:00",
+      "end": "2026-10-22T21:13:45.797722+00:00",
+      "elapsed_seconds": 0.430191,
+      "exit_code": 2,
+      "stderr_empty": true,
+      "log": "empty-environment.json"
+    },
+    {
+      "name": "targeted-tests",
+      "command": [
+        "<B10_WORKTREE>/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q",
+        "tests/test_uat_environment.py",
+        "tests/test_uat_evidence.py",
+        "tests/test_uat_cli.py",
+        "--basetemp",
+        "<PRIVATE_PYTEST_ROOT>"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:13:45.798240+00:00",
+      "end": "2026-10-22T21:13:49.109171+00:00",
+      "elapsed_seconds": 3.310919,
+      "exit_code": 0,
+      "stderr_empty": true,
+      "log": "targeted-tests.txt"
+    },
+    {
+      "name": "targeted-lint",
+      "command": [
+        "<B10_WORKTREE>/.venv/bin/ruff",
+        "check",
+        "backend/bidops/uat",
+        "scripts/enterprise_readiness.py",
+        "tests/test_uat_environment.py",
+        "tests/test_uat_evidence.py",
+        "tests/test_uat_cli.py"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:13:49.109632+00:00",
+      "end": "2026-10-22T21:13:49.156602+00:00",
+      "elapsed_seconds": 0.046961,
+      "exit_code": 0,
+      "stderr_empty": true,
+      "log": "targeted-lint.txt"
+    },
+    {
+      "name": "targeted-format",
+      "command": [
+        "<B10_WORKTREE>/.venv/bin/ruff",
+        "format",
+        "--check",
+        "backend/bidops/uat",
+        "scripts/enterprise_readiness.py",
+        "tests/test_uat_environment.py",
+        "tests/test_uat_evidence.py",
+        "tests/test_uat_cli.py"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:13:49.156938+00:00",
+      "end": "2026-10-22T21:13:49.170611+00:00",
+      "elapsed_seconds": 0.013665,
+      "exit_code": 0,
+      "stderr_empty": true,
+      "log": "targeted-format.txt"
+    },
+    {
+      "name": "unexecuted-bundle",
+      "command": [
+        "<B10_WORKTREE>/.venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--bundle",
+        "<GENERATED_TEMPLATE>",
+        "--evidence-root",
+        "<PRIVATE_EMPTY_EVIDENCE_ROOT>"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:13:49.170906+00:00",
+      "end": "2026-10-22T21:13:49.634726+00:00",
+      "elapsed_seconds": 0.463834,
+      "exit_code": 2,
+      "stderr_empty": true,
+      "log": "unexecuted-bundle.json"
+    }
+  ],
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "scope": "89 synthetic engineering tests and offline CLI; no real enterprise UAT"
+}

@@ -1,0 +1,268 @@
+{
+  "created_at_utc": "2026-10-22T18:16:12.099846+00:00",
+  "status": "PASS",
+  "scope": "local installed package metadata and exact lock/hash comparison; no resolver, network or installation invoked",
+  "dependency_count": 28,
+  "shared_count": 20,
+  "new_count": 8,
+  "all_pins_have_hashes": true,
+  "version_and_hash_sets_equal_original_lock": true,
+  "transitive_closure_exact_for_python_runtime": true,
+  "all_installed_versions_match": true,
+  "all_shared_versions_match_uv_lock": true,
+  "uv_lock_sha256": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+  "shared_distributions": {
+    "annotated-types": "0.8.0",
+    "anyio": "4.15.1",
+    "click": "8.5.0",
+    "genai-prices": "0.1.13",
+    "griffelib": "2.4.1",
+    "h11": "0.16.0",
+    "httpcore2": "2.16.0",
+    "httpx2": "2.16.0",
+    "idna": "3.20",
+    "logfire-api": "5.2.0",
+    "opentelemetry-api": "1.45.1",
+    "pydantic": "2.14.1",
+    "pydantic-ai-slim": "2.59.0",
+    "pydantic-core": "2.50.1",
+    "pydantic-graph": "2.59.0",
+    "pyyaml": "6.0.3",
+    "sqlalchemy": "2.1.6",
+    "truststore": "0.10.5",
+    "typing-extensions": "4.16.0",
+    "typing-inspection": "0.4.4"
+  },
+  "new_distributions": {
+    "croniter": "6.2.4",
+    "dbos": "3.3.0",
+    "greenlet": "3.5.6",
+    "psycopg": "3.3.6",
+    "psycopg-binary": "3.3.6",
+    "python-dateutil": "3.0.0",
+    "six": "1.17.0",
+    "tzdata": "2026.5"
+  },
+  "active_dependency_edges": [
+    {
+      "from": "dbos",
+      "requirement": "pyyaml>=6.0.2",
+      "resolved_version": "6.0.3"
+    },
+    {
+      "from": "dbos",
+      "requirement": "python-dateutil>=2.9.0.post0",
+      "resolved_version": "3.0.0"
+    },
+    {
+      "from": "dbos",
+      "requirement": "croniter>=6.2.4",
+      "resolved_version": "6.2.4"
+    },
+    {
+      "from": "dbos",
+      "requirement": "psycopg[binary]>=3.1",
+      "resolved_version": "3.3.6"
+    },
+    {
+      "from": "dbos",
+      "requirement": "click>=8.1",
+      "resolved_version": "8.5.0"
+    },
+    {
+      "from": "dbos",
+      "requirement": "sqlalchemy[asyncio]>=2.0.43",
+      "resolved_version": "2.1.6"
+    },
+    {
+      "from": "sqlalchemy",
+      "requirement": "typing-extensions>=4.6.0",
+      "resolved_version": "4.16.0"
+    },
+    {
+      "from": "sqlalchemy",
+      "requirement": "greenlet>=1; extra == \"asyncio\"",
+      "resolved_version": "3.5.6"
+    },
+    {
+      "from": "psycopg",
+      "requirement": "typing-extensions>=4.6; python_version < \"3.13\"",
+      "resolved_version": "4.16.0"
+    },
+    {
+      "from": "psycopg",
+      "requirement": "psycopg-binary==3.3.6; implementation_name != \"pypy\" and extra == \"binary\"",
+      "resolved_version": "3.3.6"
+    },
+    {
+      "from": "croniter",
+      "requirement": "python-dateutil",
+      "resolved_version": "3.0.0"
+    },
+    {
+      "from": "python-dateutil",
+      "requirement": "six>=1.6",
+      "resolved_version": "1.17.0"
+    },
+    {
+      "from": "python-dateutil",
+      "requirement": "tzdata",
+      "resolved_version": "2026.5"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "anyio>=4.7.0",
+      "resolved_version": "4.15.1"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "genai-prices>=0.1.13",
+      "resolved_version": "0.1.13"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "griffelib>=2.0",
+      "resolved_version": "2.4.1"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "httpx2>=2.7",
+      "resolved_version": "2.16.0"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "opentelemetry-api>=1.28.0",
+      "resolved_version": "1.45.1"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "pydantic-graph==2.59.0",
+      "resolved_version": "2.59.0"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "pydantic>=2.12",
+      "resolved_version": "2.14.1"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "typing-inspection>=0.4.0",
+      "resolved_version": "0.4.4"
+    },
+    {
+      "from": "pydantic-ai-slim",
+      "requirement": "dbos>=2.10.0; extra == 'dbos'",
+      "resolved_version": "3.3.0"
+    },
+    {
+      "from": "typing-inspection",
+      "requirement": "typing-extensions>=4.15.0",
+      "resolved_version": "4.16.0"
+    },
+    {
+      "from": "pydantic",
+      "requirement": "annotated-types>=0.6.0",
+      "resolved_version": "0.8.0"
+    },
+    {
+      "from": "pydantic",
+      "requirement": "pydantic-core==2.50.1",
+      "resolved_version": "2.50.1"
+    },
+    {
+      "from": "pydantic",
+      "requirement": "typing-extensions>=4.16.0",
+      "resolved_version": "4.16.0"
+    },
+    {
+      "from": "pydantic",
+      "requirement": "typing-inspection>=0.4.4",
+      "resolved_version": "0.4.4"
+    },
+    {
+      "from": "pydantic-core",
+      "requirement": "typing-extensions>=4.16.0",
+      "resolved_version": "4.16.0"
+    },
+    {
+      "from": "pydantic-graph",
+      "requirement": "anyio>=4.7.0",
+      "resolved_version": "4.15.1"
+    },
+    {
+      "from": "pydantic-graph",
+      "requirement": "logfire-api>=3.14.1",
+      "resolved_version": "5.2.0"
+    },
+    {
+      "from": "pydantic-graph",
+      "requirement": "pydantic>=2.12",
+      "resolved_version": "2.14.1"
+    },
+    {
+      "from": "pydantic-graph",
+      "requirement": "typing-inspection>=0.4.0",
+      "resolved_version": "0.4.4"
+    },
+    {
+      "from": "anyio",
+      "requirement": "idna>=2.8",
+      "resolved_version": "3.20"
+    },
+    {
+      "from": "anyio",
+      "requirement": "typing_extensions>=4.16.0; python_version < \"3.15\"",
+      "resolved_version": "4.16.0"
+    },
+    {
+      "from": "opentelemetry-api",
+      "requirement": "typing-extensions>=4.5.0",
+      "resolved_version": "4.16.0"
+    },
+    {
+      "from": "httpx2",
+      "requirement": "anyio>=4.10; sys_platform != 'emscripten'",
+      "resolved_version": "4.15.1"
+    },
+    {
+      "from": "httpx2",
+      "requirement": "httpcore2==2.16.0; sys_platform != 'emscripten'",
+      "resolved_version": "2.16.0"
+    },
+    {
+      "from": "httpx2",
+      "requirement": "idna>=3.18",
+      "resolved_version": "3.20"
+    },
+    {
+      "from": "httpx2",
+      "requirement": "truststore>=0.10; sys_platform != 'emscripten'",
+      "resolved_version": "0.10.5"
+    },
+    {
+      "from": "httpx2",
+      "requirement": "typing-extensions>=4.5.0; python_version < '3.13'",
+      "resolved_version": "4.16.0"
+    },
+    {
+      "from": "httpcore2",
+      "requirement": "h11>=0.16",
+      "resolved_version": "0.16.0"
+    },
+    {
+      "from": "httpcore2",
+      "requirement": "truststore>=0.10",
+      "resolved_version": "0.10.5"
+    },
+    {
+      "from": "genai-prices",
+      "requirement": "httpx2>=2.0",
+      "resolved_version": "2.16.0"
+    },
+    {
+      "from": "genai-prices",
+      "requirement": "pydantic>=2.10",
+      "resolved_version": "2.14.1"
+    }
+  ]
+}

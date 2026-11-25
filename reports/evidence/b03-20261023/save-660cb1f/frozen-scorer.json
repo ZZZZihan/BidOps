@@ -1,0 +1,857 @@
+{
+  "status": "PASS",
+  "purpose": "engineering_fixture",
+  "started_at": "2026-10-22T18:00:58.714673+00:00",
+  "finished_at": "2026-10-22T18:00:58.765225+00:00",
+  "versions": {
+    "code_sha": "660cb1f766a4ac91f2a32ae4cabcc8c6bba54632",
+    "data_sha256": "eda43a451ae978251de4be003f1c062d1a4d3e93db9249c9c5458966628f44fb",
+    "profile_sha256": "ff951fa725c2ec5b1b981c1cc46c85493a4354903b4d0a69d92d54d6c0312202",
+    "prompt_version": "not_invoked:scorer_fixture",
+    "scorer_version": "enterprise-scorer-v1",
+    "actual_model_id": null,
+    "execution_kind": "scorer_fixture",
+    "model_calls": 0,
+    "input_tokens": 0,
+    "output_tokens": 0,
+    "estimated_cost_cny": "0",
+    "parameters": {}
+  },
+  "source_tree_dirty": false,
+  "dependencies": {
+    "pydantic": "2.14.1",
+    "pydantic-evals": "2.59.0",
+    "pydantic-ai-slim": "2.59.0"
+  },
+  "freeze": {
+    "status": "PASS",
+    "issues": [],
+    "failure_ids": [],
+    "protocol_id": "bidops-enterprise-evaluation",
+    "protocol_version": "1",
+    "frozen_at": "2026-10-22T16:40:25.351888+00:00",
+    "manifest_sha256": "22a2adf96f07b9a3e9c1493dae2cebbe2499b6e05db21f2b52855686c2afffea",
+    "counts": {
+      "expected_files": 18,
+      "verified_files": 18
+    }
+  },
+  "scorer": {
+    "scorer_version": "enterprise-scorer-v1",
+    "status": "PASS",
+    "counts": {
+      "registered_tasks": 5,
+      "task_state:completed": 5,
+      "completed_tasks": 5,
+      "valid_tasks": 5,
+      "expected_candidates": 4,
+      "recalled_candidates": 4,
+      "citations": 15,
+      "resolvable_citations": 15,
+      "quality_units": 5,
+      "hard_conditions": 4,
+      "recalled_hard_conditions": 4,
+      "decidable_conditions": 3,
+      "covered_decidable_conditions": 3,
+      "evidence_judgments": 5,
+      "supported_judgments": 5,
+      "definite_judgments": 3,
+      "wrong_definite_judgments": 0,
+      "correct_quality_units": 5,
+      "definite_packages": 3,
+      "wrong_definite_packages": 0,
+      "terminated_opportunities": 1,
+      "serious_opportunities:not_satisfied": 1,
+      "information_insufficient_gold": 1,
+      "information_insufficient_covered": 1,
+      "serious_opportunities:information_insufficient": 1,
+      "evidence_conflict_gold": 1,
+      "evidence_conflict_covered": 1,
+      "serious_opportunities:evidence_conflict": 1
+    },
+    "metrics": {
+      "candidate_recall_packages": {
+        "numerator": 4,
+        "denominator": 4,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "candidate_recall_families": {
+        "numerator": 4,
+        "denominator": 4,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "hard_condition_recall": {
+        "numerator": 4,
+        "denominator": 4,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "definite_error_rate_conditions": {
+        "numerator": 0,
+        "denominator": 3,
+        "value": 0.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "definite_error_rate_packages": {
+        "numerator": 0,
+        "denominator": 3,
+        "value": 0.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "decidable_coverage": {
+        "numerator": 3,
+        "denominator": 3,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "citation_resolution": {
+        "numerator": 15,
+        "denominator": 15,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "evidence_support": {
+        "numerator": 5,
+        "denominator": 5,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "quality": {
+        "numerator": 5,
+        "denominator": 5,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "completion": {
+        "numerator": 5,
+        "denominator": 5,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "information_insufficient_coverage": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "evidence_conflict_coverage": {
+        "numerator": 1,
+        "denominator": 1,
+        "value": 1.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "serious_false_satisfied:not_satisfied": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "serious_false_satisfied:information_insufficient": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "serious_false_satisfied:evidence_conflict": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "status": "PASS",
+        "failure_ids": []
+      },
+      "terminated_recommendation": {
+        "numerator": 0,
+        "denominator": 1,
+        "value": 0.0,
+        "status": "PASS",
+        "failure_ids": []
+      }
+    },
+    "p1_fields": {
+      "project_code": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      },
+      "source_url": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      },
+      "title": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      },
+      "buyer_name": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      },
+      "budget": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      },
+      "budget_unit": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      },
+      "bid_deadline_at": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      },
+      "notice_kind": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      },
+      "eligibility_excerpts": {
+        "counts": {
+          "registered": 5,
+          "known": 5,
+          "unknown": 0,
+          "explicit": 5,
+          "covered_known": 5,
+          "abstained": 0,
+          "correct_unknown": 0,
+          "correct": 5
+        },
+        "precision": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "recall": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "coverage": {
+          "numerator": 5,
+          "denominator": 5,
+          "value": 1.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "abstention": {
+          "numerator": 0,
+          "denominator": 5,
+          "value": 0.0,
+          "status": "PASS",
+          "failure_ids": []
+        },
+        "unknown_accuracy": {
+          "numerator": 0,
+          "denominator": 0,
+          "value": null,
+          "status": "BLOCKED",
+          "failure_ids": []
+        }
+      }
+    },
+    "serious_errors": [],
+    "version_errors": [],
+    "failure_ids": {},
+    "protocol_errors": [],
+    "rejected_attempts": [],
+    "rows": [
+      {
+        "task_id": "UNIT-0",
+        "condition_id": "license",
+        "expected": "satisfied",
+        "observed": "satisfied",
+        "identified": true,
+        "correct": true,
+        "supported": true,
+        "task_state": "completed"
+      },
+      {
+        "task_id": "UNIT-1",
+        "condition_id": "license",
+        "expected": "not_satisfied",
+        "observed": "not_satisfied",
+        "identified": true,
+        "correct": true,
+        "supported": true,
+        "task_state": "completed"
+      },
+      {
+        "task_id": "UNIT-2",
+        "condition_id": "license",
+        "expected": "information_insufficient",
+        "observed": "information_insufficient",
+        "identified": true,
+        "correct": true,
+        "supported": true,
+        "task_state": "completed"
+      },
+      {
+        "task_id": "UNIT-3",
+        "condition_id": "license",
+        "expected": "evidence_conflict",
+        "observed": "evidence_conflict",
+        "identified": true,
+        "correct": true,
+        "supported": true,
+        "task_state": "completed"
+      },
+      {
+        "task_id": "UNIT-4",
+        "condition_id": "license",
+        "expected": "not_applicable",
+        "observed": "not_applicable",
+        "identified": true,
+        "correct": true,
+        "supported": true,
+        "task_state": "completed"
+      }
+    ],
+    "business_acceptance": "NOT_ASSESSED",
+    "limitations": [
+      "Oracle support must come from independent review, not model labels.",
+      "No source permission, human identity or blinded sampling is proven by this scorer."
+    ]
+  },
+  "pydantic_evals": {
+    "cases": 5,
+    "failures": 0,
+    "assertions": {
+      "UNIT-0": {
+        "no_serious_error": true,
+        "no_version_error": true,
+        "valid_complete_output": true
+      },
+      "UNIT-1": {
+        "no_serious_error": true,
+        "no_version_error": true,
+        "valid_complete_output": true
+      },
+      "UNIT-2": {
+        "no_serious_error": true,
+        "no_version_error": true,
+        "valid_complete_output": true
+      },
+      "UNIT-3": {
+        "no_serious_error": true,
+        "no_version_error": true,
+        "valid_complete_output": true
+      },
+      "UNIT-4": {
+        "no_serious_error": true,
+        "no_version_error": true,
+        "valid_complete_output": true
+      }
+    }
+  },
+  "dataset_gate": {
+    "status": "BLOCKED",
+    "issues": [
+      {
+        "code": "missing_annotations",
+        "ids": [],
+        "status": "BLOCKED"
+      },
+      {
+        "code": "insufficient_real_notices",
+        "ids": [],
+        "status": "BLOCKED",
+        "observed": 0,
+        "required": 30
+      },
+      {
+        "code": "insufficient_notice_categories",
+        "ids": [],
+        "status": "BLOCKED",
+        "observed": 0,
+        "required": 3
+      },
+      {
+        "code": "insufficient_layouts",
+        "ids": [],
+        "status": "BLOCKED",
+        "observed": 0,
+        "required": 2
+      },
+      {
+        "code": "insufficient_historical",
+        "ids": [],
+        "status": "BLOCKED",
+        "observed": 0,
+        "required": 10
+      },
+      {
+        "code": "insufficient_selected_gold_records",
+        "ids": [],
+        "status": "BLOCKED",
+        "observed": 0,
+        "required": 20
+      },
+      {
+        "code": "insufficient_selected_gold_families",
+        "ids": [],
+        "status": "BLOCKED",
+        "observed": 0,
+        "required": 20
+      },
+      {
+        "code": "insufficient_future",
+        "ids": [],
+        "status": "BLOCKED",
+        "observed": 0,
+        "required": 10
+      },
+      {
+        "code": "missing_risk_coverage",
+        "ids": [],
+        "status": "BLOCKED",
+        "risk": "hard_disqualification",
+        "observed": 0,
+        "required": 3
+      },
+      {
+        "code": "missing_risk_coverage",
+        "ids": [],
+        "status": "BLOCKED",
+        "risk": "missing_qualification_evidence",
+        "observed": 0,
+        "required": 3
+      },
+      {
+        "code": "missing_risk_coverage",
+        "ids": [],
+        "status": "BLOCKED",
+        "risk": "conflicting_evidence",
+        "observed": 0,
+        "required": 3
+      },
+      {
+        "code": "missing_risk_coverage",
+        "ids": [],
+        "status": "BLOCKED",
+        "risk": "qualification_amendment",
+        "observed": 0,
+        "required": 3
+      },
+      {
+        "code": "missing_risk_coverage",
+        "ids": [],
+        "status": "BLOCKED",
+        "risk": "terminated",
+        "observed": 0,
+        "required": 3
+      },
+      {
+        "code": "missing_risk_coverage",
+        "ids": [],
+        "status": "BLOCKED",
+        "risk": "attachment_dependency",
+        "observed": 0,
+        "required": 3
+      },
+      {
+        "code": "engineering_fixture_not_real_acceptance",
+        "ids": [],
+        "status": "BLOCKED"
+      }
+    ],
+    "failure_ids": [],
+    "counts": {
+      "real_notices": 0,
+      "notice_categories": 0,
+      "layouts": 0,
+      "historical": 0,
+      "future": 0,
+      "selected_gold_records": 0,
+      "selected_gold_families": 0,
+      "risk_families": {
+        "hard_disqualification": 0,
+        "missing_qualification_evidence": 0,
+        "conflicting_evidence": 0,
+        "qualification_amendment": 0,
+        "terminated": 0,
+        "attachment_dependency": 0
+      }
+    },
+    "risk_family_ids": {
+      "hard_disqualification": [],
+      "missing_qualification_evidence": [],
+      "conflicting_evidence": [],
+      "qualification_amendment": [],
+      "terminated": [],
+      "attachment_dependency": []
+    },
+    "purpose": "engineering_fixture",
+    "candidate_pool_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "future_availability_exception_ref": null
+  },
+  "human_trials": {
+    "status": "BLOCKED",
+    "registered": 0,
+    "reason": "No actual independent human observations supplied."
+  },
+  "agent_score": null,
+  "business_acceptance": "BLOCKED",
+  "limits": [
+    "Synthetic oracle agreement calibrates the scorer, not an Agent.",
+    "B08 real data/gold/model/human evidence and B10 acceptance remain required."
+  ]
+}

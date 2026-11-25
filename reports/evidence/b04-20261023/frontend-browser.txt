@@ -1,0 +1,112 @@
+
+> bidops-ui@0.1.0 test:e2e
+> playwright test
+
+(node:88749) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[2m[WebServer] [22m(node:88774) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 39 tests using 12 workers
+
+(node:88776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88779) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88777) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88778) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88780) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88782) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88785) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88781) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88787) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88786) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88779) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88776) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88784) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88776) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88779) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88784) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88778) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88778) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88782) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88782) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88785) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88777) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88787) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88787) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88777) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88785) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88783) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88783) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88780) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88780) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88786) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88786) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:88781) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:88781) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   6 tests/enterprise.spec.ts:73:1 › OIDC failure is explicit and does not open a workspace (2.2s)
+  ✓  11 tests/company.spec.ts:152:1 › anonymous enterprise session does not expose private company controls (1.9s)
+  ✓   3 tests/screening.spec.ts:367:5 › screening is unavailable outside an authenticated enterprise workspace {"mode":"local"} (2.2s)
+  ✓   7 tests/enterprise.spec.ts:211:1 › identity API failure does not silently downgrade to a local anonymous demo (2.2s)
+  ✓   1 tests/enterprise.spec.ts:81:1 › viewer sees archive but no chat or audit controls (2.2s)
+  ✓  10 tests/enterprise.spec.ts:52:1 › unauthenticated enterprise only shows the SSO entry (2.3s)
+  ✓   8 tests/screening.spec.ts:344:1 › disabled screening is explicit and does not fetch company inputs or call models (2.3s)
+  ✓   5 tests/enterprise.spec.ts:99:1 › analyst restores private history after reload without calling the model (2.4s)
+  ✓   9 tests/enterprise.spec.ts:178:1 › administrator audit shows metadata, remains usable on mobile (2.4s)
+  ✓   2 tests/enterprise.spec.ts:139:1 › network recovery preserves the request key and csrf header (2.4s)
+  ✓   4 tests/archive.spec.ts:2:1 › archive sends full-catalog search and resets pagination (2.5s)
+  ✓  14 tests/screening.spec.ts:367:5 › screening is unavailable outside an authenticated enterprise workspace {"authenticated":false} (799ms)
+  ✓  17 tests/screening.spec.ts:496:1 › partial timeout exposes retained conditions, unresolved clauses, missing attachment and incomplete usage (1.2s)
+  ✓  15 tests/screening.spec.ts:379:1 › candidate requests pin the detail hash and fixed batch pagination preserves exclusions and unknowns (1.3s)
+  ✓  19 tests/screening.spec.ts:517:39 › saved-result 403 clears all private results and inputs on refresh (1.4s)
+  ✓  21 tests/screening.spec.ts:568:1 › missing model configuration leaves deterministic candidates usable and checklist disabled (1.3s)
+  ✓  16 tests/screening.spec.ts:424:1 › all five conditions, both evidence sides, logic and recorded versions stay visible without human approval (1.5s)
+  ✓  18 tests/screening.spec.ts:517:39 › saved-result 401 clears all private results and inputs on refresh (1.6s)
+  ✓  22 tests/screening.spec.ts:552:1 › turning the feature off removes saved private output and does not rerun a checklist (1.4s)
+  ✓  20 tests/screening.spec.ts:517:39 › saved-result 404 clears all private results and inputs on refresh (1.5s)
+  ✓  24 tests/screening.spec.ts:615:1 › failed assessment retains every extracted condition without fabricating judgments (853ms)
+  ✓  23 tests/screening.spec.ts:588:1 › saved run can be re-read without new model requests and mobile results do not overflow (1.5s)
+  ✓  29 tests/workbench.spec.ts:40:1 › empty corpus cannot be presented as a successful demo (532ms)
+  ✓  28 tests/workbench.spec.ts:25:1 › missing credential is explicit; model calls are disabled (557ms)
+  ✓  25 tests/screening.spec.ts:638:1 › source changes flag a stored result while preserving its original inputs and prompt version (925ms)
+  ✓  32 tests/workbench.spec.ts:96:1 › mobile layout has no horizontal overflow and usable input (502ms)
+  ✓  26 tests/screening.spec.ts:662:1 › refresh rechecks a selected private material even when its list returns an empty successful page (942ms)
+  ✓  33 tests/workbench.spec.ts:111:1 › read pages expose full count and truncation including the last page (610ms)
+  ✓  27 tests/screening.spec.ts:687:1 › saved batch exposes its own pinned profile and filters independently of the current form (797ms)
+  ✓  31 tests/workbench.spec.ts:71:1 › no browser interpretation of user HTML; Shift+Enter does not send (658ms)
+  ✓  30 tests/workbench.spec.ts:50:1 › provider error is readable and retry remains possible (735ms)
+  ✓  13 tests/company.spec.ts:164:1 › real backend saves profile versions, UTF8 materials, sources and bounded qualification results (2.9s)
+  ✓  34 tests/company.spec.ts:307:1 › real object grant and revoke cannot be bypassed by another account or an admin (1.2s)
+  ✓  12 tests/screening-real.spec.ts:193:1 › real candidate-to-checklist keeps five states, both source versions and owner isolation; rereads make no model calls (6.1s)
+  ✓  36 tests/screening-real.spec.ts:350:1 › real selected-material revocation clears metadata despite a successful list, before creating a run (724ms)
+  ✓  35 tests/company.spec.ts:378:1 › real 403 and refresh after revocation clear selected bodies, profile drafts, quotes and authorization metadata (1.8s)
+  ✓  37 tests/screening-real.spec.ts:392:1 › real provider failure preserves every extracted condition as incomplete and exposes its error code (1.2s)
+  ✓  38 tests/company.spec.ts:515:1 › refresh keeps an authorized selected fixed version when its row is on another page (738ms)
+  ✓  39 tests/company.spec.ts:560:1 › retention policies survive profile history pagination and unchanged material replacement (1.5s)
+
+  39 passed (14.6s)

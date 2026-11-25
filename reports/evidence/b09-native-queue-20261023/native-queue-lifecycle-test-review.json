@@ -1,0 +1,310 @@
+{
+  "schema_version": "native_queue_lifecycle_test_review_v1",
+  "status": "PASS",
+  "conclusion": "No blocking findings in the test-only lifecycle-wait fix; all original safety assertions remain and independent normal-speed targeted execution passed.",
+  "reviewed_at_utc": "2026-10-22T23:47:14.864428+00:00",
+  "review_scope": {
+    "repository_revision": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+    "stage": "precommit working-tree test patch on the stated base revision",
+    "changed_tracked_files": [
+      "tests/test_jobs_compute_queue.py"
+    ],
+    "production_change": false,
+    "backend_diff_from_base_exit_code": 0,
+    "reviewer_implemented_patch": false,
+    "human_business_acceptance": "BLOCKED",
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "ultra",
+    "actual_model_configuration_independently_verified": false
+  },
+  "patch": {
+    "path": "tests/test_jobs_compute_queue.py",
+    "sha256": "95cbaab11ce3222e1ed0569d9d2f381da18d81a0352764797569ffd6855b0e5e",
+    "base_file_sha256": "cedb06ddb89d059623937bccaaf7d1b88949f754b2fdc1b6c72d1931f902e4b5",
+    "binary_git_diff_sha256": "7727d478751cda6e9972780cb5c8edfeb08c30733cdd52e2532039349e0bfc4e",
+    "source_assertion_preservation": {
+      "submit_three": {
+        "original_source_assertions": 3,
+        "current_source_assertions": 3,
+        "all_original_assertions_retained": true
+      },
+      "test_native_calculation_queue_bounds_two_and_review_wait_frees_computation": {
+        "original_source_assertions": 6,
+        "current_source_assertions": 6,
+        "all_original_assertions_retained": true
+      },
+      "test_cancelled_inflight_call_holds_physical_slot_until_it_returns": {
+        "original_source_assertions": 6,
+        "current_source_assertions": 7,
+        "all_original_assertions_retained": true
+      },
+      "test_authorized_resume_returns_child_to_bounded_queue": {
+        "original_source_assertions": 4,
+        "current_source_assertions": 5,
+        "all_original_assertions_retained": true
+      },
+      "test_compute_setting_does_not_enable_unvalidated_parallelism": {
+        "original_source_assertions": 1,
+        "current_source_assertions": 1,
+        "all_original_assertions_retained": true
+      }
+    }
+  },
+  "execution": {
+    "started_at_utc": "2026-10-22T23:45:16.578127+00:00",
+    "finished_at_utc": "2026-10-22T23:45:50.970400+00:00",
+    "elapsed_seconds": 34.392179,
+    "exit_code": 0,
+    "base_head": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+    "pre_source_hashes": {
+      "tests/test_jobs_compute_queue.py": "95cbaab11ce3222e1ed0569d9d2f381da18d81a0352764797569ffd6855b0e5e",
+      "tests/test_jobs_runtime.py": "be54365449564f39e6a6eff2c1200c8d08681a1ac861445120551fb9cd57c66a",
+      "backend/bidops/jobs/runtime.py": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54",
+      "backend/bidops/jobs/config.py": "75a2deab2b102ef9c0e21b35c476846c14366d6796e7fda5a85f7e7951173b4a",
+      "backend/bidops/jobs/model.py": "4a46eeed67693dc6ed68cd726b84b75aaf222bf525089317b867b09f395b0163",
+      "backend/bidops/qualification/api.py": "fd4a79935d349abac45718a626482dd9d699b02a23d96893b836028898bfe46e",
+      "backend/bidops/qualification/service.py": "0a8d4bc800c92cf27e4cc4973118ec0b67c17ba36bf36effba79828c1fad8dee",
+      "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+      "requirements/durable.lock": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+      "requirements/attachments.lock": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"
+    },
+    "post_source_hashes": {
+      "tests/test_jobs_compute_queue.py": "95cbaab11ce3222e1ed0569d9d2f381da18d81a0352764797569ffd6855b0e5e",
+      "tests/test_jobs_runtime.py": "be54365449564f39e6a6eff2c1200c8d08681a1ac861445120551fb9cd57c66a",
+      "backend/bidops/jobs/runtime.py": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54",
+      "backend/bidops/jobs/config.py": "75a2deab2b102ef9c0e21b35c476846c14366d6796e7fda5a85f7e7951173b4a",
+      "backend/bidops/jobs/model.py": "4a46eeed67693dc6ed68cd726b84b75aaf222bf525089317b867b09f395b0163",
+      "backend/bidops/qualification/api.py": "fd4a79935d349abac45718a626482dd9d699b02a23d96893b836028898bfe46e",
+      "backend/bidops/qualification/service.py": "0a8d4bc800c92cf27e4cc4973118ec0b67c17ba36bf36effba79828c1fad8dee",
+      "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+      "requirements/durable.lock": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+      "requirements/attachments.lock": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"
+    },
+    "command_public": ".venv/bin/python -m pytest -q tests/test_jobs_compute_queue.py -o cache_dir=$RECOVERY_OUTPUT/pytest-cache --basetemp=$RECOVERY_OUTPUT/pytest-tmp --junitxml=$RECOVERY_OUTPUT/pytest.xml",
+    "raw_output_controlled_path": "work/native-queue-lifecycle-normal-01",
+    "pytest_log_sha256": "b4c2b5bbcebb2cb59538f361d83309efac9cd2c1bc03f0e931c0ddacc9949ecf",
+    "pytest_result": {
+      "passed": 6,
+      "failed": 0,
+      "warnings": 2,
+      "pytest_reported_seconds": 33.42
+    },
+    "cases": [
+      {
+        "name": "test_native_calculation_queue_bounds_two_and_review_wait_frees_computation",
+        "junit_case_seconds_including_fixture_lifecycle": 11.254,
+        "recorded_properties": {
+          "next_call_minus_observed_predecessor_success_seconds": 0.15652979200240225
+        }
+      },
+      {
+        "name": "test_cancelled_inflight_call_holds_physical_slot_until_it_returns",
+        "junit_case_seconds_including_fixture_lifecycle": 9.156,
+        "recorded_properties": {}
+      },
+      {
+        "name": "test_authorized_resume_returns_child_to_bounded_queue",
+        "junit_case_seconds_including_fixture_lifecycle": 12.171,
+        "recorded_properties": {
+          "next_call_minus_observed_predecessor_success_seconds": 0.6735251659993082
+        }
+      },
+      {
+        "name": "test_compute_setting_does_not_enable_unvalidated_parallelism[0]",
+        "junit_case_seconds_including_fixture_lifecycle": 0.001,
+        "recorded_properties": {}
+      },
+      {
+        "name": "test_compute_setting_does_not_enable_unvalidated_parallelism[3]",
+        "junit_case_seconds_including_fixture_lifecycle": 0.001,
+        "recorded_properties": {}
+      },
+      {
+        "name": "test_compute_setting_does_not_enable_unvalidated_parallelism[100]",
+        "junit_case_seconds_including_fixture_lifecycle": 0.001,
+        "recorded_properties": {}
+      }
+    ],
+    "all_pre_post_source_hashes_equal": true,
+    "production_and_lock_byte_comparison": {
+      "backend/bidops/jobs/runtime.py": {
+        "sha256": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54",
+        "matches_base_commit_bytes": true
+      },
+      "backend/bidops/jobs/config.py": {
+        "sha256": "75a2deab2b102ef9c0e21b35c476846c14366d6796e7fda5a85f7e7951173b4a",
+        "matches_base_commit_bytes": true
+      },
+      "backend/bidops/jobs/model.py": {
+        "sha256": "4a46eeed67693dc6ed68cd726b84b75aaf222bf525089317b867b09f395b0163",
+        "matches_base_commit_bytes": true
+      },
+      "backend/bidops/qualification/api.py": {
+        "sha256": "fd4a79935d349abac45718a626482dd9d699b02a23d96893b836028898bfe46e",
+        "matches_base_commit_bytes": true
+      },
+      "backend/bidops/qualification/service.py": {
+        "sha256": "0a8d4bc800c92cf27e4cc4973118ec0b67c17ba36bf36effba79828c1fad8dee",
+        "matches_base_commit_bytes": true
+      },
+      "uv.lock": {
+        "sha256": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+        "matches_base_commit_bytes": true
+      },
+      "requirements/durable.lock": {
+        "sha256": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+        "matches_base_commit_bytes": true
+      },
+      "requirements/attachments.lock": {
+        "sha256": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba",
+        "matches_base_commit_bytes": true
+      }
+    }
+  },
+  "findings": [
+    {
+      "status": "PASS",
+      "topic": "Separate computation completion from post-release admission",
+      "observation": "wait_for_calculations uses the existing screening max_seconds (90 seconds for this fixture), polls actual native child SUCCESS and rejects failed/interrupted/timed_out/cancelled business states or ERROR/CANCELLED native states. The original short 12-second wait still applies after observing predecessor completion."
+    },
+    {
+      "status": "PASS",
+      "topic": "Two calculations and third queued",
+      "observation": "Original submit_three assertions remain: two distinct actual model calls enter, the third calculation is ENQUEUED on the exact bounded native queue, its business state remains queued, and observed actual-model overlap is exactly two."
+    },
+    {
+      "status": "PASS",
+      "topic": "Cancellation retains the physical slot",
+      "observation": "Original cancellation assertions remain: native CANCELLED is observed, the cancelled provider coroutine remains active, the third call cannot enter while it is held, and the third starts only after it is released. Cancelled job remains terminal with no result and one model call; non-cancelled jobs now explicitly assert nine model calls each."
+    },
+    {
+      "status": "PASS",
+      "topic": "Authorized resume retains both native queues",
+      "observation": "Exact child calculation queue, ENQUEUED state, parent queue, and no-third-call-before-release assertions remain. Completed resumed and other jobs now explicitly assert nine calls each."
+    },
+    {
+      "status": "PASS",
+      "topic": "Results and waiting-review workflow lifecycle",
+      "observation": "Original assertions retain three distinct result IDs, nine calls per job, SUCCESS calculation children, PENDING waiting-review parents, parent queue names and peak overlap two. Shared test_jobs_runtime.wait_for and production guards/deadlines were not changed."
+    },
+    {
+      "status": "PASS",
+      "topic": "Safe failure diagnostics and observation semantics",
+      "observation": "New timeout snapshots contain task ordinal, business status/progress, native status and call count. Signed first-call minus observed predecessor-SUCCESS deltas are recorded honestly; these are polling observations, not exact slot-release or native dequeue timestamps."
+    },
+    {
+      "status": "NON_BLOCKING",
+      "topic": "JUnit formatting warnings",
+      "observation": "Two PytestWarning messages report record_property incompatibility with default xunit2. Both properties were nevertheless present in the produced XML. No assertion or runtime failed. A future evidence-only invocation may choose junit_family=xunit1 without changing test semantics."
+    }
+  ],
+  "offline_model_accounting": {
+    "local_function_model_calls_derived_from_passed_usage_assertions": 73,
+    "derivation": "bounds: 3*9=27; cancellation: 2*9+1=19; authorized resume: 3*9=27",
+    "actual_external_model_calls": 0,
+    "external_http_calls": 0,
+    "guards": "Autouse no_live_http forbids httpx/httpx2 live transports, sets ALLOW_MODEL_REQUESTS=False and BIDOPS_NETWORK_ENABLED=false. All model responses use FunctionModel. This run is not a live-provider or target-capacity test.",
+    "live_budget_reservation_coverage_in_this_six_test_run": false,
+    "budget_attribution": "No live ledger reservation/unknown-fee behavior is added or removed by this test-only patch; the independent three recovery/ledger tests are separate evidence and are not counted in these six."
+  },
+  "historical_failure": {
+    "status": "FAIL_PRESERVED",
+    "ci_run_id": 39870767184,
+    "summary": "Three compute-queue tests failed with 2172 passed in 1274.81 seconds on the prior test file. Initial native queue and actual-overlap assertions had already passed; one final snapshot showed running assessment progress 7/8 without a business error.",
+    "raw_log": {
+      "controlled_path": "work/native-ci-2425fc2-backend-failed.log",
+      "bytes": 63119,
+      "sha256": "b6165b8bd13e9e19921cdd0a6f3dcb211070a72aedd79cd01422e8f529c59cab",
+      "public_payload": false
+    }
+  },
+  "separate_agent_experiment": {
+    "attribution": "Reported by the independent framework/evaluation agent; not executed again by this reviewer.",
+    "old_red": "A work-only two-second-per-FunctionModel delay caused the original bounds test to fail (1 failed in 17.27 seconds): two calculations still running/PENDING with five responses and a sixth attempt started each, third still queued/ENQUEUED with no attempt, before the configured 90-second business deadline.",
+    "plugin_sha256": "3ee55abca5bd56939c90fb1e2f725e4cd8b8768d099dd8434d0b23907dddc8ed",
+    "controlled_output": "work/slow-compute-queue-red-01",
+    "slow_green": {
+      "status": "PASS",
+      "attribution": "Executed and reported by a separate independent agent, not rerun by this reviewer; raw evidence files are independently hashed here.",
+      "passed": 3,
+      "failed": 0,
+      "warnings": 2,
+      "pytest_reported_seconds": 123.13,
+      "exit_code": 0,
+      "test_file_sha256": "95cbaab11ce3222e1ed0569d9d2f381da18d81a0352764797569ffd6855b0e5e",
+      "matches_reviewed_test_file": true,
+      "reported_observations": "The three real behavior cases produced the expected native SUCCESS/waiting_review jobs with nine calls each; cancelled job retained one call and no result. Nine jobs across the cases yielded 73 local callback/attempt observations with overlap peak two. The two-second delay is synthetic, and all responses remain local FunctionModel.",
+      "reported_signed_observation_deltas_seconds": [
+        2.13851425005123,
+        2.1903596250340343
+      ],
+      "evidence": [
+        {
+          "controlled_path": "work/slow-compute-queue-green-01/verification.json",
+          "bytes": 1403,
+          "sha256": "80f27bc74a02af57e913faf8f858f888b68eaf6f110a02de240c42b050b28325",
+          "public_payload": false
+        },
+        {
+          "controlled_path": "work/slow-compute-queue-green-01/pytest.txt",
+          "bytes": 933,
+          "sha256": "2e399f8a548ceacb7c4bf8d255efb7da30c6abd327d5e53cac3e6c64a1eb9991",
+          "public_payload": false
+        },
+        {
+          "controlled_path": "work/slow-compute-queue-green-01/plugin-events.jsonl",
+          "bytes": 61886,
+          "sha256": "7437f25dd64150e68c81116d613888eae60ede43160d06b63766284090fd431d",
+          "public_payload": false
+        },
+        {
+          "controlled_path": "work/slow-compute-queue-green-01/junit.xml",
+          "bytes": 947,
+          "sha256": "24ae988a8e063adda6b8beae942bf37a124a1878e6692d1ea1d9e191ec9a7eea",
+          "public_payload": false
+        }
+      ]
+    }
+  },
+  "raw_evidence": [
+    {
+      "controlled_path": "work/native-queue-lifecycle-normal-01/pytest.txt",
+      "bytes": 922,
+      "sha256": "b4c2b5bbcebb2cb59538f361d83309efac9cd2c1bc03f0e931c0ddacc9949ecf",
+      "public_payload": false
+    },
+    {
+      "controlled_path": "work/native-queue-lifecycle-normal-01/pytest.xml",
+      "bytes": 1364,
+      "sha256": "7af6b1b430d17cb973596b69bb262cbbbff39d7c0c51ae67caaa23883c69471a",
+      "public_payload": false
+    },
+    {
+      "controlled_path": "work/native-queue-lifecycle-normal-01/execution.json",
+      "bytes": 2735,
+      "sha256": "f47c5df2bd1cbaa419c235524b54491f5a60d8fef8f63e9c3a5c560d10bdd092",
+      "public_payload": false
+    }
+  ],
+  "acceptance_attribution": {
+    "B09-09_C": "Direct targeted technical coverage of admission, native queue placement, waiting-review slot release and cancelled in-flight provider behavior.",
+    "B09-10_C": "Direct targeted coverage of authorized native resume queue placement and task result/call isolation; process recovery, atomic live budget, upgrade/rollback and v4 restore remain attributed to their separate evidence.",
+    "G02": "This six-test local precommit result does not change the retained failed full CI result. Updated full CI and final integration verification remain pending."
+  },
+  "limits": [
+    "Normal-speed local engineering run on a precommit test-only patch; not a clean postcommit or Linux CI execution.",
+    "No complete suite rerun, formal capacity load, real source request, model-provider request, deployment or human acceptance was performed here.",
+    "The existing 90-second business setting is unchanged. This test is a safety/liveness contract, not an assertion that complete nine-call work must finish within the short admission observation deadline.",
+    "Original failed CI and the separate slow-red record remain preserved. No frozen load worktree or data was modified."
+  ],
+  "later_identical_commit": {
+    "commit": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+    "verification": "Read-only git show and diff-tree; no postcommit test rerun.",
+    "test_file_sha256": "95cbaab11ce3222e1ed0569d9d2f381da18d81a0352764797569ffd6855b0e5e",
+    "identical_to_executed_precommit_test_bytes": true,
+    "changed_files": [
+      "tests/test_jobs_compute_queue.py"
+    ],
+    "production_and_locks_unchanged_from_base": true
+  }
+}

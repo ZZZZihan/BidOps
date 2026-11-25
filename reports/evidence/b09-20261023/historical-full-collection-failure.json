@@ -1,0 +1,18 @@
+{
+  "code_sha": "46ef2f7b012d82314d6f324d9c6c03cd24cf947c",
+  "tree_sha": "3f24e9221a8775067d821972c1da57a008e92c8b",
+  "started_at": "2026-10-22T20:53:40.925192+00:00",
+  "finished_at": "2026-10-22T20:53:44.124992+00:00",
+  "exit_code": 2,
+  "result": "4 collection errors in2.24s; no full test PASS",
+  "cause": "Missing locked pypdf overlay in that environment",
+  "affected_test_modules": [
+    "tests/test_attachment_parser.py",
+    "tests/test_ingestion_backup.py",
+    "tests/test_ingestion_enqueue.py",
+    "tests/test_ingestion_runtime.py"
+  ],
+  "metadata_source_sha256": "8b280573fa10dad3b2bcc17e10258266fb55f305ba3e76af2265915cb8716f2f",
+  "log_source_sha256": "95c5397352eaa9a8ff8303227c0ca9e4e7a0b1bbca583a4de775bffc548ab076",
+  "scope": "Historical environment setup failure, retained; not final836ccbf result"
+}

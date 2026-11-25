@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'" />
+    <meta name="color-scheme" content="light" />
+    <title>BidOps · 连接工作台</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main class="connection-shell">
+      <header class="brand"><span class="brand-mark" aria-hidden="true">B<span></span></span><div>BidOps<small>采购证据工作台</small></div><span class="desktop-label">DESKTOP</span></header>
+      <section class="connection-card" aria-labelledby="connection-title">
+        <div class="orbit" aria-hidden="true"><div class="orbit-core"><svg viewBox="0 0 32 32" fill="none"><path d="M9 13V9a7 7 0 0 1 14 0v4M7 13h18v15H7z" stroke="currentColor" stroke-width="1.6"/><path d="M16 19v4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></div><i></i></div>
+        <p class="eyebrow">YOUR LOCAL WORKSPACE</p>
+        <h1 id="connection-title">连接你的采购工作台</h1>
+        <p class="lead">公告、证据与每一步判断，<br class="mobile-break" />都在熟悉的工作区继续。</p>
+        <div class="connection-status" id="status-region" role="status" aria-live="polite" aria-atomic="true"><span class="status-dot"></span><p id="status-message">正在准备连接…</p></div>
+        <div class="address"><span>本机服务</span><code id="service-address">http://127.0.0.1:8765/</code></div>
+        <button class="connect-button" id="retry" type="button">重新连接 <span aria-hidden="true">↗</span></button>
+        <p class="hint">先按项目文档启动 BidOps 本机服务，再点击重新连接。</p>
+      </section>
+      <section class="workspace-notes" aria-label="连接说明"><div><span class="note-icon" aria-hidden="true">01</span><p><strong>沿用已有工作区</strong><span>公告档案、企业材料与任务记录</span></p></div><div><span class="note-icon" aria-hidden="true">02</span><p><strong>保持原有业务流程</strong><span>筛选项目、核对证据、人工复核</span></p></div></section>
+      <footer><span class="footer-dot"></span>专注证据，让判断有据可循<span class="footer-version">BIDOPS / LOCAL</span></footer>
+    </main>
+  </body>
+</html>

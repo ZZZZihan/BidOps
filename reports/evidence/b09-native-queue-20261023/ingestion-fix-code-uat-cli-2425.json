@@ -1,0 +1,61 @@
+{
+  "code_sha": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+  "executor": "root",
+  "real_model_calls": 0,
+  "network_probes": 0,
+  "actual_cost_cny": "0",
+  "commands": [
+    {
+      "name": "template",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--template"
+      ],
+      "start": "2026-10-22T23:17:09.777692+00:00",
+      "end": "2026-10-22T23:17:10.356157+00:00",
+      "exit_code": 0,
+      "expected_exit_code": 0,
+      "stdout_sha256": "ec6405b25235a7515a41afc00b4659d2f2a77545d53253eedd9e2d93985d8b29",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "environment",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py"
+      ],
+      "start": "2026-10-22T23:17:10.356688+00:00",
+      "end": "2026-10-22T23:17:10.773588+00:00",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stdout_sha256": "e674dc44f90e5520798f5a698299582cfd49847de9903b3c702441ee8be30a39",
+      "stderr_bytes": 0
+    },
+    {
+      "name": "bundle",
+      "command": [
+        ".venv/bin/python",
+        "scripts/enterprise_readiness.py",
+        "--bundle",
+        "$UAT_OUTPUT/template.json",
+        "--evidence-root",
+        "$UAT_OUTPUT/evidence"
+      ],
+      "start": "2026-10-22T23:17:10.774121+00:00",
+      "end": "2026-10-22T23:17:11.213346+00:00",
+      "exit_code": 2,
+      "expected_exit_code": 2,
+      "stdout_sha256": "60ac4b43a8587d4f4fc4886bccb48d1e68f9d6cf5a72a56d9d2b202a8d56eb10",
+      "stderr_bytes": 0
+    }
+  ],
+  "working_tree_clean_after": true,
+  "status": "PASS",
+  "upstream_count": 67,
+  "b10_gate_count": 6,
+  "b10_status": "BLOCKED",
+  "release_decision": "NO_GO",
+  "projection": "Exact observed command arguments with controlled output directory alias; original preserved.",
+  "original_verification_sha256": "839018b4bb5d61acec465299d414d240a0fd3d57788f24e60650dfec14d6f90d"
+}

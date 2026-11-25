@@ -1,0 +1,72 @@
+{
+  "schema_version": "frozen-load-code-scope-v1",
+  "observed_at_utc": "2026-10-22T23:49:17.694689+00:00",
+  "load_code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "fixed_code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+  "changed_paths": [
+    "backend/bidops/ingestion/runtime.py",
+    "tests/test_ingestion_schedule_replay.py",
+    "tests/test_jobs_compute_queue.py"
+  ],
+  "capacity_path_changed": false,
+  "unchanged_paths": [
+    {
+      "repository_path": "backend/bidops/jobs/runtime.py",
+      "sha256": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54",
+      "unchanged": true
+    },
+    {
+      "repository_path": "backend/bidops/jobs/config.py",
+      "sha256": "75a2deab2b102ef9c0e21b35c476846c14366d6796e7fda5a85f7e7951173b4a",
+      "unchanged": true
+    },
+    {
+      "repository_path": "backend/bidops/operations_acceptance/load.py",
+      "sha256": "ce7200e7bfdc858e6e9d3d602191510e6bbbe4cd4bd5e93deb55ce87a445cce8",
+      "unchanged": true
+    },
+    {
+      "repository_path": "backend/bidops/operations_acceptance/capacity.py",
+      "sha256": "7319a6ca90adf0c88520b301555eda17b534c80aa8400568d84637f8c92e86f0",
+      "unchanged": true
+    },
+    {
+      "repository_path": "scripts/capacity_probe.py",
+      "sha256": "6f5f5c0c788b746ae9e00693f69a893240790e78aca5a6c9d44d17e9c2028462",
+      "unchanged": true
+    },
+    {
+      "repository_path": "evals/capacity-native-queue-v2/manifest.json",
+      "sha256": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c",
+      "unchanged": true
+    },
+    {
+      "repository_path": "docs/ENTERPRISE-PR-PLAN.md",
+      "sha256": "360872e647db3f182c299f19c756618f55851d488ee4664c97765327ff458ccc",
+      "unchanged": true
+    },
+    {
+      "repository_path": "uv.lock",
+      "sha256": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+      "unchanged": true
+    },
+    {
+      "repository_path": "requirements/durable.lock",
+      "sha256": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+      "unchanged": true
+    },
+    {
+      "repository_path": "requirements/attachments.lock",
+      "sha256": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba",
+      "unchanged": true
+    }
+  ],
+  "ingestion_disabled_in_load": "Explicit IngestionSettings(_env_file=None, enabled=False) in create_load_app; the tested capacity path does not admit source schedules.",
+  "new_application_version_differs": true,
+  "scope": "Full capacity run is attributed only to load_code_sha. Subsequent production repair touches disabled ingestion scheduling; the latest commit only separates queue-test lifecycle waits. Capacity, production qualification and manifest bytes remain equal to the full-load commit. This is bounded scope evidence, not a second full load or combined ingestion/qualification capacity.",
+  "ingestion_production_fix_sha": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+  "latest_commit_test_only": [
+    "tests/test_jobs_compute_queue.py"
+  ],
+  "production_unchanged_from_ingestion_fix": true
+}

@@ -1,0 +1,21 @@
+{
+  "code_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "tree_sha": "62552fc11386d4dbc5101007b37ea77aaf9bc46d",
+  "state": "CORRECTED_CANDIDATE_RUNNING_PENDING_TERMINAL_RECORD",
+  "directory_alias": "acceptance-b10-corrected-final",
+  "snapshot_at": "2026-10-22T21:29:44.056645+00:00",
+  "final_backend_count": null,
+  "final_backend_exit_code": null,
+  "lint_exit_code": null,
+  "format_exit_code": null,
+  "frozen_scorer_exit_code": null,
+  "no_final_pass_claimed": true,
+  "no_tests_rerun_by_report_agent": true,
+  "business_acceptance": "BLOCKED",
+  "g02": "BLOCKED_PENDING_CORRECTED_CANDIDATE_FULL",
+  "known_gap_evidence": "final-shared-migration-gap.json",
+  "final_fixed_candidate_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "previous_b136_result": "final-b136-full-failure.json",
+  "last_completed_cli_sha": "a0cf14a5e909c71be45753a279acb4713203c204",
+  "current_candidate_cli": "ACTUALLY_EXECUTED_0_2_2_65UPSTREAM_SIXBLOCKED_NO_GO"
+}

@@ -6,9 +6,12 @@ from pathlib import Path
 import uvicorn
 from dotenv import load_dotenv
 
+from bidops.company import CompanyService
+from bidops.company.retention import prune_company_materials
 from bidops.config import Settings
 from bidops.enterprise.backup import backup, restore
 from bidops.enterprise.config import EnterpriseSettings
+from bidops.enterprise.operations import SingleWorker
 from bidops.enterprise.sessions import prune_private_history
 from bidops.storage import Store
 
@@ -26,6 +29,7 @@ def main():
     sub.add_parser("prune")
     save = sub.add_parser("backup")
     save.add_argument("--output", type=Path, required=True)
+    save.add_argument("--retention-days", type=int, choices=range(1, 31), default=7)
     recover = sub.add_parser("restore")
     recover.add_argument("--input", type=Path, required=True)
     recover.add_argument("--output", type=Path, required=True)
@@ -33,7 +37,9 @@ def main():
     load_dotenv(args.env_file, override=False)
     settings = Settings()
     if args.command == "backup":
-        print(json.dumps(backup(settings, args.output.resolve())))
+        print(
+            json.dumps(backup(settings, args.output.resolve(), retention_days=args.retention_days))
+        )
     elif args.command == "restore":
         print(json.dumps(restore(args.input.resolve(), args.output.resolve())))
     else:
@@ -53,11 +59,24 @@ def main():
                 )
             )
         elif args.command == "prune":
-            store = Store(settings)
+            worker = SingleWorker(settings.database_url)
+            store = None
             try:
-                print(json.dumps(prune_private_history(store.db, enterprise.history_days)))
+                store = Store(settings)
+                print(
+                    json.dumps(
+                        {
+                            "history": prune_private_history(store.db, enterprise.history_days),
+                            "company": prune_company_materials(
+                                CompanyService(store.db, settings.data_dir)
+                            ),
+                        }
+                    )
+                )
             finally:
-                store.db.engine.dispose()
+                if store:
+                    store.db.engine.dispose()
+                worker.close()
         elif args.command == "serve":
             logging.basicConfig(level=logging.INFO, format="%(message)s")
             for name in ("httpx", "httpx2", "httpcore", "authlib"):

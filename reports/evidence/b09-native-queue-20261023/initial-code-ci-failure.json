@@ -1,0 +1,73 @@
+{
+  "schema_version": "ci-recovery-race-failure-v1",
+  "observed_at_utc": "2026-10-22T23:14:57.197626+00:00",
+  "status": "FAIL",
+  "code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39868275001",
+  "run_id": 39868275001,
+  "jobs": [
+    {
+      "id": 120135902459,
+      "name": "frontend",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 120135902669,
+      "name": "backend",
+      "status": "completed",
+      "conclusion": "failure"
+    },
+    {
+      "id": 120135902700,
+      "name": "container",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ],
+  "backend": {
+    "passed": 2166,
+    "failed": 1,
+    "seconds": 840.0,
+    "failed_test": "tests/test_ingestion_process_recovery.py::test_sigkill_source_commit_windows_recover_one_run_and_fixed_receipts[after_schedule_run_commit]",
+    "cause": "Completed independent source workflow wins the race between scheduled get_system(queued) and require_execution; ingestion_run_not_active is persisted as native schedule ERROR."
+  },
+  "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+  "tree": "dc6e75fbce673ed9a573d138fbcce8bb9967ca9c",
+  "tree_content_equal": true,
+  "logs": {
+    "backend": {
+      "source_filename": "native-ci-695604-backend-failed.log",
+      "sha256": "ecbeb8962c32832a6931964b41fffdc6a78a1d03e2db353b951f61015efd0404",
+      "bytes": 42508,
+      "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+      "first_log_utc": "2026-10-22T22:54:43.7234801Z",
+      "last_log_utc": "",
+      "selected_lines": [
+        "2026-10-22T23:08:53.6260918Z FAILED tests/test_ingestion_process_recovery.py::test_sigkill_source_commit_windows_recover_one_run_and_fixed_receipts[after_schedule_run_commit] - AssertionError: 22:57:22 [   ERROR] (dbos:_core.py:1133) Exception encountered in background workflow:",
+        "2026-10-22T23:08:53.6280862Z ================== 1 failed, 2166 passed in 840.00s (0:14:00) =================="
+      ]
+    },
+    "frontend": {
+      "source_filename": "native-ci-695604-frontend.log",
+      "sha256": "b116f57a67c9e532519d9cf279a90c8221765d99b4a33c5b59dc65ce6866ab0d",
+      "bytes": 54188,
+      "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+      "first_log_utc": "2026-10-22T22:54:44.0900920Z",
+      "last_log_utc": "",
+      "selected_lines": [
+        "2026-10-22T22:57:40.4676293Z   159 passed (2.7m)"
+      ]
+    },
+    "container": {
+      "source_filename": "native-ci-695604-container.log",
+      "sha256": "f21ed7bfa646706718c794946e0f395cdc3572935f5075ff7dc0a33e8fd08c32",
+      "bytes": 33353,
+      "actual_checkout_sha": "8b23cc70726030fcf08e0c6e3aecfcc7eb51f502",
+      "first_log_utc": "2026-10-22T22:54:44.0924302Z",
+      "last_log_utc": "",
+      "selected_lines": []
+    }
+  },
+  "scope": "A real production race, preserved as FAIL. No unchanged retry or weakened native SUCCESS assertion; deterministic regression and scoped production fix follow in a separate commit. The full capacity run remains pinned to this code and runs with ingestion disabled."
+}

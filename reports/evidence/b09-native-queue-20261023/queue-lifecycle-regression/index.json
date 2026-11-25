@@ -1,0 +1,19 @@
+{
+  "schema_version": "explicit-evidence-allowlist-v1",
+  "scope": "Only these two payloads are public; original logs/XML/events are not copied.",
+  "files": {
+    "summary.json": {
+      "bytes": 18891,
+      "sha256": "8989a3a9dc99c8864425c10378aee965b81937aa4bff21cd9cfbf660dde649da"
+    },
+    "plugin.py.txt": {
+      "bytes": 6653,
+      "sha256": "3ee55abca5bd56939c90fb1e2f725e4cd8b8768d099dd8434d0b23907dddc8ed"
+    }
+  },
+  "renamed_source": {
+    "source_alias": "slow_compute_queue_plugin.py",
+    "published_as": "plugin.py.txt",
+    "bytes_identical": true
+  }
+}

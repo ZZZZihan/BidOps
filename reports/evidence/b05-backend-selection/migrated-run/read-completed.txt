@@ -1,0 +1,15 @@
+02:14:20 [    INFO] (dbos:_dbos.py:549) Initializing DBOS (v3.3.0)
+{"application_version": "1c00cd0a46907fedac684a20083f3983b216d911896282d644a3fa520fbd110d", "at": 1792692860.649466, "event": "worker_starting", "mode": "read-completed", "pid": 90054}
+02:14:20 [    INFO] (dbos:_dbos.py:632) Executor ID: single-local-probe-worker
+02:14:20 [    INFO] (dbos:_dbos.py:633) Application version: 1c00cd0a46907fedac684a20083f3983b216d911896282d644a3fa520fbd110d
+02:14:20 [    INFO] (dbos:_dbos.py:634) Application name: bidops-b05-probe
+02:14:20 [    INFO] (dbos:_sys_db.py:694) Initializing DBOS system database with URL: sqlite:////private<PROBE_OUTPUT>/dbos.sqlite (schema: dbos)
+02:14:20 [    INFO] (dbos:_sys_db.py:698) Using SQLite as a system database. The SQLite system database is for development and testing. PostgreSQL is recommended for production use.
+02:14:20 [    INFO] (dbos:_dbos.py:720) No workflows to recover from application version 1c00cd0a46907fedac684a20083f3983b216d911896282d644a3fa520fbd110d
+02:14:20 [    INFO] (dbos:_queue.py:969) Listening to 0 queues:
+02:14:20 [    INFO] (dbos:_dbos.py:831) DBOS launched!
+02:14:20 [    INFO] (dbos:_dbos.py:839) To view and manage workflows, connect to DBOS Conductor at: https://console.dbos.dev/self-host?appname=bidops-b05-probe
+{"at": 1792692860.6608489, "event": "dbos_launched", "mode": "read-completed", "pid": 90054}
+{"at": 1792692860.6644511, "event": "workflow_result", "mode": "read-completed", "pid": 90054, "result": {"first": "SYNTHETIC_NOT_A_REAL_SCREENING_RESULT", "fixture": true, "second": "SYNTHETIC_NOT_A_REAL_SCREENING_RESULT"}}
+02:14:20 [    INFO] (dbos:_queue.py:907) Stopping queue manager, joining all worker threads...
+02:14:21 [    INFO] (dbos:_dbos.py:451) DBOS successfully shut down

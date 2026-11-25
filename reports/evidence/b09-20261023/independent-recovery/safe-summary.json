@@ -1,0 +1,277 @@
+{
+  "scope": "LOCAL_SYNTHETIC_ENGINEERING_ONLY",
+  "code_sha": "46ef2f7b012d82314d6f324d9c6c03cd24cf947c",
+  "versions": {
+    "application_version": "25646da6b1527f973e1b97b966a0f4bcdd5a17919abdffaa25d07a1abc051570",
+    "code_sha": "46ef2f7b012d82314d6f324d9c6c03cd24cf947c",
+    "implementation_sha256": "ff4475315dd3ab330ebd99ada5d3ca234576efd37a92dab367d8546b755a7963",
+    "job_implementation_sha256": "412fe3748d7002181ff8f98896157efcc2019f491ca3b67b79a621946d8d3df7",
+    "lock_sha256": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+    "durable_lock_sha256": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+    "attachment_lock_sha256": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"
+  },
+  "business_acceptance": "BLOCKED",
+  "formal_capacity_result": "NOT_EVALUATED_BY_THIS_RECEIPT",
+  "real_target_verified": false,
+  "real_recipient_verified": false,
+  "latest_permissions_confirmed": false,
+  "real_provider_calls": 0,
+  "actual_cost_cny": "0",
+  "test_results": {
+    "overload_existing": {
+      "tests": 28,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_seconds": 14.806
+    },
+    "durable_provider_429": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_seconds": 0.947
+    },
+    "recovery_retention_existing": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_seconds": 6.602
+    },
+    "ingestion_and_review_recovery": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "junit_seconds": 4.814
+    }
+  },
+  "local_recovery": {
+    "engineering_status": "PASS_FAILCLOSED",
+    "backup_files": 6,
+    "consistent_quiesced_point_utc": "2026-10-22T21:00:53.294403+00:00",
+    "loss_started_utc": "2026-10-22T21:00:53.325581+00:00",
+    "local_data_rpo_conservative_seconds": 0.031178,
+    "manifest_metadata_age_at_loss_seconds": 0.007313,
+    "post_backup_new_records_lost": 1,
+    "post_backup_security_changes_lost": [
+      "acl_revoked",
+      "material_deleted",
+      "subject_disabled"
+    ],
+    "business_rto_seconds": null,
+    "business_rto_status": "BLOCKED_BUSINESS_NOT_REOPENED",
+    "data_copy_restore_seconds": 0.034594,
+    "loss_to_authorization_and_access_checks_seconds": 0.12185,
+    "old_cookie_http_401_count": 15,
+    "cancelled_native_roots": 2,
+    "immutable_successful_calculation_children": 1,
+    "fixture_model_calls": 4,
+    "fixture_ledger": {
+      "booked_cny": "0.031",
+      "unchanged": true,
+      "unknown_reserved_cny": "0.5"
+    },
+    "ledger_sha256": "8390e3eab08bb09acc0b99d23c0d4a74d62437d1ef21eefb2f5aab8d381e55d0",
+    "immutable_table_receipts": {
+      "company_material_revisions": {
+        "count": 1,
+        "sha256": "c495aaa50b2674619381778011b79eed8c96005f054f7fbe186f5d7373a8c7b6"
+      },
+      "company_objects": {
+        "count": 2,
+        "sha256": "c677940c1f44dbc25045f8c04027e10cfceca2567ec943e29ca5493772c46f09"
+      },
+      "company_profile_revisions": {
+        "count": 1,
+        "sha256": "0a0bdd327f01215bd47f97f3ea64ee167b63790a1c4c6798d226cbe5d90a2616"
+      },
+      "durable_attempt_bodies": {
+        "count": 4,
+        "sha256": "954edc66ff40a8768471865eab09edd9924036adef6f2f536ca22082594c2f49"
+      },
+      "durable_job_inputs": {
+        "count": 2,
+        "sha256": "22c70cbf4c1827392bb591cb5f1506c50d7ccd545254d1e5c60b8fd523fa7c37"
+      },
+      "durable_jobs": {
+        "count": 2,
+        "sha256": "30d5f6bd97780591bb304507c2a576ef25eb05bec3def20ad7c1014ab0a5efd8"
+      },
+      "durable_model_attempts": {
+        "count": 4,
+        "sha256": "89ca9d3e51673837e945fd8538d7474d9633b3a7fa547998c317235245841687"
+      },
+      "nd_attachments": {
+        "count": 1,
+        "sha256": "6fb08d622961217705ca298dd06f9fe32970c9d863c5be9a301a9c93e683c07c"
+      },
+      "nd_versions": {
+        "count": 1,
+        "sha256": "a0b7b1439d9af8984ef4383150a3c2d2da1371559bed02d1759b5989aab77319"
+      },
+      "qualification_result_bodies": {
+        "count": 2,
+        "sha256": "6ab02d70fb37935f2c32f75475a99e9b18e4edfedd90924b19042cf9b29d12e5"
+      },
+      "qualification_results": {
+        "count": 2,
+        "sha256": "2376c0da1267a9d8e79ed1733b95d6d536fd80b39273f6313bb4d193f51e494f"
+      },
+      "review_cases": {
+        "count": 1,
+        "sha256": "dad390cbfe0f1731cb20c56195374cbadac2368a117d64b89665a3367b8d0d0d"
+      },
+      "review_event_bodies": {
+        "count": 1,
+        "sha256": "fe2e2d06dbbca7a260ce2fa346c96290dcf72f9710f252149d0a7748c699f1fe"
+      },
+      "review_events": {
+        "count": 1,
+        "sha256": "8b35ed7a432b07ae42057ba8ad4274fedb366731934384778bcf1370a9458ece"
+      },
+      "snapshots": {
+        "count": 1,
+        "sha256": "c8ce41a19919f85002ddf13f50741a32a21c5fc1c9978e0af03188a95a12d930"
+      }
+    },
+    "immutable_file_receipts": [
+      {
+        "kind": "attachments",
+        "sha256": "219f4f7946dbb509c945fd465e8039548121854e401b599511245f749dbafdd4"
+      },
+      {
+        "kind": "private/company/blob",
+        "sha256": "07ec90c42eb9acc7442bbd0352b9acf8fc30eb98e459e178d673f4c0c5a5f9d6"
+      },
+      {
+        "kind": "private/company/text",
+        "sha256": "07ec90c42eb9acc7442bbd0352b9acf8fc30eb98e459e178d673f4c0c5a5f9d6"
+      },
+      {
+        "kind": "raw",
+        "sha256": "e2d15af86878df584ab95ae63361fdecb58a326b25fc03416e3362de243de819"
+      }
+    ]
+  },
+  "event_times": [
+    {
+      "event": "drill_started",
+      "utc": "2026-10-22T21:00:48.989467+00:00",
+      "elapsed_seconds": 0.153776
+    },
+    {
+      "event": "private_chain_ready",
+      "utc": "2026-10-22T21:00:52.479589+00:00",
+      "elapsed_seconds": 3.643892
+    },
+    {
+      "event": "worker_and_application_stopping",
+      "utc": "2026-10-22T21:00:53.292660+00:00",
+      "elapsed_seconds": 4.456962
+    },
+    {
+      "event": "service_stopped",
+      "utc": "2026-10-22T21:00:53.294403+00:00",
+      "elapsed_seconds": 4.458703
+    },
+    {
+      "event": "backup_complete",
+      "utc": "2026-10-22T21:00:53.318728+00:00",
+      "elapsed_seconds": 4.483028
+    },
+    {
+      "event": "post_backup_data_created",
+      "utc": "2026-10-22T21:00:53.322321+00:00",
+      "elapsed_seconds": 4.486623
+    },
+    {
+      "event": "post_backup_acl_revoked",
+      "utc": "2026-10-22T21:00:53.323614+00:00",
+      "elapsed_seconds": 4.487913
+    },
+    {
+      "event": "post_backup_material_deleted",
+      "utc": "2026-10-22T21:00:53.324651+00:00",
+      "elapsed_seconds": 4.48895
+    },
+    {
+      "event": "post_backup_subject_disabled",
+      "utc": "2026-10-22T21:00:53.325092+00:00",
+      "elapsed_seconds": 4.48939
+    },
+    {
+      "event": "loss_started",
+      "utc": "2026-10-22T21:00:53.325581+00:00",
+      "elapsed_seconds": 4.48988
+    },
+    {
+      "event": "instance_and_all_local_stores_lost",
+      "utc": "2026-10-22T21:00:53.326943+00:00",
+      "elapsed_seconds": 4.491241
+    },
+    {
+      "event": "restore_data_published",
+      "utc": "2026-10-22T21:00:53.361630+00:00",
+      "elapsed_seconds": 4.525931
+    },
+    {
+      "event": "authorization_and_old_access_verified",
+      "utc": "2026-10-22T21:00:53.447425+00:00",
+      "elapsed_seconds": 4.61173
+    },
+    {
+      "event": "drill_finished",
+      "utc": "2026-10-22T21:00:53.447956+00:00",
+      "elapsed_seconds": 4.612255
+    }
+  ],
+  "raw_artifact_sha256": {
+    "b09-03-command.json": "8801513cc29e6ccc82788bc4f5ecce96bf620a81260fd231e35f296400ef1be8",
+    "b09-03-provider429-command.json": "2473f8f5e9c128ce74f49cd661b231d02ba7e65cc52e3dc301eb92a3dfc6bb81",
+    "b09-03-provider429-final-check.log": "a423577adbd13fd8110d5cf83ce207925bc9896411fe0b9496dcdf3ccdddaa2b",
+    "b09-03-provider429.junit.xml": "602054a23e8194276cdd436cf03d7ab14bffe23420bf7cd2f4814e25869c105d",
+    "b09-03-provider429.log": "06f7d9ce61864b6a17ac48cf44fb1e37d23c46c02953bcede0faa739a5371e4c",
+    "b09-03-targeted.junit.xml": "a0c2741eefa104edfe61ee028e54ec856b93b488f949e704e36a9602829e4c20",
+    "b09-03-targeted.log": "ecf148f27202e21ed7eeef107dcc7e290638517cb9c05d1479f623ac9db52fce",
+    "b09-06-additional-command.json": "887ebe6a87070ba589cc7189724f0b8a6e2b1d71681c0c166d9779d14985d3cc",
+    "b09-06-additional.junit.xml": "cd4bb6a8d0479df650c93e7c2a5c14f42d868bf0cce2a0427dfed2189f11c77e",
+    "b09-06-additional.log": "39a1e81b5dfaa0a334c470beec4028fc766b833bce848eb6a5812bb4b47ae72c",
+    "b09-06-existing-command.json": "cdf0d5b1697a070bb880d7c5db0d6519f9514861e34f79c8cb84d28f09900ddd",
+    "b09-06-existing.junit.xml": "9676ecb4ae8f3762b38f4c3005c2d85e3e90db945b2f4f99782ca0155b9548d8",
+    "b09-06-existing.log": "e8ee2b0876ef361bdaf8b2fa0a7190cacdb1f4ab02997c4c67c5eb528d9f4d1c",
+    "drill-20261022T210048835297Z/events.jsonl": "6e0b0d0a5aaff5004a5931537bc4dc54417716d99d9fb5af61b250659d6b740a",
+    "drill-20261022T210048835297Z/summary.json": "94c4f9cad19e5af3484d41d97f86c1967866140d905157850bdf04d55ab194f1",
+    "drill-execution-20261022T205904363557Z.log": "4ee81d376ba3c903d40088192df3b9fe946e6fb74a4e4e51e01592edade5b3cf",
+    "drill-execution-20261022T210009606012Z.log": "b7764479c07ddd9b22fb1b0a5165911e2a7004724374364278284fd43fefb2a4",
+    "drill-execution-20261022T210047567298Z.log": "5398187f6571f94f794a404669fca7dfe3e02f17262d0653dd4f843077b4aca5",
+    "recovery_drill.py": "0a92fe0cbd7fab8d2017fd8b08ce342e28f7106072809a637440c42bfcb08e0d",
+    "test_provider_429.py": "2871a2683362a5c478a03d108adc84ba9e5c36efbe09872692cee06a2dd575c9"
+  },
+  "harness_attempt_history": [
+    {
+      "attempt": 1,
+      "status": "HARNESS_ERROR",
+      "reason": "Fixture omitted authored UNIT marker"
+    },
+    {
+      "attempt": 2,
+      "status": "HARNESS_EXPECTATION_ERROR",
+      "reason": "Completed calculation SUCCESS history is immutable, not an active root to cancel"
+    },
+    {
+      "attempt": 3,
+      "status": "PASS_FAILCLOSED",
+      "selected": "FIRST_SUCCESSFUL_COMPLETE_DRILL"
+    }
+  ],
+  "limitations": [
+    "This is a small local synthetic drill, not the formal 35-minute capacity run.",
+    "Per-user rate test uses the enterprise conversation endpoint, not a new per-user jobs quota.",
+    "The new loss drill has no ingestion history; separate actual backup tests cover PDF/ingestion schedules.",
+    "Synthetic booked/unknown ledger amounts are fixture values, not real expenditure.",
+    "Private service was not reopened; neither RTO<=1800s nor real business recovery is accepted.",
+    "No target deployment, real IdP, human review, provider, or alert recipient was verified."
+  ]
+}

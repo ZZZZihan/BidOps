@@ -3,7 +3,10 @@
 from datetime import datetime
 from decimal import Decimal
 
+from sqlalchemy import text
+
 from bidops.agent_demo.schemas import Block, Card, Citation, Focus, Query
+from bidops.catalog_query import query_notices
 from bidops.models import Notice
 from bidops.parser import canonical_text
 from bidops.storage import Store
@@ -11,28 +14,38 @@ from bidops.storage import Store
 
 class Catalog:
     def __init__(self, store: Store):
-        self.notices = [
-            Notice.model_validate_json(row["payload_json"])
-            for row in store.db.rows(
-                "SELECT payload_json FROM notices ORDER BY notice_id LIMIT 501"
-            )
-        ]
-        if len(self.notices) > 500:
-            raise ValueError("demo_catalog_limit_exceeded")
-        for notice in self.notices:
-            source = notice.source
-            raw = (store.raw / source.sha256).read_bytes()
-            store.validate_snapshot(source, raw)
-            normalized = canonical_text(raw, source.content_type, source.encoding)
-            spans = [s for group in notice.field_evidence.values() for s in group]
-            spans += notice.eligibility_conditions + [p.evidence for p in notice.packages]
-            if any(
-                s.source_snapshot_id != source.snapshot_id
-                or s.locator != "normalized_text_v2"
-                or normalized[s.start : s.end] != s.text
-                for s in spans
-            ):
-                raise ValueError("evidence_integrity_failed_reparse_required")
+        self.store = store
+        # Verify the full legacy projection without retaining a capped preload.
+        # Results are verified again when released, including changes after init.
+        with store.db.engine.connect() as conn:
+            for payload in conn.execute(
+                text("SELECT payload_json FROM notices ORDER BY notice_id")
+            ).scalars():
+                self.verify_notice(Notice.model_validate_json(payload))
+
+    @property
+    def count(self) -> int:
+        return self.store.db.rows("SELECT COUNT(*) AS n FROM notices")[0]["n"]
+
+    def verify_notice(self, notice: Notice) -> None:
+        source = notice.source
+        path = self.store.raw / source.sha256
+        if path.is_symlink():
+            raise ValueError("evidence_integrity_failed_reparse_required")
+        raw = path.read_bytes()
+        self.store.validate_snapshot(source, raw)
+        normalized = canonical_text(raw, source.content_type, source.encoding)
+        spans = [s for group in notice.field_evidence.values() for s in group]
+        spans += notice.eligibility_conditions + [p.evidence for p in notice.packages]
+        if any(
+            s.source_snapshot_id != source.snapshot_id
+            or s.locator != "normalized_text_v2"
+            or s.start < 0
+            or not s.start < s.end <= len(normalized)
+            or normalized[s.start : s.end] != s.text
+            for s in spans
+        ):
+            raise ValueError("evidence_integrity_failed_reparse_required")
 
     @staticmethod
     def card(notice: Notice, focus: Focus = "overview") -> Card:
@@ -84,70 +97,32 @@ class Catalog:
         )
 
     def search(self, query: Query, now: datetime) -> Block:
-        if (
-            query.min_budget_yuan is not None
-            and query.max_budget_yuan is not None
-            and query.min_budget_yuan > query.max_budget_yuan
-        ):
-            raise ValueError("minimum_budget_exceeds_maximum")
-        if query.deadline_from and query.deadline_to and query.deadline_from > query.deadline_to:
-            raise ValueError("invalid_deadline_range")
-        result = []
-        words = query.keyword.casefold().split()
-        for n in self.notices:
-            haystack = " ".join(
-                [n.project_code or "", n.title or "", n.buyer_name or ""]
-            ).casefold()
-            if not all(word in haystack for word in words):
-                continue
-            amount = Decimal(n.budget.amount) if n.budget else None
-            if query.min_budget_yuan is not None:
-                if amount is None or amount < Decimal(str(query.min_budget_yuan)):
-                    continue
-                if not query.min_budget_inclusive and amount == Decimal(str(query.min_budget_yuan)):
-                    continue
-            if query.max_budget_yuan is not None:
-                if amount is None or amount > Decimal(str(query.max_budget_yuan)):
-                    continue
-                if not query.max_budget_inclusive and amount == Decimal(str(query.max_budget_yuan)):
-                    continue
-            deadline = datetime.fromisoformat(n.bid_deadline_at) if n.bid_deadline_at else None
-            if query.deadline_from and (deadline is None or deadline < query.deadline_from):
-                continue
-            if query.deadline_to and (deadline is None or deadline > query.deadline_to):
-                continue
-            if query.future_deadline_only and (deadline is None or deadline <= now):
-                continue
-            result.append(n)
-
-        def sort_value(n):
-            return {
-                "project_code": n.project_code,
-                "budget": Decimal(n.budget.amount) if n.budget else None,
-                "deadline": n.bid_deadline_at,
-                "publication": n.published_at or n.published_date,
-            }[query.sort_by]
-
-        known = [n for n in result if sort_value(n) is not None]
-        unknown = [n for n in result if sort_value(n) is None]
-        known.sort(key=lambda n: (sort_value(n), n.notice_id), reverse=query.descending)
-        selected = (known + unknown)[: query.limit]
+        page = query_notices(self.store.db, query, now)
+        for notice in page["items"]:
+            self.verify_notice(notice)
         return Block(
             id="",
             operation="search",
-            total=len(result),
-            items=[self.card(n, "budget") for n in selected],
+            **{**page, "items": [self.card(n, "budget") for n in page["items"]]},
         )
 
-    def read(self, project_code: str, focus: Focus) -> Block:
-        code = project_code.strip().casefold()
-        found = [n for n in self.notices if (n.project_code or "").casefold() == code]
+    def read(self, project_code: str, focus: Focus, *, offset: int = 0) -> Block:
+        from datetime import UTC
+
+        page = query_notices(
+            self.store.db,
+            Query(offset=offset),
+            datetime.now(UTC),
+            limit=100,
+            exact_code=project_code,
+        )
+        for notice in page["items"]:
+            self.verify_notice(notice)
         return Block(
             id="",
             operation="read",
-            total=len(found),
-            items=[self.card(n, focus) for n in found],
-            missing_project_codes=[] if found else [project_code],
+            **{**page, "items": [self.card(n, focus) for n in page["items"]]},
+            missing_project_codes=[] if page["total"] else [project_code],
         )
 
     def compare(self, project_codes: list[str], metric: str) -> Block:
@@ -158,7 +133,7 @@ class Catalog:
             self.read(code, "packages" if metric == "packages" else "budget") for code in codes
         ]
         # Multiple versions cannot silently be treated as one current project.
-        if any(len(m.items) > 1 for m in matches):
+        if any(m.total > 1 for m in matches):
             raise ValueError("multiple_versions_require_review")
         items = [item for match in matches for item in match.items]
         metrics = {}

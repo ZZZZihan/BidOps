@@ -1,0 +1,317 @@
+{
+  "schema_version": 1,
+  "kind": "local_engineering_native_compute_recovery",
+  "prepared_at_utc": "2026-10-22T22:59:57.353933+00:00",
+  "status": "PASS",
+  "business_acceptance": "BLOCKED",
+  "human_acceptance_performed": false,
+  "model_configuration": {
+    "requested_model": "gpt-6.1-sol",
+    "requested_reasoning_effort": "ultra",
+    "actual_runtime_configuration_independently_verified": false
+  },
+  "execution": {
+    "cwd": "$NEW_WORKTREE",
+    "command": ".venv/bin/pytest -q tests/test_jobs_compute_recovery.py --basetemp=$RECOVERY_OUTPUT",
+    "exit_code": 0,
+    "passed": 3,
+    "failed": 0,
+    "elapsed_seconds_from_pytest_stdout": 39.83,
+    "stdout_summary": "3 passed in 39.83s",
+    "stdout_receipt": "Observed functions.exec/write_stdin result for session 13581; full pytest stdout was not separately saved as a raw file.",
+    "time_attribution": {
+      "exact_pytest_start_end_utc_recorded": false,
+      "filesystem_evidence_created_at_utc": "2026-10-22T22:52:09.944302+00:00",
+      "latest_allowlisted_evidence_mtime_utc": "2026-10-22T22:52:44.839365+00:00",
+      "limitation": "Filesystem birth/mtime describes retained evidence, not an instrumented exact pytest start/end clock. The worker events did not record UTC timestamps."
+    },
+    "checks": [
+      {
+        "command": ".venv/bin/ruff check tests/test_jobs_compute_recovery.py tests/fixtures/jobs_compute_worker.py",
+        "exit_code": 0,
+        "result": "All checks passed!"
+      },
+      {
+        "command": ".venv/bin/ruff format --check tests/test_jobs_compute_recovery.py tests/fixtures/jobs_compute_worker.py",
+        "exit_code": 0,
+        "result": "2 files already formatted"
+      },
+      {
+        "command": "git diff --check",
+        "exit_code": 0
+      }
+    ]
+  },
+  "code_attribution": {
+    "execution_git_head_before_commit": "215fca737e0e466a9781cd020b6b9d3b89e4b43f",
+    "execution_worktree_was_clean": false,
+    "current_frozen_git_commit": "69560429745417e34113d0877d75a62d7eb8f37b",
+    "current_frozen_worktree_clean_when_reviewed": true,
+    "backend_implementation_sha256": "8241bf4ec1286ed8942ad5b0c52516c0dc47fa541e0727677138c9eb5bdcba61",
+    "observed_worker_application_version": "744c15f446d6f4218bd8063a6ac8963472174c7416077f81c65636aa597ab6aa",
+    "observed_application_version_matches_frozen_backend_and_lock_bytes": true,
+    "current_test_and_worker_hashes_match_final_tested_hashes": true,
+    "limitation": "The final three-test command ran before commit on the working copy. All worker application-version receipts match the frozen backend/lock digest and the test files retain their tested hashes. This is not a claim that this agent reran the suite after the clean commit or validated the complete frozen repository."
+  },
+  "inputs": {
+    "kind": "synthetic_test_fixtures",
+    "fixture_entry_points": [
+      "tests/test_qualification_service.py::service",
+      "tests/test_qualification_sources.py::sources",
+      "tests/test_company_access.py::domain"
+    ],
+    "business_data_real": false,
+    "full_capacity_scale": false,
+    "computation_setting": 2,
+    "sqlite_business_and_dbos_stores": true,
+    "no_input_bodies_copied": true
+  },
+  "model_calls": {
+    "function_model_invocations": 59,
+    "by_scenario": {
+      "recovery": 29,
+      "budget": 1,
+      "backup_restore": 29
+    },
+    "real_provider_requests": 0,
+    "actual_cost_cny": "0",
+    "network_denial": [
+      "pydantic_ai.models.ALLOW_MODEL_REQUESTS=False",
+      "socket.socket.connect denied",
+      "socket.socket.connect_ex denied",
+      "socket.socket.sendto denied",
+      "socket.create_connection denied"
+    ],
+    "synthetic_ledger_is_not_real_spend": true
+  },
+  "scenarios": [
+    {
+      "test": "test_two_inflight_sigkill_recovers_native_queue_context_results_and_retained_costs",
+      "status": "PASS",
+      "observations": {
+        "initial_business_jobs": 3,
+        "native_calculations_pending_at_kill": 2,
+        "native_calculations_enqueued_at_kill": 1,
+        "actual_sigkill": true,
+        "fresh_recovery_then_fresh_saved_read": true,
+        "three_distinct_interpreter_pids_asserted_without_exporting_pids": true,
+        "observed_physical_compute_peak_after_recovery": 2,
+        "third_child_enqueued_observed_after_recovery": true,
+        "final_waiting_review_jobs": 3,
+        "unique_fixed_results": 3,
+        "parent_workflows": 3,
+        "calculation_child_workflows": 3,
+        "attempts": 29,
+        "confirmed_attempts": 27,
+        "unknown_attempts": 2,
+        "old_unknown_reservation_ledger_rows_exactly_unchanged": true,
+        "synthetic_confirmed_cost_cny": "0.00756",
+        "contextvar_and_native_workflow_id_checked_across_actual_await": true,
+        "saved_assessment_receipts_contain_only_own_task_marker": true,
+        "explicit_root_and_calculation_queue_mapping_verified": true,
+        "third_process_model_invocations": 0,
+        "third_process_business_snapshots_identical": true
+      }
+    },
+    {
+      "test": "test_two_native_calculations_compete_for_one_reservation_without_releasing_unknown",
+      "status": "PASS",
+      "observations": {
+        "competing_initial_native_calculations": 2,
+        "budget_cny": "0.593536",
+        "provider_invocations": 1,
+        "attempt_rows": 1,
+        "ledger_rows": 1,
+        "winning_call_held_while_other_calculation_was_rejected": true,
+        "winner_failed_without_response_then_later_new_task_rejected": true,
+        "final_business_jobs": 3,
+        "final_failed_jobs": 3,
+        "safe_error_counts": {
+          "screening_model_failed": 1,
+          "screening_budget_exhausted": 2
+        },
+        "retained_attempt_status": "unknown",
+        "retained_ledger_state": "unconfirmed",
+        "retained_reservation_cny": "0.593536"
+      }
+    },
+    {
+      "test": "test_two_compute_v4_restore_keeps_queue_mapping_acl_quarantine_and_budget_barrier",
+      "status": "PASS",
+      "observations": {
+        "real_stopped_system_database_bundle": true,
+        "manifest_version": 4,
+        "sdk_queues_table_calculation_concurrency": 2,
+        "sdk_queues_table_worker_concurrency": 2,
+        "native_calculation_records_in_bundle": 3,
+        "restored_prior_jobs_quarantined": 3,
+        "owner_other_subject_and_admin_private_reads_denied_before_reauthorization": true,
+        "fresh_identity_alone_did_not_release_private_read": true,
+        "source_object_reauthorization_did_not_release_any_prior_job": true,
+        "missing_and_wrong_budget_ack_new_tasks_failed": true,
+        "post_restore_provider_invocations": 0,
+        "post_restore_original_ledger_exactly_unchanged": true
+      }
+    }
+  ],
+  "historical_test_harness_failures": [
+    {
+      "command_suffix": "--basetemp=$EARLY_RECOVERY_OUTPUT_2",
+      "observed_result": "1 setup error in 0.61s",
+      "cause": "Chosen basetemp parent did not exist; no business test executed."
+    },
+    {
+      "command_suffix": "--basetemp=$EARLY_RECOVERY_OUTPUT_3",
+      "observed_result": "1 failed, 2 passed in 34.89s",
+      "cause": "New test queried an incorrect SDK queue table name. Corrected test to actual queues table and strengthened its concurrency/worker_concurrency assertions; production code unchanged."
+    },
+    {
+      "command": ".venv/bin/pytest -q tests/test_jobs_compute_recovery.py::test_two_compute_v4_restore_keeps_queue_mapping_acl_quarantine_and_budget_barrier --basetemp=$EARLY_BACKUP_OUTPUT_4",
+      "observed_result": "1 passed in 17.84s",
+      "note": "Intermediate targeted result; final three-test result above supersedes it without deleting historical evidence."
+    }
+  ],
+  "source_sha256": {
+    "backend/bidops/jobs/config.py": "75a2deab2b102ef9c0e21b35c476846c14366d6796e7fda5a85f7e7951173b4a",
+    "backend/bidops/jobs/runtime.py": "e7856d269c9b237efb217a927ee826af5a749f2be11cc451ae4ef54933932f54",
+    "backend/bidops/qualification/api.py": "fd4a79935d349abac45718a626482dd9d699b02a23d96893b836028898bfe46e",
+    "backend/bidops/jobs/model.py": "4a46eeed67693dc6ed68cd726b84b75aaf222bf525089317b867b09f395b0163",
+    "backend/bidops/qualification/model_budget.py": "b9f10e76f2076ebe47a4cf7801c032344c4dfa41be4d6e2ae5deb60884e36bb6",
+    "backend/bidops/jobs/backup.py": "18b83d8f65dc375279164e56fc5c5b732cc742f48ae530340e5a4de1b6278aa7",
+    "backend/bidops/enterprise/backup.py": "098050449b17b042ced8a4fb8f97675bf3b40d565329fb386c4748dd597caec0",
+    "tests/test_jobs_compute_recovery.py": "720159e8fea7e0ca93d4bcaef47a04061457d11a7e75efd2950ea2aaac0eef5e",
+    "tests/fixtures/jobs_compute_worker.py": "8f8682db4d4f621eff4da755da616e55017827067c716a15762e704068700502",
+    "uv.lock": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+    "requirements/durable.lock": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+    "requirements/attachments.lock": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"
+  },
+  "controlled_raw_evidence": {
+    "root": "$RECOVERY_OUTPUT",
+    "access": "local_controlled_only",
+    "members": [
+      {
+        "scenario": "recovery",
+        "relative_path": "test_two_inflight_sigkill_reco0/two-compute-process-evidence/bootstrap.json",
+        "bytes": 518,
+        "sha256": "c468f1a6e38b828c7b892f162f9f7850d65c401c33b7f1bde545afba1c6ed91a",
+        "mtime_utc": "2026-10-22T22:52:09.944454+00:00"
+      },
+      {
+        "scenario": "recovery",
+        "relative_path": "test_two_inflight_sigkill_reco0/two-compute-process-evidence/events.jsonl",
+        "bytes": 9713,
+        "sha256": "d03000a8c0424e4a2e6e3501af661efdfdcd683af84544623c3e662e374976be",
+        "mtime_utc": "2026-10-22T22:52:24.311356+00:00"
+      },
+      {
+        "scenario": "recovery",
+        "relative_path": "test_two_inflight_sigkill_reco0/two-compute-process-evidence/crash.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mtime_utc": "2026-10-22T22:52:09.944557+00:00"
+      },
+      {
+        "scenario": "recovery",
+        "relative_path": "test_two_inflight_sigkill_reco0/two-compute-process-evidence/recover.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mtime_utc": "2026-10-22T22:52:12.638160+00:00"
+      },
+      {
+        "scenario": "recovery",
+        "relative_path": "test_two_inflight_sigkill_reco0/two-compute-process-evidence/read-saved.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mtime_utc": "2026-10-22T22:52:23.030762+00:00"
+      },
+      {
+        "scenario": "recovery",
+        "relative_path": "test_two_inflight_sigkill_reco0/two-compute-process-evidence/recover.json",
+        "bytes": 3943,
+        "sha256": "ff5f1e4ce02968801af097c6cc41e121294da58d6343127f36f64c71a7900434",
+        "mtime_utc": "2026-10-22T22:52:22.718344+00:00"
+      },
+      {
+        "scenario": "recovery",
+        "relative_path": "test_two_inflight_sigkill_reco0/two-compute-process-evidence/read-saved.json",
+        "bytes": 3816,
+        "sha256": "675015e832f75544f0f59bbb77102d304779121273e17512ee5996c397577b92",
+        "mtime_utc": "2026-10-22T22:52:24.311231+00:00"
+      },
+      {
+        "scenario": "budget",
+        "relative_path": "test_two_native_calculations_c0/two-compute-process-evidence/bootstrap.json",
+        "bytes": 518,
+        "sha256": "fb9cda2777012f1340c0798d0ad9da6d0367c08e303eeff6b6c3b3bf70dda035",
+        "mtime_utc": "2026-10-22T22:52:25.509329+00:00"
+      },
+      {
+        "scenario": "budget",
+        "relative_path": "test_two_native_calculations_c0/two-compute-process-evidence/events.jsonl",
+        "bytes": 7892,
+        "sha256": "51941642fd17291ae63df9074530511f5c10fcd7695eeaf95f2cd6fc6d33cf9a",
+        "mtime_utc": "2026-10-22T22:52:30.926480+00:00"
+      },
+      {
+        "scenario": "budget",
+        "relative_path": "test_two_native_calculations_c0/two-compute-process-evidence/budget.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mtime_utc": "2026-10-22T22:52:25.509421+00:00"
+      },
+      {
+        "scenario": "budget",
+        "relative_path": "test_two_native_calculations_c0/two-compute-process-evidence/budget.json",
+        "bytes": 1327,
+        "sha256": "cdef542138876af1295c59348fb09529f53401b430e9979740c866249b3f12a1",
+        "mtime_utc": "2026-10-22T22:52:30.927075+00:00"
+      },
+      {
+        "scenario": "backup_restore",
+        "relative_path": "test_two_compute_v4_restore_ke0/two-compute-process-evidence/bootstrap.json",
+        "bytes": 518,
+        "sha256": "4590dcc3d6124ce18d1e3806e05fc66516149acdfa2997072549b54a06722514",
+        "mtime_utc": "2026-10-22T22:52:31.840598+00:00"
+      },
+      {
+        "scenario": "backup_restore",
+        "relative_path": "test_two_compute_v4_restore_ke0/two-compute-process-evidence/events.jsonl",
+        "bytes": 9322,
+        "sha256": "48e9be5e53aabcbbf70bddc4e0e9cbaba5410d5068586d854547fdba51bdcef9",
+        "mtime_utc": "2026-10-22T22:52:44.839365+00:00"
+      },
+      {
+        "scenario": "backup_restore",
+        "relative_path": "test_two_compute_v4_restore_ke0/two-compute-process-evidence/crash.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mtime_utc": "2026-10-22T22:52:31.840691+00:00"
+      },
+      {
+        "scenario": "backup_restore",
+        "relative_path": "test_two_compute_v4_restore_ke0/two-compute-process-evidence/recover.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "mtime_utc": "2026-10-22T22:52:34.556442+00:00"
+      },
+      {
+        "scenario": "backup_restore",
+        "relative_path": "test_two_compute_v4_restore_ke0/two-compute-process-evidence/recover.json",
+        "bytes": 3943,
+        "sha256": "dbf74b5e1a587d9311db9d7f4e0d0fa5d3acae570b4f242f2de55abe45e59dcf",
+        "mtime_utc": "2026-10-22T22:52:44.839281+00:00"
+      }
+    ],
+    "copied_raw_files": false,
+    "database_contents_included": false,
+    "tokens_ids_sessions_pids_or_model_bodies_included": false
+  },
+  "not_claimed": [
+    "clean-commit full backend regression by this agent",
+    "complete capacity/load acceptance",
+    "target deployment capacity",
+    "real model correctness or real procurement quality",
+    "real enterprise or human acceptance",
+    "independent review of this agent own test implementation"
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "code_sha": "b136ed58c689b30c98bf43a4eee2a1a134181899",
+  "run_id": 39857041113,
+  "job_id": 120097812664,
+  "conclusion": "failure",
+  "scope": "Original B10 Linux CI failure, kept separately from local backend result.",
+  "log_excerpt": [
+    "2026-10-22T21:41:29.0171255Z E         Left contains one more item: '012_package_versions_index.sql'",
+    "2026-10-22T21:41:29.0176913Z FAILED tests/test_identity_revocation.py::test_invalid_signed_logout_claims_rejected_without_state_change[updates6] - assert 200 == 400",
+    "2026-10-22T21:41:29.0178374Z FAILED tests/test_storage_api_cli.py::test_migrations_idempotent - AssertionError: assert ['001_initial...esh.sql', ...] == ['001_initial...esh.sql', ...]",
+    "2026-10-22T21:41:29.0179271Z   Left contains one more item: '012_package_versions_index.sql'",
+    "2026-10-22T21:41:29.0183489Z ================== 2 failed, 2127 passed in 990.74s (0:16:30) ==================",
+    "2026-10-22T21:41:31.5220888Z ##[error]Process completed with exit code 1."
+  ],
+  "raw_log_sha256": "7cfd868caf517d598d9d3c18662205f81b2a59941dc104bd2403985c73a895c7",
+  "raw_log_bytes": 38376,
+  "platform": "Linux GitHub Actions",
+  "passed": 2127,
+  "failed": 2,
+  "pytest_seconds": "990.74",
+  "exit_code": 1,
+  "ci_url": "https://github.com/ZZZZihan/BidOps/actions/runs/39857041113/job/120097812664",
+  "distinct_local_result": {
+    "passed": 2128,
+    "failed": 1,
+    "pytest_seconds": "619.67",
+    "exit_code": 1
+  },
+  "failure_causes": [
+    "Exact migration test name list omitted 012",
+    "Collection-time future-iat test input became valid before test execution"
+  ],
+  "no_fixed_ci_result_claimed": true
+}

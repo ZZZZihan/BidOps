@@ -1,0 +1,40 @@
+{
+  "schema_version": "ci-failure-observation-v1",
+  "observed_at_utc": "2026-10-22T23:42:17.571201+00:00",
+  "status": "FAIL",
+  "code_sha": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+  "run_id": 39870767184,
+  "url": "https://github.com/ZZZZihan/BidOps/actions/runs/39870767184",
+  "actual_checkout_sha": "ac74a38be3755d0d1ee03018791a3c5167aac61b",
+  "backend": {
+    "job_id": 120144325628,
+    "failed": 3,
+    "passed": 2172,
+    "seconds": 1274.81,
+    "failed_test_ids": [
+      "tests/test_jobs_compute_queue.py::test_native_calculation_queue_bounds_two_and_review_wait_frees_computation",
+      "tests/test_jobs_compute_queue.py::test_cancelled_inflight_call_holds_physical_slot_until_it_returns",
+      "tests/test_jobs_compute_queue.py::test_authorized_resume_returns_child_to_bounded_queue"
+    ],
+    "failure_observation": "Two predicates waiting for the third calculation after releasing first tasks and one full qualification completion wait exceeded 12 seconds. Causal investigation is recorded separately; this report does not infer a product defect or a flaky test."
+  },
+  "other_jobs": [
+    {
+      "name": "frontend",
+      "status": "PASS",
+      "browser_passed": 159,
+      "job_id": 120144326092
+    },
+    {
+      "name": "container",
+      "status": "PASS",
+      "job_id": 120144325845
+    }
+  ],
+  "log": {
+    "controlled_name": "native-ci-2425fc2-backend-failed.log",
+    "bytes": 63119,
+    "sha256": "b6165b8bd13e9e19921cdd0a6f3dcb211070a72aedd79cd01422e8f529c59cab"
+  },
+  "scope": "Real failed GitHub Actions run, preserved. Never reclassified as PASS after a later run."
+}

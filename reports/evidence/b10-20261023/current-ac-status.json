@@ -1,0 +1,159 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "acs": [
+    {
+      "ac_id": "B10-01",
+      "plan_type": "C",
+      "tool_real_evidence_audit": "BLOCKED",
+      "current_cli_input": "NOT_RUN/engineering_fixture",
+      "real_business_status": "BLOCKED",
+      "evidence": [
+        "clock-cli-verification.json",
+        "clock-cli-unexecuted-bundle.json",
+        "current-full-verification.json",
+        "current-frozen-scorer-summary.json"
+      ],
+      "engineering_status": "PASS_CLOSED_LOCAL_FINAL",
+      "remaining": [
+        "actual IdP/HTTPS/target machine/two independent people/authorized materials and notices/recipient and operations ownership"
+      ],
+      "tool_evidence_scope": "Actual current88dee CLI0/2/2 and complete local2133PASS602.81s/lint/256format/freeze; no real business input or user acceptance."
+    },
+    {
+      "ac_id": "B10-02",
+      "plan_type": "B",
+      "tool_real_evidence_audit": "BLOCKED",
+      "current_cli_input": "NOT_RUN/engineering_fixture",
+      "real_business_status": "BLOCKED",
+      "evidence": [
+        "clock-cli-verification.json",
+        "clock-cli-unexecuted-bundle.json"
+      ],
+      "engineering_status": "PASS_CONTRACT_AND_NEGATIVE_TEST_SCOPE_ONLY",
+      "remaining": [
+        "actual two-account target HTTPS login/isolation/logout/CSRF evidence"
+      ],
+      "tool_evidence_scope": "Actual current88dee CLI0/2/2 and complete local2133PASS602.81s/lint/256format/freeze; no real business input or user acceptance."
+    },
+    {
+      "ac_id": "B10-03",
+      "plan_type": "B",
+      "tool_real_evidence_audit": "BLOCKED",
+      "current_cli_input": "NOT_RUN/engineering_fixture",
+      "real_business_status": "BLOCKED",
+      "evidence": [
+        "clock-cli-verification.json",
+        "clock-cli-unexecuted-bundle.json"
+      ],
+      "engineering_status": "PASS_CONTRACT_AND_NEGATIVE_TEST_SCOPE_ONLY",
+      "remaining": [
+        "actual IdP disable and role-change event-to-denial times and background revocation"
+      ],
+      "tool_evidence_scope": "Actual current88dee CLI0/2/2 and complete local2133PASS602.81s/lint/256format/freeze; no real business input or user acceptance."
+    },
+    {
+      "ac_id": "B10-04",
+      "plan_type": "B",
+      "tool_real_evidence_audit": "BLOCKED",
+      "current_cli_input": "NOT_RUN/engineering_fixture",
+      "real_business_status": "BLOCKED",
+      "evidence": [
+        "clock-cli-verification.json",
+        "clock-cli-unexecuted-bundle.json"
+      ],
+      "engineering_status": "PASS_CONTRACT_AND_NEGATIVE_TEST_SCOPE_ONLY",
+      "remaining": [
+        "authorized real business chain and separate actual human review"
+      ],
+      "tool_evidence_scope": "Actual current88dee CLI0/2/2 and complete local2133PASS602.81s/lint/256format/freeze; no real business input or user acceptance."
+    },
+    {
+      "ac_id": "B10-05",
+      "plan_type": "B",
+      "tool_real_evidence_audit": "BLOCKED",
+      "current_cli_input": "NOT_RUN/engineering_fixture",
+      "real_business_status": "BLOCKED",
+      "evidence": [
+        "clock-cli-verification.json",
+        "clock-cli-unexecuted-bundle.json"
+      ],
+      "engineering_status": "PASS_CONTRACT_AND_NEGATIVE_TEST_SCOPE_ONLY",
+      "remaining": [
+        "target interruption/recovery, current authorization/full ledger confirmation and actual recipient receipts"
+      ],
+      "tool_evidence_scope": "Actual current88dee CLI0/2/2 and complete local2133PASS602.81s/lint/256format/freeze; no real business input or user acceptance."
+    },
+    {
+      "ac_id": "B10-06",
+      "plan_type": "B",
+      "tool_real_evidence_audit": "BLOCKED",
+      "current_cli_input": "NOT_RUN/engineering_fixture",
+      "real_business_status": "BLOCKED",
+      "evidence": [
+        "clock-cli-verification.json",
+        "clock-cli-unexecuted-bundle.json"
+      ],
+      "engineering_status": "PASS_OFFLINE_AGGREGATION_MECHANISM_ONLY",
+      "real_release_review": "BLOCKED",
+      "required_upstream_count": 65,
+      "remaining": [
+        "all current upstream evidence and named independent release review; E2/E3 separated"
+      ],
+      "tool_evidence_scope": "Actual current88dee CLI0/2/2 and complete local2133PASS602.81s/lint/256format/freeze; no real business input or user acceptance."
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G-01",
+      "status": "PASS_ENGINEERING_SCOPE_ONLY",
+      "scope": "Six ACs retain original type and real blockers; current65 prerequisite audit"
+    },
+    {
+      "gate_id": "G-02",
+      "status": "PASS_LOCAL_FINAL_REMOTE_BACKEND_PENDING",
+      "scope": "Current88dee local2133PASS602.81s,lint/256format/freeze exit0 clean;currentCI frontend152/container rootreportedPASS,backendpending."
+    },
+    {
+      "gate_id": "G-03",
+      "status": "PASS_ENGINEERING_SCOPE_ONLY",
+      "scope": "B10-specific diff has no schema/migration/runtime or identity change"
+    },
+    {
+      "gate_id": "G-04",
+      "status": "PASS_ENGINEERING_SCOPE_ONLY",
+      "scope": "Local offline only; private file bounds/path/hash/permissions; safe public allowlist"
+    },
+    {
+      "gate_id": "G-05",
+      "status": "PASS_ENGINEERING_SCOPE_ONLY",
+      "scope": "No B10 dependency/lock changes; reuse locked components"
+    },
+    {
+      "gate_id": "G-06",
+      "status": "PASS_ENGINEERING_SCOPE_ONLY",
+      "scope": "0 actual external model/source/IdP/target/recipient calls; no new charge"
+    },
+    {
+      "gate_id": "G-07",
+      "status": "PASS_ENGINEERING_SCOPE_ONLY",
+      "scope": "Current88dee; a0 complete checks/CLI; b136 local1fail versus Linux2fail; old427/WIP and identity clock red/green retained separately. Current88dee terminal local evidence saved; historicala0 Linux2129/630.84s not attributed to88dee."
+    },
+    {
+      "gate_id": "G-08",
+      "status": "PASS_ENGINEERING_SCOPE_ONLY",
+      "scope": "No production write or new enablement; default-off stays false; actual target rollback remains B10-05 BLOCKED"
+    }
+  ],
+  "full_integrated_status": "PASS_LOCAL_FINAL_REMOTE_BACKEND_PENDING",
+  "tool_schema_six_ac_statuses": "ALL_BLOCKED",
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "real_model_calls": 0,
+  "actual_cost_cny": "0",
+  "note": "Engineering PASS never promotes a B gate or authenticates person/permission/recipient; B10-06 stays B.",
+  "last_completed_cli_code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "current_candidate_cli": "ACTUALLY_EXECUTED_0_2_2_65UPSTREAM_SIXBLOCKED_NO_GO",
+  "latest_local_full_evidence": "current-full-verification.json",
+  "latest_local_backend_passed": 2133,
+  "latest_local_pytest_seconds": "602.81"
+}

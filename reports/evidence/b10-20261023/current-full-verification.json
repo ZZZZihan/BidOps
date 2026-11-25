@@ -1,0 +1,79 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "tree_sha": "a45142d6b4878853f297a8ea717e6fad70879d6d",
+  "executor": "root",
+  "source_kind": "synthetic_engineering_and_protocol_fixtures",
+  "actual_model_id": null,
+  "model_calls": 0,
+  "estimated_cost_cny": "0",
+  "commands": [
+    {
+      "name": "backend",
+      "command": [
+        ".venv/bin/pytest",
+        "-q",
+        "--basetemp",
+        "<PRIVATE_PYTEST_BASE>"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:48:39.756853+00:00",
+      "end": "2026-10-22T21:58:45.719351+00:00",
+      "exit_code": 0,
+      "log": "backend.txt"
+    },
+    {
+      "name": "lint",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:58:45.720220+00:00",
+      "end": "2026-10-22T21:58:45.782930+00:00",
+      "exit_code": 0,
+      "log": "lint.txt"
+    },
+    {
+      "name": "format",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:58:45.783231+00:00",
+      "end": "2026-10-22T21:58:45.802336+00:00",
+      "exit_code": 0,
+      "log": "format.txt"
+    },
+    {
+      "name": "freeze",
+      "command": [
+        ".venv/bin/python",
+        "scripts/screening_eval.py",
+        "--expected-freeze-sha256",
+        "22a2adf96f07b9a3e9c1493dae2cebbe2499b6e05db21f2b52855686c2afffea",
+        "--expected-input-sha256",
+        "eda43a451ae978251de4be003f1c062d1a4d3e93db9249c9c5458966628f44fb",
+        "--output",
+        "<PRIVATE_FROZEN_SCORER_OUTPUT>"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:58:45.802581+00:00",
+      "end": "2026-10-22T21:58:46.375013+00:00",
+      "exit_code": 0,
+      "log": "freeze.txt"
+    }
+  ],
+  "working_tree_clean_after": true,
+  "status": "PASS",
+  "scope": "Actual complete local final88dee checks; not remote CI or enterprise business acceptance",
+  "backend_passed": 2133,
+  "backend_failed": 0,
+  "pytest_seconds": "602.81",
+  "format_files": 256,
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO"
+}

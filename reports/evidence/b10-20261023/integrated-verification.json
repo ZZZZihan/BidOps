@@ -1,0 +1,72 @@
+{
+  "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+  "tree_sha": "08a848f3cca184b63ddd775dee169448062f60a7",
+  "executor": "root",
+  "source_kind": "synthetic_engineering_and_protocol_fixtures",
+  "actual_model_id": null,
+  "model_calls": 0,
+  "estimated_cost_cny": "0",
+  "commands": [
+    {
+      "name": "backend",
+      "command": [
+        ".venv/bin/pytest",
+        "-q",
+        "--basetemp",
+        "<PRIVATE_PYTEST_ROOT>"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T20:54:42.452928+00:00",
+      "end": "2026-10-22T21:04:32.150760+00:00",
+      "exit_code": 0,
+      "log": "backend.txt"
+    },
+    {
+      "name": "lint",
+      "command": [
+        ".venv/bin/ruff",
+        "check",
+        "."
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:04:32.151636+00:00",
+      "end": "2026-10-22T21:04:32.205032+00:00",
+      "exit_code": 0,
+      "log": "lint.txt"
+    },
+    {
+      "name": "format",
+      "command": [
+        ".venv/bin/ruff",
+        "format",
+        "--check",
+        "."
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:04:32.205426+00:00",
+      "end": "2026-10-22T21:04:32.232302+00:00",
+      "exit_code": 0,
+      "log": "format.txt"
+    },
+    {
+      "name": "freeze",
+      "command": [
+        ".venv/bin/python",
+        "scripts/screening_eval.py",
+        "--expected-freeze-sha256",
+        "22a2adf96f07b9a3e9c1493dae2cebbe2499b6e05db21f2b52855686c2afffea",
+        "--expected-input-sha256",
+        "eda43a451ae978251de4be003f1c062d1a4d3e93db9249c9c5458966628f44fb",
+        "--output",
+        "<ROOT_ACCEPTANCE_B10>/frozen-scorer.json"
+      ],
+      "cwd": "<B10_WORKTREE>",
+      "start": "2026-10-22T21:04:32.232707+00:00",
+      "end": "2026-10-22T21:04:32.892228+00:00",
+      "exit_code": 0,
+      "log": "freeze.txt"
+    }
+  ],
+  "working_tree_clean_after": true,
+  "status": "PASS"
+}

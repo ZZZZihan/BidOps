@@ -1,6 +1,24 @@
-# Project board — dated 2026-10-22
+# Project board — updated 2026-10-23
 
-## Enterprise application goal (new explicit authorization)
+## 当前交接：73项工程矩阵，等待外部验收条件
+
+- B01–B10 PR #16–25及后续原生计算/采集恢复PR #26均未合并、未部署。
+- 73专项 = 57C PASS + B02-06一项C BLOCKED + 15B BLOCKED；8G中5PASS/3BLOCKED。
+- 固定修复 `76ce23720c14e9e66e583e4cc15ad95356f5e519` CI实际后端2175、浏览器159及容器通过；
+  695初次后端2166PASS/1FAIL已确定性复现并修复，原失败及红绿结果保留。
+- 2425随后CI的2172PASS/3FAIL同样保留；仅修正队列测试中业务计算与空槽放行的等待阶段，
+  原短放行检查、90秒业务期限、完整结果和用量断言保留，生产代码与冻结指标不变。
+- 完整本机容量属于clean6956042：4200操作/3600稳态，计算峰2，
+  本机门槛PASS，总体BLOCKED；未在修复SHA完整重跑。
+- UAT仍检查67个上游门槛；空证据实际NO_GO、6个B10 BLOCKED，不能跳过缺失门槛。
+- 代码默认Jobs关闭、计算1。真实模型/来源调用与新增费用0，累计¥10余额仍待核对。
+
+当前入口：[运行与恢复报告](reports/b09-native-compute-queue-20261023.md)、
+[73项矩阵](reports/enterprise-current-acceptance-20261023.md)及[JSON证据](reports/enterprise-current-acceptance-20261023.json)。
+下一项可执行工作：接收原旧库与完整累计费用账本受控路径，分别完成E01迁移/回退验收和E06费用核对；
+核对账本本身不授权模型调用。其余真实许可/样本/独立人员/IdP/HTTPS/目标机缺口按AC继续BLOCKED。
+
+## Enterprise application goal (historical baseline)
 
 - [ ] [Enterprise goal #13](https://github.com/ZZZZihan/BidOps/issues/13): complete E1 / E2 / E3 gates in [GOAL.md](GOAL.md).
 - [x] Framework research; Authlib OIDC + PKCE and backend RBAC, no anonymous fallback.
@@ -59,3 +77,32 @@ gates below remain pending; the Demo does not start those phases automatically.
 - #6 parser p0.2 processed all six actual bodies and 15 procurement packages. Offline replay verified 90 evidence spans, six duplicate imports and a stable manifest. This is not P1 gold-label evaluation.
 - #8 the earlier zero-capture report is retained; reports/p0-collection-20261022.md records the follow-up. P0 awaits human access/acceptance review.
 - P1 backlog: #9; P2 backlog: #10; P3 backlog: #11. None has started.
+
+
+## Next business loop: individually accepted implementation PRs
+
+The user requested PR decomposition with an acceptance criterion for every task.
+[Full plan and acceptance matrix](docs/ENTERPRISE-PR-PLAN.md).
+B01–B10 below are planning IDs. Implementation progress and actual PR numbers are recorded separately.
+
+- [x] B01 — Screening contracts and independent evaluation protocol (B01-01 through B01-07): [implementation PR #16](https://github.com/ZZZZihan/BidOps/pull/16), 571 backend tests on `4d22667acc4001b57d3dfca248a7cb78d5636587`; [per-item evidence](reports/b01-contracts-eval-20261023.md). Code delivered for review, not merged; P1/B08 real acceptance remains BLOCKED.
+- [ ] B02 — [PR #17](https://github.com/ZZZZihan/BidOps/pull/17), Draft: B02-01–05 engineering PASS; B02-06 real historical backup BLOCKED. Implementation `72c9525784ae18df743b49fec5049fc7a224615f`: 685 backend / 14 browser tests. [Evidence](reports/b02-notice-versions-20261023.md).
+- [x] B03 — [PR #18](https://github.com/ZZZZihan/BidOps/pull/18), Draft stacked on B02: B03-01–08 engineering PASS; 791 backend / 20 browser on `88d1f30d592678daa586c67818100dafff83f8d0`. [Evidence](reports/b03-company-access-20261023.md). Main merge remains blocked on B02-06; real company/IdP/HTTPS acceptance BLOCKED.
+- [x] B04 — [Draft PR #19](https://github.com/ZZZZihan/BidOps/pull/19), stacked on B03 #18: B04-01–08 engineering PASS; 1101 backend / 39 browser tests on `3f04b045f0d029dadb4b882a293f31776400cc30`. [Evidence](reports/b04-qualification-screening-20261023.md). Code delivered, not merged/deployed; prerequisite B02-06 and real business acceptance BLOCKED.
+- [x] B05 — [Draft PR #20](https://github.com/ZZZZihan/BidOps/pull/20), stacked on B04 #19: B05-01–07 engineering PASS; 1316 backend / 75 browser tests on clean `509e8007218c306d0e0639d96317537676570a0b`, seven SIGKILL/restart/read cases with 21 separate processes. [Evidence](reports/b05-durable-runs-20261023.md). No main merge/deploy; B02-06 and real business acceptance BLOCKED; review fixtures are not actual human approval.
+- [x] B06 — [Draft PR #21](https://github.com/ZZZZihan/BidOps/pull/21), stacked on B05 #20: B06-01–07 engineering PASS; clean code `487649aec8260ce494d7a4cf1f41bae2c4ec1f26`, 1429 backend / 105 browser tests, four SIGKILL windows with 12 processes. Chrome updater teardown required scoped cleanup, recorded in [evidence](reports/b06-human-review-20261023.md). Chain B02-06 and real business acceptance remain BLOCKED.
+- [ ] B07 — [PR #22](https://github.com/ZZZZihan/BidOps/pull/22): B07-01–06 engineering PASS; B07-07 real permitted three-cycle / 24-hour acceptance BLOCKED. Fixed `5ac68753c22f46a3e3214e2f0c61a1ea8008808c`: 1730 backend / 148 browser, natural exit 0; three SIGKILL windows / nine processes. Original Linux CI 1729 PASS / 1 FAIL preserved. Test-only fix `de96024711bbd0eaf40b580859bf871004ef2a66` separates PDF memory/decode limits (47→48 parser cases); final c035c01 CI39855341451 actually passed 1731 backend / 148 browser plus container/lint/freeze. [Per-item evidence](reports/b07-authorized-updates-20261023.md). B07 G-02 is engineering PASS; prerequisite B02-06 and real business gates remain blocked; collection/network remain disabled by default.
+- [ ] B08 — [Draft PR #23](https://github.com/ZZZZihan/BidOps/pull/23): B08-03/07 engineering PASS; other five B gates BLOCKED on permitted held-out data, independent gold/human timing and the historical ledger. [Report](reports/b08-independent-evaluation-20261023.md). No real Agent quality or time-saving result claimed.
+- [ ] B09 — [Draft PR #24](https://github.com/ZZZZihan/BidOps/pull/24), B09-01/03/04/08 engineering PASS; fixed db4f55db CI actually 2010 backend / 152 browser and 3 jobs PASS. Formal local capacity on 836ccbf: 4200 operations, 4/3600 steady ReadError; configured/observed computation 1 versus target 2 remains FAIL. B09-02/05/06/07 real acceptance BLOCKED, business RTO=null. [Full report](reports/b09-capacity-recovery-20261023.md). No main merge/deploy or live provider/source calls.
+- [ ] B10 — [Draft PR #25](https://github.com/ZZZZihan/BidOps/pull/25): B10-01 C engineering PASS, B10-02–06 B BLOCKED / NO_GO. Verified 88dee00a: local2133/602.81s, Linux2133/1042.83s, browser152/2.1m and all3 jobs success; real CLI0/2/2 checks all65 upstream gates. [Report](reports/b10-enterprise-uat-20261023.md). Docs-only evidence commits are separately checked; real enterprise acceptance remains unexecuted.
+
+Each implementation PR must also satisfy G-01 through G-08 and attach per-item evidence.
+Existing P1/E2/E3 checkboxes remain open. Synthetic tests, code merge and unavailable external inputs
+must not be represented as independent business acceptance.
+
+
+B06 CI修复补充：原Head backend/frontend实际FAIL已保留；修复代码`a0be11276de97b1dbf55fc87b96a9767e96c626a`完整1430后端PASS、Ruff197/冻结PASS，两项真实浏览器复验PASS；新CI frontend/container PASS，backend待结果。详见B06报告CI复验节，业务与前置B02-06仍BLOCKED。
+
+B08已交付 [Draft PR #23](https://github.com/ZZZZihan/BidOps/pull/23)，基于B07 #22：授权完整结果收集、原始投影/用量/代码闭包核验、冻结独立协议及累计费用核对。干净代码`b42f05269e13be278d220a1307d79ee4b17aad6b`完整1851后端PASS，121项新增；真实CLI工程校准PASS，业务BLOCKED、agent_score=null。B08-03/07工程PASS，其他五项真实评测BLOCKED。见[B08逐项证据](reports/b08-independent-evaluation-20261023.md)。前置B02-06、真实资料/金标/人审计时/完整账本仍缺，B09/B10继续，无合并部署。
+
+B08 CI复验：固定d682262，CI39855370107三job全部PASS（1852后端、148浏览器）；工程G-02通过，真实评测/计时/账本与前置B02-06仍受阻。

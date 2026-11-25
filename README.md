@@ -1,6 +1,8 @@
 # BidOps | Evidence-first Tender Intelligence
 
-> Status: **Enterprise internal-app engineering baseline**, authorized by the user's new [goal](GOAL.md). OIDC / RBAC, private persistent conversations, request deduplication, audit and container operations build on the existing DeepSeek Demo. Real company SSO and production acceptance remain pending. The original six-notice Demo scored **98.67/100 (71/72 cases)** on its first held-out run; this does not pass P1 or prove enterprise production readiness. [Enterprise report](reports/enterprise-run-20261022.md) · [Deployment](docs/ENTERPRISE-OPERATIONS.md) · [Demo report](reports/demo-run-20261022.md).
+> Status: **Integrated development workbench** for notice questions, company evidence, qualification checks, durable tasks, human review and review-package export, with a browser UI and MyGo desktop entry. The 2026-11-25 integration brings the existing development branches together for continued development; real enterprise acceptance, historical-data recovery and production release remain pending. Start with the [development handoff](docs/DEVELOPMENT-HANDOFF.md), then follow the [local workflow guide](docs/LOCAL-WORKFLOW-DEMO.md) or [deployment guide](docs/ENTERPRISE-OPERATIONS.md).
+
+The original six-notice Demo scored **98.67/100 (71/72 cases)** on its first held-out run. This is a historical result on that small corpus, not a current qualification-screening score or a P1/enterprise acceptance result. [Historical enterprise report](reports/enterprise-run-20261022.md) · [Demo report](reports/demo-run-20261022.md).
 
 An AI-native procurement notice intelligence workbench for small and medium-sized businesses. Start with authentic Chinese government procurement notices; build a lawful, auditable data pipeline; validate data quality; only then build the Agent harness.
 
@@ -19,6 +21,20 @@ are still required before an enterprise trial. The local Demo below remains avai
 
 ## Run the Agent Demo
 
+要体验 **项目筛选 → 企业资格核对 → 人工复核**，使用新的
+[本机完整业务流程指南](docs/LOCAL-WORKFLOW-DEMO.md)。该入口保留 AI 问答，使用明确虚构的示例企业资料，
+并与原 Demo 共用数据及累计费用记录；不需要部署服务。
+
+已有独立 Demo 数据目录时，优先使用 [本机真实 AI Demo 指南](docs/LOCAL-LIVE-DEMO.md)：
+
+```bash
+.venv/bin/python scripts/live_demo.py --data-dir /absolute/path/to/existing-bidops-demo
+```
+
+将路径替换为已经导入公告、保留费用账本的同一个目录。默认仅预览；真实问答需明确授权后使用
+`--live --max-cost-cny 1`，其中 1 元是该目录账本的累计估算上限，重启不会增加额度。
+启动器不负责创建、导入或重置数据库。以下是新 checkout 的依赖与数据准备步骤。
+
 Python 3.12+, uv and Node 22.12+ are required. Run these commands from the repository root:
 
 ```bash
@@ -32,8 +48,8 @@ uv run bidops parse
 ```
 
 Set `DEEPSEEK_API_KEY` in your environment, or in ignored `private/deepseek.env` (mode 0600).
-The current workspace already has the user-provided credential configured; it is never
-included in GitHub, browser JavaScript or reports. A new checkout needs its own local setup.
+Credential availability depends on the current machine and environment; this README does
+not confirm that a key is configured. Keep credentials out of GitHub, browser JavaScript and reports.
 An optional terminal prompt keeps the key out of shell history:
 
 ```bash
@@ -94,6 +110,7 @@ Sources are public notices, but **publicly viewable is not a blanket license for
 
 ## Developer handoff
 
+- **[Current development handoff — 2026-11-25](docs/DEVELOPMENT-HANDOFF.md)**: integrated scope, setup, verification and remaining work for another development platform.
 - **[CODEX P0 instruction](docs/CODEX-HANDOFF-P0.md)** (paste verbatim into Codex)
 - [PRD](docs/PRD-v0.1.md) | [architecture](docs/ARCHITECTURE.md) | [source catalog](docs/DATA-SOURCES.md) | [data contract](docs/DATA-CONTRACT.md) | [experiment plan](docs/EXPERIMENT-PLAN.md)
 - [Kanban](TASKS.md) | [Evidence register](docs/EVIDENCE-REGISTER.md)
@@ -175,7 +192,19 @@ uv run python scripts/verify_collection.py --bundle data/artifacts/p0-capture-20
 This is offline. The replay checks raw SHA256, duplicate imports, stable exports, evidence
 offsets and API records. It does not measure field accuracy against independent gold labels.
 
+For B02-06 historical migration preparation, follow
+[the legacy asset and ledger verification guide](docs/LEGACY-ASSET-VERIFICATION.md).
+`python3 scripts/legacy_preflight.py` checks supplied consistent copies without importing
+the application or changing a database. The bundled expected fingerprints are public
+metadata; the original capture, old database and historical sessions must be supplied
+separately. A successful preflight does not pass B02-06 or certify the latest cost ledger.
+
 ## Verification
+
+本项目先在公告问答试用 [LLM 工程原则](docs/LLM-ENGINEERING-PILOT.md)：版本化 prompt、
+脱敏运行追踪、冻结配置与离线回归。运行 `uv run --frozen --no-sync python
+scripts/llm_pilot_check.py --output data/artifacts/llm-pilot/local-001.json` 可生成新报告。
+这是不调用模型的工程检查，不更新历史模型成绩。
 
 ```bash
 uv run ruff check .

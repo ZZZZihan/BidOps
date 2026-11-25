@@ -1,0 +1,11 @@
+{
+  "dbos_schema_version": 123,
+  "journal_mode": "delete",
+  "workflow_statuses": [
+    [
+      "SUCCESS",
+      1
+    ]
+  ],
+  "operation_count": 4
+}

@@ -1,0 +1,126 @@
+{
+  "scope": "Explicit current safe outputs and historical bug-fix summaries; no private traceback contents",
+  "sources": [
+    {
+      "artifact": "final-template.json",
+      "source_alias": "root/current-cli/template.json",
+      "source_sha256": "d4b3538502ff34c22888a57bcc49ef0f575e107e278b28627ed2c5b1d8ab9adf",
+      "source_bytes": 1904,
+      "transformation": "Exact reviewed JSON bytes; no secret or personal data fields"
+    },
+    {
+      "artifact": "final-empty-environment.json",
+      "source_alias": "root/current-cli/environment.json",
+      "source_sha256": "468cec6ff39443ecac69683529b05ba4b93436286a93f0012cf628c1c59ee5e1",
+      "source_bytes": 3483,
+      "transformation": "Exact reviewed JSON bytes; no secret or personal data fields"
+    },
+    {
+      "artifact": "final-unexecuted-bundle.json",
+      "source_alias": "root/current-cli/bundle.json",
+      "source_sha256": "c314d1bf4f891af98650e0c4ac1f13b80e7675cc8986dd1f720c7ca067b0b276",
+      "source_bytes": 7563,
+      "transformation": "Exact reviewed JSON bytes; no secret or personal data fields"
+    },
+    {
+      "artifact": "final-cli-verification.json",
+      "source_alias": "root/current-cli/verification.json",
+      "source_sha256": "cf57b606b0379d35f81abe2da2ddcac0afa63c6dd14f6d462792cd9c9b48d33f",
+      "source_bytes": 1287,
+      "transformation": "Exact commands/time/exit; replace only local output/input paths with explicit aliases"
+    },
+    {
+      "artifact": "final-plan-independent-tests.txt",
+      "source_alias": "independent-plan-review/pytest-green.txt",
+      "source_sha256": "3d255fb655b88f94981059d7a80b924193223e28f35fc2d6d639392801e2784a",
+      "source_bytes": 179,
+      "transformation": "Exact scoped safe summary/probe; no original tracebacks"
+    },
+    {
+      "artifact": "final-plan-b10-extension-independent.txt",
+      "source_alias": "independent-plan-review/b10-07-green.txt",
+      "source_sha256": "a132c74d7b7c74739e7571fb00cd0a8be848d9686b936586ce31a93451c151b2",
+      "source_bytes": 98,
+      "transformation": "Exact scoped safe summary/probe; no original tracebacks"
+    },
+    {
+      "artifact": "final-plan-independent-probe.json",
+      "source_alias": "independent-plan-review/probe-green.json",
+      "source_sha256": "81256d5d13e6cb19086fb6e54d5ca6b413575222d8bc0af025e11bae410ee528",
+      "source_bytes": 1344,
+      "transformation": "Exact scoped safe summary/probe; no original tracebacks"
+    },
+    {
+      "artifact": "final-plan-independent-provenance.json",
+      "source_alias": "independent-plan-review/provenance-green.json",
+      "source_sha256": "3c5cef4d62656dba114e284557aacd819ff4147d0818d332d045e784673dd3d1",
+      "source_bytes": 623,
+      "transformation": "Exact scoped safe summary/probe; no original tracebacks"
+    },
+    {
+      "artifact": "final-shared-migration-gap.json",
+      "source_alias": "root/acceptance-b09-scale-final/verification.json + backend.txt; gitshow36efed3",
+      "source_sha256": [
+        "d4dae6452dac27a5930e032c67431e9740cd885522af4d298bfe717463d26467",
+        "fa9bc3fc98d15b6854b70f13aed7f69cd2093a7ed8a0e4c907ed635d8abb8eaa"
+      ],
+      "transformation": "Only code/time/command/exit/terminal counts/test name and static one-line fix; no traceback/private path"
+    },
+    {
+      "artifact": "final-b136-full-failure.json",
+      "source_alias": "root/acceptance-b10-final/verification.json + backend.txt",
+      "source_sha256": [
+        "2f6e6cefbe288f800ee1c87f006db7703b59f5586e6babcf823dca46f62acd5b",
+        "7a5ab461bf8f14b70212de5ddb3a6a37ca872c8a6b8189b24a20299fe7b7144b"
+      ],
+      "transformation": "Only code/command/time/exit/terminal summary/test name; exclude private paths and traceback"
+    },
+    {
+      "artifact": "final-migration-independent-test.txt + final-migration-independent-verification.json",
+      "source_alias": "independent/b09-migration-check-review",
+      "source_sha256": [
+        "941fd927604956af95533710b95a4b5cfe32fe875376a69b8cd3d6db814e3c2b",
+        "2cf49c2eaa0d4eb4f867a31a6c44ceda4525bf31c5f0f269d50385574a1c89ae",
+        "eaae6b958063bb20f40d53c53beeddb891ea81028ece89b95d9565fdef28a47d"
+      ],
+      "transformation": "Exact scoped test output, metadata local paths replaced with aliases; no code or trace copy"
+    },
+    {
+      "artifact": "final-corrected-candidate-identity.json",
+      "source_alias": "Read-onlygit HEAD/status/diff a0",
+      "transformation": "Public code/tree/time/hash and one-line test-only change; no author or local path"
+    },
+    {
+      "artifact": "corrected-template.json",
+      "source_alias": "root/b10-corrected-cli/template.json",
+      "source_sha256": "980e6c9f7b5110c6c416c296c04c46f3b5030d235fcfb5e8143840084b43bab3",
+      "source_bytes": 1904,
+      "transformation": "Exact currenta0 JSON bytes reviewed for no private values"
+    },
+    {
+      "artifact": "corrected-empty-environment.json",
+      "source_alias": "root/b10-corrected-cli/environment.json",
+      "source_sha256": "41ad44e5d26f5eb84f4d951f5f5fb3687d22de982718a19dcf63d9d88265bdc0",
+      "source_bytes": 3483,
+      "transformation": "Exact currenta0 JSON bytes reviewed for no private values"
+    },
+    {
+      "artifact": "corrected-unexecuted-bundle.json",
+      "source_alias": "root/b10-corrected-cli/bundle.json",
+      "source_sha256": "9d418de0e5104537b586b619c52e2b32d07cf5c4527b27fda52f04ea26526cc8",
+      "source_bytes": 7563,
+      "transformation": "Exact currenta0 JSON bytes reviewed for no private values"
+    },
+    {
+      "artifact": "corrected-cli-verification.json",
+      "source_alias": "root/b10-corrected-cli/verification.json",
+      "source_sha256": "5fc657887ec8fb26559fb4441b4fe1dbb660a90fbf736e3eacb927e3030ad27e",
+      "source_bytes": 1375,
+      "transformation": "Exact commands/UTC/exit/clean; local input/output path aliases only, add explicit safe scope"
+    }
+  ],
+  "historical_index_sha256": "6eb424f87158f71e60d8d167882ae8e1973adbc3d4a35d5bc5af93df578a4b38",
+  "historical_report_sha256": "bec95ac8df7ad51142c0b3f0ae56d69e6357a1355e77482cc59f08f98f309c89",
+  "all_old_payloads_preserved": true,
+  "full_final_logs_not_yet_archived": true
+}

@@ -1,0 +1,39 @@
+{
+  "kind": "read_only_actual_synthetic_corpus_diagnostic_not_capacity",
+  "notice_versions": 10000,
+  "package_units": 50000,
+  "elapsed_seconds": 43.972041457891464,
+  "canonical_result_bytes": 37690586,
+  "result_sha256": "df6d7a99045179d8e226d87fa56f130b04cddd35db4dc632af5c4251b6000f65",
+  "repository_body_limit_bytes": 10000000,
+  "result_alone_exceeds_body_limit": true,
+  "queries": {
+    "other": {
+      "calls": 2,
+      "execute_ns": 1374791
+    },
+    "version_lookup": {
+      "calls": 10000,
+      "execute_ns": 1883940890
+    },
+    "observation_lookup": {
+      "calls": 10000,
+      "execute_ns": 84632679
+    },
+    "package_lookup": {
+      "calls": 10000,
+      "execute_ns": 6418139709
+    }
+  },
+  "package_lookup_plan": [
+    [
+      4,
+      0,
+      217,
+      "SCAN nd_package_versions USING INDEX sqlite_autoindex_nd_package_versions_1"
+    ]
+  ],
+  "writes": 0,
+  "real_model_calls": 0,
+  "real_source_calls": 0
+}

@@ -1,0 +1,33 @@
+{
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "recorded_at": "2026-10-22T22:09:30.096316+00:00",
+  "source_alias": "root/ci-snapshots/final-b10-code-ci.json",
+  "source_sha256": "1026b6057501f1ac9b0b7b84b94c75338eb8b9f012dca4b98b00862d9fd3c325",
+  "source_bytes": 1638,
+  "duplicate_verified_code_snapshot_alias": "root/ci-snapshots/pr-25-verified-code.json",
+  "duplicate_snapshot_byte_identical": true,
+  "transformation": "Exact safe snapshot bytes copied to final-code-ci.json. No raw CI logs, request bodies, secrets, or unbounded recursive archive. Supplemental counts extracted from selected terminal lines.",
+  "ci_log_sha256": {
+    "backend": "391f203926cb4535de8e56d63954774581d4cc4d08290cead79cac63bf7f994b",
+    "frontend": "3d864b38d906ebf8e12cd7c83b95a0ccf55f9d8fe2bdd83db61289d7bce9e3e5"
+  },
+  "current_workflow_definition": {
+    "path": ".github/workflows/ci.yml",
+    "sha256": "e757ad0f4f7222a31b92271d101391833c5ed3b712b22a9c59181bb6f12064bc",
+    "scope": "Version-fixed workflow has lint/format/pytest/frozen scorer/migrate/pilot steps; current backend job terminal success. Backend extra checks also reported by executor root."
+  },
+  "backend_extra_checks_reported_by_executor": [
+    "lint",
+    "format",
+    "frozen scorer",
+    "migrate",
+    "p0 pilot"
+  ],
+  "previous_index_sha256": "e77490b1e11024e6d6b3bfb2385dc86820c9895a835dd75dc6eef129c048b1e9",
+  "previous_report_sha256": "605887e2c47c02e9487ce7677853c72116b95d8e7e0f59bcdcfc10ed2babcceb",
+  "all_previous_72_payloads_preserved": true,
+  "historical_partial_snapshot": "current-ci-status.json",
+  "direct_remote_query_by_report_agent": false,
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO"
+}

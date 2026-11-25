@@ -1,0 +1,12 @@
+{
+  "algorithm": "RS256",
+  "verified_claim_sha256": {
+    "owner": "0eb371099c755ba4b7d7f577002b18ac4d7e1f314dbec37d15ad648e05956f9c",
+    "reviewer": "fab96dbfaf4cc2c006857857b065f06e2472fd149c1cc97db6d28ac633d2e0e5"
+  },
+  "principals": {
+    "owner": "92d59c139927adff6c4a0a7efbc9dbcce9dcbfe6eccaaaee6352eb7f3280f629",
+    "reviewer": "19bcf126d2701aadefa3d1ba171636ecd5a4df77071c69e2ac02938463683572"
+  },
+  "kind": "synthetic_signed_IdP_without_HTTP"
+}

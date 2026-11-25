@@ -1,0 +1,31 @@
+{
+  "aliases": {
+    "$NEW_WORKTREE": "Frozen new repository checkout at code SHA6956042",
+    "$OLD_WORKTREE": "Frozen old repository checkout at code SHA215fca7",
+    "$SESSION_WORKSPACE": "Controlled task workspace; not a source of user credentials",
+    "$RECOVERY_OUTPUT": "Preserved final synthetic subprocess recovery output directory",
+    "$EARLY_RECOVERY_OUTPUT_2": "Preserved early failed test invocation output alias",
+    "$EARLY_RECOVERY_OUTPUT_3": "Preserved intermediate recovery test output alias",
+    "$EARLY_BACKUP_OUTPUT_4": "Preserved intermediate backup test output alias"
+  },
+  "files": [
+    {
+      "source_alias": "native-compute-recovery-evidence.json",
+      "original_sha256": "c258b15f42d19c7cb3eda38a7949868fea3414610d00ae809442d276a3d23bcb",
+      "public_sha256": "7ec81309578aa8a2739ddce55ccfee852ae259865e09421c42182ae83e3a4845",
+      "projection": "Only controlled absolute-path aliases replaced; source original preserved."
+    },
+    {
+      "source_alias": "native-compute-contract-review.md",
+      "original_sha256": "089180a91582b18cf0a146a341516f2d586deada7592b20537271a3d7780d7c3",
+      "public_sha256": "dbfefcf600cdb2fee3cca6270b3c87b83f83cdeddda953b5979cb921f82a27de",
+      "projection": "Only controlled absolute-path aliases replaced; source original preserved."
+    },
+    {
+      "source_alias": "native-compute-independent-review.md",
+      "original_sha256": "422579b04614afb6bd94d43b0c43ebfe8a8fcdd70ce064dcf9db6fa137f53f06",
+      "public_sha256": "8bf3c3e4e5a631ba5b4c66ab7dbfda891f704f20f37fe3e32d5788d5734014a2",
+      "projection": "Only controlled absolute-path aliases replaced; source original preserved."
+    }
+  ]
+}

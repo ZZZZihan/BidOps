@@ -18,19 +18,21 @@ export function Archive() {
   const [detailError, setDetailError] = useState('');
   const [connected, setConnected] = useState(false);
   const [offset, setOffset] = useState(0);
+  const [query, setQuery] = useState('');
+  const [search, setSearch] = useState('');
   const [revision, setRevision] = useState(0);
   useEffect(() => {
     const controller = new AbortController();
     setError(''); setPage(null); setConnected(false);
     Promise.all([
-      get<Page>(`/notices?limit=20&offset=${offset}`, controller.signal),
+      get<Page>(`/notices?limit=20&offset=${offset}&q=${encodeURIComponent(search)}`, controller.signal),
       get<{items: Source[]}>('/sources', controller.signal),
       get<{status: string}>('/health', controller.signal),
     ]).then(([list, sourceList, health]) => {
       setPage(list); setSources(sourceList.items); setConnected(health.status === 'ok');
     }).catch((e: Error) => { if (!controller.signal.aborted) setError(e.message); });
     return () => controller.abort();
-  }, [offset, revision]);
+  }, [offset, revision, search]);
   useEffect(() => {
     const controller = new AbortController();
     setDetail(null); setDetailError('');
@@ -42,13 +44,14 @@ export function Archive() {
     <main>
       <span className="connection">{connected ? '本地服务已连接' : '等待本地服务'}</span>
       <div className="intro"><div><h1>采购公告</h1><p>查看已导入的原文、字段与证据。所有时间以北京时间显示。</p></div><button onClick={() => setRevision(v => v + 1)}>刷新列表</button></div>
+      <form onSubmit={e => {e.preventDefault(); setOffset(0); setSelectedId(null); setSearch(query.trim());}}><label htmlFor="notice-search">搜索项目、标题或采购单位</label>{' '}<input id="notice-search" maxLength={120} value={query} onChange={e => setQuery(e.target.value)} />{' '}<button type="submit">搜索全部公告</button></form>
       <div className="source-strip"><strong>官方来源</strong>{sources.map(s => <a key={s.id} href={s.home_url} target="_blank" rel="noreferrer">{s.name}<span>{s.robots_status === 'allowed' && s.terms_status === 'allowed' ? '已记录访问许可' : '访问许可待核查'}</span></a>)}</div>
       {error ? <div className="message error" role="alert">无法读取公告：{error}。请检查本地后端服务后刷新。</div> : !page ? <p role="status">正在读取公告…</p> : <>
         <div className="list-heading"><h2>已导入公告 <span>{page.total}</span></h2><p>更正与终止公告保留独立记录</p></div>
         <div className="workspace">
           <section aria-label="公告列表">
-            {page.items.length === 0 ? <div className="empty"><h3>尚未导入公告</h3><p>先通过命令行导入依法持有的公告文件，再刷新列表。</p><p>种子 URL 只是来源线索，未取得正文的公告不会显示为成功导入。</p></div> : <div className="table-scroll"><table><thead><tr><th>项目 / 采购单位</th><th>类型</th><th>预算</th><th>投标截止</th></tr></thead><tbody>{page.items.map(n => <tr key={n.notice_id} className={n.notice_id === selectedId ? 'selected' : ''}><td><button className="notice-title" onClick={() => setSelectedId(n.notice_id)}>{missing(n.title)}</button><small>{missing(n.project_code)}</small><small>{missing(n.buyer_name)}</small></td><td>{n.notice_kind ? kinds[n.notice_kind] || n.notice_kind : '未知'}<small className="uncertain">{n.status_as_observed === 'review_required' ? '需要人工复核' : '当前状态未知'}</small></td><td>{money(n.budget)}</td><td>{when(n.bid_deadline_at)}</td></tr>)}</tbody></table></div>}
-            {page.total > 20 && <nav aria-label="分页"><button disabled={offset === 0} onClick={() => setOffset(v => Math.max(0, v - 20))}>上一页</button><span>{offset + 1}–{Math.min(offset + 20, page.total)} / {page.total}</span><button disabled={offset + 20 >= page.total} onClick={() => setOffset(v => v + 20)}>下一页</button></nav>}
+            {page.items.length === 0 ? <div className="empty"><h3>{search ? '没有匹配的公告' : '尚未导入公告'}</h3><p>{search ? '尝试其他项目编号、标题或采购单位。搜索范围包含全部已导入公告。' : '先通过命令行导入依法持有的公告文件，再刷新列表。'}</p><p>种子 URL 只是来源线索，未取得正文的公告不会显示为成功导入。</p></div> : <div className="table-scroll"><table><thead><tr><th>项目 / 采购单位</th><th>类型</th><th>预算</th><th>投标截止</th></tr></thead><tbody>{page.items.map(n => <tr key={n.notice_id} className={n.notice_id === selectedId ? 'selected' : ''}><td><button className="notice-title" onClick={() => setSelectedId(n.notice_id)}>{missing(n.title)}</button><small>{missing(n.project_code)}</small><small>{missing(n.buyer_name)}</small></td><td>{n.notice_kind ? kinds[n.notice_kind] || n.notice_kind : '未知'}<small className="uncertain">{n.status_as_observed === 'review_required' ? '需要人工复核' : '当前状态未知'}</small></td><td>{money(n.budget)}</td><td>{when(n.bid_deadline_at)}</td></tr>)}</tbody></table></div>}
+            {page.total > 20 && <nav aria-label="分页"><button disabled={offset === 0} onClick={() => setOffset(v => Math.max(0, v - 20))}>上一页</button><span>{page.items.length ? offset + 1 : 0}–{Math.min(offset + page.items.length, page.total)} / {page.total}</span><button disabled={!page.has_more} onClick={() => setOffset(v => v + 20)}>下一页</button></nav>}
           </section>
           <aside aria-label="公告详情">
             <h2>原文与证据</h2>{detailError ? <p role="alert">详情读取失败：{detailError}</p> : !detail ? <p>{selectedId ? '正在读取详情…' : '从列表选择一条公告，查看来源及缺失字段。'}</p> : <>

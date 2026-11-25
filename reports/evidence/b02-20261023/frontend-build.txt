@@ -1,0 +1,13 @@
+
+> bidops-ui@0.1.0 build
+> tsc -b && vite build
+
+vite v7.3.7 building client environment for production...
+transforming...
+✓ 34 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.38 kB │ gzip:  0.30 kB
+dist/assets/index-BzjcCGk_.css   10.64 kB │ gzip:  3.00 kB
+dist/assets/index-LA2dF7bR.js   247.22 kB │ gzip: 78.07 kB
+✓ built in 421ms

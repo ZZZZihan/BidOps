@@ -1,0 +1,258 @@
+{
+  "schema_version": 1,
+  "scope": "engineering_only_native_dbos_sqlite_schedule_recovery_regression",
+  "requested_agent_model": "gpt-6.1-sol",
+  "requested_reasoning_effort": "ultra",
+  "actual_agent_configuration_independently_verified": false,
+  "dbos_version": "3.3.0",
+  "base_code_commit": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "execution_version_attribution": "precommit WIP with minimal runtime fix and new test file; not a clean-commit product verification",
+  "later_commit_with_identical_tested_file_bytes": "2425fc2c50a0cc3a6155f14cd22f1463743d53f4",
+  "later_commit_was_independently_retested_here": false,
+  "old_runtime_sha256": "dd546113805939423aa48ade38cfad063382f651cbd6faf12c93b48afaf4fdfc",
+  "final_source_files": [
+    {
+      "repository_path": "backend/bidops/ingestion/runtime.py",
+      "sha256": "3d12c59f3dacb6a8ccc765d5439553cc8ff27068c4d6b82b60e477554da1cad0",
+      "bytes": 7485
+    },
+    {
+      "repository_path": "tests/test_ingestion_schedule_replay.py",
+      "sha256": "d564744fc2de22573a0db264568d1460ecdfedbdfcb553a4f2f242a245b8aaab",
+      "bytes": 13166
+    }
+  ],
+  "commands": {
+    "old_code_red": ".venv/bin/pytest -q tests/test_ingestion_schedule_replay.py",
+    "final": ".venv/bin/pytest -q -o junit_family=legacy --junitxml=<private-result.xml> tests/test_ingestion_schedule_replay.py",
+    "lint": ".venv/bin/ruff check tests/test_ingestion_schedule_replay.py",
+    "format": ".venv/bin/ruff format --check tests/test_ingestion_schedule_replay.py",
+    "diff": "git diff --check"
+  },
+  "runs": [
+    {
+      "stage": "old_code_regression_red",
+      "tests": 1,
+      "passed": 0,
+      "failed": 1,
+      "pytest_reported_seconds": "8.10",
+      "exit_code": 1,
+      "schedule_native_status": "ERROR",
+      "error_code": "ingestion_run_not_active",
+      "source_native_status": "SUCCESS",
+      "business_status": "completed",
+      "mock_http_requests": 1,
+      "red_test_source_sha256": null,
+      "limitation": "The first intermediate test source was not separately archived; immutable raw failure log and original runtime bytes are retained."
+    },
+    {
+      "stage": "first_harness_adjustment",
+      "tests": 7,
+      "passed": 0,
+      "failed": 7,
+      "pytest_reported_seconds": "16.40",
+      "exit_code": 1,
+      "cause": "Test expected SQL NULL instead of stored JSON null, and treated native.error exception object as a string. Native success/rejection behavior already matched expectations."
+    },
+    {
+      "stage": "second_harness_adjustment",
+      "tests": 8,
+      "passed": 2,
+      "failed": 6,
+      "pytest_reported_seconds": "20.21",
+      "exit_code": 1,
+      "cause": "Negative tests indexed pages inside the untouched empty internal counts map. Corrected to assert the exact empty map and independently assert zero persisted pages/facts."
+    },
+    {
+      "stage": "final",
+      "tests": 8,
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "pytest_reported_seconds": "18.50",
+      "junit_suite_seconds": "18.493",
+      "exit_code": 0,
+      "junit_started_utc": "2026-10-22T23:16:22.675477+00:00",
+      "junit_finished_utc_derived_from_duration": "2026-10-22T23:16:41.168477+00:00",
+      "observed_cases": [
+        {
+          "guard": "completed_by_recovery",
+          "schedule_status": "SUCCESS",
+          "business_status": "completed",
+          "http_requests": 1,
+          "runs": 1,
+          "pages": 1,
+          "cursor_version": 1,
+          "replay_business_unchanged": true,
+          "model_calls": 0,
+          "test_status": "PASS",
+          "junit_case_seconds": "2.214"
+        },
+        {
+          "guard": "running_by_recovery",
+          "schedule_status": "SUCCESS",
+          "business_status": "completed",
+          "http_requests": 1,
+          "enqueue_calls": 1,
+          "runs": 1,
+          "pages": 1,
+          "cursor_version": 1,
+          "model_calls": 0,
+          "test_status": "PASS",
+          "junit_case_seconds": "2.244"
+        },
+        {
+          "guard": "downgrade",
+          "error_code": "ingestion_admin_required",
+          "schedule_status": "ERROR",
+          "business_status": "queued",
+          "http_requests": 0,
+          "runs": 1,
+          "pages": 0,
+          "cursor_version": 0,
+          "model_calls": 0,
+          "test_status": "PASS",
+          "junit_case_seconds": "2.222"
+        },
+        {
+          "guard": "revoke_policy",
+          "error_code": "source_policy_unconfirmed",
+          "schedule_status": "ERROR",
+          "business_status": "queued",
+          "http_requests": 0,
+          "runs": 1,
+          "pages": 0,
+          "cursor_version": 0,
+          "model_calls": 0,
+          "test_status": "PASS",
+          "junit_case_seconds": "2.170"
+        },
+        {
+          "guard": "pause_generation",
+          "error_code": "ingestion_schedule_not_current",
+          "schedule_status": "ERROR",
+          "business_status": "queued",
+          "http_requests": 0,
+          "runs": 1,
+          "pages": 0,
+          "cursor_version": 0,
+          "model_calls": 0,
+          "test_status": "PASS",
+          "junit_case_seconds": "2.172"
+        },
+        {
+          "guard": "cancel_requested",
+          "error_code": "ingestion_cancelled",
+          "schedule_status": "ERROR",
+          "business_status": "cancel_requested",
+          "http_requests": 0,
+          "runs": 1,
+          "pages": 0,
+          "cursor_version": 0,
+          "model_calls": 0,
+          "test_status": "PASS",
+          "junit_case_seconds": "2.244"
+        },
+        {
+          "guard": "cancelled",
+          "error_code": "ingestion_cancelled",
+          "schedule_status": "ERROR",
+          "business_status": "cancelled",
+          "http_requests": 0,
+          "runs": 1,
+          "pages": 0,
+          "cursor_version": 0,
+          "model_calls": 0,
+          "test_status": "PASS",
+          "junit_case_seconds": "2.174"
+        },
+        {
+          "guard": "application_version",
+          "error_code": "ingestion_application_version_changed",
+          "schedule_status": "ERROR",
+          "business_status": "queued",
+          "http_requests": 0,
+          "runs": 1,
+          "pages": 0,
+          "cursor_version": 0,
+          "model_calls": 0,
+          "test_status": "PASS",
+          "junit_case_seconds": "2.170"
+        }
+      ]
+    }
+  ],
+  "static_checks": {
+    "owned_file_ruff": "PASS",
+    "owned_file_format": "PASS",
+    "git_diff_check": "PASS"
+  },
+  "real_network_requests": 0,
+  "real_model_requests": 0,
+  "estimated_cost_cny": "0",
+  "privacy": "Only enumerated status/count/hash/version/timing metadata is published. Original logs/XML remain private because they contain hostnames, absolute paths, and fixture context.",
+  "retained_private_log_index": [
+    {
+      "name": "ingestion-schedule-replay-red.txt",
+      "bytes": 6639,
+      "sha256": "5d1b8876ab0c2a2f241284e376967e63dd58b6f8334dfcffec7618fec96991f3",
+      "stdout_file_opened_utc": "2026-10-22T23:13:33.467102+00:00",
+      "stdout_file_last_written_utc": "2026-10-22T23:13:46.960364+00:00"
+    },
+    {
+      "name": "ingestion-schedule-replay-green-initial.txt",
+      "bytes": 52417,
+      "sha256": "2a878645ea912d4f2a4fb5565147e85c4a352d4cfda5feab76c01ccac78d1a42",
+      "stdout_file_opened_utc": "2026-10-22T23:14:40.264796+00:00",
+      "stdout_file_last_written_utc": "2026-10-22T23:14:57.431247+00:00"
+    },
+    {
+      "name": "ingestion-schedule-replay-green.txt",
+      "bytes": 52536,
+      "sha256": "b61f0a3cfa8bde2aadfe8dd9597c30fd929ef6e1fc4a0d0a2f43d905aeae47cc",
+      "stdout_file_opened_utc": "2026-10-22T23:15:41.550625+00:00",
+      "stdout_file_last_written_utc": "2026-10-22T23:16:02.535507+00:00"
+    },
+    {
+      "name": "ingestion-schedule-replay-green.xml",
+      "bytes": 28352,
+      "sha256": "c6514a7997a5e3d91f0a79dc837399af7e1eeef5283249ab6f85f819d86f8bd6",
+      "stdout_file_opened_utc": "2026-10-22T23:16:00.399042+00:00",
+      "stdout_file_last_written_utc": "2026-10-22T23:16:00.399452+00:00"
+    },
+    {
+      "name": "ingestion-schedule-replay-final.txt",
+      "bytes": 99,
+      "sha256": "8687cd3a5fa504b24b4247d08a927309b6d5752bc93431a7167929d6c6b76c92",
+      "stdout_file_opened_utc": "2026-10-22T23:16:21.882531+00:00",
+      "stdout_file_last_written_utc": "2026-10-22T23:16:41.285551+00:00"
+    },
+    {
+      "name": "ingestion-schedule-replay-final.xml",
+      "bytes": 5758,
+      "sha256": "f8fc63e036ade84dbcfaf0606eb1d3f24a54327bbdce5d4fb3f54ab04183583c",
+      "stdout_file_opened_utc": "2026-10-22T23:16:41.168640+00:00",
+      "stdout_file_last_written_utc": "2026-10-22T23:16:41.169061+00:00"
+    },
+    {
+      "name": "ingestion-schedule-replay-ruff.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "stdout_file_opened_utc": "2026-10-22T23:17:01.820576+00:00",
+      "stdout_file_last_written_utc": "2026-10-22T23:17:01.864363+00:00"
+    },
+    {
+      "name": "ingestion-schedule-replay-format.txt",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50",
+      "stdout_file_opened_utc": "2026-10-22T23:17:01.928836+00:00",
+      "stdout_file_last_written_utc": "2026-10-22T23:17:01.945278+00:00"
+    }
+  ],
+  "limitations": [
+    "This preserves the original 695604 CI failure; it does not reclassify that CI as passing.",
+    "These eight tests are deterministic same-process integration with actual native queues and SQLite, not a new SIGKILL or 35-minute capacity run.",
+    "The original three process-recovery cases are independently exercised by another agent and are outside this test result denominator.",
+    "No real supplier authorization, target-host readiness, real identities, receipt delivery, business RTO, or enterprise acceptance is certified."
+  ]
+}

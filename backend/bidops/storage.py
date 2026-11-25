@@ -1,6 +1,7 @@
 import hashlib
 import json
 import os
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -10,6 +11,7 @@ from sqlalchemy import text
 from bidops.config import Settings
 from bidops.db import Database
 from bidops.models import Notice, Snapshot, StrictModel
+from bidops.notice_data import NoticeRepository
 from bidops.parser import canonical_text, parse_notice
 from bidops.sources import canonical_url, load_sources
 
@@ -28,6 +30,20 @@ class Manifest(StrictModel):
     snapshots: list[Snapshot] = Field(max_length=500)
 
 
+@dataclass(frozen=True)
+class PreparedNotice:
+    snapshot: Snapshot
+    notice: Notice
+    normalized: str
+
+
+@dataclass(frozen=True)
+class PersistedNotice:
+    snapshot: Snapshot
+    created: bool
+    version_id: str
+
+
 class Store:
     def __init__(self, settings: Settings):
         self.settings = settings
@@ -36,6 +52,8 @@ class Store:
         self.db.migrate()
         self.raw = settings.data_dir / "raw"
         self.raw.mkdir(parents=True, exist_ok=True, mode=0o700)
+        self.notice_data = NoticeRepository(self.db, self.raw, max_bytes=settings.max_bytes)
+        self.notice_data.backfill_legacy()
 
     def register_url(self, url: str) -> str:
         url = canonical_url(url, self.sources)
@@ -78,7 +96,7 @@ class Store:
         )
         return self.save(snapshot, data)
 
-    def save(self, snapshot: Snapshot, data: bytes) -> tuple[Snapshot, bool]:
+    def prepare(self, snapshot: Snapshot, data: bytes) -> PreparedNotice:
         self.validate_snapshot(snapshot, data)
         normalized = canonical_text(data, snapshot.content_type, snapshot.encoding)
         if not normalized.strip():
@@ -103,56 +121,100 @@ class Store:
                 stream.write(data)
                 stream.flush()
                 os.fsync(stream.fileno())
-        with self.db.engine.begin() as conn:
+        return PreparedNotice(snapshot, notice, normalized)
+
+    def persist(
+        self, prepared: PreparedNotice, conn, *, source_complete=False, record_observation=True
+    ) -> PersistedNotice:
+        """Persist one prepared notice using the caller's transaction and receipt.
+
+        Parsing and immutable blob creation happen in prepare, outside a batch
+        write lock. The version layer revalidates bytes and source identity.
+        A page/cursor caller can roll back every item and its audit together.
+        """
+        if type(prepared) is not PreparedNotice:
+            raise ValueError("invalid_prepared_notice")
+        snapshot = prepared.snapshot.model_copy(deep=True)
+        notice = prepared.notice.model_copy(deep=True)
+        normalized, observed_at = prepared.normalized, snapshot.fetched_at
+        conn.execute(
+            text("INSERT OR IGNORE INTO urls(source_url) VALUES (:u)"),
+            {"u": snapshot.source_url},
+        )
+        result = conn.execute(
+            text(
+                "INSERT OR IGNORE INTO snapshots(snapshot_id,source_url,sha256,metadata_json) "
+                "VALUES (:id,:url,:sha,:meta)"
+            ),
+            {
+                "id": snapshot.snapshot_id,
+                "url": snapshot.source_url,
+                "sha": snapshot.sha256,
+                "meta": snapshot.model_dump_json(),
+            },
+        )
+        new = result.rowcount == 1
+        if new:
             conn.execute(
-                text("INSERT OR IGNORE INTO urls(source_url) VALUES (:u)"),
-                {"u": snapshot.source_url},
-            )
-            result = conn.execute(
                 text(
-                    "INSERT OR IGNORE INTO snapshots(snapshot_id,source_url,sha256,metadata_json) "
-                    "VALUES (:id,:url,:sha,:meta)"
+                    "INSERT INTO notices("
+                    "notice_id,snapshot_id,project_code,notice_kind,payload_json) "
+                    "VALUES (:id,:id,:code,:kind,:payload)"
                 ),
                 {
-                    "id": snapshot.snapshot_id,
-                    "url": snapshot.source_url,
-                    "sha": snapshot.sha256,
-                    "meta": snapshot.model_dump_json(),
+                    "id": notice.notice_id,
+                    "code": notice.project_code,
+                    "kind": notice.notice_kind,
+                    "payload": notice.model_dump_json(),
                 },
             )
-            new = result.rowcount == 1
-            if new:
-                conn.execute(
-                    text(
-                        "INSERT INTO notices("
-                        "notice_id,snapshot_id,project_code,notice_kind,payload_json) "
-                        "VALUES (:id,:id,:code,:kind,:payload)"
-                    ),
-                    {
-                        "id": notice.notice_id,
-                        "code": notice.project_code,
-                        "kind": notice.notice_kind,
-                        "payload": notice.model_dump_json(),
-                    },
-                )
-            else:
-                saved = conn.execute(
-                    text("SELECT metadata_json FROM snapshots WHERE snapshot_id=:id"),
-                    {"id": snapshot.snapshot_id},
-                ).scalar_one()
-                snapshot = Snapshot.model_validate_json(saved)
-            conn.execute(
-                text("UPDATE urls SET state='snapshot_captured' WHERE source_url=:u"),
-                {"u": snapshot.source_url},
-            )
-        self.db.audit(
-            "ingest",
-            "created" if new else "duplicate",
-            snapshot.source_url,
-            snapshot_id=snapshot.snapshot_id,
-            sha256=snapshot.sha256,
+        else:
+            saved = conn.execute(
+                text("SELECT metadata_json FROM snapshots WHERE snapshot_id=:id"),
+                {"id": snapshot.snapshot_id},
+            ).scalar_one()
+            snapshot = Snapshot.model_validate_json(saved)
+            # A repeated observation cannot change the persisted source time or
+            # manufacture a different parse revision. Reparse is explicit.
+            payload = conn.execute(
+                text("SELECT payload_json FROM notices WHERE notice_id=:id"),
+                {"id": snapshot.snapshot_id},
+            ).scalar_one()
+            notice = Notice.model_validate_json(payload)
+        version = self.notice_data.capture(
+            snapshot,
+            notice,
+            normalized,
+            observed_at=observed_at,
+            source_complete=source_complete,
+            record_observation=record_observation or new,
+            conn=conn,
         )
-        return snapshot, new
+        conn.execute(
+            text("UPDATE urls SET state='snapshot_captured' WHERE source_url=:u"),
+            {"u": snapshot.source_url},
+        )
+        conn.execute(
+            text(
+                "INSERT INTO audit_events(observed_at,event,code,source_url,metadata_json) "
+                "VALUES (:at,'ingest',:code,:url,:meta)"
+            ),
+            {
+                "at": datetime.now(UTC).isoformat(),
+                "code": "created" if new else "duplicate",
+                "url": snapshot.source_url,
+                "meta": json.dumps(
+                    {"snapshot_id": snapshot.snapshot_id, "sha256": snapshot.sha256}, sort_keys=True
+                ),
+            },
+        )
+        return PersistedNotice(snapshot, new, version.version_id)
+
+    def save(self, snapshot: Snapshot, data: bytes) -> tuple[Snapshot, bool]:
+        prepared = self.prepare(snapshot, data)
+        with self.db.engine.begin() as conn:
+            receipt = self.persist(prepared, conn)
+        return receipt.snapshot, receipt.created
 
     def validate_snapshot(self, snapshot: Snapshot, data: bytes):
         url = canonical_url(snapshot.source_url, self.sources)
@@ -175,22 +237,36 @@ class Store:
 
     def reparse(self) -> int:
         rows = self.db.rows("SELECT metadata_json FROM snapshots ORDER BY snapshot_id")
+        interpreted_at = datetime.now(UTC)
         for row in rows:
             snapshot = Snapshot.model_validate_json(row["metadata_json"])
             data = (self.raw / snapshot.sha256).read_bytes()
             self.validate_snapshot(snapshot, data)
             normalized = canonical_text(data, snapshot.content_type, snapshot.encoding)
             notice = parse_notice(normalized, snapshot)
-            self.db.execute(
-                "UPDATE notices SET payload_json=:p,project_code=:c,notice_kind=:k "
-                "WHERE notice_id=:id",
-                {
-                    "p": notice.model_dump_json(),
-                    "c": notice.project_code,
-                    "k": notice.notice_kind,
-                    "id": notice.notice_id,
-                },
-            )
+            with self.db.engine.begin() as conn:
+                self.notice_data.capture(
+                    snapshot,
+                    notice,
+                    normalized,
+                    interpreted_at=interpreted_at,
+                    record_observation=False,
+                    conn=conn,
+                )
+                # Only the compatibility projection changes. Immutable revisions,
+                # source bytes and historical session payloads remain intact.
+                conn.execute(
+                    text(
+                        "UPDATE notices SET payload_json=:p,project_code=:c,notice_kind=:k "
+                        "WHERE notice_id=:id"
+                    ),
+                    {
+                        "p": notice.model_dump_json(),
+                        "c": notice.project_code,
+                        "k": notice.notice_kind,
+                        "id": notice.notice_id,
+                    },
+                )
         self.db.audit("parse", "completed", count=len(rows))
         return len(rows)
 
@@ -242,6 +318,11 @@ class Store:
             self.validate_snapshot(snapshot, blob)
             if not canonical_text(blob, snapshot.content_type, snapshot.encoding).strip():
                 raise ValueError("empty_normalized_text")
-            prepared.append((snapshot, blob))
-        created = sum(int(self.save(snapshot, blob)[1]) for snapshot, blob in prepared)
+            prepared.append(self.prepare(snapshot, blob))
+        # Replaying a historical bundle is not a new source verification. Initial
+        # captures retain their recorded observation; existing ones get no new one.
+        with self.db.engine.begin() as conn:
+            created = sum(
+                int(self.persist(item, conn, record_observation=False).created) for item in prepared
+            )
         return {"created": created, "duplicates": len(prepared) - created}

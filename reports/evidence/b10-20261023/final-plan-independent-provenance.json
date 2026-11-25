@@ -1,0 +1,13 @@
+{
+  "review_kind": "independent technical re-review; not human acceptance",
+  "head": "24e3e573c65ef0b5e597aa1c6a95250794d7fcec",
+  "files": {
+    "backend/bidops/uat/evidence.py": "e8f1551bbaabf99a5291ad96ed0af5118f2bc2f8964a791663005821d5c4d6be",
+    "tests/test_uat_evidence.py": "28c13dae6744ea7dd6242e6a564e540258c7c36cc582b6921ab3093f2c455e8e",
+    "docs/ENTERPRISE-PR-PLAN.md": "2ce119f8456c78297602c770766ba1a20293e1d6c88040c10a07e4d8dc1c7397"
+  },
+  "tests": "83 passed in 1.70s",
+  "production_mutations": 0,
+  "live_calls": 0,
+  "decision": "acceptable for reviewed fix; no remaining blocker in scoped checks"
+}

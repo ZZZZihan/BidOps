@@ -1,0 +1,69 @@
+{
+  "integration_commit": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+  "current_candidate": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "fix_baseline": "36efed31ae496f42474cd8389236668b05767499",
+  "exact_reviewed_precommit_diff_sha256": "21351b4946920f6bdc244dead18058ae1e9e504f63297e70e50ec2f04371d677",
+  "current_test_sha256": "307c51b9022f463d5b0984f9e367125cfa0c4ca0bee8abd1bdf453dec9971b10",
+  "scope": "Only identity test construction and precise boundary tests; upstream report/docs also integrated. No production clock/rules or main/overlay locks changed.",
+  "root_cause": "Collection-time T0+120 iat becomes execution-time now-60 after 180 seconds; production acceptance is correct.",
+  "runtime_fix": "Resolve invalid time inputs at test execution; after real signed login fixture, freeze only identity_events.time module binding. Do not modify stdlib, OIDC/session clock or production code.",
+  "red_probe": {
+    "exit_code": 1,
+    "passed": 18,
+    "failed": 1,
+    "pytest_seconds": "9.19",
+    "simulated_delay_seconds": 180,
+    "sleep_calls": 0
+  },
+  "implementer": {
+    "file_passed": 43,
+    "file_pytest_seconds": "8.92",
+    "delay_cases_passed": 19,
+    "delay_pytest_seconds": "4.35",
+    "ruff_and_format_exit_code": 0
+  },
+  "independent": {
+    "file_passed": 43,
+    "file_pytest_seconds": "8.77",
+    "delay_cases_passed": 19,
+    "delay_pytest_seconds": "4.48",
+    "direct_signed_verifier_cases": 7,
+    "status": "PASS"
+  },
+  "overlap_warning": "The 19 delay tests overlap the 43 file tests. Seven cases are a direct production-verifier script, not seven HTTP tests. No summing across runs.",
+  "original_assertions_preserved": true,
+  "maximum_age_seconds": 300,
+  "future_skew_seconds": 30,
+  "new_exact_boundary_offsets_seconds": [
+    -301,
+    -300,
+    30,
+    31
+  ],
+  "raw_red_and_diff_sources": [
+    {
+      "source_alias": "identity-clock-ci-fix/red-delay-180.txt",
+      "sha256": "7080fc91944896235a4a76e433f2923cf9b965105061d25c5cc5557118373b99",
+      "bytes": 1194
+    },
+    {
+      "source_alias": "identity-clock-ci-fix/red-delay-180.json",
+      "sha256": "146b4f9711bd0da5faf46c5a3c5fba8514b658642bb9a2acfecb532359154f29",
+      "bytes": 739
+    },
+    {
+      "source_alias": "identity-clock-ci-fix/fix.diff",
+      "sha256": "21351b4946920f6bdc244dead18058ae1e9e504f63297e70e50ec2f04371d677",
+      "bytes": 3764
+    },
+    {
+      "source_alias": "identity-clock-ci-fix/delay_probe.py",
+      "sha256": "a8b8bcee8d9e8137bb8e2e60d3836401f24cc157048a9aa29dc0b44b7bac9e4f",
+      "bytes": 1010
+    }
+  ],
+  "full_current_suite_or_remote_ci_claimed": false,
+  "real_model_calls": 0,
+  "real_network_calls": 0,
+  "business_acceptance": "BLOCKED"
+}

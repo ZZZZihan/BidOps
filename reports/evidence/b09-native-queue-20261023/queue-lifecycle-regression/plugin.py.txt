@@ -1,0 +1,156 @@
+"""Controlled 2-second async per-call injection for three native queue tests only.
+
+No repository monkeypatch except the target test module's FunctionModel constructor.
+Original callbacks, Events, responses, DBOS/SQLite and every test assertion remain intact.
+This file is controlled work evidence, not a production test dependency.
+"""
+import asyncio
+import hashlib
+import inspect
+import json
+import os
+import threading
+import time
+from collections import Counter
+from datetime import UTC, datetime
+from pathlib import Path
+
+import pytest
+
+TARGETS = {
+    'test_native_calculation_queue_bounds_two_and_review_wait_frees_computation',
+    'test_cancelled_inflight_call_holds_physical_slot_until_it_returns',
+    'test_authorized_resume_returns_child_to_bounded_queue',
+}
+OUTPUT = Path(os.environ['SLOW_QUEUE_EVIDENCE_DIR'])
+LOCK = threading.Lock()
+ALIASES = {}
+WRAPPER_COUNTS = Counter()
+ORIGINAL_COUNTS = Counter()
+COMPLETED_COUNTS = Counter()
+SESSION_MONOTONIC = time.monotonic()
+
+
+def alias(run_id):
+    with LOCK:
+        if run_id not in ALIASES:
+            ALIASES[run_id] = f'run-{len(ALIASES) + 1}'
+        return ALIASES[run_id]
+
+
+def emit(event, **fields):
+    value = {'event': event, 'utc': datetime.now(UTC).isoformat(),
+             'session_elapsed_seconds': round(time.monotonic() - SESSION_MONOTONIC, 6), **fields}
+    with LOCK:
+        with (OUTPUT / 'plugin-events.jsonl').open('a', encoding='utf-8') as handle:
+            handle.write(json.dumps(value, sort_keys=True, allow_nan=False) + '\n')
+            handle.flush()
+            os.fsync(handle.fileno())
+
+
+def source_hashes(root):
+    paths = ['tests/test_jobs_compute_queue.py', 'tests/test_jobs_runtime.py',
+             'backend/bidops/jobs/runtime.py', 'backend/bidops/jobs/model.py',
+             'backend/bidops/qualification/config.py']
+    return {path: hashlib.sha256((root / path).read_bytes()).hexdigest() for path in paths}
+
+
+def pytest_configure(config):
+    emit('session_configure', source_sha256=source_hashes(Path(config.rootpath)),
+         plugin_sha256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),
+         async_delay_per_call_seconds=2, real_network_or_model_calls=0,
+         target_tests=sorted(TARGETS))
+
+
+@pytest.fixture(autouse=True)
+def inject_only_target_async_model(request, monkeypatch):
+    if request.module.__name__ != 'test_jobs_compute_queue' or request.node.name not in TARGETS:
+        yield
+        return
+    constructor = request.module.FunctionModel
+
+    def slow_constructor(function=None, *args, **kwargs):
+        assert inspect.iscoroutinefunction(function), 'Target callback must remain async'
+
+        async def delayed(messages, info):
+            from bidops.jobs.model import ACTIVE_MODEL
+            from dbos import DBOS
+            run_id = ACTIVE_MODEL.get().run_id
+            name = alias(run_id)
+            with LOCK:
+                WRAPPER_COUNTS[name] += 1
+                number = WRAPPER_COUNTS[name]
+            emit('wrapper_enter', test=request.node.name, run_alias=name, call=number,
+                 native_child_binding=DBOS.workflow_id == run_id + '-calculation')
+            await asyncio.sleep(2)
+            with LOCK:
+                ORIGINAL_COUNTS[name] += 1
+            emit('original_callback_enter', test=request.node.name, run_alias=name, call=number)
+            try:
+                result = await function(messages, info)
+            except BaseException as exc:
+                emit('original_callback_error', test=request.node.name,
+                     run_alias=name, call=number, error_type=type(exc).__name__)
+                raise
+            with LOCK:
+                COMPLETED_COUNTS[name] += 1
+            emit('original_callback_return', test=request.node.name, run_alias=name, call=number)
+            return result
+
+        return constructor(delayed, *args, **kwargs)
+
+    monkeypatch.setattr(request.module, 'FunctionModel', slow_constructor)
+    emit('target_fixture_installed', test=request.node.name)
+    yield
+    emit('target_fixture_removed', test=request.node.name)
+
+
+def snapshot(item, phase):
+    case = item.funcargs.get('two_compute')
+    if not case:
+        return
+    from dbos import DBOS
+    runtime, _, observation = case
+    runs = []
+    for record in runtime.repository.list_system():
+        run_id = record['run_id']; name = alias(run_id)
+        root = DBOS.get_workflow_status(run_id)
+        child = DBOS.get_workflow_status(run_id + '-calculation')
+        attempts = runtime.repository.list_attempts_system(run_id)
+        runs.append({'run_alias': name, 'business_status': record['status'],
+                     'root_status': root.status if root else None,
+                     'root_queue': root.queue_name if root else None,
+                     'child_status': child.status if child else None,
+                     'child_queue': child.queue_name if child else None,
+                     'fixture_original_call_count': observation['calls'].get(run_id, 0),
+                     'plugin_wrapped_call_count': WRAPPER_COUNTS[name],
+                     'plugin_original_callback_enter_count': ORIGINAL_COUNTS[name],
+                     'plugin_original_callback_return_count': COMPLETED_COUNTS[name],
+                     'persisted_attempt_count': len(attempts),
+                     'persisted_attempt_status_counts': dict(Counter(x['status'] for x in attempts)),
+                     'has_result': record['result_id'] is not None})
+    emit('business_snapshot', test=item.name, phase=phase,
+         original_model_limit_seconds=runtime.screening.settings.max_seconds,
+         original_model_request_limit=runtime.screening.settings.max_requests,
+         native_compute_concurrency=runtime.settings.compute_concurrency,
+         observed_original_callback_peak=max(observation['observed'], default=0),
+         original_callbacks_currently_active=len(observation['active']), runs=runs)
+
+
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item, call):
+    outcome = yield
+    report = outcome.get_result()
+    if item.module.__name__ == 'test_jobs_compute_queue' and item.name in TARGETS:
+        emit('pytest_report', test=item.name, phase=report.when,
+             outcome=report.outcome, duration_seconds=report.duration)
+        if report.when == 'call':
+            try:
+                snapshot(item, report.when)
+            except Exception as exc:
+                emit('snapshot_error', test=item.name, error_type=type(exc).__name__)
+
+
+def pytest_sessionfinish(session, exitstatus):
+    emit('session_finish', exit_code=int(exitstatus),
+         source_sha256=source_hashes(Path(session.config.rootpath)))

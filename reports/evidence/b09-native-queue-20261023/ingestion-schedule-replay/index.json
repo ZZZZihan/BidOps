@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "publication_rule": "Explicit allowlist only; do not copy original logs or XML.",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1812,
+      "sha256": "cef5f4eb0d2ed7cebc48b899c9cc92aed2bc6d38bd4ab8239c9262bab8f8a710"
+    },
+    {
+      "path": "final-format.txt",
+      "bytes": 25,
+      "sha256": "fd2299c9f1c6dc869070883e281051bfe93aacf66c1a3b0069f45b4aa410ca50"
+    },
+    {
+      "path": "final-pytest.txt",
+      "bytes": 99,
+      "sha256": "8687cd3a5fa504b24b4247d08a927309b6d5752bc93431a7167929d6c6b76c92"
+    },
+    {
+      "path": "final-ruff.txt",
+      "bytes": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 9899,
+      "sha256": "ef0c5317f65edab38680e5f5f396fffc322412dbba6733cdb0308f44be60e931"
+    }
+  ]
+}

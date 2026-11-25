@@ -1,0 +1,20 @@
+
+> bidops-ui@0.1.0 test:e2e
+> playwright test tests/reviews-real.spec.ts
+
+(node:34248) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[2m[WebServer] [22m(node:34304) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 2 tests using 1 worker
+
+(node:34307) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:34307) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:34307) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 tests/reviews-real.spec.ts:308:1 › actual offline review preserves five states and evidence, appends corrections, CAS-conflicts, recomputes all items and exports the full chain (13.8s)
+  ✓  2 tests/reviews-real.spec.ts:516:1 › actual source revocation clears an assigned reviewer page even when the visible-case list returns an empty 200 (4.5s)
+
+  2 passed (49.6s)

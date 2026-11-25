@@ -1,0 +1,168 @@
+# Public projection: interpreter path replaced with B10_VENV_PYTHON; this projection was not the executed controller.
+"""Controller for one-worker DBOS/SQLite probes; never schedules tasks itself."""
+import argparse
+import collections
+from datetime import datetime,timezone
+import hashlib
+import importlib.metadata
+import json
+import os
+from pathlib import Path
+import select
+import signal
+import sqlite3
+import subprocess
+import sys
+import time
+import traceback
+
+PYTHON=Path(os.environ['B10_VENV_PYTHON'])
+HERE=Path(__file__).resolve().parent
+WORKER=HERE/'worker.py'
+
+class Probe:
+    def __init__(self,directory):
+        self.directory=directory;directory.mkdir(parents=True,exist_ok=False)
+        self.worker=None;self.processes=[];self.samples=[];self.controller=[];self.logs=[];self.seq=0
+    def mark(self,event,**fields):
+        self.controller.append({'event':event,'wall_ns':time.time_ns(),'monotonic_ns':time.monotonic_ns(),**fields})
+    def start(self):
+        env={'PATH':str(PYTHON.parent)+':/usr/bin:/bin','LANG':'en_US.UTF-8','PYTHONUNBUFFERED':'1','PYTHONDONTWRITEBYTECODE':'1','ALLOW_MODEL_REQUESTS':'false','BIDOPS_NETWORK_ENABLED':'false'}
+        log=(self.directory/f'worker-{len(self.processes)+1}.log').open('w')
+        p=subprocess.Popen([str(PYTHON),str(WORKER),str(self.directory)],stdin=subprocess.PIPE,stdout=subprocess.PIPE,stderr=log,text=True,bufsize=1,cwd=HERE,env=env)
+        self.logs.append(log);self.worker=p;self.processes.append(p)
+        deadline=time.monotonic()+20
+        while time.monotonic()<deadline:
+            if p.poll() is not None:raise RuntimeError('worker_exited_during_startup:'+str(p.returncode))
+            if select.select([p.stdout],[],[],0.1)[0]:
+                msg=json.loads(p.stdout.readline())
+                if msg.get('ready'):
+                    self.mark('process_started',pid=p.pid,version=msg['version']);return
+        raise TimeoutError('worker_start_timeout')
+    def command(self,op,**fields):
+        self.seq+=1;p=self.worker;cmd={'op':op,'request_id':self.seq,**fields};p.stdin.write(json.dumps(cmd)+'\n');p.stdin.flush()
+        deadline=time.monotonic()+15
+        while time.monotonic()<deadline:
+            if select.select([p.stdout],[],[],.1)[0]:
+                line=p.stdout.readline()
+                if not line:raise RuntimeError('worker_stdout_closed')
+                msg=json.loads(line)
+                if msg.get('request_id')==self.seq:
+                    if not msg.get('ok'):raise RuntimeError('worker_command_failed:'+json.dumps(msg))
+                    return msg
+        raise TimeoutError('command_timeout')
+    def events(self):
+        p=self.directory/'events.jsonl'
+        return [json.loads(x) for x in p.read_text().splitlines()] if p.exists() else []
+    def sample(self):
+        path=self.directory/'dbos.sqlite3'
+        with sqlite3.connect('file:'+str(path)+'?mode=ro',uri=True,timeout=5) as c:
+            c.row_factory=sqlite3.Row
+            cols=[x[1] for x in c.execute('PRAGMA table_info(workflow_status)')]
+            needed=[x for x in ['workflow_uuid','status','queue_name','executor_id','application_version','parent_workflow_uuid','created_at','started_at','updated_at','recovery_attempts'] if x in cols]
+            rows=[dict(x) for x in c.execute('SELECT '+','.join(needed)+' FROM workflow_status ORDER BY workflow_uuid')]
+            tables=[x[0] for x in c.execute("SELECT name FROM sqlite_master WHERE type='table'")]
+            queues=[]
+            if 'queues' in tables:queues=[dict(x) for x in c.execute('SELECT * FROM queues')]
+            snap={'wall_ns':time.time_ns(),'monotonic_ns':time.monotonic_ns(),'workflows':rows,'queues':queues,'sqlite_version':sqlite3.sqlite_version,'journal_mode':c.execute('PRAGMA journal_mode').fetchone()[0]}
+            self.samples.append(snap);return snap
+    def until(self,predicate,label,timeout=20):
+        deadline=time.monotonic()+timeout
+        while time.monotonic()<deadline:
+            snap=self.sample();events=self.events()
+            if predicate(events,snap):return snap
+            if self.worker.poll() is not None:raise RuntimeError('worker_exited:'+str(self.worker.returncode))
+            time.sleep(.04)
+        raise TimeoutError(label)
+    def kill(self):
+        p=self.worker;os.kill(p.pid,signal.SIGKILL);p.wait(timeout=10)
+        self.mark('process_killed',pid=p.pid,exit_code=p.returncode)
+    def stop(self):
+        p=self.worker
+        if p is not None and p.poll() is None:
+            p.stdin.write(json.dumps({'op':'stop'})+'\n');p.stdin.flush()
+            try:p.wait(timeout=12)
+            except subprocess.TimeoutExpired:p.kill();p.wait();self.mark('forced_cleanup',pid=p.pid)
+        for log in self.logs:log.close()
+    def summary(self):
+        events=self.events();timeline=events+self.controller
+        active={};peak=0;overlap_ns=0;last=None;intervals=[]
+        for x in sorted(timeline,key=lambda x:x['monotonic_ns']):
+            t=x['monotonic_ns']
+            if last is not None and len(active)>=2:overlap_ns+=t-last
+            last=t;key=(x.get('pid'),x.get('task'))
+            if x['event']=='compute_start':active[key]=t
+            elif x['event']=='compute_end':
+                start=active.pop(key,None)
+                if start is not None:intervals.append({'task':x['task'],'pid':x['pid'],'start_ns':start,'end_ns':t,'outcome':x['outcome']})
+            elif x['event']=='process_killed':
+                for k in list(active):
+                    if k[0]==x['pid']:intervals.append({'task':k[1],'pid':k[0],'start_ns':active.pop(k),'end_ns':t,'outcome':'SIGKILL_unknown'})
+            peak=max(peak,len(active))
+        pending_peak=max((sum(w['queue_name']=='probe_calculation_v1' and w['status']=='PENDING' for w in s['workflows']) for s in self.samples),default=0)
+        prepare=collections.Counter(x['task'] for x in events if x['event']=='prepare');starts=collections.Counter(x['task'] for x in events if x['event']=='compute_start')
+        schema={}
+        with sqlite3.connect(self.directory/'dbos.sqlite3') as c:
+            for table in ['workflow_status','operation_outputs','queues']:
+                schema[table]=[x[1] for x in c.execute('PRAGMA table_info('+table+')')]
+        return {'physical_compute_peak':peak,'observed_two_or_more_overlap_seconds':overlap_ns/1e9,'native_calculation_pending_peak':pending_peak,'compute_starts_by_task':dict(starts),'prepare_calls_by_task':dict(prepare),'compute_intervals':intervals,'workflow_status_final':self.sample()['workflows'],'queues':self.samples[-1]['queues'],'sqlite_version':sqlite3.sqlite_version,'sqlite_journal_mode':self.samples[-1]['journal_mode'],'schema_columns':schema,'worker_exit_codes':[p.poll() for p in self.processes],'process_generations':len(self.processes),'active_intervals_unclosed':len(active)}
+    def persist(self):
+        (self.directory/'samples.json').write_text(json.dumps(self.samples,indent=2)+'\n')
+        (self.directory/'controller.json').write_text(json.dumps(self.controller,indent=2)+'\n')
+
+def started(events):return {x['task'] for x in events if x['event']=='compute_start'}
+def waiting(events):return {x['task'] for x in events if x['event']=='waiting_review'}
+def state(snap,task):return {x['workflow_uuid']:x['status'] for x in snap['workflows']}.get('parent-'+task)
+
+def execute(kind,out):
+    p=Probe(out/kind);checks={};error=None
+    try:
+        p.start()
+        seconds=1.4 if kind in ['baseline','restart_waiting'] else 4
+        preemptible=kind=='cancel_preemptible'
+        for task in ['a','b','c']:p.command('submit',task=task,seconds=seconds,preemptible=preemptible)
+        snap=p.until(lambda e,s:len(started(e))==2,'first_two_start')
+        checks['exactly_two_started_third_native_enqueued']=sum(w['queue_name']=='probe_calculation_v1' and w['status']=='PENDING' for w in snap['workflows'])==2 and sum(w['queue_name']=='probe_calculation_v1' and w['status']=='ENQUEUED' for w in snap['workflows'])==1
+        cancelled=None
+        if kind.startswith('cancel') or kind=='restart_cancelled':
+            cancelled=sorted(started(p.events()))[0]
+            p.command('cancel',task=cancelled)
+            snap=p.sample();statuses={w['workflow_uuid']:w['status'] for w in snap['workflows']}
+            checks['native_cascade_parent_and_child_cancelled']=statuses.get('parent-'+cancelled)=='CANCELLED' and statuses.get('parent-'+cancelled+'-calculation')=='CANCELLED'
+        if kind in ['restart_active','restart_cancelled']:
+            p.kill();p.start()
+        remaining={'a','b','c'}-({cancelled} if cancelled else set())
+        p.until(lambda e,s:remaining<=waiting(e),'remaining_waiting_review',timeout=25)
+        if kind=='restart_waiting':
+            before=collections.Counter(x['task'] for x in p.events() if x['event']=='compute_start')
+            p.kill();p.start();time.sleep(.7);p.sample()
+            after=collections.Counter(x['task'] for x in p.events() if x['event']=='compute_start')
+            checks['waiting_restart_no_extra_compute_calls']=before==after
+        if kind=='baseline':
+            before=p.sample();checks['three_parents_native_pending_while_waiting']=all(state(before,t)=='PENDING' for t in ['a','b','c'])
+            p.command('submit',task='d',seconds=1.0,preemptible=False)
+            p.until(lambda e,s:'d' in started(e),'fourth_computation_started')
+            snap=p.sample();checks['fourth_calc_starts_while_three_wait_for_review']=all(state(snap,t)=='PENDING' for t in ['a','b','c'])
+            p.until(lambda e,s:'d' in waiting(e),'fourth_waiting');remaining.add('d')
+        for task in sorted(remaining):p.command('review',task=task)
+        p.until(lambda e,s:all(state(s,t)=='SUCCESS' for t in remaining),'review_completion')
+        if cancelled:
+            snap=p.sample();checks['cancelled_parent_and_child_never_revived']=state(snap,cancelled)=='CANCELLED' and all(w['status']=='CANCELLED' for w in snap['workflows'] if w['workflow_uuid'] in ['parent-'+cancelled,'parent-'+cancelled+'-calculation'])
+            if kind=='restart_cancelled':checks['cancelled_task_not_restarted']=sum(x['event']=='compute_start' and x['task']==cancelled for x in p.events())==1
+        p.stop();summary=p.summary();checks['physical_and_native_compute_peak_exactly_two']=summary['physical_compute_peak']==2 and summary['native_calculation_pending_peak']==2;checks['positive_measured_overlap']=summary['observed_two_or_more_overlap_seconds']>0;checks['no_unclosed_compute_interval']=summary['active_intervals_unclosed']==0
+        if kind in ['restart_active','restart_cancelled','restart_waiting']:checks['completed_prepare_steps_not_reexecuted']=all(n==1 for n in summary['prepare_calls_by_task'].values())
+        result={'scenario':kind,'checks':checks,'status':'PASS' if all(checks.values()) else 'FAIL','observations':summary}
+    except BaseException as exc:
+        error={'class':type(exc).__name__,'message':str(exc)}
+        p.stop();result={'scenario':kind,'status':'FAIL','checks':checks,'error':error,'observations':p.summary()}
+        (p.directory/'failure-private.txt').write_text(traceback.format_exc())
+    finally:p.persist()
+    (p.directory/'result.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps({'scenario':kind,'status':result['status'],'checks':checks,'error':error}),flush=True);return result
+
+if __name__=='__main__':
+    os.umask(0o077)
+    ap=argparse.ArgumentParser();ap.add_argument('--output',required=True);ap.add_argument('--cases',nargs='*',default=['baseline','cancel_default','cancel_preemptible','restart_active','restart_cancelled','restart_waiting']);args=ap.parse_args();out=Path(args.output).resolve();out.mkdir(parents=True,exist_ok=False)
+    start=datetime.now(timezone.utc).isoformat();results=[execute(k,out) for k in args.cases]
+    summary={'started_at':start,'finished_at':datetime.now(timezone.utc).isoformat(),'dbos_version':importlib.metadata.version('dbos'),'python':sys.version.split()[0],'sqlite':sqlite3.sqlite_version,'scripts_sha256':{p.name:hashlib.sha256(p.read_bytes()).hexdigest() for p in [WORKER,Path(__file__)]},'scope':'One worker process at a time; native DBOS parent16 and calculation2 queues; synthetic asyncio steps, no app/model/auth/real workload; cancellation can be cooperative; unknown pre-crash step is replayed.','network_calls':0,'model_calls':0,'actual_cost_cny':'0','scenarios':[{'scenario':r['scenario'],'status':r['status'],'checks':r['checks']} for r in results],'status':'PASS' if all(r['status']=='PASS' for r in results) else 'FAIL'}
+    (out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');print(json.dumps(summary,indent=2))
+    sys.exit(0 if summary['status']=='PASS' else 1)

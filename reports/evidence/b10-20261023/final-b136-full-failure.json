@@ -1,0 +1,27 @@
+{
+  "code_sha": "b136ed58c689b30c98bf43a4eee2a1a134181899",
+  "tree_sha": "0266dc76e4923185bc0cabf0d393e6a929b33036",
+  "executor": "root",
+  "scope": "synthetic_engineering_and_protocol_fixtures",
+  "command": [
+    ".venv/bin/pytest",
+    "-q",
+    "--basetemp",
+    "<PRIVATE_PYTEST_ROOT>"
+  ],
+  "start": "2026-10-22T21:24:48.567078+00:00",
+  "end": "2026-10-22T21:35:11.694796+00:00",
+  "exit_code": 1,
+  "terminal_summary": "1 failed, 2128 passed in 619.67s (0:10:19)",
+  "failed_test": "tests/test_storage_api_cli.py::test_migrations_idempotent",
+  "failure": "Exact expected migration names omitted existing012_package_versions_index.sql",
+  "lint_format_frozen_scorer_executed_in_this_run": false,
+  "source_verification_sha256": "2f6e6cefbe288f800ee1c87f006db7703b59f5586e6babcf823dca46f62acd5b",
+  "source_backend_sha256": "7a5ab461bf8f14b70212de5ddb3a6a37ca872c8a6b8189b24a20299fe7b7144b",
+  "full_traceback_public": false,
+  "actual_model_id": null,
+  "actual_model_calls": 0,
+  "actual_cost_cny": "0",
+  "retained_when_corrected_run_finishes": true,
+  "business_acceptance": "BLOCKED"
+}

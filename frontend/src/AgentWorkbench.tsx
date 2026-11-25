@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { get } from './api';
 import type { Identity } from './Enterprise';
+import { Badge, Button, Empty, EmptyHeader, EmptyTitle, EmptyDescription, PromptInput, PromptInputTextarea, PromptInputActions } from './components/ui';
+import { WorkbenchIcon, EvidenceGraph } from './components/WorkbenchIcon';
 
 type Citation = { id: string; field: string; quote: string; start: number; end: number; locator: string; source_url: string; sha256: string };
 type Card = {
@@ -9,7 +11,7 @@ type Card = {
   package_count: number; packages: {label: string; budget_yuan: string | null}[];
   eligibility: string[]; source_url: string; source_observed_at: string; citations: Citation[];
 };
-type Block = { id: string; operation: string; total: number; items: Card[]; metrics: Record<string, string>; missing_project_codes: string[] };
+type Block = { id: string; operation: string; total: number; items: Card[]; metrics: Record<string, string>; missing_project_codes: string[]; offset?: number; limit?: number; has_more?: boolean; truncated?: boolean };
 type Answer = {
   run_id: string; session_id: string; response_mode: string; focus: string; message: string;
   blocks: Block[]; trace: {tool: string; arguments: object; matches: number}[];
@@ -72,7 +74,7 @@ export function AgentWorkbench({identity}: {identity: Identity}) {
     if (enterprise) get<{items: SavedSession[]}>('/sessions', abort.signal).then(result => setSaved(result.items)).catch(() => {if (!abort.signal.aborted) setConnectionError('无法读取会话历史。');});
     return () => {abort.abort(); controller.current?.abort();};
   }, [enterprise]);
-  useEffect(() => {end.current?.scrollIntoView({block: 'nearest'});}, [turns, busy]);
+  useEffect(() => {if (turns.length || busy) end.current?.scrollIntoView({block: 'nearest'});}, [turns, busy]);
   async function restore(id: string) {
     if (!id || busy) return;
     setBusy(true); setConnectionError('');
@@ -112,21 +114,21 @@ export function AgentWorkbench({identity}: {identity: Identity}) {
   }
   const unavailable = !status?.configured || !status.enabled || status.notice_count === 0;
   return <main className="agent-workbench">
-    <div className="agent-heading"><div><h1>先问问题，再看证据。</h1><p>{status ? `当前检索 ${status.notice_count} 条已导入公告。所有日期使用北京时间。` : '正在连接本地公告库…'}</p></div><button disabled={busy} onClick={() => {setTurns([]);setSession(undefined);setSelected(null);}}>新对话</button></div>
+    <div className="agent-heading"><div><p className="eyebrow">INTELLIGENCE / 公告证据助手</p><h1>先问问题，再看证据。</h1><p>{status ? `当前检索 ${status.notice_count} 条已导入公告。所有日期使用北京时间。` : '正在连接本地公告库…'}</p></div><Button variant="outline" disabled={busy} onClick={() => {setTurns([]);setSession(undefined);setSelected(null);}}><WorkbenchIcon name="plus" />新对话</Button></div>
     {enterprise && <div className="session-picker"><label htmlFor="saved-session">我的会话</label><select id="saved-session" disabled={busy} value={saved.some(item => item.session_id === session) ? session : ''} onChange={event => void restore(event.target.value)}><option value="">选择已保存的对话</option>{saved.map(item => <option value={item.session_id} key={item.session_id}>{new Date(item.updated_at * 1000).toLocaleString('zh-CN', {timeZone: 'Asia/Shanghai'})} · {item.turns} 轮</option>)}</select><small>仅你可见 · 刷新后可恢复</small>{session && <button disabled={busy} onClick={() => void restore(session)}>刷新历史</button>}</div>}
     {connectionError && <p className="agent-alert" role="alert">无法连接后端：{connectionError}</p>}
     {status && !status.configured && <p className="agent-alert" role="status">尚未配置 DeepSeek。请按 README 设置本地凭证，然后重启服务。</p>}
     {status?.notice_count === 0 && <p className="agent-alert" role="status">公告库为空。请导入已采集的真实样本包后刷新。</p>}
     <div className="agent-layout">
-      <section className="conversation" aria-label="Agent 对话">
+      <section className="conversation" aria-label="Agent 对话"><div className="conversation-toolbar"><span><WorkbenchIcon name="agent" />证据对话</span><Badge variant={unavailable ? 'secondary' : 'info'}>{!status ? '正在连接' : unavailable ? '暂不可用' : '可查询公告'}</Badge></div>
         <div className="conversation-scroll" aria-live="polite">
-          {!turns.length && <div className="conversation-welcome"><h2>把公告里的问题问清楚</h2><p>筛选项目、核对预算、比较截止时间，或查看中小企业相关原文。</p><div className="question-examples">{examples.map(question => <button key={question} disabled={unavailable} onClick={() => void send(question)}>{question}</button>)}</div><p className="subtle">回答基于已保存的快照。最新更正、附件和投标资格需要人工确认。</p></div>}
+          {!turns.length && <div className="conversation-welcome"><div className="assistant-emblem"><WorkbenchIcon name="agent" /></div><p className="welcome-kicker">让每一次判断，从证据开始</p><h2>把公告里的问题问清楚</h2><p>筛选项目、核对预算、比较截止时间，或查看中小企业相关原文。</p><div className="question-examples">{examples.map((question, index) => <Button variant="outline" key={question} disabled={unavailable} onClick={() => void send(question)}><WorkbenchIcon name={(['screening', 'archive', 'audit', 'shield'] as const)[index]} /><span>{question}</span><WorkbenchIcon name="arrow" /></Button>)}</div><p className="subtle">回答基于已保存的快照。最新更正、附件和投标资格需要人工确认。</p></div>}
           {turns.map((turn, index) => <article className="conversation-turn" key={index}>
             <div className="user-question"><span>你的问题</span><p>{turn.question}</p></div>
             {turn.error && <div className="agent-alert" role="alert">{turn.error}{turn.recover && <button disabled={busy} onClick={() => void send(turn.question, turn)}>重取本次结果</button>}</div>}
             {turn.answer && <div className="agent-answer"><div className={`answer-state ${turn.answer.response_mode}`}>{({results: '已找到证据', unavailable: '信息不足', clarify: '需要补充', review_required: '需要人工复核', out_of_scope: '超出当前范围'} as Record<string,string>)[turn.answer.response_mode]}</div><p>{turn.answer.message}</p>
               {turn.answer.blocks.map(block => <div key={block.id} className="result-block">
-                {block.operation === 'search' && <p className="result-count">匹配 {block.total} 条，展示 {block.items.length} 条</p>}
+                {(block.operation === 'search' || block.operation === 'read') && <div className="result-count"><p>匹配 {block.total} 条，{block.items.length ? `展示第 ${(block.offset ?? 0) + 1}–${(block.offset ?? 0) + block.items.length} 条（${block.items.length} 条）` : '本页没有记录'}{block.limit ? `，每页最多 ${block.limit} 条` : ''}</p>{(block.truncated ?? block.items.length < block.total) && <p role="status">结果已截断，本页未展示全部匹配记录。{block.has_more ? '后面还有结果，可继续要求读取下一页。' : '可继续要求读取其他页并核对历史版本。'}</p>}</div>}
                 {!!block.missing_project_codes.length && <p>未找到：{block.missing_project_codes.join('、')}</p>}
                 {!!Object.keys(block.metrics).length && <dl className="comparison-metrics">{Object.entries(block.metrics).map(([key, value]) => <div key={key}><dt>{labels[key] || key}</dt><dd>{value}</dd></div>)}</dl>}
                 {block.items.map((card, itemIndex) => <div className="result-notice" key={`${card.project_code}-${itemIndex}`}><button className="result-title" onClick={() => setSelected(card)}>{card.title}</button><small>{card.project_code}</small><div className="result-values"><span>预算 <strong>{currency(card.budget_yuan)}</strong></span><span>投标截止 <strong>{date(card.bid_deadline_at)}</strong></span></div>{turn.answer?.focus === 'buyer' && <p>采购单位：{card.buyer_name || '未知'}</p>}{turn.answer?.focus === 'publication' && <p>公告时间：{date(card.published_at)}</p>}{turn.answer?.focus === 'documents' && <p>文件获取截止：{date(card.document_deadline_at)}</p>}{!!card.packages.length && <details><summary>{card.package_count} 个采购包</summary>{card.packages.map(p => <p key={p.label}>{p.label}：{currency(p.budget_yuan)}</p>)}</details>}{!!card.eligibility.length && <details open={turn.answer?.focus === 'eligibility'}><summary>中小企业相关原文</summary>{card.eligibility.map((text, i) => <blockquote key={i}>{text}</blockquote>)}</details>}<button className="evidence-button" onClick={() => setSelected(card)}>查看原文证据</button></div>)}
@@ -136,9 +138,9 @@ export function AgentWorkbench({identity}: {identity: Identity}) {
           </article>)}
           {busy && <p className="agent-thinking" role="status">正在查询公告并校验证据…</p>}<div ref={end}/>
         </div>
-        <form className="chat-composer" onSubmit={event => {event.preventDefault();void send();}}><label htmlFor="agent-question">向公告库提问</label><textarea id="agent-question" value={input} maxLength={2000} disabled={busy || unavailable} onChange={e => setInput(e.target.value)} onKeyDown={event => {if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {event.preventDefault();void send();}}} placeholder="例如：预算低于 120 万元、尚未到投标截止时间的项目有哪些？" rows={3}/><div><small>Enter 发送，Shift + Enter 换行</small><button type="submit" disabled={busy || unavailable || !input.trim()}>{busy ? '查询中…' : '发送问题'}</button></div></form>
+        <form className="chat-composer" onSubmit={event => {event.preventDefault();void send();}}><label htmlFor="agent-question">向公告库提问</label><PromptInput value={input} onValueChange={setInput} disabled={busy || unavailable} isLoading={busy} maxHeight={180}><PromptInputTextarea id="agent-question" maxLength={2000} onKeyDown={event => {if (event.key === 'Enter' && !event.shiftKey && !event.nativeEvent.isComposing) {event.preventDefault();void send();}}} placeholder="例如：预算低于 120 万元、尚未到投标截止时间的项目有哪些？" rows={3}/><PromptInputActions><small>Enter 发送，Shift + Enter 换行</small><Button type="submit" disabled={busy || unavailable || !input.trim()}>{busy ? '查询中…' : '发送问题'}<WorkbenchIcon name="arrow" /></Button></PromptInputActions></PromptInput></form>
       </section>
-      <aside className="agent-evidence" aria-label="原文证据"><h2>原文证据</h2>{!selected ? <div className="evidence-empty"><p>每个结果都应有出处。</p><p>查询后选择一条公告，在这里核对来源、引用位置和采集时间。</p></div> : <><h3>{selected.title}</h3><p className="subtle">{selected.project_code}</p><a className="official-link" href={selected.source_url} target="_blank" rel="noreferrer">打开官方公告</a><dl className="evidence-metadata"><div><dt>采购单位</dt><dd>{selected.buyer_name || '未知'}</dd></div><div><dt>公告时间</dt><dd>{date(selected.published_at)}</dd></div><div><dt>采集时间</dt><dd>{date(selected.source_observed_at)}</dd></div><div><dt>文件获取截止</dt><dd>{date(selected.document_deadline_at)}</dd></div></dl><p className="review-note">当前状态未知。未来截止时间不代表项目仍然开放。</p>{selected.citations.map(citation => <details key={citation.id} className="citation"><summary>{labels[citation.field] || citation.field}</summary><blockquote>{citation.quote}</blockquote><small>原文字符 [{citation.start}, {citation.end})</small><small>{citation.locator}</small></details>)}</>}</aside>
+      <aside className="agent-evidence" aria-label="原文证据"><div className="evidence-heading"><WorkbenchIcon name="file" /><h2>原文证据</h2><span>EVIDENCE</span></div>{!selected ? <Empty className="evidence-empty"><EvidenceGraph /><EmptyHeader><EmptyTitle>每个结果都应有出处。</EmptyTitle><EmptyDescription>查询后选择一条公告，在这里核对来源、引用位置和采集时间。</EmptyDescription></EmptyHeader><div className="evidence-qualities"><span><WorkbenchIcon name="file" />原文引用</span><span><WorkbenchIcon name="shield" />来源可追溯</span></div></Empty> : <><h3>{selected.title}</h3><p className="subtle">{selected.project_code}</p><a className="official-link" href={selected.source_url} target="_blank" rel="noreferrer">打开官方公告</a><dl className="evidence-metadata"><div><dt>采购单位</dt><dd>{selected.buyer_name || '未知'}</dd></div><div><dt>公告时间</dt><dd>{date(selected.published_at)}</dd></div><div><dt>采集时间</dt><dd>{date(selected.source_observed_at)}</dd></div><div><dt>文件获取截止</dt><dd>{date(selected.document_deadline_at)}</dd></div></dl><p className="review-note">当前状态未知。未来截止时间不代表项目仍然开放。</p>{selected.citations.map(citation => <details key={citation.id} className="citation"><summary>{labels[citation.field] || citation.field}</summary><blockquote>{citation.quote}</blockquote><small>原文字符 [{citation.start}, {citation.end})</small><small>{citation.locator}</small></details>)}</>}</aside>
     </div>
   </main>;
 }

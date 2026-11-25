@@ -1,0 +1,19 @@
+{
+  "code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "old_manifest_sha256": "bd82c7ab050a53610742515d4af082140f6fce5593b203cabaa4e847ffb4a170",
+  "new_manifest_sha256": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c",
+  "changes": [
+    {
+      "path": "limits.configured_compute_concurrency",
+      "old": 1,
+      "new": 2
+    },
+    {
+      "path": "profile_id",
+      "old": "single-enterprise-trial-v1",
+      "new": "single-enterprise-native-queue-v2"
+    }
+  ],
+  "thresholds_scale_windows_and_target_unchanged": true,
+  "old_failure_preserved": true
+}

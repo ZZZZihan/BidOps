@@ -1,0 +1,192 @@
+{
+  "code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+  "acs": [
+    {
+      "ac_id": "B10-01",
+      "plan_type": "C",
+      "engineering_status": "PASS",
+      "real_environment_status": "BLOCKED",
+      "basis": "Offline inventory validation and explicit missing-item listing implemented and exercised; the plan permits missing inventory to be explicitly BLOCKED.",
+      "evidence": [
+        "empty-environment.json",
+        "template.json",
+        "unexecuted-bundle.json",
+        "targeted-tests.txt"
+      ],
+      "missing": [
+        "real Keycloak issuer/client and role mapping",
+        "real HTTPS origin and target machine",
+        "two independently registered users",
+        "authorized fixed profile/material/new notice versions and source rights",
+        "actual alert receiver and operations owner"
+      ]
+    },
+    {
+      "ac_id": "B10-02",
+      "plan_type": "B",
+      "engineering_status": "PASS",
+      "acceptance_status": "BLOCKED",
+      "basis": "Contract/negative tests retain bidirectional isolation and session evidence requirements; no real login performed.",
+      "evidence": [
+        "targeted-tests.txt",
+        "unexecuted-bundle.json"
+      ],
+      "missing": [
+        "two real independent accounts on target HTTPS",
+        "login/SSO/logout/replay/cookie/CSRF recordings and access observations"
+      ]
+    },
+    {
+      "ac_id": "B10-03",
+      "plan_type": "B",
+      "engineering_status": "PASS",
+      "acceptance_status": "BLOCKED",
+      "basis": "Disable and role-change observations, <=300s denial bounds, queued/waiting job and release checks are required by offline contract only.",
+      "evidence": [
+        "targeted-tests.txt",
+        "unexecuted-bundle.json"
+      ],
+      "missing": [
+        "real IdP change events and retained-session checks",
+        "measured protected/new-task/tool/release denials and clock/outage observations"
+      ]
+    },
+    {
+      "ac_id": "B10-04",
+      "plan_type": "B",
+      "engineering_status": "PASS",
+      "acceptance_status": "BLOCKED",
+      "basis": "Offline contract binds fixed inputs, actual-human claims, reviewer role/assignment, successor recomputation and separate agent/human results; none authenticates a person or material rights.",
+      "evidence": [
+        "targeted-tests.txt",
+        "unexecuted-bundle.json"
+      ],
+      "missing": [
+        "authorized real business case and source permission",
+        "full candidate/checklist/supplement/review/export outputs",
+        "independent actual user review and private evidence"
+      ]
+    },
+    {
+      "ac_id": "B10-05",
+      "plan_type": "B",
+      "engineering_status": "PASS",
+      "acceptance_status": "BLOCKED",
+      "basis": "Offline recovery evidence constraints cannot be weakened above RPO 86400s/RTO 1800s; alert interruption<=send<=receive and send<=300s are checked. No target drill performed here.",
+      "evidence": [
+        "targeted-tests.txt",
+        "historical-red-green.json",
+        "unexecuted-bundle.json"
+      ],
+      "missing": [
+        "actual target-machine interrupted/restarted run and full-store recovery",
+        "latest complete fee reconciliation and authorization revalidation",
+        "actual receiver delivery evidence and business-complete RTO"
+      ]
+    },
+    {
+      "ac_id": "B10-06",
+      "plan_type": "B",
+      "engineering_status": "PASS",
+      "acceptance_status": "BLOCKED",
+      "basis": "The offline aggregation and NO_GO mechanism pass; all 63 B01-B09 prerequisites and named release review remain unprovided. Operator claims never become tool authorization.",
+      "evidence": [
+        "schema.json",
+        "unexecuted-bundle.json",
+        "targeted-tests.txt"
+      ],
+      "missing": [
+        "current per-AC B01-B09 accepted evidence",
+        "named independent release review",
+        "real E2 environment/data/business gates; separate E3 scale and operations acceptance"
+      ]
+    }
+  ],
+  "gates": [
+    {
+      "gate_id": "G-01",
+      "status": "PASS",
+      "scope": "B10 engineering change mapping with real B blockers explicitly retained",
+      "evidence": [
+        "ac-status.json",
+        "code-input-identity.json",
+        "targeted-tests.txt"
+      ]
+    },
+    {
+      "gate_id": "G-02",
+      "status": "BLOCKED",
+      "baseline_status": "PASS",
+      "baseline_code_sha": "427a7edb28e059488fd2eadcddc7352d83bca6fc",
+      "reason": "Baseline full 2039 passed and independent targeted 89 passed at fixed 427a7ed. Parent has since integrated B09 at 24e3e573c65ef0b5e597aa1c6a95250794d7fcec with further UAT edits pending; that is not a final candidate pin and has not been verified by this report. B10 CI not independently checked.",
+      "evidence": [
+        "integrated-verification.json",
+        "integrated-backend.txt",
+        "independent-verification.json"
+      ]
+    },
+    {
+      "gate_id": "G-03",
+      "status": "PASS",
+      "scope": "B10 diff has no migration/persistent schema or runtime change; no production migration/rollback claimed",
+      "evidence": [
+        "code-input-identity.json",
+        "targeted-tests.txt"
+      ]
+    },
+    {
+      "gate_id": "G-04",
+      "status": "PASS",
+      "scope": "Local CLI only; bounded private artifacts; no new server/API entry. Existing HTTP authorizations untouched. No secret-bearing output in allowlist.",
+      "evidence": [
+        "targeted-tests.txt",
+        "empty-environment.json",
+        "schema.json"
+      ]
+    },
+    {
+      "gate_id": "G-05",
+      "status": "PASS",
+      "scope": "No new dependencies or lock changes; installed Authlib1.9.1/DBOS3.3.0/pypdf6.21.2 verified by local checker",
+      "evidence": [
+        "code-input-identity.json",
+        "empty-environment.json"
+      ]
+    },
+    {
+      "gate_id": "G-06",
+      "status": "PASS",
+      "scope": "No actual model, network, source, alert or IdP requests; estimated new charge 0 CNY; no call authorization granted",
+      "evidence": [
+        "integrated-verification.json",
+        "independent-verification.json",
+        "empty-environment.json"
+      ]
+    },
+    {
+      "gate_id": "G-07",
+      "status": "PASS",
+      "scope": "Code/tree/lock/plan/current template hashes bound; historical failures and final-integration gap retained; no historical fixture promoted to real UAT",
+      "evidence": [
+        "code-input-identity.json",
+        "historical-red-green.json",
+        "template.json",
+        "frozen-scorer-summary.json"
+      ]
+    },
+    {
+      "gate_id": "G-08",
+      "status": "PASS",
+      "scope": "B10 adds passive offline tools only; defaults remain off, empty env explicitly NO_GO; actual target operational rollback is not exercised and remains B10-05 BLOCKED",
+      "evidence": [
+        "code-input-identity.json",
+        "empty-environment.json",
+        "targeted-tests.txt"
+      ]
+    }
+  ],
+  "business_acceptance": "BLOCKED",
+  "real_business_gates_passed": 0,
+  "release_decision": "NO_GO",
+  "note": "Engineering PASS is not plan-type conversion or actual enterprise acceptance. B10-06 remains B."
+}

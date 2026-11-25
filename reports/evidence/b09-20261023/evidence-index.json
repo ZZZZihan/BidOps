@@ -1,0 +1,275 @@
+{
+  "schema_version": "b09-safe-evidence-index-v1",
+  "created_at": "2026-10-22T22:10:22.306948+00:00",
+  "candidate_sha": "db4f55dbf410acb4ef36c87738b0f95eddada5ed",
+  "capacity_sha": "836ccbfad779c4b6e52dd1802dd0877989dbe774",
+  "corrective_test_commit_coordinator_reported": "36efed31ae496f42474cd8389236668b05767499",
+  "archive_policy": "Copy only these literal member paths; exclude all other original and draft work files",
+  "trust_boundary": "Hashes verify integrity only; no enterprise identity, recipient, capacity or human acceptance authentication",
+  "private_exclusions": [
+    "business/DBOS SQLite and WAL/SHM",
+    "bootstrap/environment/provider configuration",
+    "session/cookie/CSRF/restore/epoch tokens",
+    "material/raw model/HTTP bodies",
+    "screenshots/recordings",
+    "raw proof script/result/log with absolute paths",
+    "all growing formal load/corrected full/frontend logs"
+  ],
+  "member_count": 38,
+  "members": [
+    {
+      "path": "manifest.json",
+      "bytes": 2699,
+      "sha256": "bd82c7ab050a53610742515d4af082140f6fce5593b203cabaa4e847ffb4a170",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-prewarmup-failure.json",
+      "bytes": 292,
+      "sha256": "cb6a6eeb75fc40062ba56cb591e1fffea51c36ba26dd8d78f03a6a8130f1ea81",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-environment-context.json",
+      "bytes": 422,
+      "sha256": "84751a85a68b17884974cacf3c7ce298336dbfbea7eb6a029243ee9a70163652",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-candidate-diagnostic.json",
+      "bytes": 944,
+      "sha256": "14ab349187110f67f39560db51ac3bf91631b9f4fc733db694c821fa648d0c1a",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-index-diagnostic.json",
+      "bytes": 888,
+      "sha256": "0038df0041b1d4a655ccde48b48f5da8410d144fd38dc79afbe1d6f8a6299f71",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "independent-recovery/PUBLIC_ENGINEERING_SUMMARY.md",
+      "bytes": 6555,
+      "sha256": "a43bb7c3b4f60a03c77913e2c8732c1b97102e8ca6f29329d1fe3c93b0548a96",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "independent-recovery/safe-summary.json",
+      "bytes": 10600,
+      "sha256": "fc35100555d7cadaaaf8fee0196636603c79648ab54648833a828211fccbaa7c",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "independent-recovery/evidence-index.json",
+      "bytes": 1302,
+      "sha256": "a6318bc7e9a3d698125a98d8b155a423263a1cc8ef938d5fe2668504a181c58b",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-readpath-summary.json",
+      "bytes": 440,
+      "sha256": "4388bb3e46f93f7bce79e93dcba77436727500c6bc12cdd4d5b2e75e3ef37b7b",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-test-results.json",
+      "bytes": 6547,
+      "sha256": "40e7af3e4d1b51700f99e328df6284eedad877d30403d71492cbd5130f7b7646",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-full-collection-failure.json",
+      "bytes": 828,
+      "sha256": "48f3553456c468bcb029195b7500d173ce7187ebfa9c3b3b50f1f6d42d85e50b",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-selected-checks.json",
+      "bytes": 8350,
+      "sha256": "e6506feca6e9b9d29f6e09c43bf293f4e77d2883bf8b7ddd540ab39c2148d26a",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "hardware-auxiliary-snapshot.json",
+      "bytes": 685,
+      "sha256": "e3f3cd9f51f9ae049109eef877f86d4f3cc9ea951f9076b9e5f19c7ce643b43a",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "pending-final-runs.json",
+      "bytes": 4551,
+      "sha256": "6cecb8320f9b55d9e73f0c7b8172852d00f8b8d19e9a61a5d303f70d1c129f5b",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "source-provenance.json",
+      "bytes": 13742,
+      "sha256": "ef8ad7f9476afaeca1f6dd71a263f5f8bda58efd508cfa82af4fa5dafe63e057",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "ac-status.json",
+      "bytes": 9428,
+      "sha256": "cde050597267d3ab43e67000c9c249a814e37e93c420e073a6c8442fa6ac7cfc",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "current-setup-summary.json",
+      "bytes": 2339,
+      "sha256": "e09687a7bffb45d0e5221099095a780896ca6b35d3e78b65af0b4c8c3baa46a4",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-aborted-before-warmup.json",
+      "bytes": 618,
+      "sha256": "918c2759b4986232eefa924c9772bf6d7fb02132d1e9aad5e929234ba44a26fe",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "full-review-proof/safe-result.json",
+      "bytes": 4423,
+      "sha256": "409a6ac46bf9b18c7c8fcc7773246f8d9d6a977cd20a4a9274e993c446a03c76",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "full-review-proof/PUBLIC_ENGINEERING_SUMMARY.md",
+      "bytes": 2420,
+      "sha256": "9f7832f6df06a9b58735f9fce0912f29ae2661b727c779aeb9b9bd19c26d5eed",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "full-review-proof/source-provenance.json",
+      "bytes": 1354,
+      "sha256": "1a5730a895724b30647c2edf51281f0901ed314e74a11e4d4111782a4d65c50c",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-full-backend-836-failure.json",
+      "bytes": 1735,
+      "sha256": "5cc96c1fa92492f6872a413ed57148986cf3d71d3c47e98449802ea415856257",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "migration-expectation-independent-review.json",
+      "bytes": 2925,
+      "sha256": "b04009c776c0ca9a611fa59933c48f5885cc1abe025a27a427007461b6382103",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "frontend-completion-and-teardown-summary.json",
+      "bytes": 3086,
+      "sha256": "d7e1b238fbf508376b90caf97c7b0516292fdb84d7bdf34630c2433233380bad",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "corrected-full-36ef-summary.json",
+      "bytes": 3563,
+      "sha256": "7346997f9e896d7781af1b23a64ded6fe6e10871cea3151018b25916296ca062",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "identity-clock-independent-summary.json",
+      "bytes": 7296,
+      "sha256": "08a90396c9742c4277671fd4fa4f9a330907c5f7fa65e9ffb266737125e55c23",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "ci-836-backend-failure.json",
+      "bytes": 1545,
+      "sha256": "dddad1ebfafa688dc7ba0690e54f5c2bfec5374ccea5366c119e936289b534dd",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "version-lineage-summary.json",
+      "bytes": 3015,
+      "sha256": "c24e00b2466f942038729e8c185380695ac57eb19055f4d222ab2e0d1d0369c2",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "final-db4-code-ci.json",
+      "bytes": 1542,
+      "sha256": "08750b2178ca12cd1b541ef6ee2c41c10323ab826ec87dc9a1ea2a21d1fcf3cf",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "historical-linux-36ef-backend-failure.json",
+      "bytes": 1164,
+      "sha256": "52295d74146c2f5c7b176a05ebd21ff42e9af4469a7820081c1a6d3922adaa9e",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "formal-load/safe-report.json",
+      "bytes": 3110,
+      "sha256": "aad698818452edf100646d635899e68ce41a1c9e3c39c4ff9d1b7541ada8f907",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "formal-load/safe-trace-summary.json",
+      "bytes": 10635,
+      "sha256": "344191223b849eab4d180af629775e56bd4a37f1179be577c2d6fd8567a1cd50",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "formal-load/http-summary.json",
+      "bytes": 1642,
+      "sha256": "90dd6d09f5eaec88928befad85ab43067437735d04cf7e8961bc29e19b720b3a",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "formal-load/completion.json",
+      "bytes": 1324,
+      "sha256": "6b4636eaa0042306fef4f06c11b6234a297bb2cc538f07db4c975834d0ff62c7",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "formal-load/source-provenance.json",
+      "bytes": 5144,
+      "sha256": "36dee8a6bf1158dcacb139b188c207d77ce6bf83e7a9da75791e8a1d8aa5b1ad",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "formal-load/capacity-curves.png",
+      "bytes": 867463,
+      "sha256": "688e5ce6079ee82f9cc48d0ddbc087cf566b32530af44d625fcc1ad3bd0329e1",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "formal-load/capacity-curves.svg",
+      "bytes": 155334,
+      "sha256": "08c391da157ba6e9754973a04e87d92899569ac9a9ec747f6ed26d4c7eda2261",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    },
+    {
+      "path": "formal-load/capacity-curves-data.json",
+      "bytes": 666469,
+      "sha256": "22ad908de56731a7507337df7efab2fe64512f3e12df5f01aa4ed309a60b1f44",
+      "scope": "Safe metadata/explicit synthetic engineering evidence only; not business acceptance"
+    }
+  ],
+  "report": {
+    "path": "../../b09-capacity-recovery-20261023.md",
+    "bytes": 35143,
+    "sha256": "a8a9e65e85005102eb5ddd0954d58e25218cc972bb4063afd862be1d8d66e3af"
+  },
+  "self_hash_trust": false,
+  "formal_load_result": "FAIL_COMPLETED_LOCAL_ENGINEERING_FIXED836",
+  "formal_load_report_original_sha256": "abc43ea0161693b0d4c11c1b2e1bbbf8e8e238aef1db0279a65b000a5bb2385b",
+  "formal_load_trace_original_sha256": "8091cb48901efe3e8528df512cc7b09369f9d215cf8b8c8597fa07b7ffb61257",
+  "original_full_backend": "FAILED_2005_PASSED_1_FAILED_605_60_SECONDS",
+  "independent_test_fix": "ONE_TEST_PASS_NO_ASSERTION_WEAKENING",
+  "final_integrated_checks": "FINAL_DB4_CI_PASS_BACKEND2010_BROWSER152_CONTAINER",
+  "engineering_C_closed": [
+    "B09-01",
+    "B09-03",
+    "B09-04",
+    "B09-08"
+  ],
+  "historical_linux_36ef": "FAILED_2005_PASS_1_FAIL_1015_29_SECONDS",
+  "corrected_full_includes_four_new_identity_boundaries": false,
+  "original_linux_ci_backend": "FAILED_2004_PASS_2_FAIL_1042_66_SECONDS",
+  "independent_identity_checks": "FILE43_PASS_DELAY19_PASS_OVERLAPPING_PLUS7_RS256_SCRIPT_CASES",
+  "fullscale_review_export": "LOCAL_ENGINEERING_50000_UNITS_PASS_NOT_CAPACITY",
+  "capacity_target2_actual1": "FAIL",
+  "business_rto_seconds": null,
+  "business_acceptance": "BLOCKED"
+}

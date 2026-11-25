@@ -1,0 +1,105 @@
+{
+  "scope": "34 additional regression cases relative to historical89; histories retained, no best-run selection",
+  "current_required_upstream": 65,
+  "minimum_registered_plan_ids": 71,
+  "legacy63_incomplete": true,
+  "legacy_missing_current_ids": [
+    "B04-08",
+    "B09-08"
+  ],
+  "covered_failures": [
+    "parenthetical AC labels ignored by old regex",
+    "duplicate/malformed/deleted/no-pipe baseline row",
+    "blank line followed by corrupted B4-08 ID",
+    "future legitimate upstream ID required",
+    "unsupported future B10 ID rejected until contract upgrade"
+  ],
+  "raw_tracebacks_private": true,
+  "raw_logs": [
+    {
+      "source_alias": "b10-plan-gates-red.txt",
+      "stage": "original parser failed22 new cases",
+      "source_sha256": "e8bf1f45ccfb897203dd9eecc6392de37d38eca89c2aed774f05a8e13acaa3f2",
+      "source_bytes": 47100,
+      "terminal_summaries": [
+        "22 failed, 49 deselected in 0.80s"
+      ],
+      "source_code_sha": "Not recorded per intermediate command; do not attribute this WIP result to clean final HEAD",
+      "exact_command": "Not captured in source log; implementation-stage UAT evidence regression tests",
+      "traceback_archived": false
+    },
+    {
+      "source_alias": "b10-plan-gates-green.txt",
+      "stage": "full-row parser plus23 new tests",
+      "source_sha256": "4a4e7d1eceaa5bdd99207697021cb2ca57696d2d247969bd6e44a07a4ffa2579",
+      "source_bytes": 180,
+      "terminal_summaries": [
+        "112 passed in 2.20s"
+      ],
+      "source_code_sha": "Not recorded per intermediate command; do not attribute this WIP result to clean final HEAD",
+      "exact_command": "Not captured in source log; implementation-stage UAT evidence regression tests",
+      "traceback_archived": false
+    },
+    {
+      "source_alias": "b10-plan-baseline-red.txt",
+      "stage": "minimum-baseline original counterexamples9failed1pass",
+      "source_sha256": "f4f555b834244d1f7d7ba639a712bd09e0ff66e78ac681edce5a85ade7b9ca9b",
+      "source_bytes": 20163,
+      "terminal_summaries": [
+        "9 failed, 1 passed, 73 deselected in 0.67s"
+      ],
+      "source_code_sha": "Not recorded per intermediate command; do not attribute this WIP result to clean final HEAD",
+      "exact_command": "Not captured in source log; implementation-stage UAT evidence regression tests",
+      "traceback_archived": false
+    },
+    {
+      "source_alias": "b10-plan-baseline-green.txt",
+      "stage": "minimum71 baseline and future upstream extension",
+      "source_sha256": "20462e0ce9f48c5b505cac926a7faf4b0c7b18a77f8bf6948de861df99877aa6",
+      "source_bytes": 180,
+      "terminal_summaries": [
+        "122 passed in 2.52s"
+      ],
+      "source_code_sha": "Not recorded per intermediate command; do not attribute this WIP result to clean final HEAD",
+      "exact_command": "Not captured in source log; implementation-stage UAT evidence regression tests",
+      "traceback_archived": false
+    },
+    {
+      "source_alias": "b10-plan-b10-extension-red.txt",
+      "stage": "unsupported B10 extension old implementation",
+      "source_sha256": "d32c091fa850aaabcabfb67944f355305d11b643f1a0ca98d6a972474d365690",
+      "source_bytes": 1850,
+      "terminal_summaries": [
+        "1 failed, 83 deselected in 0.27s"
+      ],
+      "source_code_sha": "Not recorded per intermediate command; do not attribute this WIP result to clean final HEAD",
+      "exact_command": "Not captured in source log; implementation-stage UAT evidence regression tests",
+      "traceback_archived": false
+    },
+    {
+      "source_alias": "b10-plan-final-green.txt",
+      "stage": "final123 tests including unknown B10 rejection",
+      "source_sha256": "ec44d0a1ea7ece82302b2d30b2911382c7c4fe2dc7e759bdfeae45fd5ccfd3bd",
+      "source_bytes": 180,
+      "terminal_summaries": [
+        "123 passed in 2.51s"
+      ],
+      "source_code_sha": "Not recorded per intermediate command; do not attribute this WIP result to clean final HEAD",
+      "exact_command": "Not captured in source log; implementation-stage UAT evidence regression tests",
+      "traceback_archived": false
+    }
+  ],
+  "implementation_final": "123 passed in 2.51s",
+  "independent_scoped": "83 passed in 1.70s",
+  "independent_final_extension": "1 passed in 0.29s",
+  "independent_probe": "Original no-pipe-loss examples now acceptance_plan_unavailable, sixBLOCKED, INCOMPLETE/NO_GO; valid current plan65 includes both added IDs",
+  "other_independent_history": {
+    "terminal_summaries": [
+      "122 passed in 3.91s"
+    ],
+    "source_sha256": "5464169aa68f2de0af08889163961bdcbb7dacc1497b8283710f1aefb82aaf0d",
+    "scope": "Earlier independent technical recheck; pre-final WIP, overlaps other counts, not additive"
+  },
+  "human_acceptance": false,
+  "business_acceptance": "BLOCKED"
+}

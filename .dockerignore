@@ -2,6 +2,8 @@
 !Dockerfile
 !pyproject.toml
 !uv.lock
+!requirements/
+!requirements/durable.lock
 !README.md
 !backend/
 !backend/**
@@ -15,3 +17,5 @@ frontend/test-results
 frontend/playwright-report
 frontend/*.tsbuildinfo
 backend/**/__pycache__
+
+!requirements/attachments.lock

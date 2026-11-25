@@ -1,0 +1,55 @@
+{
+  "scope": "Independent real RS256 production verifier probe; local in-memory JWKS, no HTTP or real IdP",
+  "simulated_collection_to_execution_delay_seconds": 180,
+  "sleep_calls": 0,
+  "production_code_modified": false,
+  "real_model_calls": 0,
+  "real_network_calls": 0,
+  "production_max_logout_age_seconds": 300,
+  "production_future_skew_seconds": 30,
+  "cases": [
+    {
+      "case": "old_collection_plus120_after180_seconds",
+      "iat_minus_execution_seconds": -60,
+      "expected_accepted": true,
+      "actual_accepted": true
+    },
+    {
+      "case": "execution_relative_future_plus120",
+      "iat_minus_execution_seconds": 120,
+      "expected_accepted": false,
+      "actual_accepted": false
+    },
+    {
+      "case": "execution_relative_expired_minus301",
+      "iat_minus_execution_seconds": -301,
+      "expected_accepted": false,
+      "actual_accepted": false
+    },
+    {
+      "case": "exact_age300_boundary",
+      "iat_minus_execution_seconds": -300,
+      "expected_accepted": true,
+      "actual_accepted": true
+    },
+    {
+      "case": "exact_future30_boundary",
+      "iat_minus_execution_seconds": 30,
+      "expected_accepted": true,
+      "actual_accepted": true
+    },
+    {
+      "case": "future31_rejected",
+      "iat_minus_execution_seconds": 31,
+      "expected_accepted": false,
+      "actual_accepted": false
+    },
+    {
+      "case": "exp_at_current_time_rejected",
+      "iat_minus_execution_seconds": 0,
+      "expected_accepted": false,
+      "actual_accepted": false
+    }
+  ],
+  "status": "PASS_EXPECTED_BEHAVIOR"
+}

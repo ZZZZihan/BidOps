@@ -1,0 +1,74 @@
+{
+  "code_sha": "69560429745417e34113d0877d75a62d7eb8f37b",
+  "source_tree_dirty": false,
+  "command_exit_code": 2,
+  "command_exit_observation": "Coordinator observed natural completion; exit 2 expresses blocked target measurement, exit 1 an observed failure.",
+  "command": [
+    ".venv/bin/python",
+    "scripts/capacity_probe.py",
+    "--output",
+    "$CONTROLLED_OUTPUT",
+    "--manifest",
+    "evals/capacity-native-queue-v2/manifest.json",
+    "--manifest-sha256",
+    "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c"
+  ],
+  "command_projection": "Output path is a redacted alias. Exact original invocation retained in the controlled session.",
+  "started_at_utc": "2026-10-22T22:55:14.481055Z",
+  "ended_offset_ms": 2115000,
+  "derived_end_utc": "2026-10-22T23:30:29.481055+00:00",
+  "end_timestamp_note": "Derived from frozen UTC origin plus rounded monotonic offset; not a separately measured exact exit UTC.",
+  "warmup_seconds": 300,
+  "steady_seconds": 1800,
+  "drain_seconds": 15.0,
+  "capacity_status": "BLOCKED",
+  "measurement_status": "BLOCKED",
+  "local_engineering_gates_status": "PASS",
+  "local_engineering_gates": {
+    "api_performance": "PASS",
+    "data_integrity": "PASS",
+    "declared_compute_target": "PASS",
+    "input_integrity": "PASS",
+    "manifest_complete": "PASS",
+    "model_simulation": "PASS",
+    "observed_compute_target": "PASS"
+  },
+  "actual_hardware": {
+    "disk_free_bytes": 145039679488,
+    "logical_cpus": 24,
+    "memory_bytes": 68719476736,
+    "storage": "local_disk"
+  },
+  "target_hardware": {
+    "logical_cpus": 4,
+    "memory_bytes": 8589934592,
+    "disk_free_bytes": 21474836480,
+    "storage": "local_disk"
+  },
+  "hardware_scope": "M2 Ultra development host with 24 logical CPUs and 64 GiB, not the frozen 4 CPU/8 GiB target. Isolated full backend tests overlapped setup/warmup and part of steady load; no exclusive-host claim.",
+  "dataset_before": {
+    "enterprises": 1,
+    "accounts": 20,
+    "notice_versions": 10000,
+    "procurement_packages": 50000,
+    "notice_text_bytes_total": 40960000,
+    "notice_text_bytes_min": 4096,
+    "notice_text_bytes_max": 4096
+  },
+  "materials_count": 200,
+  "attachments_count": 1000,
+  "pin_hashes": {
+    "dataset_sha256": "a7577d5b70ce38812a2247357f0e49b723981f4275c0114da817290ede85ea65",
+    "load_sha256": "ce7200e7bfdc858e6e9d3d602191510e6bbbe4cd4bd5e93deb55ce87a445cce8",
+    "manifest_bytes_sha256": "8d232aa52fdc5b60bbdf32c258aaa964585b3faf2e5b4b50f7d75349a00c043c",
+    "manifest_sha256": "959d12fc6876a281899225a9f797f892df71a17c1fa8ed43104e89d14268eda7",
+    "page_inventory_sha256": "b5ee8aede5757b0b87c9c4d4e0eb523f36bdf7ca1b06712c73a99f5750181919",
+    "plan_sha256": "1a489b639fd20d247ed51c73edb0318dab7e0c5d62cf6b6f02ab056104bdb916",
+    "script_sha256": "6f5f5c0c788b746ae9e00693f69a893240790e78aca5a6c9d44d17e9c2028462"
+  },
+  "planned_operations": 4200,
+  "observed_operations": 4200,
+  "real_model_calls": 0,
+  "real_source_calls": 0,
+  "actual_cost_cny": "0"
+}

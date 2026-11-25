@@ -1,0 +1,148 @@
+
+> bidops-ui@0.1.0 test:e2e
+> playwright test
+
+(node:7966) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+[2m[WebServer] [22m(node:7994) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+[2m[WebServer] [22m(Use `node --trace-warnings ...` to show where the warning was created)
+
+Running 75 tests using 12 workers
+
+(node:7999) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7997) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7998) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8007) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8005) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8006) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8001) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8003) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8002) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7997) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:7999) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:7997) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7999) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8005) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:7996) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:8005) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8002) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:8002) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8000) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:8000) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:7998) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:7998) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8004) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:8004) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8001) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:8001) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8003) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:8007) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:8007) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8003) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+(node:8006) [DEP0205] DeprecationWarning: `module.register()` is deprecated. Use `module.registerHooks()` instead.
+(node:8006) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   2 tests/enterprise.spec.ts:211:1 › identity API failure does not silently downgrade to a local anonymous demo (1.8s)
+  ✓  12 tests/jobs.spec.ts:390:5 › jobs require an authenticated enterprise workspace {"mode":"local"} (1.8s)
+  ✓   3 tests/enterprise.spec.ts:81:1 › viewer sees archive but no chat or audit controls (1.9s)
+  ✓   5 tests/enterprise.spec.ts:73:1 › OIDC failure is explicit and does not open a workspace (1.9s)
+  ✓   7 tests/company.spec.ts:152:1 › anonymous enterprise session does not expose private company controls (1.6s)
+  ✓  11 tests/enterprise.spec.ts:52:1 › unauthenticated enterprise only shows the SSO entry (2.0s)
+  ✓   9 tests/jobs.spec.ts:372:1 › default-disabled page fetches neither private inputs nor job submissions (2.0s)
+  ✓  10 tests/enterprise.spec.ts:99:1 › analyst restores private history after reload without calling the model (2.0s)
+  ✓   4 tests/enterprise.spec.ts:178:1 › administrator audit shows metadata, remains usable on mobile (2.0s)
+  ✓   1 tests/archive.spec.ts:2:1 › archive sends full-catalog search and resets pagination (2.1s)
+  ✓   8 tests/enterprise.spec.ts:139:1 › network recovery preserves the request key and csrf header (2.1s)
+  ✓  14 tests/jobs.spec.ts:390:5 › jobs require an authenticated enterprise workspace {"authenticated":false} (812ms)
+  ✓  20 tests/jobs.spec.ts:577:60 › execution state queued is explicit with only server-authorized actions (1.1s)
+  ✓  19 tests/jobs.spec.ts:549:1 › a creation idempotency conflict is reported accurately without falsely acknowledging or retrying it (1.1s)
+  ✓  21 tests/jobs.spec.ts:577:60 › execution state running is explicit with only server-authorized actions (1.1s)
+  ✓  15 tests/jobs.spec.ts:418:1 › read-only enterprise roles can inspect a task but cannot submit, cancel or resume it (1.3s)
+  ✓  13 tests/jobs.spec.ts:402:1 › unconfigured runtime disables creating jobs while authorized history remains readable (1.4s)
+  ✓  22 tests/jobs.spec.ts:577:60 › execution state waiting_review is explicit with only server-authorized actions (1.3s)
+  ✓  23 tests/jobs.spec.ts:577:60 › execution state cancel_requested is explicit with only server-authorized actions (1.2s)
+  ✓  18 tests/jobs.spec.ts:489:1 › an unconfirmed POST cannot display success and retry reuses its key; changed inputs or explicit new job use new keys (1.5s)
+  ✓  24 tests/jobs.spec.ts:577:60 › execution state cancelled is explicit with only server-authorized actions (1.1s)
+  ✓  16 tests/jobs.spec.ts:436:1 › 202 pins profile and material hashes with CSRF, then GET refresh and reopening preserve the stable ID (2.0s)
+  ✓  27 tests/jobs.spec.ts:577:60 › execution state timed_out is explicit with only server-authorized actions (791ms)
+  ✓  26 tests/jobs.spec.ts:577:60 › execution state completed is explicit with only server-authorized actions (859ms)
+  ✓  25 tests/jobs.spec.ts:577:60 › execution state failed is explicit with only server-authorized actions (882ms)
+  ✓  28 tests/jobs.spec.ts:577:60 › execution state interrupted is explicit with only server-authorized actions (846ms)
+  ✓  29 tests/jobs.spec.ts:602:1 › unexpected resume permissions cannot revive cancelled or waiting-review jobs, and no allowed action means no resume (1.0s)
+  ✓  31 tests/jobs.spec.ts:694:1 › an older poll cannot erase newer usage and reservation warnings when the state version is unchanged (1.1s)
+  ✓  32 tests/jobs.spec.ts:758:1 › resume uses the displayed state version; a 409 re-reads but never silently retries a mutation (1.1s)
+  ✓  35 tests/jobs.spec.ts:869:1 › permission denial on the first read after 202 removes the acknowledgement and every private field (896ms)
+  ✓  36 tests/jobs.spec.ts:899:1 › resume acknowledgement keeps the original task ID and cannot create a second job (980ms)
+  ✓  17 tests/company.spec.ts:164:1 › real backend saves profile versions, UTF8 materials, sources and bounded qualification results (3.2s)
+  ✓  37 tests/jobs.spec.ts:919:39 › a 401 fixed-run response clears private results, citations, inputs and history even when the list is 200 (1.1s)
+  ✓  38 tests/jobs.spec.ts:919:39 › a 403 fixed-run response clears private results, citations, inputs and history even when the list is 200 (1.2s)
+  ✓  39 tests/jobs.spec.ts:919:39 › a 404 fixed-run response clears private results, citations, inputs and history even when the list is 200 (1.1s)
+  ✓  40 tests/jobs.spec.ts:953:1 › a selected material revoked after a 200 empty list clears the private fixed inputs (1.0s)
+  ✓  41 tests/jobs.spec.ts:983:1 › history and profile pagination retain independently authorized pinned details even when absent from the new page (1.2s)
+  ✓  43 tests/jobs.spec.ts:1077:1 › saved task inputs remain distinct from a new form and unlinked fee reservations are never presented as zero unknown cost (831ms)
+  ✓  42 tests/jobs.spec.ts:1016:1 › partial saved results keep all five states, both evidence versions, stale sources and unknown cost visible without approval (945ms)
+  ✓  45 tests/jobs.spec.ts:1105:1 › a transient poll failure labels cached content unconfirmed and a later GET recovers without a new submission (735ms)
+  ✓  48 tests/screening.spec.ts:344:1 › disabled screening is explicit and does not fetch company inputs or call models (403ms)
+  ✓  49 tests/screening.spec.ts:367:5 › screening is unavailable outside an authenticated enterprise workspace {"mode":"local"} (332ms)
+  ✓  50 tests/screening.spec.ts:367:5 › screening is unavailable outside an authenticated enterprise workspace {"authenticated":false} (353ms)
+  ✓  46 tests/jobs.spec.ts:1132:1 › a mobile viewport keeps long IDs, fixed hashes and condition evidence within the viewport (1.2s)
+  ✓  53 tests/screening.spec.ts:496:1 › partial timeout exposes retained conditions, unresolved clauses, missing attachment and incomplete usage (918ms)
+  ✓  51 tests/screening.spec.ts:379:1 › candidate requests pin the detail hash and fixed batch pagination preserves exclusions and unknowns (1.0s)
+  ✓  44 tests/company.spec.ts:307:1 › real object grant and revoke cannot be bypassed by another account or an admin (1.9s)
+  ✓  52 tests/screening.spec.ts:424:1 › all five conditions, both evidence sides, logic and recorded versions stay visible without human approval (1.1s)
+  ✓  54 tests/screening.spec.ts:517:39 › saved-result 401 clears all private results and inputs on refresh (1.2s)
+  ✓  30 tests/jobs.spec.ts:643:1 › a late poll cannot overwrite the persisted cancel response and cancelled has no resume action (4.0s)
+  ✓  55 tests/screening.spec.ts:517:39 › saved-result 403 clears all private results and inputs on refresh (1.3s)
+  ✓  58 tests/screening.spec.ts:568:1 › missing model configuration leaves deterministic candidates usable and checklist disabled (630ms)
+  ✓  56 tests/screening.spec.ts:517:39 › saved-result 404 clears all private results and inputs on refresh (1.1s)
+  ✓  57 tests/screening.spec.ts:552:1 › turning the feature off removes saved private output and does not rerun a checklist (713ms)
+  ✓  33 tests/jobs.spec.ts:789:1 › polling stays independent while a mutation is in flight and its older acknowledgement cannot regress the task (3.9s)
+  ✓  34 tests/jobs.spec.ts:832:1 › an older duplicate creation response cannot regress an already-polled instance of the same stable task (3.7s)
+  ✓  60 tests/screening.spec.ts:588:1 › saved run can be re-read without new model requests and mobile results do not overflow (758ms)
+  ✓  61 tests/screening.spec.ts:615:1 › failed assessment retains every extracted condition without fabricating judgments (752ms)
+  ✓  65 tests/workbench.spec.ts:25:1 › missing credential is explicit; model calls are disabled (546ms)
+  ✓  66 tests/workbench.spec.ts:40:1 › empty corpus cannot be presented as a successful demo (576ms)
+  ✓  62 tests/screening.spec.ts:638:1 › source changes flag a stored result while preserving its original inputs and prompt version (981ms)
+  ✓  68 tests/workbench.spec.ts:71:1 › no browser interpretation of user HTML; Shift+Enter does not send (682ms)
+  ✓  63 tests/screening.spec.ts:662:1 › refresh rechecks a selected private material even when its list returns an empty successful page (827ms)
+  ✓  67 tests/workbench.spec.ts:50:1 › provider error is readable and retry remains possible (754ms)
+  ✓  69 tests/workbench.spec.ts:96:1 › mobile layout has no horizontal overflow and usable input (604ms)
+  ✓  64 tests/screening.spec.ts:687:1 › saved batch exposes its own pinned profile and filters independently of the current form (980ms)
+  ✓  70 tests/workbench.spec.ts:111:1 › read pages expose full count and truncation including the last page (535ms)
+  ✓  59 tests/company.spec.ts:378:1 › real 403 and refresh after revocation clear selected bodies, profile drafts, quotes and authorization metadata (2.4s)
+  ✓  71 tests/company.spec.ts:515:1 › refresh keeps an authorized selected fixed version when its row is on another page (714ms)
+  ✓  47 tests/screening-real.spec.ts:193:1 › real candidate-to-checklist keeps five states, both source versions and owner isolation; rereads make no model calls (3.8s)
+  ✓  73 tests/screening-real.spec.ts:350:1 › real selected-material revocation clears metadata despite a successful list, before creating a run (737ms)
+  ✓  72 tests/company.spec.ts:560:1 › retention policies survive profile history pagination and unchanged material replacement (1.5s)
+  ✓   6 tests/jobs-real.spec.ts:255:1 › real Jobs 202 reaches native review wait; reload and GET retain ID, result and zero fees, then cancellation is terminal (10.8s)
+  ✓  74 tests/screening-real.spec.ts:392:1 › real provider failure preserves every extracted condition as incomplete and exposes its error code (1.2s)
+  ✓  75 tests/jobs-real.spec.ts:374:1 › real source revocation produces a 200 empty history and 404 fixed job, clearing displayed private body and input (5.5s)
+
+  75 passed (22.3s)

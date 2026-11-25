@@ -1,0 +1,269 @@
+{
+  "schema_valid": true,
+  "issues": [
+    "environment_not_ready"
+  ],
+  "acs": [
+    {
+      "ac_id": "B10-01",
+      "status": "BLOCKED",
+      "claimed_outcome": "NOT_RUN",
+      "issues": [
+        "alert_or_recovery_targets_missing",
+        "authorized_material_or_notice_missing",
+        "configuration_evidence_missing",
+        "idp_machine_or_operations_owner_missing",
+        "independent_operator_and_reviewer_missing",
+        "inventory_attestations_missing",
+        "operator_has_not_claimed_pass",
+        "real_environment_evidence_missing",
+        "real_https_configuration_missing",
+        "record_artifacts_missing_or_duplicated",
+        "record_times_missing",
+        "single_worker_or_clock_evidence_missing",
+        "two_distinct_human_accounts_missing"
+      ]
+    },
+    {
+      "ac_id": "B10-02",
+      "status": "BLOCKED",
+      "claimed_outcome": "NOT_RUN",
+      "issues": [
+        "anonymous_check_missing",
+        "independent_operator_and_reviewer_missing",
+        "operator_has_not_claimed_pass",
+        "real_environment_evidence_missing",
+        "record_artifacts_missing_or_duplicated",
+        "record_times_missing",
+        "role_denial_check_missing",
+        "two_account_sessions_missing"
+      ]
+    },
+    {
+      "ac_id": "B10-03",
+      "status": "BLOCKED",
+      "claimed_outcome": "NOT_RUN",
+      "issues": [
+        "disable_and_role_change_checks_missing",
+        "idp_outage_or_clock_check_missing",
+        "independent_operator_and_reviewer_missing",
+        "operator_has_not_claimed_pass",
+        "real_environment_evidence_missing",
+        "record_artifacts_missing_or_duplicated",
+        "record_times_missing"
+      ]
+    },
+    {
+      "ac_id": "B10-04",
+      "status": "BLOCKED",
+      "claimed_outcome": "NOT_RUN",
+      "issues": [
+        "business_flow_missing",
+        "independent_operator_and_reviewer_missing",
+        "operator_has_not_claimed_pass",
+        "real_environment_evidence_missing",
+        "record_artifacts_missing_or_duplicated",
+        "record_times_missing"
+      ]
+    },
+    {
+      "ac_id": "B10-05",
+      "status": "BLOCKED",
+      "claimed_outcome": "NOT_RUN",
+      "issues": [
+        "independent_operator_and_reviewer_missing",
+        "operator_has_not_claimed_pass",
+        "real_environment_evidence_missing",
+        "record_artifacts_missing_or_duplicated",
+        "record_times_missing",
+        "recovery_drill_missing"
+      ]
+    },
+    {
+      "ac_id": "B10-06",
+      "status": "BLOCKED",
+      "claimed_outcome": "NOT_RUN",
+      "issues": [
+        "all_b01_to_b09_acceptance_ids_required",
+        "human_release_decision_not_go",
+        "independent_operator_and_reviewer_missing",
+        "named_release_review_or_trial_scale_missing",
+        "operator_has_not_claimed_pass",
+        "real_environment_evidence_missing",
+        "record_artifacts_missing_or_duplicated",
+        "record_times_missing"
+      ]
+    }
+  ],
+  "environment": {
+    "kind": "offline_configuration_only",
+    "configuration_ready": false,
+    "checks": [
+      {
+        "code": "enterprise_settings_valid",
+        "status": "PASS"
+      },
+      {
+        "code": "storage_settings_valid",
+        "status": "PASS"
+      },
+      {
+        "code": "screening_settings_valid",
+        "status": "PASS"
+      },
+      {
+        "code": "jobs_settings_valid",
+        "status": "PASS"
+      },
+      {
+        "code": "review_settings_valid",
+        "status": "PASS"
+      },
+      {
+        "code": "ingestion_settings_valid",
+        "status": "PASS"
+      },
+      {
+        "code": "enterprise_enabled",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "real_https_origin",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "real_https_issuer",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "insecure_loopback_disabled",
+        "status": "PASS"
+      },
+      {
+        "code": "keycloak_adapter",
+        "status": "PASS"
+      },
+      {
+        "code": "identity_snapshot_at_most_240_seconds",
+        "status": "PASS"
+      },
+      {
+        "code": "client_secret_configured",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "cookie_secret_configured",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "single_worker_deployment",
+        "status": "PASS"
+      },
+      {
+        "code": "inventory_matches_oidc_configuration",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "sqlite_inside_data_directory",
+        "status": "PASS"
+      },
+      {
+        "code": "code_sha_available",
+        "status": "PASS"
+      },
+      {
+        "code": "git_tree_clean",
+        "status": "PASS"
+      },
+      {
+        "code": "code_sha_matches_checkout",
+        "status": "PASS"
+      },
+      {
+        "code": "base_lock_readable",
+        "status": "PASS"
+      },
+      {
+        "code": "durable_lock_readable",
+        "status": "PASS"
+      },
+      {
+        "code": "attachments_lock_readable",
+        "status": "PASS"
+      },
+      {
+        "code": "authlib_locked_version_installed",
+        "status": "PASS"
+      },
+      {
+        "code": "dbos_locked_version_installed",
+        "status": "PASS"
+      },
+      {
+        "code": "pypdf_locked_version_installed",
+        "status": "PASS"
+      },
+      {
+        "code": "screening_flow_enabled",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "jobs_flow_enabled",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "review_flow_enabled",
+        "status": "BLOCKED"
+      },
+      {
+        "code": "current_ledger_and_provider_gate",
+        "status": "BLOCKED"
+      }
+    ],
+    "code_sha": "76ce23720c14e9e66e583e4cc15ad95356f5e519",
+    "lock_hashes": {
+      "base": "92ceebd17f2e98b0075eac8f13c9108b2686635e1ece5aa4d5f172de10289b27",
+      "durable": "cc7fa6b4de2bd7dc10ca1745b56c5c1f0891edb649732843195a854e098ccd88",
+      "attachments": "59fd6f618e0fa0414b0caad225096e12d5c88885ad4e0471299b667315a913ba"
+    },
+    "installed_versions": {
+      "authlib": "1.9.1",
+      "dbos": "3.3.0",
+      "pypdf": "6.21.2"
+    },
+    "flags": {
+      "enterprise_enabled": false,
+      "screening_enabled": false,
+      "jobs_enabled": false,
+      "review_enabled": false,
+      "ingestion_enabled": false,
+      "live_calls_enabled": false,
+      "ledger_verified": false,
+      "provider_key_present": false,
+      "restore_ledger_token_present": false
+    },
+    "network_probes": 0,
+    "model_calls": 0,
+    "business_acceptance": "NOT_VERIFIED_BY_TOOL",
+    "release_decision": "NO_GO",
+    "limits": [
+      "Configuration presence is not proof of credential validity or entropy.",
+      "No IdP, HTTPS, account, source, model, alert or deployment has been contacted.",
+      "Live calls require authorization and current complete-ledger reconciliation."
+    ]
+  },
+  "verified_artifacts": 0,
+  "required_upstream_acceptance_items": 67,
+  "contract_sha256": "3e9bfbddac2e6b3725bfc92f1790d3509c51a17ed6c6ab038c11013502390d32",
+  "evidence_readiness": "INCOMPLETE",
+  "release_decision": "NO_GO",
+  "business_acceptance": "NOT_VERIFIED_BY_TOOL",
+  "network_probes": 0,
+  "model_calls": 0,
+  "limits": [
+    "Artifact hashes verify bytes, not truthful contents, identities or human signatures.",
+    "Operator PASS and GO do not authorize acceptance or release through this tool.",
+    "Engineering fixtures, history and developer demonstrations cannot satisfy real UAT.",
+    "Independent review of private artifacts is required; contents are omitted here."
+  ]
+}

@@ -1,0 +1,609 @@
+{
+  "schema_version": "bidops-engineering-evidence-allowlist-v4-final",
+  "created_at": "2026-10-22T22:09:30.096316+00:00",
+  "code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "tree_sha": "a45142d6b4878853f297a8ea717e6fad70879d6d",
+  "current_specialist_ac_count": 71,
+  "current_required_upstream_ac_count": 65,
+  "report": {
+    "path": "reports/b10-enterprise-uat-20261023.md",
+    "sha256": "afa2969988550c6c8c73cde3458bbdaed03c2f23c231f591e6e74409d1ea4227",
+    "size_bytes": 29205
+  },
+  "entries": [
+    {
+      "path": "schema.json",
+      "sha256": "1d62a08f7ae7f06c6583ea91ccc856e4568401db308697dfaab9b742300cb0da",
+      "size_bytes": 42722,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "template.json",
+      "sha256": "b3bdb3dd423a65eb5a50c5cad57880d5c44df26c30fae627fd8698e95ed3cefc",
+      "size_bytes": 1904,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "empty-environment.json",
+      "sha256": "6b9cef08df88d49c251faad004b7238dae96dcaa0d0d74230ad54caf9e5b8811",
+      "size_bytes": 3483,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "unexecuted-bundle.json",
+      "sha256": "30f361f9a2954510d796a98d0c7c1cd83d4eaad7f811f6215eb39d42c0a419e7",
+      "size_bytes": 7563,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "targeted-tests.txt",
+      "sha256": "89554463001a128d8ce2456fdf16b92a1016156086a082ee670ac8e7981f8404",
+      "size_bytes": 179,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "targeted-lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "size_bytes": 19,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "targeted-format.txt",
+      "sha256": "8e93d18ae56550d4eef2feac77e6630617c7e169246e56e39c75d58b46167985",
+      "size_bytes": 26,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "independent-verification.json",
+      "sha256": "dd25d19a0f20155aa6ffe75db95eadac262706cc1ea5db587d9c607bce87b48f",
+      "size_bytes": 4125,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "integrated-backend.txt",
+      "sha256": "3f8e8602458d85f1a7005e1c7f0c75a69b4970d66e22b47d626306cef73ed9ce",
+      "size_bytes": 2353,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "integrated-lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "size_bytes": 19,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "integrated-format.txt",
+      "sha256": "cd83ead2e950d1cadea9ebbf07897f3d4cc11df68a345db6fd25a2994605a54a",
+      "size_bytes": 28,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "integrated-freeze.txt",
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7",
+      "size_bytes": 74,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "integrated-verification.json",
+      "sha256": "05f6a09c3e144e6c74ddd36b89c39b828ce4e77f69522e3fc91329ff1bdad188",
+      "size_bytes": 1916,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "frozen-scorer-summary.json",
+      "sha256": "bb6795c6dcf3a876910c456bfa646482f9d8d51764aae762de12aff6c8c4203a",
+      "size_bytes": 1087,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "historical-red-green.json",
+      "sha256": "7cf5578da6ffb3e170bc5ab4afccc87884bce2a2706cc1380835cdf0289410db",
+      "size_bytes": 5190,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "code-input-identity.json",
+      "sha256": "8907c70278d68c505f0b5d0adc2cc65d3104b420b0560437d58f95c36c447bd8",
+      "size_bytes": 8904,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "ac-status.json",
+      "sha256": "cb04da3936f1350cbc77973aed56f78b15f1e9b0f02889a4336ce800e1b0e84d",
+      "size_bytes": 7104,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "source-provenance.json",
+      "sha256": "6d75a5da120cc46e2deec3495ae0075038f67a267685644212dba3716e79715e",
+      "size_bytes": 2268,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Historical427 only; preserves original bytes. Old63 prerequisite count was incomplete and cannot satisfy current65. Not current final verification."
+    },
+    {
+      "path": "final-template.json",
+      "sha256": "d4b3538502ff34c22888a57bcc49ef0f575e107e278b28627ed2c5b1d8ab9adf",
+      "size_bytes": 1904,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-empty-environment.json",
+      "sha256": "468cec6ff39443ecac69683529b05ba4b93436286a93f0012cf628c1c59ee5e1",
+      "size_bytes": 3483,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-unexecuted-bundle.json",
+      "sha256": "c314d1bf4f891af98650e0c4ac1f13b80e7675cc8986dd1f720c7ca067b0b276",
+      "size_bytes": 7563,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-cli-verification.json",
+      "sha256": "aca9e533196d508e97a290de48b88145104e3c86e3c35745505899210ffac101",
+      "size_bytes": 1374,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-code-input-identity.json",
+      "sha256": "c4b88f59d3f6789d07330ae32908fcaeb1a7eaae6d1ca42e8b20a07d446b3776",
+      "size_bytes": 4319,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-plan-parser-history.json",
+      "sha256": "3aede442b0cb55a35b4b48c0329f5b54e8cb4ef5261ba201b5f8ff44d1b58aee",
+      "size_bytes": 4797,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-plan-independent-tests.txt",
+      "sha256": "3d255fb655b88f94981059d7a80b924193223e28f35fc2d6d639392801e2784a",
+      "size_bytes": 179,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-plan-b10-extension-independent.txt",
+      "sha256": "a132c74d7b7c74739e7571fb00cd0a8be848d9686b936586ce31a93451c151b2",
+      "size_bytes": 98,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-plan-independent-probe.json",
+      "sha256": "81256d5d13e6cb19086fb6e54d5ca6b413575222d8bc0af025e11bae410ee528",
+      "size_bytes": 1344,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-plan-independent-provenance.json",
+      "sha256": "3c5cef4d62656dba114e284557aacd819ff4147d0818d332d045e784673dd3d1",
+      "size_bytes": 623,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-ac-status.json",
+      "sha256": "5a5fcdc8ecebf9f35a67307b2737c63e6e5e7992e6ac6f0434ca1227b5659282",
+      "size_bytes": 5944,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-integrated-status.json",
+      "sha256": "f6390327c899e5b3d11b9453d27ebf5d90cf55570f95dc87d0cdcc16f1fcc8d2",
+      "size_bytes": 958,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-source-provenance.json",
+      "sha256": "963d5ec452b9710df52e4e328d39810cc1894abcf1b6bfea9837c3bae7abc87b",
+      "size_bytes": 6175,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-shared-migration-gap.json",
+      "sha256": "c8ac22762ad6be9d4982d93b0a4aa00d6100c5c9fd68e766c30bb473002b276e",
+      "size_bytes": 2656,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-b136-full-failure.json",
+      "sha256": "73f8f04c8b208a719db144e5a20f3c29bb2d7dacb213729824ac1a2e05ef9084",
+      "size_bytes": 1101,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-migration-independent-test.txt",
+      "sha256": "941fd927604956af95533710b95a4b5cfe32fe875376a69b8cd3d6db814e3c2b",
+      "size_bytes": 98,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-migration-independent-verification.json",
+      "sha256": "eb403992e08ea687e6a809c1ef9b9b6e08d538a06bf5d2ae7a5aaac8eafeb509",
+      "size_bytes": 2207,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "final-corrected-candidate-identity.json",
+      "sha256": "ce782dc508c737f314b03313674093f34d95e064b7741a7f0649fd91fbae36b7",
+      "size_bytes": 1411,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "corrected-template.json",
+      "sha256": "980e6c9f7b5110c6c416c296c04c46f3b5030d235fcfb5e8143840084b43bab3",
+      "size_bytes": 1904,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "corrected-empty-environment.json",
+      "sha256": "41ad44e5d26f5eb84f4d951f5f5fb3687d22de982718a19dcf63d9d88265bdc0",
+      "size_bytes": 3483,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "corrected-unexecuted-bundle.json",
+      "sha256": "9d418de0e5104537b586b619c52e2b32d07cf5c4527b27fda52f04ea26526cc8",
+      "size_bytes": 7563,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "corrected-cli-verification.json",
+      "sha256": "257089dccd7f94e5a32f069fa159c438e1f5a1def1d67907a2d332feec7acea7",
+      "size_bytes": 1604,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Preserved byte-identical pre-clock evidence. Exact artifact code fields and creation scope apply; current status is clock-current-status.json. Currenta0 candidate safe metadata plus preservedb136 CLI/full failure; artifact code fields define exact scope. Implementation-stage123/83/1 remain WIP, not final full results."
+    },
+    {
+      "path": "clock-prior-a0-full-verification.json",
+      "sha256": "bd48070fcab19e0f6228a88433ed5a4f5d7cb9a7ddd1a8a94b62fc0b0d22b7b5",
+      "size_bytes": 2164,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-prior-a0-full-summaries.json",
+      "sha256": "8c13df3ae1b8553a9f31ba715a4dade3b60c9c8bb86f629ab8c015c8f1bdd28c",
+      "size_bytes": 1372,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-b136-linux-ci-failure.json",
+      "sha256": "60f04421818655c21e0294d8dd45e6433d086ad61e730bbfeb989ef65ca1dbc3",
+      "size_bytes": 1660,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-fix-verification.json",
+      "sha256": "4e5160251d24837472731da7f260ace67a6ec369341b9425f54483b6a82c3a06",
+      "size_bytes": 5160,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-independent-checks.json",
+      "sha256": "77e75a9e3d80617324252d321a5d70f60a0aaf136677dc476eeba87ebc63fab3",
+      "size_bytes": 1587,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-independent-assertion-integrity.json",
+      "sha256": "492aa1e55404425b128e8b4059d6600ad4a3dd7a22b7c58aa66e27517c18f8b9",
+      "size_bytes": 597,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-independent-verifier-probe.json",
+      "sha256": "7177c8a1e90fee97173713d44732a830a63403fdf41151cbebc788e3a2e29d68",
+      "size_bytes": 1569,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-test-history.json",
+      "sha256": "24fe9bbe5c601993bb29007379f7bdbfdc6cb4f68c177467d6305704bf4749bf",
+      "size_bytes": 2709,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-candidate-identity.json",
+      "sha256": "f3f3dfad94044651bad90e5c3d31c1180538bfb6f73b80f1dd620d9eb576a97c",
+      "size_bytes": 2298,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-current-status.json",
+      "sha256": "120d595e5a32fee618a12b0775a06125b491624a0f23d601ff98053e0391ac4b",
+      "size_bytes": 950,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-ac-status.json",
+      "sha256": "a3f21d5c42318538231775838f110719dda37ac90159c28de8c6fcd2d08b1958",
+      "size_bytes": 6382,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-source-provenance.json",
+      "sha256": "eb690c53bf58a8f8a3a4f996135e9de74a5eacc94f04b035de91ecff8972356f",
+      "size_bytes": 3283,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Clock candidate safe projection: exact artifact code fields distinguish current pending88dee, historical terminala0, failedb136 CI and precommit scoped identity tests. No business acceptance."
+    },
+    {
+      "path": "clock-cli-template.json",
+      "sha256": "ff1286f0f72bff99df13bd2183c1e5f495d31fc302ff44ae43ce06a5957ac322",
+      "size_bytes": 1904,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual offlineCLI;full/CI not claimed. Exact source pin, no real enterprise input."
+    },
+    {
+      "path": "clock-cli-empty-environment.json",
+      "sha256": "30ca78b48dbd04ae00228f410cf683b3792457e370253e7f63ef4c58d2912afd",
+      "size_bytes": 3483,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual offlineCLI;full/CI not claimed. Exact source pin, no real enterprise input."
+    },
+    {
+      "path": "clock-cli-unexecuted-bundle.json",
+      "sha256": "d8b5d6452fefc911f3b7d718e0b58e26a2d78f7904582456981418b45136aba8",
+      "size_bytes": 7563,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual offlineCLI;full/CI not claimed. Exact source pin, no real enterprise input."
+    },
+    {
+      "path": "clock-cli-verification.json",
+      "sha256": "8e685ac0ddc76917308fed8ef3a709556e8a44af76aa03dacd4f928a7cffbeb3",
+      "size_bytes": 1961,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual offlineCLI;full/CI not claimed. Exact source pin, no real enterprise input."
+    },
+    {
+      "path": "clock-cli-source-provenance.json",
+      "sha256": "92d45cf4f156ab28cd9b17d95f6ce9ba19592ba28eecfa0936f2b5752a0f2ecf",
+      "size_bytes": 2081,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual offlineCLI;full/CI not claimed. Exact source pin, no real enterprise input."
+    },
+    {
+      "path": "clock-cli-current-status.json",
+      "sha256": "565dca3cffef2d17925009719777bfcf77c834ff2176df5f297711082d3452d7",
+      "size_bytes": 1099,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual offlineCLI;full/CI not claimed. Exact source pin, no real enterprise input."
+    },
+    {
+      "path": "clock-cli-candidate-identity.json",
+      "sha256": "37c3143ecde5dbeb99ccef98958d1fba0384d831465b93c9885b6e9e8362fdfa",
+      "size_bytes": 2388,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual offlineCLI;full/CI not claimed. Exact source pin, no real enterprise input."
+    },
+    {
+      "path": "clock-cli-ac-status.json",
+      "sha256": "71638551ca9924c86d0d37ecdd6bb72543fd9b2994e95ac065abd68bde3f100b",
+      "size_bytes": 6193,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual offlineCLI;full/CI not claimed. Exact source pin, no real enterprise input."
+    },
+    {
+      "path": "current-backend.txt",
+      "sha256": "1855b89e67a4ee7db67a034e2baf1ab3be82a9419e3980051a92db60237c8eb5",
+      "size_bytes": 2433,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-lint.txt",
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "size_bytes": 19,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-format.txt",
+      "sha256": "cc199a57a5c7fffcf8d4daf5a28ebb8dd97f626dacee6e2fd506ca4d72be1fff",
+      "size_bytes": 28,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-freeze.txt",
+      "sha256": "d74140e5de1783abc1fb3f42e30439103832b79c54fb8b3987fb0df638fb1ee7",
+      "size_bytes": 74,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-full-verification.json",
+      "sha256": "1774bf6319878957288b554d39766bd84347c50912980e442e2ac71eb0cb9b75",
+      "size_bytes": 2178,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-frozen-scorer-summary.json",
+      "sha256": "4141dbe1df35d1e10549b4d068afc4de4ca0b851a3f71a5850de2ce91df38e85",
+      "size_bytes": 1676,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-historical-a0-linux-ci.json",
+      "sha256": "6e42cdab74fc04b6b982dd90fd9b776f7be8b852725203128e7a9b4f081771b7",
+      "size_bytes": 1119,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-ci-status.json",
+      "sha256": "29698bc274f29bfecdb6c1f9df84757e416286942f99f4e9a50515ce004ac682",
+      "size_bytes": 764,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-integrated-status.json",
+      "sha256": "69d75f6d6a00e1ce23d38f1437ea7538cdf4d9db43970619bdf36532c270ee33",
+      "size_bytes": 1010,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-ac-status.json",
+      "sha256": "ae53038daf28bfb87149d890643e9507e528a329bb50478686426d0458a3c121",
+      "size_bytes": 6636,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-candidate-identity.json",
+      "sha256": "f992fd409fe6669d133727530707ae06e2047d6455290aaf1315ca226f4b38c8",
+      "size_bytes": 2573,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "current-source-provenance.json",
+      "sha256": "413fa8ba95eacc86b90bf18d3e7977295c18c0c1b2ebdbf7be122d72afa2c9d9",
+      "size_bytes": 2890,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Current88dee actual complete local final/CLI; currentCI partial and historicala0CI explicitly distinguished. No real business acceptance."
+    },
+    {
+      "path": "final-code-ci.json",
+      "sha256": "1026b6057501f1ac9b0b7b84b94c75338eb8b9f012dca4b98b00862d9fd3c325",
+      "size_bytes": 1638,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Final current88dee local/three-jobCI/CLI engineering verification; realB10-02–06 BLOCKED/NO_GO. Earlier partial snapshot is historical, preserved."
+    },
+    {
+      "path": "final-engineering-status.json",
+      "sha256": "f69e802d8931a1832eebe19d4b5ef501b7001ea508678eaef3a29017777cd692",
+      "size_bytes": 1479,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Final current88dee local/three-jobCI/CLI engineering verification; realB10-02–06 BLOCKED/NO_GO. Earlier partial snapshot is historical, preserved."
+    },
+    {
+      "path": "final-engineering-ac-status.json",
+      "sha256": "d0f219645555671212eac8e01ce585c2d70da6802b1ac81c7fbdeaebc5f8968f",
+      "size_bytes": 7126,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Final current88dee local/three-jobCI/CLI engineering verification; realB10-02–06 BLOCKED/NO_GO. Earlier partial snapshot is historical, preserved."
+    },
+    {
+      "path": "final-verified-code-identity.json",
+      "sha256": "f00d2a6d0b00b39a50879aa48d384bdd530b56056fa83778affa2110e8112662",
+      "size_bytes": 2715,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Final current88dee local/three-jobCI/CLI engineering verification; realB10-02–06 BLOCKED/NO_GO. Earlier partial snapshot is historical, preserved."
+    },
+    {
+      "path": "final-ci-source-provenance.json",
+      "sha256": "c15395737fea6ef7b203a92eb5742da6bfcfe76f8f15488cfd775d7df6809439",
+      "size_bytes": 1717,
+      "classification": "explicit_safe_engineering_evidence",
+      "scope": "Final current88dee local/three-jobCI/CLI engineering verification; realB10-02–06 BLOCKED/NO_GO. Earlier partial snapshot is historical, preserved."
+    }
+  ],
+  "member_count_excluding_index": 77,
+  "pre_clock_members_preserved_unchanged": 40,
+  "original_427_members_preserved_unchanged": 18,
+  "previous_a0_index_sha256": "bd4aded747f88f04ae399a030293afb95761d5adcaaf7e0f5d6e875240c506ea",
+  "previous_a0_report_sha256": "93fea616f641d80521af3f97b5528d4c9a578e970dd2d0436b8b92c8d0c22fbb",
+  "historical_63_is_sufficient": false,
+  "last_completed_full_code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "last_completed_full": "2133passed602.81s;lint/256format/freeze all exit0;clean",
+  "last_completed_cli_code_sha": "88dee00a36adf64ec20bb2918ead48f5a388c520",
+  "last_completed_cli": "0/2/2;65upstream;sixBLOCKED;NO_GO;0calls",
+  "current_candidate_full": "PASS_LOCAL_FINAL",
+  "current_candidate_cli": "ACTUALLY_EXECUTED_0_2_2_65UPSTREAM_SIXBLOCKED_NO_GO",
+  "current_candidate_ci": "PASS_CURRENT_CODE_THREE_JOBS",
+  "excluded": [
+    "all private/ and recursive work directories",
+    "env/credentials/JWT/Cookie/Authorization/raw subject or personnel data",
+    "bootstrap, pytest temp dirs, SQLite/DBOS/WAL/SHM/backup files",
+    "material/model output bodies, screenshots and recordings",
+    "full original red tracebacks",
+    "growing final backend/full logs until terminal exit is recorded",
+    "unprovided real enterprise/target/recipient acceptance evidence",
+    "identity clock full raw red traces/source/bootstrap/private signed token or pytest fixture state",
+    "pre-clock full report and original index (private historical preservation only)"
+  ],
+  "checks": [
+    "Literal exact-name allowlist; no original directory recursion",
+    "All JSON parses with duplicate-key rejection",
+    "UTF-8, no NUL, no user absolute path or obvious JWT",
+    "All historical payload hashes unchanged",
+    "Relative report links checked",
+    "Current71/65 explicitly separated from incomplete historical63",
+    "All pre-clock40 payload bytes unchanged",
+    "Current88dee full and CLI not counted from a0",
+    "b136 Linux2127/2 distinct from local2128/1",
+    "Overlapping43/19 and direct verifier7 not summed"
+  ],
+  "business_acceptance": "BLOCKED",
+  "release_decision": "NO_GO",
+  "integrity_note": "Ordinary inventory, not independent prior pin, signature, authentication, human acceptance or release authorization.",
+  "pre_cli_clock_52_members_preserved_unchanged": true,
+  "previous_clock_index_sha256": "ace98429e74f3fb05057c4c8f8caab1ee3689bdc5258913a2dd4e46abb48f71d",
+  "previous_clock_report_sha256": "e607e2de5d654af8eeb4d076079b4ac87180edb33e6475a8b6bc86f2f208b3c6",
+  "current_status_artifact": "final-engineering-status.json",
+  "previous_60_payloads_preserved_unchanged": true,
+  "previous_preterminal_index_sha256": "9df069cb599dcc5755f62f94e67e148eb3c5bfc1c9219e21a2d17e35ac6fc1e5",
+  "previous_preterminal_report_sha256": "28f118a85e4b6f67d93e63ee4f624a5055859e06de9463e25387b5e4a127a38b",
+  "B10_01_engineering_C": "PASS_CLOSED_LOCAL_AND_CI",
+  "previous_72_payloads_preserved_unchanged": true,
+  "previous_pre_ci_index_sha256": "e77490b1e11024e6d6b3bfb2385dc86820c9895a835dd75dc6eef129c048b1e9",
+  "previous_pre_ci_report_sha256": "605887e2c47c02e9487ce7677853c72116b95d8e7e0f59bcdcfc10ed2babcceb",
+  "current_ci_workflow": 39860218830,
+  "current_ci_backend": "2133passed1042.83s",
+  "current_ci_frontend": "152passed2.1m",
+  "engineering_g02": "PASS_CURRENT_CODE_LOCAL_AND_CI",
+  "real_business_B10_02_through_06": "BLOCKED"
+}
